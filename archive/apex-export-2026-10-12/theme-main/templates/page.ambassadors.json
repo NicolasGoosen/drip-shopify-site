@@ -1,0 +1,53 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "apex-ambassadors",
+      "settings": {
+        "hero_image": "shopify://shop_images/Project_20260813_0255.jpg",
+        "fallback_image_name": "Project_20260813_0255.jpg",
+        "hero_greyscale": 100,
+        "hero_image_opacity": 55,
+        "hero_focus_x": 50,
+        "hero_focus_y": 40,
+        "hero_heading": "Every court has someone people listen to.",
+        "hero_heading_accent": "Be ours.",
+        "hero_text": "",
+        "hero_cta_label": "Apply to be an ambassador",
+        "apply_url": "https://af.uppromote.com/pydrds-1z/register",
+        "intro_heading": "What it means to be an Apex ambassador.",
+        "intro_text": "<p>The <strong>Apex ball</strong>, a 48-hole pickleball built for consistent flight and superior durability. Our ball is our main focus, and that is what makes this program simple.</p><p>An ambassador is not a sponsored athlete. There is no ranking to hit and no following to prove. What we are after is someone who turns up to the same courts every week, whose bag people look in, and who is willing to hand a stranger a ball and let it answer for itself.</p><p>Every month we send you a 10-pack bag to share and sample. Open it at league night, put a fresh ball into the middle of a game, and let people feel the difference between a ball on its first session and one on its fortieth.</p>",
+        "login_text": "Already have an ambassador login account?",
+        "login_label": "Log in here",
+        "login_url": "https://af.uppromote.com/pydrds-1z/login",
+        "card_badge": "Now accepting",
+        "card_tier": "Apex ambassador",
+        "card_figure": "10%",
+        "card_figure_suffix": "commission on every order placed with your code",
+        "card_description": "Free balls to hand out every month, and a share of everything your code brings in.",
+        "card_features_label": "What you get",
+        "card_features": "A 10-pack bag of Apex, free, every month — to share and sample\nA discount code of your own: 10% off for anyone who uses it\n10% commission on every order placed with that code",
+        "card_expectations_label": "What we ask",
+        "card_expectations": "Keep the balls moving — open play, clinics, league nights, wherever people are\n$300–$800 in sales through your code each month\nA review of your numbers together at 90–120 days",
+        "card_cta_label": "Apply now",
+        "cta_heading": "Got a court full of people who trust you?",
+        "cta_text": "We will send the balls. You do the rest.",
+        "cta_label": "Apply to be an ambassador",
+        "card_tone_strength": 7,
+        "background": "#0b090c",
+        "padding_block": 96
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

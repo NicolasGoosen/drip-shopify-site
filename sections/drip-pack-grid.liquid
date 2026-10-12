@@ -1,0 +1,359 @@
+{%- comment -%}
+  DRIP pack grid.
+
+  Collection-driven, not block-driven. Each card's custom name, button label and
+  transparent PNG come from product metafields, so adding the 300-pack is a
+  merchandising action rather than a theme edit:
+
+    custom.pack_label         single_line_text_field   "4"
+    custom.pack_button_label  single_line_text_field   "SHOP 4 PACK"
+    custom.pack_image         file_reference (image)   transparent PNG
+
+  All three fall back — see the assigns below — so the section still renders on
+  a product nobody has filled in yet.
+
+  Reflow: 1 column -> 2 at 360 -> 3+2 at 750 -> 1x5 at 1280.
+
+  WHY 1280 AND NOT 990. The 5-up is gated on the desktop button label fitting,
+  not on taste. "SHOP 100 PACK" is ~115px of set type; with the button's own
+  padding that is a ~179px button. At 1280 the container caps and a fifth of it
+  is 224px, less 40px of column padding = 184px of room. It fits, barely. At
+  990 the same column is 134px and the label overflows — .btn is nowrap, so it
+  would spill rather than wrap. 750-1279 therefore keeps the 3+2 layout and the
+  short "SHOP NOW" label. This is a new breakpoint for the theme; see CLAUDE.md.
+
+  Card borders on mobile and tablet, vertical hairlines on desktop. The hairline
+  only reads as a divider when the cards form one unbroken row, which is exactly
+  the 1280 case.
+{%- endcomment -%}
+
+{%- assign unit = section.settings.unit_label -%}
+{%- assign short_label = section.settings.mobile_button_label -%}
+
+<section
+  class="pack-grid"
+  style="
+    --pg-bg: {{ section.settings.background }};
+    --pg-pad-block: {{ section.settings.padding_block }}px;
+    --pack-media-ar: 100 / {{ section.settings.media_ratio }};
+  "
+>
+  <div class="drip-container">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="pack-grid__heading">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.collection != blank -%}
+      <ul class="pack-grid__list" role="list">
+        {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
+          {%- assign label = product.metafields.custom.pack_label.value | default: product.title -%}
+          {%- assign long_label = product.metafields.custom.pack_button_label.value | default: short_label -%}
+          {%- assign pack_image = product.metafields.custom.pack_image.value | default: product.featured_image -%}
+          {%- capture alt_text -%}DRIP {{ label }} {{ unit }}{%- endcapture -%}
+
+          <li class="pack-card">
+            <div class="pack-card__media">
+              {%- if pack_image != blank -%}
+                {{
+                  pack_image
+                  | image_url: width: 600
+                  | image_tag:
+                    loading: 'lazy',
+                    class: 'pack-card__img',
+                    alt: alt_text,
+                    widths: '200,300,400,600',
+                    sizes: '(min-width: 1280px) 184px, (min-width: 750px) 33vw, 45vw'
+                }}
+              {%- endif -%}
+            </div>
+
+            <p class="pack-card__label">
+              <span class="pack-card__count">{{ label | escape }}</span>
+              {%- if unit != blank -%}
+                <span class="pack-card__unit">{{ unit | escape }}</span>
+              {%- endif -%}
+            </p>
+
+            <a class="btn btn-outline pack-card__cta" href="{{ product.url }}">
+              <span class="pack-card__cta-short">{{ short_label | escape }}</span>
+              <span class="pack-card__cta-long">{{ long_label | escape }}</span>
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .pack-grid {
+    padding-block: var(--pg-pad-block, var(--space-section));
+    background-color: var(--pg-bg, var(--color-bg-elevated));
+  }
+
+  .pack-grid__heading {
+    margin: 0 0 var(--space-lg);
+    color: var(--brand-accent);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-xs);
+    font-style: italic;
+    font-weight: var(--weight-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    line-height: var(--leading-tight);
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  /* --------------------------------------------------------------------
+     The track.
+
+     Flex rather than .drip-grid on purpose: `justify-content: center` is what
+     centres an orphan row, so the 5th card lands centred under a 2-up and the
+     4th and 5th centre under a 3-up. CSS Grid has no equivalent — it would
+     need an explicit `grid-column` on the last child at every breakpoint, and
+     that breaks the moment the merchant changes products_to_show.
+     -------------------------------------------------------------------- */
+
+  .pack-grid__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--grid-gap-row) var(--grid-gap);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pack-card {
+    display: flex;
+    flex: 0 0 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-xs);
+    border: 1px solid var(--color-border);
+    text-align: center;
+  }
+
+  /* Ratio box, contained image. No fixed height anywhere — the box tracks the
+     column width, so the five PNGs stay in proportion to each other at every
+     viewport provided they were exported on a common canvas.
+
+     The image is taken OUT OF FLOW deliberately. As an in-flow child it
+     contributes its own intrinsic height — image_tag emits width/height
+     attributes, so a 600x600 source made this box 600px tall and aspect-ratio
+     was never consulted. Absolute positioning leaves the box nothing to
+     measure, so the ratio is the only thing left that can size it. */
+  .pack-card__media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: var(--pack-media-ar, 1);
+  }
+
+  .pack-card__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .pack-card__label {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-unit);
+    margin: 0;
+  }
+
+  .pack-card__count {
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-display);
+  }
+
+  .pack-card__unit {
+    color: var(--color-text);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-regular);
+    letter-spacing: var(--tracking-label);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+  /* `margin-top: auto` pins every button to the bottom of its card, so a
+     taller image or a wrapped label on one card doesn't stagger the row. */
+  .pack-card__cta {
+    --btn-pad-x: var(--space-2xs);
+
+    width: 100%;
+    margin-top: auto;
+  }
+
+  /* Only ever one of these is in the accessibility tree — display: none removes
+     the other from it, so the link is never announced with both labels. */
+  .pack-card__cta-long {
+    display: none;
+  }
+
+  /* --- 2-up ------------------------------------------------------------
+     352px is the narrowest viewport where two cards plus their padding and
+     the short button label still fit. Below that they go single-file rather
+     than overflow. 360 is the rounded-up gate. */
+
+  @media screen and (min-width: 360px) {
+    .pack-card {
+      flex: 0 0 calc((100% - var(--grid-gap)) / 2);
+    }
+  }
+
+  /* --- 3 + 2 ------------------------------------------------------------ */
+
+  @media screen and (min-width: 750px) {
+    .pack-grid__heading {
+      font-size: var(--text-h4);
+      text-align: start;
+      margin: 0 0 1rem;
+    }
+
+    .pack-card {
+      flex: 0 0 calc((100% - var(--grid-gap) * 2) / 3);
+      padding: var(--space-sm);
+    }
+
+    .pack-card__count {
+      font-size: var(--text-h2);
+    }
+
+    .pack-card__unit {
+      font-size: var(--text-sm);
+    }
+
+    .pack-card__cta {
+      --btn-pad-x: var(--space-md);
+    }
+  }
+
+  /* --- 1 x 5 ------------------------------------------------------------
+     Card borders come off and become hairlines between columns. Column gap
+     drops to 0 and half a gap is added as padding on each card instead, so
+     the rule lands exactly midway between two cards rather than hard against
+     the left one. Vertical padding extends the hairline past the content,
+     which is how the mockup draws it. */
+
+  @media screen and (min-width: 1280px) {
+    .pack-grid__list {
+      column-gap: 0;
+    }
+
+    .pack-card {
+      flex: 0 0 calc(100% / 5);
+      padding-block: var(--space-lg);
+      padding-inline: calc(var(--grid-gap) / 2);
+      border: 0;
+    }
+
+    .pack-card + .pack-card {
+      border-inline-start: 1px solid var(--color-border);
+    }
+
+    .pack-card__cta {
+      width: auto;
+    }
+
+    .pack-card__cta-short {
+      display: none;
+    }
+
+    .pack-card__cta-long {
+      display: inline;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "DRIP pack grid",
+  "tag": "section",
+  "class": "drip-pack-grid-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Choose Your Pack"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Products need the pack label, pack button label and pack image metafields set. Anything missing falls back to the product's own title and featured image."
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "label": "Products to show",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Labels"
+    },
+    {
+      "type": "text",
+      "id": "unit_label",
+      "label": "Unit label",
+      "info": "The smaller word under the number, on every card.",
+      "default": "PACK"
+    },
+    {
+      "type": "text",
+      "id": "mobile_button_label",
+      "label": "Short button label",
+      "info": "Used below 1280px, where the full label would not fit the column. Also the fallback when a product has no pack button label set.",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "range",
+      "id": "media_ratio",
+      "min": 60,
+      "max": 140,
+      "step": 5,
+      "unit": "%",
+      "label": "Image height",
+      "info": "Height of the image box as a share of its width. 100% is square. Applies to every card, so the five stay in proportion.",
+      "default": 100
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#1F161B"
+    },
+    {
+      "type": "range",
+      "id": "padding_block",
+      "min": 16,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 96
+    }
+  ],
+  "presets": [
+    {
+      "name": "DRIP pack grid"
+    }
+  ]
+}
+{% endschema %}

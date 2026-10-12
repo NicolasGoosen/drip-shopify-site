@@ -1,0 +1,37 @@
+{% doc %}
+  Renders the DRIP wordmark selected by variant.
+  @param {string} [variant] Use `short` for DRIP or `full` for DRIP PICKLEBALL.
+  @param {string} [alt] Alternative text for the logo.
+  @param {string} [class] CSS class for the image element.
+  @param {string} [loading] Image loading behavior. Defaults to lazy.
+  @example
+  {% render 'drip-logo', variant: 'short', alt: 'DRIP', loading: 'eager' %}
+{% enddoc %}
+
+{% liquid
+  assign logo_variant = variant | default: 'full'
+  assign logo_alt = alt | default: 'DRIP Pickleball'
+  assign logo_class = class | default: 'drip-logo'
+  assign logo_loading = loading | default: 'lazy'
+
+  case logo_variant
+    when 'short'
+      assign logo_asset = 'drip-logo-short.svg'
+      assign logo_width = 582
+      assign logo_height = 150
+      assign logo_alt = alt | default: 'DRIP'
+    else
+      assign logo_asset = 'drip-logo-full.svg'
+      assign logo_width = 582
+      assign logo_height = 210
+  endcase
+%}
+<img
+  class="{{ logo_class }}"
+  src="{{ logo_asset | asset_url }}"
+  width="{{ logo_width }}"
+  height="{{ logo_height }}"
+  alt="{{ logo_alt | escape }}"
+  loading="{{ logo_loading }}"
+  decoding="async"
+>

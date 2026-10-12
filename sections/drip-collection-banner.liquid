@@ -1,0 +1,172 @@
+{%- comment -%}
+  DRIP collection banner.
+
+  Replaces Dawn's `main-collection-banner`, which rendered a bare <h1> on a
+  white `scheme-1` ground — the one page on the site that did not speak the
+  brand's dark visual language.
+
+  Structure follows the homepage band convention exactly, so a shopper moving
+  from the pack grid into a collection sees the same three-part opening:
+  lumo-green italic eyebrow -> lumo-green hairline rule -> display heading, with body
+  copy held to a readable measure underneath.
+
+  The eyebrow is a setting rather than the collection handle because a
+  collection's own title is already the H1; repeating it above itself as an
+  eyebrow reads as a bug. Default "SHOP" works for every collection.
+
+  There is no image variant. Dawn's `show_collection_image` put a cropped
+  collection thumbnail beside the title, which on a dark ground with
+  transparent product PNGs has nothing to crop and no composition to sit in.
+  A collection that needs a photograph should open with a full-bleed image
+  section above this one instead.
+{%- endcomment -%}
+
+{%- liquid
+  assign eyebrow = section.settings.eyebrow
+  assign has_description = false
+  if section.settings.show_collection_description and collection.description != blank
+    assign has_description = true
+  endif
+-%}
+
+<section
+  class="drip-cbanner"
+  style="
+    --cb-pad-top: {{ section.settings.padding_top }}px;
+    --cb-pad-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="drip-container drip-cbanner__inner">
+    {%- if eyebrow != blank -%}
+      <p class="drip-cbanner__eyebrow">{{ eyebrow | escape }}</p>
+    {%- endif -%}
+
+    <span class="drip-cbanner__rule" aria-hidden="true"></span>
+
+    <h1 class="drip-cbanner__title">
+      <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
+      {{- collection.title | escape -}}
+    </h1>
+
+    {%- if has_description -%}
+      <div class="drip-cbanner__description rte">{{ collection.description }}</div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .drip-cbanner {
+    padding-block: var(--cb-pad-top, var(--space-2xl)) var(--cb-pad-bottom, var(--space-lg));
+    background-color: var(--color-bg);
+  }
+
+  /* The header above is the same --color-bg, so heading and bar share one
+     unbroken field. The top padding is what separates them — it is doing the
+     work a divider would, and must not be trimmed below --space-xl. */
+  .drip-cbanner__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .drip-cbanner__eyebrow {
+    margin: 0;
+    color: var(--brand-accent);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-xs);
+    font-style: italic;
+    font-weight: var(--weight-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+  .drip-cbanner__rule {
+    display: block;
+    width: var(--rule-width);
+    height: var(--rule-thickness);
+    margin-block: var(--space-xs) var(--space-sm);
+    background-color: var(--brand-accent);
+  }
+
+  .drip-cbanner__title {
+    margin: 0;
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-display);
+    text-transform: uppercase;
+  }
+
+  /* ~52ch. Long enough to avoid ragged two-word lines on a 56px heading page,
+     short enough to stay inside the comfortable measure for 17-18px body. */
+  .drip-cbanner__description {
+    max-width: 52ch;
+    margin-block-start: var(--space-sm);
+    color: var(--color-text-muted);
+    font-size: var(--text-lead);
+    line-height: var(--leading-body);
+  }
+
+  .drip-cbanner__description > :first-child {
+    margin-block-start: 0;
+  }
+
+  .drip-cbanner__description > :last-child {
+    margin-block-end: 0;
+  }
+
+  .drip-cbanner__description a {
+    color: var(--brand-accent);
+    text-underline-offset: 0.3em;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "DRIP collection banner",
+  "class": "drip-cbanner-section",
+  "enabled_on": { "templates": ["collection"] },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "info": "Lumo-green italic label above the collection title. Leave blank to hide.",
+      "default": "Shop"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_description",
+      "label": "Show collection description",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 32,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 48
+    }
+  ]
+}
+{% endschema %}

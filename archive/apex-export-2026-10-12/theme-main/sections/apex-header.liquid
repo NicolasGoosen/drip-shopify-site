@@ -1,0 +1,869 @@
+{%- comment -%}
+  APEX header.
+
+  In the mockup the header is TRANSPARENT and overlays the hero photograph —
+  the image runs up behind it at both breakpoints. That is the `overlay`
+  layout below, and it only makes sense on templates whose first section is a
+  full-bleed image (or, on the PDP, a section that pads itself to compensate —
+  see `header_layout` in apex-main-product.liquid). Every other template gets
+  `solid` — a normal-flow, dark-filled bar that reserves its own height — so
+  it can never sit on top of a heading the way an absolutely-positioned
+  overlay header would on a page with nothing padding for it.
+
+  header-group.json renders a single global instance of this section, so the
+  `layout` schema setting can't vary per template on its own; it's forced here
+  instead. Add a page type to `overlay_page_types` only once that template's
+  own top section either is full-bleed media or pads for the overlay header
+  like the PDP does.
+
+  The mobile drawer reuses Dawn's <menu-drawer> web component for its focus
+  trap, Escape handling and body scroll lock. It needs only a <details> with a
+  <summary> plus data-breakpoint — it does NOT carry <header-drawer>'s hidden
+  dependency on .section-header / .header-wrapper.
+{%- endcomment -%}
+
+{%- liquid
+  assign menu = section.settings.menu
+  assign layout = section.settings.layout
+  assign overlay_page_types = 'index,product' | split: ','
+  unless overlay_page_types contains request.page_type
+    if layout == 'overlay'
+      assign layout = 'solid'
+    endif
+  endunless
+-%}
+
+<header
+  class="apex-header apex-header--{{ layout }}"
+  style="
+    --header-h: {{ section.settings.header_height }}px;
+    --logo-w-desktop: 170px;
+    --logo-w-mobile: 110px;
+  "
+>
+  <div class="apex-container apex-header__inner">
+    <a
+      class="apex-header__logo"
+      href="{{ routes.root_url }}"
+      {% if request.page_type == 'index' %}aria-current="page"{% endif %}
+      aria-label="{{ shop.name | escape }} — home"
+    >
+      {% render 'svg-icons', icon: 'apex-pickleball-logo-horizontal-white' %}
+    </a>
+
+    {%- if menu != blank -%}
+      <nav class="apex-header__nav" aria-label="{{ 'sections.header.menu' | t }}">
+        <ul class="apex-header__menu" role="list">
+          {%- for link in menu.links -%}
+            <li class="apex-header__item{% if link.links != blank %} apex-header__item--parent{% endif %}">
+              <a
+                class="apex-header__link"
+                href="{{ link.url }}"
+                {% if link.current %}aria-current="page"{% endif %}
+                {% if link.child_active %}data-child-active="true"{% endif %}
+                {% if link.links != blank %}aria-haspopup="true"{% endif %}
+              >
+                {{ link.title | escape }}
+                {%- if link.links != blank -%}
+                  {% render 'svg-icons', icon: 'chevron-right', class: 'apex-header__caret' %}
+                {%- endif -%}
+              </a>
+
+              {%- if link.links != blank -%}
+                <ul class="apex-header__submenu" role="list">
+                  {%- for childlink in link.links -%}
+                    <li>
+                      <a
+                        class="apex-header__sublink"
+                        href="{{ childlink.url }}"
+                        {% if childlink.current %}aria-current="page"{% endif %}
+                      >
+                        {{ childlink.title | escape }}
+                      </a>
+
+                      {%- comment -%}
+                        A third level renders flat inside the same panel rather
+                        than as a second flyout. A nested hover panel needs a
+                        safe-triangle to be usable and CSS alone cannot draw
+                        one. Nothing is dropped; it indents.
+                      {%- endcomment -%}
+                      {%- if childlink.links != blank -%}
+                        <ul class="apex-header__subgroup" role="list">
+                          {%- for grandchildlink in childlink.links -%}
+                            <li>
+                              <a
+                                class="apex-header__sublink"
+                                href="{{ grandchildlink.url }}"
+                                {% if grandchildlink.current %}aria-current="page"{% endif %}
+                              >
+                                {{ grandchildlink.title | escape }}
+                              </a>
+                            </li>
+                          {%- endfor -%}
+                        </ul>
+                      {%- endif -%}
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+    {%- endif -%}
+
+    <div class="apex-header__actions">
+      {%- if section.settings.show_account and shop.customer_accounts_enabled -%}
+        <a
+          class="apex-header__action"
+          href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+        >
+          {% render 'icon-account' %}
+          <span class="visually-hidden">
+            {%- liquid
+              if customer
+                echo 'customer.account_fallback' | t
+              else
+                echo 'customer.log_in' | t
+              endif
+            -%}
+          </span>
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.show_cart -%}
+        {%- comment -%}
+          id="cart-icon-bubble" is a hard contract: cart-drawer.js binds the
+          drawer-open handler to that exact id, and cart.js targets it for
+          Section Rendering updates. Renaming it silently breaks the cart.
+        {%- endcomment -%}
+        <a
+          class="apex-header__action apex-header__action--cart"
+          href="{{ routes.cart_url }}"
+          id="cart-icon-bubble"
+        >
+          {% render 'apex-cart-count' %}
+        </a>
+      {%- endif -%}
+
+      {%- if menu != blank -%}
+        <menu-drawer class="apex-header__drawer" data-breakpoint="tablet">
+          <details id="apex-drawer-details">
+            <summary
+              class="apex-header__burger"
+              aria-label="{{ 'sections.header.menu' | t }}"
+            >
+              <span class="apex-burger" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </span>
+            </summary>
+
+            <div class="apex-drawer" tabindex="-1">
+              <button class="apex-drawer__close" type="button" data-drawer-close>
+                <span class="visually-hidden">{{ 'accessibility.close' | t }}</span>
+                {% render 'svg-icons', icon: 'close', class: 'apex-drawer__close-icon' %}
+              </button>
+
+              {%- comment -%}
+                Sub-items render as a static indented list, NOT as a nested
+                <details> accordion. MenuDrawer binds EVERY <summary> and EVERY
+                <button> inside itself: a nested summary would pick up Dawn's
+                sliding-submenu treatment plus a focus trap, and an accordion
+                toggle <button> would be wired to onCloseButtonClick and shut
+                the whole drawer on first press. Neither is what this wants.
+              {%- endcomment -%}
+              <ul class="apex-drawer__menu" role="list">
+                {%- for link in menu.links -%}
+                  <li>
+                    <a
+                      class="apex-drawer__link"
+                      href="{{ link.url }}"
+                      {% if link.current %}aria-current="page"{% endif %}
+                      {% if link.child_active %}data-child-active="true"{% endif %}
+                    >
+                      {{ link.title | escape }}
+                      {% render 'icon-arrow-right' %}
+                    </a>
+
+                    {%- if link.links != blank -%}
+                      <ul class="apex-drawer__submenu" role="list">
+                        {%- for childlink in link.links -%}
+                          <li>
+                            <a
+                              class="apex-drawer__sublink"
+                              href="{{ childlink.url }}"
+                              {% if childlink.current %}aria-current="page"{% endif %}
+                            >
+                              {{ childlink.title | escape }}
+                            </a>
+
+                            {%- if childlink.links != blank -%}
+                              <ul class="apex-drawer__submenu" role="list">
+                                {%- for grandchildlink in childlink.links -%}
+                                  <li>
+                                    <a
+                                      class="apex-drawer__sublink"
+                                      href="{{ grandchildlink.url }}"
+                                      {% if grandchildlink.current %}aria-current="page"{% endif %}
+                                    >
+                                      {{ grandchildlink.title | escape }}
+                                    </a>
+                                  </li>
+                                {%- endfor -%}
+                              </ul>
+                            {%- endif -%}
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    {%- endif -%}
+                  </li>
+                {%- endfor -%}
+              </ul>
+
+              <div class="apex-drawer__footer">
+                {%- if shop.customer_accounts_enabled -%}
+                  <a
+                    class="apex-drawer__secondary"
+                    href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+                  >
+                    {% render 'icon-account' %}
+                    {%- liquid
+                      if customer
+                        echo 'customer.account_fallback' | t
+                      else
+                        echo 'customer.log_in' | t
+                      endif
+                    -%}
+                  </a>
+                {%- endif -%}
+
+                <a class="apex-drawer__secondary" href="{{ routes.cart_url }}">
+                  {% render 'icon-bag' %}
+                  {{ 'templates.cart.cart' | t }} ({{ cart.item_count }})
+                </a>
+              </div>
+            </div>
+          </details>
+        </menu-drawer>
+      {%- endif -%}
+    </div>
+  </div>
+</header>
+
+<script>
+  // -------------------------------------------------------------------------
+  // Drawer close button.
+  //
+  // Dawn's MenuDrawer auto-binds every <button> inside itself to
+  // onCloseButtonClick, which runs closeSubmenu() — that closes the panel but
+  // never drops the `overflow-hidden-tablet` class MenuDrawer put on <body> to
+  // open it, so the page behind would stay unscrollable. closeMenuDrawer() is
+  // the one that undoes both, so the button calls it explicitly. Dawn's own
+  // handler still fires alongside this; the two overlap harmlessly.
+  //
+  // Delegated from document and guarded, so a Theme Editor section re-render
+  // does not stack duplicate listeners.
+  // -------------------------------------------------------------------------
+  if (!window.apexDrawerCloseBound) {
+    window.apexDrawerCloseBound = true;
+
+    document.addEventListener('click', (event) => {
+      const trigger = event.target.closest('[data-drawer-close]');
+      if (!trigger) return;
+
+      const drawer = trigger.closest('menu-drawer');
+      const summary = drawer?.querySelector('summary');
+      if (typeof drawer?.closeMenuDrawer === 'function') drawer.closeMenuDrawer(event, summary);
+    });
+  }
+</script>
+
+{% stylesheet %}
+  /* The height setting is a DESKTOP control — mobile keeps the measured 84px
+     from tokens.css, because the mockup's two bars are different heights. */
+  .apex-header {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    background-color: var(--color-bg);
+  }
+
+  /* The containing block for the overlay header below. Its only child is
+     absolutely positioned, so this collapses to zero height and takes no space
+     in flow — but `inset-block-start: 0` now means "the top of the header
+     section" rather than "the top of the page". That is what lets an
+     announcement bar sit above the overlay header without being covered by it. */
+  .apex-header-section {
+    position: relative;
+    z-index: 10;
+  }
+
+  /* Sticky overlay header. The WRAPPER sticks, not the header — the header
+     itself is absolute, and an absolute element cannot stick.
+
+     Because the wrapper is zero-height, sticking it costs no layout: it sits
+     in flow directly under the announcement bar, scrolls up with it, and
+     latches at y=0 once the bar has gone. The header rides along absolutely
+     positioned inside it and keeps floating over whatever is beneath.
+
+     Scoped with :has() to the overlay layout on purpose. The solid layout is a
+     real in-flow bar and has its own opt-in `sticky` setting; sticking the
+     wrapper as well would make that choice unavailable on every other
+     template. */
+  .apex-header-section:has(.apex-header--overlay) {
+    position: sticky;
+    inset-block-start: 0;
+  }
+
+  /* Transparent, sitting over the hero photograph — the mockup's default.
+     Absolute rather than fixed so it scrolls away with the hero, and so it
+     takes no space in flow, letting the hero start at the top of the page. */
+  .apex-header--overlay {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline: 0;
+    background-color: rgba(0,0,0,0.8);
+  }
+
+  .apex-header--sticky {
+    position: sticky;
+    inset-block-start: 0;
+  }
+
+  .apex-header__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    min-height: var(--header-height);
+  }
+
+  /* --- logo ------------------------------------------------------------ */
+
+  .apex-header__logo {
+    flex: none;
+    display: block;
+    line-height: 0;
+  }
+
+  .apex-header__logo svg {
+    display: block;
+    width: var(--logo-w-mobile, var(--header-logo-width));
+    height: auto;
+  }
+
+  /* --- desktop nav ----------------------------------------------------- */
+
+  .apex-header__nav {
+    display: none;
+  }
+
+  .apex-header__menu {
+    display: flex;
+    align-items: center;
+    gap: var(--header-nav-gap);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .apex-header__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-unit);
+    padding-block: var(--space-2xs);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color var(--motion-fast) var(--ease-out);
+  }
+
+  @media (hover: hover) {
+    .apex-header__link:hover {
+      color: var(--brand-accent);
+    }
+  }
+
+  .apex-header__link[aria-current='page'],
+  .apex-header__link[data-child-active='true'] {
+    color: var(--brand-accent);
+  }
+
+  /* --- desktop dropdown -------------------------------------------------
+
+     Hover and focus only, no JavaScript.
+
+     `:hover` here is deliberately NOT wrapped in `@media (hover: hover)` the
+     way every other hover rule in this file is. That guard exists to stop a
+     hover state sticking after a tap — but with no click fallback, a stuck
+     hover is the only way a touch device wide enough for the desktop nav can
+     open this at all. Here it is the feature, not the bug.
+
+     The panel is hidden with `visibility`, never `display: none`, for two
+     reasons: it can transition, and :focus-within has something to reveal.
+     Tabbing to the parent link opens the panel, which makes its children
+     focusable, which keeps :focus-within true all the way through them. */
+
+  .apex-header__item {
+    position: relative;
+  }
+
+  /* chevron-right at 90deg. svg-icons has no chevron-down, and drawing one
+     would be this exact path rotated. */
+  .apex-header__caret {
+    flex: none;
+    width: 1em;
+    height: 1em;
+    transform: rotate(90deg);
+    transition: transform var(--motion-fast) var(--ease-out);
+  }
+
+  .apex-header__item--parent:hover .apex-header__caret,
+  .apex-header__item--parent:focus-within .apex-header__caret {
+    transform: rotate(-90deg);
+  }
+
+  /* Below 990px the drawer renders these same links inline instead. */
+  .apex-header__submenu {
+    display: none;
+  }
+
+  .apex-header__link:focus-visible,
+  .apex-header__sublink:focus-visible,
+  .apex-drawer__sublink:focus-visible,
+  .apex-header__action:focus-visible,
+  .apex-header__logo:focus-visible,
+  .apex-header__burger:focus-visible,
+  .apex-drawer__link:focus-visible,
+  .apex-drawer__secondary:focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-focus);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  /* --- actions --------------------------------------------------------- */
+
+  .apex-header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--header-action-gap);
+    margin-inline-start: auto;
+    @media only screen and (min-width: 750px) {
+      margin-inline-start: 0;
+    }
+  }
+
+  .apex-header__action {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    color: var(--color-text);
+    font-size: var(--text-xs);
+    text-decoration: none;
+    transition: color var(--motion-fast) var(--ease-out);
+  }
+
+  @media (hover: hover) {
+    .apex-header__action:hover {
+      color: var(--brand-accent);
+    }
+  }
+
+  .apex-icon {
+    display: block;
+    width: var(--header-icon-size);
+    height: var(--header-icon-size);
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.25;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .apex-cart__count {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0;
+  }
+
+  /* Account and cart are hidden on mobile in the mockup — both live in the
+     drawer instead. See the note in CLAUDE.md; this is a merchandising
+     trade-off, not a technical one. */
+  .apex-header__action {
+    display: none;
+  }
+
+  /* --- burger ---------------------------------------------------------- */
+
+  .apex-header__burger {
+    display: grid;
+    place-items: center;
+    width: var(--header-icon-size);
+    height: var(--header-icon-size);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .apex-header__burger::-webkit-details-marker {
+    display: none;
+  }
+
+  .apex-burger {
+    display: grid;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .apex-burger > span {
+    display: block;
+    height: 2px;
+    background-color: currentColor;
+    transition: transform var(--motion-med) var(--ease-out),
+      opacity var(--motion-fast) var(--ease-out);
+  }
+
+  details[open] .apex-burger > span:nth-child(1) {
+    transform: translateY(0.7rem) rotate(45deg);
+  }
+
+  details[open] .apex-burger > span:nth-child(2) {
+    opacity: 0;
+  }
+
+  details[open] .apex-burger > span:nth-child(3) {
+    transform: translateY(-0.7rem) rotate(-45deg);
+  }
+
+  /* --- drawer ---------------------------------------------------------- */
+
+  .apex-header__drawer {
+    display: block;
+    color: var(--color-text);
+  }
+
+  /* The panel must be a DIRECT child of <details> and start hidden. Dawn's
+     MenuDrawer adds .menu-opening one frame after setting `open`, which is what
+     gives the transform something to transition from — a plain
+     `details[open]` rule would snap, because the content is not rendered at all
+     until the moment it opens. Same contract as component-menu-drawer.css. */
+  .apex-drawer {
+    position: fixed;
+    inset-block: 0;
+    inset-inline-end: 0;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: min(90vw, 42rem);
+    padding: calc(var(--header-height) + var(--space-lg)) var(--gutter) var(--space-xl);
+    overflow-y: auto;
+    background-color: var(--color-bg-elevated);
+    transform: translateX(100%);
+    visibility: hidden;
+  }
+
+  details[open] > .apex-drawer {
+    transition: transform var(--motion-med) var(--ease-out),
+      visibility var(--motion-med) var(--ease-out);
+  }
+
+  details[open].menu-opening > .apex-drawer {
+    transform: translateX(0);
+    visibility: visible;
+  }
+
+  .apex-drawer__close {
+    position: absolute;
+    inset-block-start: calc((var(--header-height) - var(--header-icon-size)) / 2);
+    inset-inline-end: var(--gutter);
+    display: grid;
+    place-items: center;
+    width: var(--header-icon-size);
+    height: var(--header-icon-size);
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--color-text);
+    cursor: pointer;
+  }
+
+  .apex-drawer__close-icon {
+    width: var(--space-sm);
+    height: var(--space-sm);
+  }
+
+  .apex-drawer__close:focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-focus);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  .apex-drawer__menu {
+    display: grid;
+    gap: var(--space-sm);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .apex-drawer__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-xs);
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: var(--text-h4);
+    font-weight: var(--weight-light);
+    letter-spacing: var(--tracking-display);
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color var(--motion-fast) var(--ease-out);
+  }
+
+  .apex-drawer__link .btn-arrow {
+    color: var(--brand-accent);
+  }
+
+  @media (hover: hover) {
+    .apex-drawer__link:hover {
+      color: var(--brand-accent);
+    }
+  }
+
+  .apex-drawer__link[data-child-active='true'] {
+    color: var(--brand-accent);
+  }
+
+  /* A row is now link + optional sub-list, so the row itself has to stack
+     them. The gap on .apex-drawer__menu stays the gap BETWEEN top-level
+     items; this is the tighter one within a single item. */
+  .apex-drawer__menu li {
+    display: grid;
+    gap: var(--space-xs);
+  }
+
+  .apex-drawer__submenu {
+    display: grid;
+    gap: var(--space-xs);
+    margin: 0;
+    padding-inline-start: var(--space-xs);
+    border-inline-start: 1px solid var(--color-border);
+    list-style: none;
+  }
+
+  .apex-drawer__sublink {
+    display: block;
+    color: var(--color-text-muted);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-regular);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color var(--motion-fast) var(--ease-out);
+  }
+
+  .apex-drawer__sublink[aria-current='page'] {
+    color: var(--brand-accent);
+  }
+
+  @media (hover: hover) {
+    .apex-drawer__sublink:hover {
+      color: var(--brand-accent);
+    }
+  }
+
+  .apex-drawer__footer {
+    display: grid;
+    gap: var(--space-xs);
+    padding-block-start: var(--space-lg);
+    border-block-start: 1px solid var(--color-border);
+  }
+
+  .apex-drawer__secondary {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    text-decoration: none;
+    transition: color var(--motion-fast) var(--ease-out);
+  }
+
+  @media (hover: hover) {
+    .apex-drawer__secondary:hover {
+      color: var(--color-text);
+    }
+  }
+
+  /* --- desktop --------------------------------------------------------- */
+
+  @media screen and (min-width: 990px) {
+    .apex-header {
+      --header-height: var(--header-h, 10.8rem);
+    }
+
+    .apex-header__logo svg {
+      width: var(--logo-w-desktop, var(--header-logo-width));
+    }
+    
+    .apex-header__inner svg {
+      filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
+    }
+    .apex-header__inner {
+      text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+    }
+    
+    /* Stretched to the full bar height on purpose: the panel hangs off the
+       bottom edge of the header, so the item has to reach that edge — or the
+       pointer crosses a dead gap on the way down and the menu closes
+       mid-travel. */
+    .apex-header__nav {
+      display: block;
+      align-self: stretch;
+      margin-left: auto;
+      margin-right: calc(var(--header-nav-gap) / 2);
+    }
+
+    .apex-header__menu {
+      height: 100%;
+    }
+
+    .apex-header__item {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+
+    /* Centred under its parent rather than left-anchored. This nav sits hard
+       against the right of the bar, so a left-anchored panel on the last item
+       — which is the one that has children — would run off the viewport.
+       Centring halves the overhang in both directions. */
+    .apex-header__submenu {
+      position: absolute;
+      inset-block-start: 100%;
+      inset-inline-start: 50%;
+      z-index: 1;
+      display: grid;
+      gap: var(--space-2xs);
+      width: max-content;
+      max-width: calc(100vw - var(--gutter) * 2);
+      margin: 0;
+      padding: var(--space-xs) var(--space-sm);
+      border: 1px solid var(--color-border);
+      background-color: var(--color-bg-elevated);
+      list-style: none;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(-50%) translateY(calc(var(--space-unit) * -1));
+      transition: opacity var(--motion-fast) var(--ease-out),
+        transform var(--motion-fast) var(--ease-out),
+        visibility var(--motion-fast) var(--ease-out);
+    }
+
+    .apex-header__item--parent:hover > .apex-header__submenu,
+    .apex-header__item--parent:focus-within > .apex-header__submenu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .apex-header__subgroup {
+      display: grid;
+      gap: var(--space-2xs);
+      margin: 0;
+      padding-block-start: var(--space-2xs);
+      padding-inline-start: var(--space-xs);
+      list-style: none;
+    }
+
+    .apex-header__sublink {
+      display: block;
+      color: var(--color-text-muted);
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: color var(--motion-fast) var(--ease-out);
+    }
+
+    .apex-header__sublink:hover,
+    .apex-header__sublink[aria-current='page'] {
+      color: var(--brand-accent);
+    }
+
+    .apex-header__action {
+      display: inline-flex;
+    }
+
+    .apex-header__drawer {
+      display: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "APEX header",
+  "tag": "header",
+  "class": "apex-header-section",
+  "enabled_on": { "groups": ["header"] },
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "Menu"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "info": "Overlay is the mockup default — transparent, sitting over the hero image. Use Solid on templates that do not open with a full-bleed image.",
+      "options": [
+        { "value": "overlay", "label": "Overlay (transparent over hero)" },
+        { "value": "solid", "label": "Solid" },
+        { "value": "sticky", "label": "Sticky (solid, follows scroll)" }
+      ],
+      "default": "overlay"
+    },
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "header_height",
+      "min": 64,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Header height",
+      "default": 108
+    },
+    {
+      "type": "header",
+      "content": "Actions"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "Show account icon",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cart",
+      "label": "Show cart icon",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

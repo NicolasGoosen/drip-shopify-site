@@ -1,0 +1,427 @@
+{%- comment -%}
+  DRIP image mosaic.
+
+  Desktop, as drawn: a square feature panel on the left carrying all the copy,
+  and a 2x2 of supporting photographs on the right. Full-bleed — the mockup
+  runs it edge to edge with no page gutter.
+
+  Mobile is not in the mockups and was decided here: the feature panel keeps
+  its overlaid copy and goes full-width, then the supporting tiles follow as a
+  2x2 underneath. Stacking all five into one column was the alternative and it
+  loses the thing that makes this section a mosaic.
+
+  Every panel in the band is square, at every width — the feature and all
+  four tiles carry `aspect-ratio: 1` outright rather than inheriting a height
+  from a neighbour. With exactly four tiles the two columns happen to resolve
+  to the same height anyway, but that was emergent: a fifth or sixth tile grew
+  the tile column a row and stretched the feature into a portrait panel. The
+  columns are now sized independently, so the feature stays square whatever
+  the tile count and the band simply ends flush with the taller column.
+
+  Photographs are cropped, never squashed — `object-fit: cover` throughout,
+  positioned by the image's Shopify focal point so the crop keeps whatever the
+  merchant marked as the subject. `image_url` returns a string, which means
+  `image_tag` can no longer see the image drop and will not emit the focal
+  point itself; it is passed through as an explicit object-position below.
+
+  Copy sits on the photograph, so the feature carries a scrim. The supplied
+  image falls off to mid-tone at the bottom left rather than to black, so
+  unlike the hero this one defaults ON.
+{%- endcomment -%}
+
+{%- liquid
+  assign feature = section.settings.feature_image
+  assign feature_alt = feature.alt | default: section.settings.heading
+  assign feature_focal = feature.presentation.focal_point | default: 'center center'
+  assign feature_focal_style = 'object-position: ' | append: feature_focal | append: ';'
+-%}
+
+<section
+  class="mosaic {% if section.settings.width == 'wide' %}mosaic--wide{% endif %}"
+  style="
+    --mosaic-bg: {{ section.settings.background }};
+    --mosaic-gap: {{ section.settings.gap }}px;
+    --mosaic-scrim: {{ section.settings.scrim_opacity | divided_by: 100.0 }};
+  "
+>
+  <div class="mosaic__inner">
+    <div class="mosaic__grid">
+      <div class="mosaic__feature">
+        {%- if feature != blank -%}
+          {{
+            feature
+            | image_url: width: 1600
+            | image_tag:
+              loading: 'lazy',
+              sizes: '(min-width: 990px) 50vw, 100vw',
+              widths: '600, 900, 1200, 1600',
+              class: 'mosaic__image',
+              style: feature_focal_style,
+              alt: feature_alt
+          }}
+        {%- else -%}
+          {%- comment -%}
+            Falls back to a file uploaded under Content > Files, so the section
+            renders before anyone opens the Theme Editor. Picking an image is
+            preferable — it gives a responsive srcset and a focal point.
+          {%- endcomment -%}
+          {%- comment -%}
+            width/height describe the box the CSS renders, not the file's
+            intrinsic size — a filename alone carries no dimensions. Both are
+            square here, and object-fit: cover means the declared pair only
+            ever serves as the pre-stylesheet aspect reservation.
+          {%- endcomment -%}
+          <img
+            class="mosaic__image"
+            src="{{ section.settings.feature_fallback_name | file_url }}"
+            alt="{{ section.settings.heading | escape }}"
+            width="1200"
+            height="1200"
+            loading="lazy"
+          >
+        {%- endif -%}
+
+        <div class="mosaic__content">
+          {%- if section.settings.heading != blank -%}
+            <h2 class="mosaic__heading">{{ section.settings.heading | escape }}</h2>
+          {%- endif -%}
+
+          {%- if section.settings.body != blank -%}
+            <div class="mosaic__body">{{ section.settings.body }}</div>
+          {%- endif -%}
+
+          {%- if section.settings.link_label != blank -%}
+            <a class="btn btn-link mosaic__link" href="{{ section.settings.link_url | default: '#' }}">
+              {{ section.settings.link_label | escape }}
+              {% render 'icon-arrow-right' %}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- if section.blocks.size > 0 -%}
+        <ul class="mosaic__tiles" role="list">
+          {%- for block in section.blocks -%}
+            <li class="mosaic__tile" {{ block.shopify_attributes }}>
+              {%- if block.settings.image != blank -%}
+                {%- assign tile_focal = block.settings.image.presentation.focal_point | default: 'center center' -%}
+                {%- assign tile_focal_style = 'object-position: ' | append: tile_focal | append: ';' -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 1000
+                  | image_tag:
+                    loading: 'lazy',
+                    sizes: '(min-width: 990px) 25vw, 50vw',
+                    widths: '300, 500, 700, 1000',
+                    class: 'mosaic__image',
+                    style: tile_focal_style,
+                    alt: block.settings.alt
+                }}
+              {%- else -%}
+                <img
+                  class="mosaic__image"
+                  src="{{ block.settings.fallback_name | file_url }}"
+                  alt="{{ block.settings.alt | escape }}"
+                  width="1200"
+                  height="1200"
+                  loading="lazy"
+                >
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .mosaic {
+    background-color: var(--mosaic-bg, var(--color-bg));
+  }
+
+  /* Full-bleed by default — the mockup has no page gutter here. The wide
+     variant opts into --container-wide, which tokens.css reserves for exactly
+     this band. */
+  .mosaic--wide .mosaic__inner {
+    max-width: calc(var(--container-wide) + var(--gutter) * 2);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  .mosaic__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--mosaic-gap, var(--space-unit));
+  }
+
+  /* --- feature ---------------------------------------------------------- */
+
+  .mosaic__feature {
+    position: relative;
+    aspect-ratio: 1;
+    isolation: isolate;
+  }
+
+  .mosaic__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    /* The panel is square and the photograph is not, so it is always cropped
+       rather than distorted. */
+    object-fit: cover;
+    /* Overridden per image by the inline object-position the markup writes
+       from Shopify's focal point; this is the fallback for the named-file
+       path, which carries no focal point. */
+    object-position: center center;
+  }
+
+  /* Scrim. A corner-anchored gradient rather than a flat wash — the copy sits
+     bottom-left and a flat overlay would mute the whole photograph to protect
+     one corner of it. */
+  .mosaic__feature::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-image: linear-gradient(
+      to top right,
+      var(--color-bg) 0%,
+      color-mix(in srgb, var(--color-bg) 50%, transparent) 45%,
+      transparent 75%
+    );
+    opacity: var(--mosaic-scrim, 0.7);
+    pointer-events: none;
+  }
+
+  .mosaic__content {
+    position: absolute;
+    z-index: 2;
+    inset-block-end: 0;
+    inset-inline: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+  }
+
+  .mosaic__heading {
+    margin: 0;
+    max-width: 12ch;
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-heading);
+    text-transform: uppercase;
+  }
+
+  .mosaic__body {
+    max-width: 34ch;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    line-height: var(--leading-snug);
+  }
+
+  .mosaic__body > :first-child { margin-block-start: 0; }
+  .mosaic__body > :last-child { margin-block-end: 0; }
+
+  /* --- tiles ------------------------------------------------------------ */
+
+  .mosaic__tiles {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--mosaic-gap, var(--space-unit));
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .mosaic__tile {
+    aspect-ratio: 1;
+  }
+
+  /* --- desktop ----------------------------------------------------------
+     Feature left, tiles right, each half the band. The feature keeps its
+     square aspect ratio here — `align-items: start` rather than the default
+     stretch, so neither column can pull the other off square. */
+
+  @media screen and (min-width: 990px) {
+    .mosaic__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: start;
+    }
+
+    .mosaic__content {
+      gap: var(--space-md);
+      padding: var(--space-xl);
+    }
+
+    .mosaic__heading {
+      font-size: var(--text-h2);
+    }
+
+    .mosaic__body {
+      font-size: var(--text-body);
+      line-height: var(--leading-body);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "DRIP image mosaic",
+  "tag": "section",
+  "class": "drip-image-mosaic-section",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Feature panel"
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_image",
+      "label": "Feature image",
+      "info": "The large panel that carries the copy. Roughly square. Falls back to the file named below if empty."
+    },
+    {
+      "type": "text",
+      "id": "feature_fallback_name",
+      "label": "Feature fallback file name",
+      "info": "A file uploaded under Content > Files. Used only when no image is picked above.",
+      "default": "photoshoot-5.jpg"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Made for every point."
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>From warmups to winners, DRIP 48 is built for the moments that matter.</p>"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Link label",
+      "default": "Shop the ball"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link"
+    },
+    {
+      "type": "range",
+      "id": "scrim_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Darken behind copy",
+      "info": "The supplied photograph falls off to mid-tone, not black, so the copy needs help here.",
+      "default": 70
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "options": [
+        { "value": "full", "label": "Full bleed" },
+        { "value": "wide", "label": "Wide container" }
+      ],
+      "default": "full"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between images",
+      "default": 4
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "info": "Shows through the gaps between images.",
+      "default": "#0B090C"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Tile",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Square crop. Falls back to the file named below if empty."
+        },
+        {
+          "type": "text",
+          "id": "fallback_name",
+          "label": "Fallback file name",
+          "info": "A file uploaded under Content > Files.",
+          "default": "photoshoot-1.jpg"
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Alt text",
+          "info": "Describe the photograph for screen readers.",
+          "default": "DRIP pickleballs on a court"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "DRIP image mosaic",
+      "blocks": [
+        {
+          "type": "tile",
+          "settings": {
+            "fallback_name": "photoshoot-4.jpg",
+            "alt": "Player crouching on court, holding DRIP pickleballs beside her shoe"
+          }
+        },
+        {
+          "type": "tile",
+          "settings": {
+            "fallback_name": "photoshoot-3.jpg",
+            "alt": "An DRIP pickleball paddle and three balls on a court line in net shadow"
+          }
+        },
+        {
+          "type": "tile",
+          "settings": {
+            "fallback_name": "photoshoot-2.jpg",
+            "alt": "Player holding an DRIP pickleball at their side"
+          }
+        },
+        {
+          "type": "tile",
+          "settings": {
+            "fallback_name": "photoshoot-1.jpg",
+            "alt": "Three DRIP pickleballs resting on a court line"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

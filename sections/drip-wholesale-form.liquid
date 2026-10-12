@@ -1,0 +1,294 @@
+{%- comment -%}
+  DRIP wholesale registration — page framing and form restyle.
+
+  WHAT THIS IS
+  The registration form on this page is NOT theme markup. It comes from the
+  Massy B2B Wholesale app, rendered through an `apps` section block that this
+  theme cannot edit. This section supplies the page's intro copy and carries
+  the CSS that pulls the app's form onto the Drip design language.
+
+  WHY A SECTION AND NOT AN ASSET STYLESHEET
+  Shopify subsets {% stylesheet %} CSS to each page's render tree, so the rules
+  below ship only on pages that render this section. That is what makes it safe
+  for them to reach outside their own markup — to #MainContent and to Dawn's
+  .main-page-title — without leaking onto every other page. Drop this section
+  from a template and its styling leaves with it.
+
+  ⚠ THIS STYLES A THIRD-PARTY APP'S CLASS NAMES
+  `.massy-*` selectors are the app's internal markup, not a public API. A Massy
+  update that renames a class silently reverts that part of the form to the
+  app's own look — nothing breaks, it just stops being branded. Everything here
+  is presentational for exactly that reason: no layout the form depends on, no
+  display:none on anything functional. If the form ever looks generic again,
+  suspect an app update first and re-check the class names against the live DOM.
+
+  WHERE THE COLOURS REALLY LIVE
+  The submit button's colours arrive as INLINE custom properties on the element
+  (--massy-button-form-color and friends), set by the app. Author CSS needs
+  !important to beat an inline declaration, which is why the button block is
+  the only place !important appears. Massy may also expose these in its own app
+  admin — if so, setting them there is tidier than overriding them here.
+
+  WHAT WAS WRONG, MEASURED OFF THE LIVE PAGE
+  - Page sat on white while every other Drip surface is on --ground
+  - Submit button was #0063F2, the app's stock blue
+  - 12px input radius and 14px button radius; every radius in this theme is 0
+  - Input borders #8A8A8A, labels and inputs at 14px/13px, off the type ramp
+{%- endcomment -%}
+
+<section
+  class="wsale"
+  style="
+    --wsale-bg: {{ section.settings.background }};
+    --wsale-card: {{ section.settings.card_background }};
+  "
+>
+  {%- if section.settings.eyebrow != blank or section.settings.text != blank -%}
+    <div class="drip-container wsale__intro">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="wsale__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.text != blank -%}
+        <div class="wsale__lead">{{ section.settings.text }}</div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</section>
+
+{% stylesheet %}
+  /* ==========================================================================
+     Page ground
+     ========================================================================== */
+
+  #MainContent {
+    background-color: var(--wsale-bg, var(--color-bg));
+  }
+
+  /* Dawn's page title. Restyled rather than replaced — the <h1> is the page's
+     real heading and the document outline should keep it. */
+  #MainContent .main-page-title {
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-display);
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  /* ==========================================================================
+     Intro
+     ========================================================================== */
+
+  .wsale {
+    background-color: var(--wsale-bg, var(--color-bg));
+  }
+
+  .wsale__intro {
+    padding-block: 0 var(--space-lg);
+    text-align: center;
+  }
+
+  .wsale__eyebrow {
+    margin: 0 0 var(--space-xs);
+    color: var(--brand-accent);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-xs);
+    font-style: italic;
+    font-weight: var(--weight-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+  }
+
+  .wsale__lead {
+    max-width: 60ch;
+    margin-inline: auto;
+    color: var(--color-text-muted);
+    font-size: var(--text-lead);
+    line-height: var(--leading-body);
+  }
+
+  .wsale__lead :where(p) {
+    margin: 0 0 var(--space-xs);
+  }
+
+  .wsale__lead :where(p):last-child {
+    margin-bottom: 0;
+  }
+
+  /* ==========================================================================
+     The Massy form
+
+     Selectors are prefixed with .massy-registration-form-wrapper to outrank the
+     app's own single-class rules on specificity rather than on source order —
+     the app injects its <style> tags at runtime, so source order is not
+     something this file can rely on.
+     ========================================================================== */
+
+  .massy-registration-form-wrapper {
+    max-width: 76rem;
+    margin-inline: auto;
+    padding: var(--space-lg);
+    background-color: var(--wsale-card, var(--color-bg-elevated));
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+  }
+
+  /* --- form header ------------------------------------------------------- */
+
+  .massy-registration-form-wrapper .massy-form-header {
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .massy-registration-form-wrapper .massy-form-header .massy-text {
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: var(--text-h4);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+  }
+
+  .massy-registration-form-wrapper .massy-text {
+    color: var(--color-text-muted);
+  }
+
+  /* --- labels ------------------------------------------------------------- */
+
+  .massy-registration-form-wrapper .massy-input-label {
+    margin-bottom: var(--space-2xs);
+    color: var(--color-text);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+  }
+
+  /* The required marker. The app draws it with ::after on .massy-required. */
+  .massy-registration-form-wrapper .massy-required .massy-input-label::after,
+  .massy-registration-form-wrapper .massy-required::after {
+    color: var(--brand-accent);
+  }
+
+  /* --- fields ------------------------------------------------------------- */
+
+  .massy-registration-form-wrapper :where(input, select, textarea) {
+    width: 100%;
+    height: auto;
+    min-height: 4.4rem;
+    padding: var(--space-2xs) var(--space-sm);
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 0;
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    transition:
+      border-color var(--motion-fast) var(--ease-out),
+      background-color var(--motion-fast) var(--ease-out);
+  }
+
+  .massy-registration-form-wrapper :where(input, select, textarea)::placeholder {
+    color: var(--color-text-faint);
+    opacity: 1;
+  }
+
+  .massy-registration-form-wrapper :where(input, select, textarea):hover {
+    border-color: var(--brand-accent-dim);
+  }
+
+  /* :focus as well as :focus-visible — a text field deserves a visible ring
+     from a mouse click too, not only from the keyboard. */
+  .massy-registration-form-wrapper :where(input, select, textarea):focus,
+  .massy-registration-form-wrapper :where(input, select, textarea):focus-visible {
+    border-color: var(--brand-accent);
+    outline: var(--focus-ring-width) solid var(--color-focus);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  /* --- submit ------------------------------------------------------------
+
+     The only !important in this file. The app sets these six custom properties
+     inline on the element, and author CSS cannot outrank an inline declaration
+     without it. Overriding the PROPERTIES rather than the painted styles keeps
+     the app's own hover and disabled logic intact — it just recolours it. */
+
+  .massy-registration-form-wrapper .massy-button-form {
+    --massy-button-form-color: var(--brand-accent) !important;
+    --massy-button-form-color-hover: var(--brand-accent-bright) !important;
+    --massy-button-form-text-color: var(--color-text-on-light) !important;
+    --massy-button-form-border-radius: 0 !important;
+    --massy-button-form-font-size: var(--text-xs) !important;
+  }
+
+  .massy-registration-form-wrapper .massy-button-form,
+  .massy-registration-form-wrapper .massy-button-form button {
+    border-radius: 0;
+    font-family: var(--font-body);
+    font-weight: var(--weight-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+  }
+
+  .massy-registration-form-wrapper .massy-form-footer {
+    margin-top: var(--space-md);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-border);
+  }
+
+  /* ==========================================================================
+     750px
+     ========================================================================== */
+
+  @media screen and (min-width: 750px) {
+    .massy-registration-form-wrapper {
+      padding: var(--space-xl);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Wholesale form styling",
+  "tag": "section",
+  "class": "drip-wholesale-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Frames the Massy registration form on this page and pulls it onto the Drip palette. The form itself belongs to the app — this section only supplies the intro copy and the styling."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Wholesale"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Intro",
+      "default": "<p>Tell us about your business and we'll get you set up with wholesale pricing.</p>"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Page background",
+      "default": "#0b090c"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Form background",
+      "default": "#1f161b"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wholesale form styling"
+    }
+  ]
+}
+{% endschema %}

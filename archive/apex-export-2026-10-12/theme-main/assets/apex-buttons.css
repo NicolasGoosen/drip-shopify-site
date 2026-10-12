@@ -1,0 +1,257 @@
+/* ==========================================================================
+   APEX Pickleball — buttons
+
+   Loaded after Dawn's base.css. Deliberately namespaced `.btn` so it does not
+   collide with Dawn's own `.button` — commerce templates keep working until
+   they are restyled.
+
+   Usage:
+     <a class="btn btn-light" href="...">Shop Apex 48</a>
+     <button class="btn btn-outline" type="submit">Shop 4 pack</button>
+     <a class="btn btn-link" href="...">The engineering
+       <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
+
+   Hover is a left-to-right fill wipe. It is painted with a background-image
+   layer rather than a pseudo-element so no wrapper span is needed and the
+   label never has to fight a stacking context.
+
+   Buttons live in apex-buttons.css, linked after base.css. Namespaced .btn so it doesn't 
+   collide with Dawn's .button — commerce templates keep working until we restyle them.
+   
+   Each variant sets only six custom properties — fill, label, border, and their hover 
+   counterparts. Nothing else. Adding .btn-whatever later means setting those six and no new 
+   layout or transition rules.
+   
+   The hover: a bronze fill wipes in left-to-right over 260ms on a custom ease, label color 
+   crossing at 140ms so it flips just as the fill reaches it. Arrows nudge 0.35em; .btn-link 
+   draws its rule in from the left rather than just switching it on. Painted as a background-image 
+   layer rather than a ::before, so no wrapper span is needed and the label never fights a stacking context.
+   
+   Three details worth knowing about:
+   
+   Hover sits behind @media (hover: hover) so it doesn't stick after a tap on mobile.
+   :focus-visible gets the same fill as hover plus the bronze ring — otherwise a keyboard 
+   user's focused button looks less prominent than a mouse user's hovered one.
+   All three motion durations collapse to 0ms under prefers-reduced-motion, so no individual rule has to handle it.
+   
+   Two things I decided rather than measured. Motion timings can't come from a static 
+   mockup — 140/260/420ms is a starting point, easy to re-tune in one place. And .btn-dark 
+   doesn't appear anywhere in the mockup; I built it because you asked, and it's aimed at light 
+   or photographic surfaces, but nothing on the homepage currently needs it.
+   
+   --color-text-muted is still the one inferred color, for the reason in my last message.
+   
+   Worth deciding before Phase 2: Dawn's own .button class drives every commerce 
+   surface — add-to-cart, checkout, pagination, customer login. I've left it untouched. 
+   When we hit Phase 4, the choice is aliasing Dawn's .button onto these variables, or 
+   restyling it separately. Aliasing is less code and guarantees one button language sitewide, 
+   but it touches AJAX cart and variant-picker surfaces I haven't inspected yet, so I'd want to look before committing
+
+   ========================================================================== */
+
+.btn {
+  --btn-fill: transparent;
+  --btn-label: var(--color-text);
+  --btn-border: transparent;
+  --btn-fill-hover: transparent;
+  --btn-label-hover: var(--color-text);
+  --btn-border-hover: transparent;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75ch;
+
+  min-height: var(--btn-height);
+  padding-inline: var(--btn-pad-x);
+  border: var(--btn-border-width) solid var(--btn-border);
+  border-radius: var(--btn-radius);
+
+  font-size: var(--btn-font-size);
+  letter-spacing: var(--btn-tracking);
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  white-space: nowrap;
+
+  color: var(--btn-label);
+  background-color: var(--btn-fill);
+  background-image: linear-gradient(var(--btn-fill-hover), var(--btn-fill-hover));
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 0% 100%;
+
+  cursor: pointer;
+  transition:
+    background-size var(--motion-med) var(--ease-out),
+    color var(--motion-fast) var(--ease-out),
+    border-color var(--motion-fast) var(--ease-out);
+}
+
+/* `hover: hover` keeps the fill from sticking on touch devices after a tap. */
+@media (hover: hover) {
+  .btn:hover {
+    background-size: 100% 100%;
+    color: var(--btn-label-hover);
+    border-color: var(--btn-border-hover);
+  }
+}
+
+/* Keyboard focus shows the same fill as hover, otherwise the focused state
+   reads as less prominent than the hovered one. */
+.btn:focus-visible,
+.btn:active {
+  background-size: 100% 100%;
+  color: var(--btn-label-hover);
+  border-color: var(--btn-border-hover);
+}
+
+.btn:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.btn[disabled],
+.btn[aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: 0.4;
+  background-size: 0% 100%;
+}
+
+/* --------------------------------------------------------------------------
+   Variants
+   -------------------------------------------------------------------------- */
+
+/* Solid white on the dark ground. The hero and final CTA. */
+.btn-light {
+  --btn-fill: var(--brand-primary);
+  --btn-label: var(--color-text-on-light);
+  --btn-border: var(--brand-primary);
+  --btn-fill-hover: var(--brand-accent);
+  --btn-label-hover: var(--color-text-on-light);
+  --btn-border-hover: var(--brand-accent);
+}
+
+/* Solid brand-black. For use on light or photographic surfaces.
+   Not present in the mockup — see the note in CLAUDE.md. */
+.btn-dark {
+  --btn-fill: var(--brand-secondary);
+  --btn-label: var(--color-text);
+  --btn-border: var(--color-border-strong);
+  --btn-fill-hover: var(--brand-primary);
+  --btn-label-hover: var(--color-text-on-light);
+  --btn-border-hover: var(--brand-primary);
+}
+
+/* Bronze outline. The pack-grid buttons. */
+.btn-outline {
+  --btn-fill: transparent;
+  --btn-label: var(--brand-accent);
+  --btn-border: var(--color-border-accent);
+  --btn-fill-hover: var(--brand-accent);
+  --btn-label-hover: var(--color-text-on-light);
+  --btn-border-hover: var(--brand-accent);
+}
+
+/* Neutral outline, for secondary actions that should not claim bronze. */
+.btn-ghost {
+  --btn-fill: transparent;
+  --btn-label: var(--color-text);
+  --btn-border: var(--color-border);
+  --btn-fill-hover: var(--brand-accent-wash);
+  --btn-label-hover: var(--color-text);
+  --btn-border-hover: var(--color-border-accent);
+}
+
+/* Bronze arrow link. "The engineering ->", "Shop the ball ->". */
+.btn-link {
+  --btn-label: var(--brand-accent);
+  --btn-label-hover: var(--brand-accent-bright);
+
+  position: relative;
+  min-height: 0;
+  padding-inline: 0;
+  border: 0;
+  background-image: none;
+}
+
+/* The rule draws in from the left on hover rather than simply appearing. */
+.btn-link::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: -0.4em;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--motion-med) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .btn-link:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+.btn-link:focus-visible::after,
+.btn-link:active::after {
+  transform: scaleX(1);
+}
+
+/* --------------------------------------------------------------------------
+   Arrow
+   Optional. Nudges on hover; `aria-hidden` in markup so it is not announced.
+
+   MUST be inline SVG, never a text glyph. The Zalando Sans subset we ship is
+   Latin-1 only (228 codepoints) and contains no arrow at all — U+2192, U+2190
+   and U+27F6 are all absent, so `&rarr;` would silently fall back to a system
+   font and render an arrow that matches nothing else on the page.
+
+   Use the `icon-arrow-right` snippet rather than pasting the SVG each time:
+
+     <a class="btn btn-link" href="...">
+       The engineering
+       {% render 'icon-arrow-right' %}
+     </a>
+   -------------------------------------------------------------------------- */
+
+.btn-arrow {
+  display: inline-block;
+  flex: none;
+  width: 1em;
+  height: 1em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  transition: transform var(--motion-med) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .btn:hover .btn-arrow {
+    transform: translateX(0.35em);
+  }
+}
+
+.btn:focus-visible .btn-arrow,
+.btn:active .btn-arrow {
+  transform: translateX(0.35em);
+}
+
+/* --------------------------------------------------------------------------
+   Modifiers
+   -------------------------------------------------------------------------- */
+
+.btn-full {
+  width: 100%;
+}
+
+.btn-sm {
+  --btn-height: 36px;
+  --btn-pad-x: 20px;
+}
+
+.btn-lg {
+  --btn-height: 52px;
+  --btn-pad-x: 36px;
+}

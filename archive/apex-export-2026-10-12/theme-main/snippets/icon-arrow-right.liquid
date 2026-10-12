@@ -1,0 +1,19 @@
+{%- comment -%}
+  APEX arrow. Used by .btn-link and anywhere the mockup shows a "->".
+
+  Drawn rather than typed: the Zalando Sans subset ships no arrow glyph, so a
+  text arrow would fall back to a system font. Inherits colour via
+  currentColor and scales with font-size via the 1em sizing in
+  assets/apex-buttons.css.
+
+  aria-hidden because the arrow is decorative — the link text carries meaning.
+{%- endcomment -%}
+<svg
+  class="btn-arrow"
+  viewBox="0 0 16 16"
+  aria-hidden="true"
+  focusable="false"
+  role="presentation"
+>
+  <path d="M1.5 8h13M9 2.5 14.5 8 9 13.5" stroke-linecap="square" />
+</svg>

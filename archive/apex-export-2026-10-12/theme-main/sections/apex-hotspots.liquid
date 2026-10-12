@@ -1,0 +1,654 @@
+{%- comment -%}
+  APEX product hotspots.
+
+  ---------------------------------------------------------------------------
+  HOW HOTSPOTS ARE POSITIONED
+
+  Two boxes, one transform.
+
+    .hotspots__frame  the visible window. Its aspect ratio is DERIVED, not set:
+                      `--img-ratio / --zoom`. That is what makes the stage fill
+                      the frame exactly in Y at every zoom level, so vertical
+                      coordinates never need converting.
+
+    .hotspots__stage  holds the image. Width is `zoom * 100%`, aspect ratio is
+                      the image's own, so it is never squashed. At zoom 1 it
+                      fills the frame; above 1 it overflows sideways and the
+                      frame crops it.
+
+  Dot coordinates are authored ONCE, as a percentage of the image, and stay
+  true whatever the crop. Frame-space x is a multiply and an add:
+
+      frame_x = stage_offset + (image_x * zoom)
+
+  Verified against the mobile mockup: the ball centre sits at 60.4% of the
+  image; -41.5% + (60.4% * 1.78) = 66.0%, and the mockup measures 65.9%.
+
+  Labels are positioned in FRAME space instead — they must stay on screen, so
+  they cannot ride the crop. That is the one thing needing a mobile override.
+
+  Shopify's focal point is deliberately NOT used. `object-fit: cover` clamps
+  object-position internally and CSS cannot read back where it landed, so the
+  leader lines would drift away from their dots. Explicit zoom + offset keeps
+  the geometry knowable, which is the whole point.
+
+  ---------------------------------------------------------------------------
+  HOW THE LINES ARE DRAWN
+
+  One inline SVG per breakpoint, in frame space, `viewBox="0 0 100 100"` with
+  `preserveAspectRatio="none"` so 1 unit == 1%. Two safeguards make that safe:
+
+    vector-effect="non-scaling-stroke"  keeps the hairline 1px however the
+                                        viewBox is stretched
+    pathLength="1"                      normalises every path to length 1
+
+  Angles distort under `preserveAspectRatio="none"`, which does not matter —
+  we author endpoints, not angles, and the endpoints land exactly on the dot
+  and the label either way.
+
+  Each leader is an elbow: dot -> bend -> label, with the bend at 45% of the
+  horizontal run so it reads like the mockup without another setting.
+
+  ---------------------------------------------------------------------------
+  SCROLL EFFECTS — hooks are in place, nothing is driven yet
+
+  Every animatable property reads from `--reveal` (0 to 1), which defaults to
+  1 so the section is fully visible with no JS and under reduced motion.
+
+    leader   stroke-dashoffset: calc(1 - var(--reveal))   <- pathLength="1"
+             makes this exact with no path measuring
+    dot      scale + opacity
+    label    opacity + a small translate
+
+  A future driver sets `--reveal` per `.hotspots__spot`, either from an
+  IntersectionObserver or from `animation-timeline: view()`. `--spot-index` is
+  already on each spot for stagger. Nothing else needs to change.
+{%- endcomment -%}
+
+{%- liquid
+  assign img = section.settings.image
+  assign ratio = section.settings.image_ratio
+  if img != blank and img.aspect_ratio > 0
+    assign ratio = img.aspect_ratio
+  endif
+
+  assign zoom_m = section.settings.zoom_mobile | divided_by: 100.0
+  assign offset_m = section.settings.offset_mobile
+-%}
+
+<section
+  class="hotspots"
+  style="
+    --img-ratio: {{ ratio }};
+    --zoom: 1;
+    --stage-x: 0%;
+    --zoom-mobile: {{ zoom_m }};
+    --stage-x-mobile: {{ offset_m }}%;
+    --hotspots-bg: {{ section.settings.background }};
+  "
+>
+  <div class="hotspots__copy">
+    <div class="apex-container">
+      <div class="hotspots__copy-inner">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="hotspots__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="hotspots__heading">{{ section.settings.heading | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.body != blank -%}
+          <div class="hotspots__body">{{ section.settings.body }}</div>
+        {%- endif -%}
+        {%- comment -%}
+          Checklist — one item per line. Added for the PDP, where the mockup
+          draws four bronze ticks under the body copy. Blank on the homepage,
+          which renders nothing.
+        {%- endcomment -%}
+        {%- if section.settings.checklist != blank -%}
+          {%- assign checklist_items = section.settings.checklist | newline_to_br | split: '<br />' -%}
+          <ul class="hotspots__checklist" role="list">
+            {%- for item in checklist_items -%}
+              {%- assign item_text = item | strip -%}
+              {%- if item_text != blank -%}
+                <li class="hotspots__check">
+                  {% render 'svg-icons', icon: 'check-circle', class: 'hotspots__check-icon' %}
+                  <span>{{ item_text | escape }}</span>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        {%- if section.settings.button_label != blank -%}
+          <a class="btn btn-ghost hotspots__button" href="{{ section.settings.button_url | default: '#' }}">
+            {{ section.settings.button_label | escape }}
+          </a>
+        {%- endif -%}
+
+        {%- if section.settings.link_label != blank -%}
+          <a class="btn btn-link hotspots__link" href="{{ section.settings.link_url | default: '#' }}">
+            {{ section.settings.link_label | escape }}
+            {% render 'icon-arrow-right' %}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  <div class="hotspots__frame">
+    <div class="hotspots__stage">
+      {%- if img != blank -%}
+        {{
+          img
+          | image_url: width: 2400
+          | image_tag:
+            loading: 'lazy',
+            sizes: '100vw',
+            widths: '600, 900, 1200, 1600, 2000, 2400',
+            class: 'hotspots__image',
+            alt: img.alt
+        }}
+      {%- else -%}
+        <img
+          class="hotspots__image"
+          src="{{ section.settings.fallback_image_name | file_url }}"
+          alt=""
+          loading="lazy"
+        >
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      {%- comment -%} Leaders, in frame space. Desktop: zoom 1, so dot x == image x. {%- endcomment -%}
+      <svg
+        class="hotspots__leaders hotspots__leaders--desktop"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+        focusable="false"
+      >
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign dx = block.settings.x
+            assign lx = block.settings.label_x
+            assign ly = block.settings.label_y
+            assign bend = lx | minus: dx | times: 0.45 | plus: dx
+          -%}
+          <path
+            class="hotspots__leader"
+            style="--spot-index: {{ forloop.index0 }};"
+            pathLength="1"
+            vector-effect="non-scaling-stroke"
+            d="M {{ dx }} {{ block.settings.y }} L {{ bend }} {{ ly }} L {{ lx }} {{ ly }}"
+          />
+        {%- endfor -%}
+      </svg>
+
+      <svg
+        class="hotspots__leaders hotspots__leaders--mobile"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+        focusable="false"
+      >
+        {%- for block in section.blocks -%}
+          {%- liquid
+            # frame_x = stage_offset + (image_x * zoom)
+            assign dx = block.settings.x | times: zoom_m | plus: offset_m
+            assign lx = block.settings.label_x_mobile
+            assign ly = block.settings.label_y_mobile
+            assign bend = lx | minus: dx | times: 0.45 | plus: dx
+          -%}
+          <path
+            class="hotspots__leader"
+            style="--spot-index: {{ forloop.index0 }};"
+            pathLength="1"
+            vector-effect="non-scaling-stroke"
+            d="M {{ dx }} {{ block.settings.y }} L {{ bend }} {{ ly }} L {{ lx }} {{ ly }}"
+          />
+        {%- endfor -%}
+      </svg>
+
+      <ul class="hotspots__list" role="list">
+        {%- for block in section.blocks -%}
+          <li
+            class="hotspots__spot hotspots__spot--{{ block.settings.align }}"
+            style="
+              --x: {{ block.settings.x }}%;
+              --y: {{ block.settings.y }}%;
+              --label-x: {{ block.settings.label_x }}%;
+              --label-y: {{ block.settings.label_y }}%;
+              --label-x-mobile: {{ block.settings.label_x_mobile }}%;
+              --label-y-mobile: {{ block.settings.label_y_mobile }}%;
+              --spot-index: {{ forloop.index0 }};
+            "
+            {{ block.shopify_attributes }}
+          >
+            <span class="hotspots__dot" aria-hidden="true"></span>
+
+            <div class="hotspots__label">
+              {%- if block.settings.title != blank -%}
+                <h3 class="hotspots__title">{{ block.settings.title | escape }}</h3>
+              {%- endif -%}
+              {%- if block.settings.text != blank -%}
+                <p class="hotspots__text">{{ block.settings.text }}</p>
+              {%- endif -%}
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .hotspots {
+    --reveal: 1; /* scroll driver will lower this later; 1 = fully shown */
+
+    position: relative;
+    background-color: var(--hotspots-bg, var(--color-bg-deep));
+  }
+
+  /* --- frame + stage --------------------------------------------------- */
+
+  /* Capped at --container-max, so the image's edges land on the same lines as
+     the text container's content edges. Bound to the token rather than a
+     number of its own — re-point --container-max and this follows. */
+  .hotspots__frame {
+    position: relative;
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    /* Derived, never authored — this is what keeps Y coordinates honest. */
+    aspect-ratio: calc(var(--img-ratio) / var(--zoom-mobile));
+    overflow: hidden;
+  }
+
+  .hotspots__stage {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: var(--stage-x-mobile);
+    width: calc(var(--zoom-mobile) * 100%);
+    aspect-ratio: var(--img-ratio);
+  }
+
+  .hotspots__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* --- leaders ---------------------------------------------------------- */
+
+  .hotspots__leaders {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  .hotspots__leaders--desktop { display: none; }
+
+  .hotspots__leader {
+    fill: none;
+    stroke: var(--color-border-strong);
+    stroke-width: 1;
+    stroke-dasharray: 1;
+    stroke-dashoffset: calc(1 - var(--reveal));
+    transition: stroke-dashoffset var(--motion-slow) var(--ease-out);
+  }
+
+  /* --- spots ------------------------------------------------------------ */
+
+  .hotspots__list {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: 0;
+    pointer-events: none;
+  }
+
+  .hotspots__spot {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hotspots__dot {
+    position: absolute;
+    /* image space -> frame space */
+    inset-inline-start: calc(var(--stage-x-mobile) + var(--x) * var(--zoom-mobile));
+    inset-block-start: var(--y);
+    width: var(--dot-size, 0.9rem);
+    height: var(--dot-size, 0.9rem);
+    border: 1px solid var(--color-text);
+    border-radius: var(--radius-pill);
+    background-color: var(--color-bg-deep);
+    translate: -50% -50%;
+    scale: var(--reveal);
+    opacity: var(--reveal);
+    transition: scale var(--motion-med) var(--ease-out),
+      opacity var(--motion-med) var(--ease-out);
+  }
+
+  .hotspots__label {
+    position: absolute;
+    inset-inline-start: var(--label-x-mobile);
+    inset-block-start: var(--label-y-mobile);
+    width: max-content;
+    max-width: 42%;
+    pointer-events: auto; /* the list suppresses these; labels are selectable text */
+    opacity: var(--reveal);
+    transition: opacity var(--motion-med) var(--ease-out);
+  }
+
+  /* `align` says which side of its anchor the label sits on, so the anchor is
+     always the end the leader connects to. */
+  .hotspots__spot--right .hotspots__label {
+    translate: 0 -50%;
+    padding-inline-start: var(--space-2xs);
+  }
+
+  .hotspots__spot--left .hotspots__label {
+    translate: -100% -50%;
+    padding-inline-end: var(--space-2xs);
+    text-align: end;
+  }
+
+  .hotspots__title {
+    margin: 0;
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-label);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+  .hotspots__text {
+    margin-block: var(--space-2xs) 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+    line-height: var(--leading-snug);
+  }
+
+  /* --- copy ------------------------------------------------------------- */
+
+  .hotspots__copy {
+    padding-block: var(--space-xl) var(--space-md);
+  }
+
+  .hotspots__copy-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+
+  .hotspots__eyebrow {
+    margin: 0;
+    color: var(--brand-accent);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-xs);
+    font-style: italic;
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+  }
+
+  .hotspots__heading {
+    margin: 0;
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-heading);
+    text-transform: uppercase;
+  }
+
+  .hotspots__body {
+    max-width: 34ch;
+    color: var(--color-text-muted);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+  }
+
+  .hotspots__body > :first-child { margin-block-start: 0; }
+  .hotspots__body > :last-child { margin-block-end: 0; }
+
+  .hotspots__checklist {
+    display: grid;
+    gap: var(--space-2xs);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .hotspots__check {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: var(--space-2xs);
+    color: var(--color-text-muted);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+  }
+
+  .hotspots__check-icon {
+    width: var(--space-xs);
+    height: var(--space-xs);
+    color: var(--brand-accent);
+  }
+
+  /* --- desktop ---------------------------------------------------------- */
+
+  @media screen and (min-width: 990px) {
+    .hotspots__frame {
+      /* zoom 1 — the stage fills the frame and nothing is cropped. */
+      aspect-ratio: var(--img-ratio);
+    }
+
+    .hotspots__stage {
+      inset-inline-start: var(--stage-x);
+      width: calc(var(--zoom) * 100%);
+    }
+
+    .hotspots__dot {
+      inset-inline-start: calc(var(--stage-x) + var(--x) * var(--zoom));
+      --dot-size: 1.1rem;
+    }
+
+    .hotspots__label {
+      inset-inline-start: var(--label-x);
+      inset-block-start: var(--label-y);
+      max-width: 24rem;
+    }
+
+    .hotspots__leaders--desktop { display: block; }
+    .hotspots__leaders--mobile { display: none; }
+
+    /* The copy overlays the photograph's dark left side. */
+    .hotspots__copy {
+      position: absolute;
+      inset-block: 0;
+      inset-inline: 0;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      padding-block: 0;
+      pointer-events: none;
+    }
+
+    .hotspots__copy .apex-container {
+      width: 100%;
+    }
+
+    .hotspots__copy-inner {
+      max-width: 44rem;
+      gap: var(--space-md);
+      pointer-events: auto;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "APEX hotspots",
+  "tag": "section",
+  "class": "apex-hotspots-section",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Copy"
+    },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The science of" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Engineered perfection." },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "info": "Desktop only in the mockup — the mobile layout omits it.",
+      "default": "<p>Our 48-hole design isn't just different — it's better. Every hole has a purpose, delivering the ideal balance of consistency, control, and durability.</p>"
+    },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "The engineering" },
+    { "type": "url", "id": "link_url", "label": "Link" },
+    {
+      "type": "textarea",
+      "id": "checklist",
+      "label": "Checklist",
+      "info": "One item per line. Each gets a bronze tick. Blank hides the list."
+    },
+    { "type": "text", "id": "button_label", "label": "Button label" },
+    { "type": "url", "id": "button_url", "label": "Button link" },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    {
+      "type": "text",
+      "id": "fallback_image_name",
+      "label": "Fallback file name",
+      "info": "A file under Content > Files, used when no image is picked.",
+      "default": "hotspots-initial-mockup-image.png"
+    },
+    {
+      "type": "text",
+      "id": "image_ratio",
+      "label": "Fallback image aspect ratio",
+      "info": "Width divided by height. Only used with the fallback file — a picked image reports its own.",
+      "default": "1.993"
+    },
+    { "type": "color", "id": "background", "label": "Background", "default": "#000000" },
+    {
+      "type": "header",
+      "content": "Mobile framing",
+      "info": "Zoom crops the image sideways. The frame height follows automatically, so hotspots stay aligned."
+    },
+    {
+      "type": "range",
+      "id": "zoom_mobile",
+      "min": 100,
+      "max": 260,
+      "step": 2,
+      "unit": "%",
+      "label": "Mobile zoom",
+      "default": 178
+    },
+    {
+      "type": "range",
+      "id": "offset_mobile",
+      "min": -120,
+      "max": 40,
+      "step": 2,
+      "unit": "%",
+      "label": "Mobile horizontal offset",
+      "default": -42
+    }
+  ],
+  "blocks": [
+    {
+      "type": "hotspot",
+      "name": "Hotspot",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "48-hole design" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Maximum air flow for truer flight and better spin." },
+        {
+          "type": "select",
+          "id": "align",
+          "label": "Label sits",
+          "options": [
+            { "value": "right", "label": "Right of its anchor" },
+            { "value": "left", "label": "Left of its anchor" }
+          ],
+          "default": "right"
+        },
+        {
+          "type": "header",
+          "content": "Dot position",
+          "info": "Percentage of the IMAGE. Authored once — correct at every breakpoint."
+        },
+        { "type": "range", "id": "x", "min": 0, "max": 100, "step": 1, "unit": "%", "label": "Dot X", "default": 68 },
+        { "type": "range", "id": "y", "min": 0, "max": 100, "step": 1, "unit": "%", "label": "Dot Y", "default": 27 },
+        {
+          "type": "header",
+          "content": "Label position",
+          "info": "Percentage of the VISIBLE frame, so labels never fall off a cropped edge."
+        },
+        { "type": "range", "id": "label_x", "min": 0, "max": 100, "step": 1, "unit": "%", "label": "Label X, desktop", "default": 78 },
+        { "type": "range", "id": "label_y", "min": 0, "max": 100, "step": 1, "unit": "%", "label": "Label Y, desktop", "default": 20 },
+        { "type": "range", "id": "label_x_mobile", "min": 0, "max": 100, "step": 1, "unit": "%", "label": "Label X, mobile", "default": 6 },
+        { "type": "range", "id": "label_y_mobile", "min": 0, "max": 100, "step": 1, "unit": "%", "label": "Label Y, mobile", "default": 20 }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "APEX hotspots",
+      "blocks": [
+        {
+          "type": "hotspot",
+          "settings": {
+            "title": "48-hole design",
+            "text": "Maximum air flow for truer flight and better spin.",
+            "align": "right",
+            "x": 68, "y": 27,
+            "label_x": 78, "label_y": 20,
+            "label_x_mobile": 6, "label_y_mobile": 22
+          }
+        },
+        {
+          "type": "hotspot",
+          "settings": {
+            "title": "Patent-pending seam technology",
+            "text": "Enhanced durability and shape retention.",
+            "align": "right",
+            "x": 51, "y": 69,
+            "label_x": 28, "label_y": 76,
+            "label_x_mobile": 6, "label_y_mobile": 62
+          }
+        },
+        {
+          "type": "hotspot",
+          "settings": {
+            "title": "Precision balance",
+            "text": "Consistent bounce and reliable performance.",
+            "align": "right",
+            "x": 74, "y": 72,
+            "label_x": 80, "label_y": 74,
+            "label_x_mobile": 52, "label_y_mobile": 90
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

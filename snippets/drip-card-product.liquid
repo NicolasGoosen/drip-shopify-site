@@ -1,0 +1,115 @@
+{%- comment -%}
+  DRIP product card.
+
+  Accepts:
+  - card_product: {Object} Product (required)
+  - lazy_load:    {Boolean} lazy-load the image. Default true.
+  - cta_label:    {String} button label. Default "Shop now".
+
+  Replaces Dawn's `card-product` on the collection grid only. Dawn's card is
+  built for a light `card_color_scheme` surface and carries vendor, rating,
+  quick-add, volume-pricing and swatch machinery this catalogue does not use;
+  none of it could be styled onto the dark ground without fighting six
+  stylesheets at once.
+
+  MEDIA. Uses `featured_image`, like a standard Shopify collection — the image
+  a merchant sets on the product is the image the collection shows, and it
+  stays in step with search, related products and every other surface.
+
+  It previously preferred `custom.pack_image` (the transparent PNG the
+  homepage pack grid uses) on the grounds that the shop's featured images are
+  shot on white and punch a white rectangle into this dark band. That is still
+  true, and it is now a MERCHANDISING problem rather than a theme one: the fix
+  is a featured image that suits the ground, not a card that quietly shows a
+  different picture than the one the merchant chose.
+
+  PRICE PER UNIT is the real decision axis for a consumable sold in five pack
+  sizes, and the pack grid does not show it anywhere. Derived from
+  `custom.pack_label` (the same metafield driving the homepage numerals) via
+  `times: 1`, which yields 0 for a blank or non-numeric value — hence the
+  `> 1` guard, which also suppresses a pointless "$9.99 / pack" on a 1-pack.
+
+  ONE TAB STOP. The whole card is a single <a>; the CTA is a styled <span>
+  inside it, not a nested link. A visible button that is not separately
+  focusable is the correct trade here — duplicating the destination would put
+  two identical tab stops on every card, which is worse for keyboard use than
+  one.
+{%- endcomment -%}
+
+{%- liquid
+  assign lazy_attr = 'lazy'
+  if lazy_load == false
+    assign lazy_attr = 'eager'
+  endif
+  assign label = cta_label | default: 'Shop now'
+  assign alt_text = card_product.title | escape
+
+  assign media = card_product.featured_image
+
+  assign pack_count = card_product.metafields.custom.pack_label.value | times: 1
+  assign show_unit_price = false
+  if pack_count > 1 and card_product.price > 0
+    assign unit_price = card_product.price | divided_by: pack_count
+    if unit_price > 0
+      assign show_unit_price = true
+    endif
+  endif
+-%}
+
+<article class="drip-pcard{% unless card_product.available %} drip-pcard--soldout{% endunless %}">
+  <a class="drip-pcard__link" href="{{ card_product.url }}">
+    <div class="drip-pcard__media">
+      {%- if media != blank -%}
+        {{
+          media
+          | image_url: width: 800
+          | image_tag:
+            loading: lazy_attr,
+            class: 'drip-pcard__img',
+            alt: alt_text,
+            widths: '200,300,400,600,800',
+            sizes: '(min-width: 990px) 280px, (min-width: 750px) 30vw, 42vw'
+        }}
+      {%- else -%}
+        <span class="drip-pcard__placeholder" aria-hidden="true">
+          {{ 'product-apparel-1' | placeholder_svg_tag: 'drip-pcard__placeholder-svg' }}
+        </span>
+      {%- endif -%}
+
+      {%- unless card_product.available -%}
+        <span class="drip-pcard__badge">{{ 'products.product.sold_out' | t }}</span>
+      {%- endunless -%}
+    </div>
+
+    <div class="drip-pcard__body">
+      <h3 class="drip-pcard__title">{{ card_product.title | escape }}</h3>
+
+      <p class="drip-pcard__price">
+        <span class="drip-pcard__amount">
+          {%- if card_product.price_varies -%}
+            {{ 'products.product.price.from_price_html' | t: price: card_product.price_min | money }}
+          {%- else -%}
+            {{ card_product.price | money }}
+          {%- endif -%}
+        </span>
+
+        {%- if card_product.compare_at_price > card_product.price -%}
+          <s class="drip-pcard__was">{{ card_product.compare_at_price | money }}</s>
+        {%- endif -%}
+      </p>
+
+      {%- if show_unit_price -%}
+        <p class="drip-pcard__unit">{{ unit_price | money }} / ball</p>
+      {%- else -%}
+        {%- comment -%}
+          Keeps the CTA on a common baseline across a row when one product is
+          missing its pack_label. An empty <p> would be announced as nothing,
+          but aria-hidden makes that explicit rather than incidental.
+        {%- endcomment -%}
+        <p class="drip-pcard__unit drip-pcard__unit--empty" aria-hidden="true"></p>
+      {%- endif -%}
+    </div>
+
+    <span class="btn btn-outline drip-pcard__cta">{{ label }}</span>
+  </a>
+</article>

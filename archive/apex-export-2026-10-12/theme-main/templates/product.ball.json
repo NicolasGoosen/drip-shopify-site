@@ -1,0 +1,407 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "apex-main-product",
+      "blocks": {
+        "rating": {
+          "type": "rating",
+          "settings": {
+            "reviews_label": "reviews",
+            "reviews_anchor": "#shopify-section-reviews",
+            "badge_label": "USAPA approved",
+            "badge_icon": "shield-check"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "note": "Free shipping on orders $150+",
+            "note_icon": "truck"
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "lead": "Engineered for a more consistent flight."
+          }
+        },
+        "feature_icons": {
+          "type": "feature_icons",
+          "settings": {
+            "icon_1": "usap-approved",
+            "label_1": "USA Pickleball Approved",
+            "icon_2": "trophy",
+            "label_2": "FOR HARD-COURT PLAY",
+            "icon_3": "indoor-outdoor",
+            "label_3": "",
+            "icon_4": "target",
+            "label_4": ""
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {}
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "preorders_open": false,
+            "preorder_closed_message": "Preorders Opening Soon",
+            "show_dynamic_checkout": false
+          }
+        }
+      },
+      "block_order": [
+        "rating",
+        "title",
+        "price",
+        "description",
+        "feature_icons",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons"
+      ],
+      "settings": {
+        "header_layout": "overlay",
+        "background": "#0b090c",
+        "padding_bottom": 32,
+        "title_split_words": 2,
+        "show_breadcrumb": true,
+        "crumb_home": "Home",
+        "crumb_parent_label": "Shop",
+        "crumb_parent_link": "",
+        "badge_text": "Best seller",
+        "media_ratio": "1",
+        "enable_zoom": true,
+        "rating_value": "4.8",
+        "rating_count": "620"
+      }
+    },
+    "trust_bar": {
+      "type": "apex-trust-bar",
+      "blocks": {
+        "shipping": {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "title": "Free shipping",
+            "text": "On orders $150+",
+            "link": ""
+          }
+        },
+        "returns": {
+          "type": "item",
+          "disabled": true,
+          "settings": {
+            "icon": "returns",
+            "title": "30-day returns",
+            "text": "Hassle-free returns",
+            "link": ""
+          }
+        },
+        "secure": {
+          "type": "item",
+          "disabled": true,
+          "settings": {
+            "icon": "lock",
+            "title": "Pay securely",
+            "text": "Encrypted checkout",
+            "link": ""
+          }
+        },
+        "perform": {
+          "type": "item",
+          "settings": {
+            "icon": "target",
+            "title": "Built to perform",
+            "text": "Engineered for the game",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "shipping",
+        "returns",
+        "secure",
+        "perform"
+      ],
+      "settings": {
+        "background": "#0b090c",
+        "item_background": "#151114",
+        "padding_block": 16
+      }
+    },
+    "science_split": {
+      "type": "apex-science-split",
+      "settings": {
+        "eyebrow": "Innovative Design",
+        "heading": "Built for consistency.",
+        "body": "<p>APEX Pickleballs feature a patent-pending seam and chamfered-edge 48-hole design to prevent cracking and deformation. Color optimized for maximum visibility in all conditions.</p>",
+        "checklist": "Patent Pending Seam\nOptimized Hole Pattern\nClear Visibility",
+        "button_label": "",
+        "button_url": "",
+        "link_label": "",
+        "link_url": "",
+        "image": "shopify://shop_images/hotspots-ball-v4.png",
+        "image_name": "hotspots-image-v3.png",
+        "image_ratio": "1.778",
+        "background_image": "shopify://shop_images/court_background.png",
+        "background_image_name": "court-background-v1.png",
+        "tint_opacity": 65,
+        "background": "#000000",
+        "copy_width": 46,
+        "padding_block": 96
+      }
+    },
+    "feature_cards": {
+      "type": "apex-feature-cards",
+      "blocks": {
+        "flight": {
+          "type": "card",
+          "settings": {
+            "icon": "value-props-icon-ball-design",
+            "title": "48-hole DESIGN",
+            "text": "Balanced air-flow for a straighter flight path."
+          }
+        },
+        "bounce": {
+          "type": "card",
+          "settings": {
+            "icon": "value-props-icon-advanced-seam",
+            "title": "Advanced Seam",
+            "text": "Structural stability for lasting performance."
+          }
+        },
+        "durable": {
+          "type": "card",
+          "settings": {
+            "icon": "value-props-icon-true-bounce",
+            "title": "True Bounce",
+            "text": "Enhanced design for consistent bounce."
+          }
+        },
+        "trusted": {
+          "type": "card",
+          "settings": {
+            "icon": "value-props-icon-built-to-last",
+            "title": "Built to Last",
+            "text": "Optimized construction for superior durability."
+          }
+        }
+      },
+      "block_order": [
+        "flight",
+        "bounce",
+        "durable",
+        "trusted"
+      ],
+      "settings": {
+        "eyebrow": "Why players choose APEX",
+        "heading": "",
+        "background": "#0b090c",
+        "card_background": "#1f161b",
+        "padding_block": 64,
+        "icon_color": "accent",
+        "icon_size": 40
+      }
+    },
+    "reviews": {
+      "type": "apex-reviews",
+      "blocks": {
+        "one": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "headline": "Consistent every time.",
+            "quote": "The APEX 48 is the most consistent ball I've played with. True flight, great bounce, and super durable.",
+            "name": "Jordan W.",
+            "badge": "Verified Buyer"
+          }
+        },
+        "two": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "headline": "Tournament ready.",
+            "quote": "We use APEX 48 in our league tournaments. It holds up and plays great indoors and outdoors.",
+            "name": "Maya T.",
+            "badge": "Verified Buyer"
+          }
+        },
+        "three": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "headline": "My go-to ball.",
+            "quote": "Whether I'm training or just playing for fun, I grab APEX. Quality you can feel on every shot.",
+            "name": "Alex R.",
+            "badge": "Verified Buyer"
+          }
+        }
+      },
+      "block_order": [
+        "one",
+        "two",
+        "three"
+      ],
+      "disabled": true,
+      "settings": {
+        "eyebrow": "Trusted by players",
+        "rating_value": "4.8",
+        "rating_count": "620",
+        "count_label": "reviews",
+        "cta_label": "Write a review",
+        "cta_link": "",
+        "background": "#0b090c",
+        "card_background": "#151114",
+        "padding_block": 64,
+        "avatar_size": 40
+      }
+    },
+    "apex_testimonials_PQybhX": {
+      "type": "apex-testimonials",
+      "blocks": {
+        "testimonial_LdKxm6": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "APEX 48 plays true every time. The flight, the bounce—so consistent. It just feels right.",
+            "name": "Jordan W.",
+            "rating": "4.5 DUPR"
+          }
+        },
+        "testimonial_ndpiz8": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "You can feel the difference from the first rally. Durable, predictable, and dialed in.",
+            "name": "Maya T.",
+            "rating": "4.0 DUPR"
+          }
+        },
+        "testimonial_kXAehr": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "My go-to for tournaments and training. It holds up and helps my game stay sharp.",
+            "name": "Alex R.",
+            "rating": "4.8 DUPR"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_LdKxm6",
+        "testimonial_ndpiz8",
+        "testimonial_kXAehr"
+      ],
+      "disabled": true,
+      "name": "APEX testimonials",
+      "settings": {
+        "eyebrow": "Trusted by players",
+        "avatar_size": 48,
+        "background": "#151114",
+        "padding_block": 96
+      }
+    },
+    "cross_sell": {
+      "type": "apex-cross-sell",
+      "blocks": {
+        "pack_10": {
+          "type": "product",
+          "settings": {
+            "product": "",
+            "title": "",
+            "button_label": "Add to cart"
+          }
+        },
+        "pack_50": {
+          "type": "product",
+          "settings": {
+            "product": "",
+            "title": "",
+            "button_label": "Add to cart"
+          }
+        },
+        "bucket": {
+          "type": "product",
+          "settings": {
+            "product": "",
+            "title": "",
+            "button_label": "Add to cart"
+          }
+        },
+        "bag": {
+          "type": "product",
+          "settings": {
+            "product": "",
+            "title": "",
+            "button_label": "Add to cart"
+          }
+        },
+        "paddles": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "subtitle": "View Collection",
+            "button_label": "Shop paddles"
+          }
+        }
+      },
+      "block_order": [
+        "pack_10",
+        "pack_50",
+        "bucket",
+        "bag",
+        "paddles"
+      ],
+      "disabled": true,
+      "settings": {
+        "eyebrow": "Complete your game",
+        "heading": "",
+        "button_behaviour": "add",
+        "background": "#0b090c",
+        "card_background": "#1f161b",
+        "padding_block": 64,
+        "media_ratio": "1"
+      }
+    },
+    "cta_banner": {
+      "type": "apex-cta-banner",
+      "settings": {
+        "fallback_image_name": "photoshoot-1.jpg",
+        "scrim_opacity": 70,
+        "min_height": 352,
+        "eyebrow": "Unmatched Performance",
+        "heading": "Play APEX.",
+        "body": "",
+        "cta_label": "Shop APEX 48",
+        "cta_link": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "trust_bar",
+    "science_split",
+    "feature_cards",
+    "reviews",
+    "apex_testimonials_PQybhX",
+    "cross_sell",
+    "cta_banner"
+  ]
+}

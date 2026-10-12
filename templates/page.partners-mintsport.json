@@ -1,0 +1,109 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "partners-mintsport",
+      "blocks": {
+        "faq-1": {
+          "type": "faq",
+          "settings": {
+            "question": "Does Drip make pickleball paddles?",
+            "answer": "<p>No. Drip makes the Drip pickleball. For paddles and accessories we endorse Mint Sport.</p>"
+          }
+        },
+        "faq-2": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the Drip and Mint Sport partnership?",
+            "answer": "<p>Mint Sport is the paddle partner to Drip.</p>"
+          }
+        },
+        "faq-3": {
+          "type": "faq",
+          "settings": {
+            "question": "Where do I buy Mint Sport products?",
+            "answer": "<p>You can purchase Mint gear direct from mintsport.com and from Amazon. </p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq-1",
+        "faq-2",
+        "faq-3"
+      ],
+      "custom_css": [
+        ".mint-split {grid-template-columns: none;}",
+        ".mint-crumbs {display: none;}"
+      ],
+      "settings": {
+        "background": "#0b090c",
+        "background_light": "#ffffff",
+        "padding_block": 64,
+        "partner_name": "Mint Sport",
+        "partner_url": "https://mintsport.com/collections/unleash-pickleball-paddles",
+        "partner_rel": "none",
+        "seo_description": "Drip Pickleball officially endorses Mint Sport paddles and pickleball accessories.",
+        "drip_description": "Drip Pickleball makes the Drip 48, a 48-hole pickleball engineered for consistent flight and tournament durability.",
+        "partner_description": "Mint Sport makes pickleball paddles, accessories and apparel.",
+        "partner_sameas": "",
+        "crumb_home": "Home",
+        "crumb_parent": "Partners",
+        "crumb_parent_link": "/pages/partners",
+        "hero_image": "shopify://shop_images/Project_20260813_0075_1.png",
+        "hero_eyebrow": "Official paddle partner",
+        "hero_heading": "THE UNLEASH SERIES",
+        "hero_logo_word": "UNLEASH",
+        "hero_heading_accent": "",
+        "hero_text": "A great ball calls for a great paddle. New era models just dropped.",
+        "hero_cta_label": "Shop Unleash™",
+        "hero_cta2_label": "",
+        "hero_cta2_link": "",
+        "partner_logo_alt": "Mint Sport",
+        "stats_label": "Partnership at a glance",
+        "endorse_label": "",
+        "endorse_heading": "",
+        "endorse_text": "",
+        "range_image": "shopify://shop_images/omar-pic-1.png",
+        "range_image_alt": "Mint Sport pickleball paddles",
+        "range_label": "OUR PARTNER",
+        "range_heading": "Mint Sport.",
+        "range_logo_word": "Mint Sport.",
+        "range_text": "Mint Sport is the kid on the block. A performance-focused pickleball brand developing paddles, bags, grips and on-court accessories for players of all levels. Their range includes the latest Gen3 and Gen4 Unleash™ series paddles, alongside the established Gen2 M-Series paddle ranges with each model engineered around a distinct balance of power, control, and a luxurious hand-feel.",
+        "kit_eyebrow": "",
+        "kit_heading": "",
+        "kit_text": "",
+        "kit_cta_label": "",
+        "kit_cta2_label": "",
+        "kit_cta2_link": "",
+        "kit_image_alt": "",
+        "quote_label": "",
+        "quote_text": "",
+        "quote_name": "",
+        "quote_role": "",
+        "faq_label": "",
+        "faq_heading": "Common questions.",
+        "faq_open_first": false,
+        "show_packs": false,
+        "packs_heading": "Get the ball right first.",
+        "packs_collection": "",
+        "packs_count": 4,
+        "packs_link_label": "View all packs",
+        "packs_link": "",
+        "cta_heading": "",
+        "cta_text": "",
+        "cta_label": "Visit Mint Sport"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

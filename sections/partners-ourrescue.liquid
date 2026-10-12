@@ -1,0 +1,952 @@
+{%- comment -%}
+  DRIP x OUR RESCUE — partner page.
+
+  Same visual language and token discipline as partners-mintsport, namespaced
+  `.orsc`. Three bands only, because that is the whole brief:
+
+    1. HERO       heading, copy, CTA
+    2. SUPPORT    one-line statement + visit-website button
+    3. PROBLEM    heading, framing paragraph, three cited figures, CTA
+
+  ON THE FIGURES
+  Every statistic is a `figure` block carrying its own `source` string, and the
+  source renders as visible text under the number — not a tooltip, not a title
+  attribute. These are third-party claims about a serious subject; the citation
+  travels with the number or the number should not ship. Sources as supplied:
+  NCMEC, Polaris (2023), and the International Labour Organization.
+
+  A figure whose `value` is empty renders as a statement row instead (the
+  "Sex trafficking: the most reported form..." case), so the three supplied
+  items sit in one grid without a fake number invented to fill the slot.
+
+  ON rel
+  `partner_rel` defaults to "none" — followed links. Correct for a genuine
+  editorial endorsement of a nonprofit. If this is a paid or contra
+  arrangement, switch it to "sponsored".
+
+  COPY IS SUPPLIED, NOT DRAFTED
+  Hero and band copy come from the brief verbatim and are schema defaults, so
+  a merchant can edit them. Nothing here invents a claim about Our Rescue.
+{%- endcomment -%}
+
+{%- liquid
+  assign figures = section.blocks | where: 'type', 'figure'
+
+  assign partner = section.settings.partner_name | default: 'Our Rescue'
+  assign partner_url = section.settings.partner_url
+
+  assign rel_attr = ''
+  case section.settings.partner_rel
+    when 'sponsored'
+      assign rel_attr = 'sponsored noopener'
+    when 'nofollow'
+      assign rel_attr = 'nofollow noopener'
+    else
+      assign rel_attr = 'noopener'
+  endcase
+-%}
+
+{%- comment -%} --------------------------------------------- Structured data {%- endcomment -%}
+{%- liquid
+  assign partner_logo = ''
+  if section.settings.partner_logo != blank
+    assign partner_logo = section.settings.partner_logo | image_url: width: 600
+    unless partner_logo contains 'http'
+      assign partner_logo = partner_logo | prepend: 'https:'
+    endunless
+  endif
+-%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": {{ shop.url | append: '/#organization' | json }},
+      "name": {{ shop.name | json }},
+      "url": {{ shop.url | json }},
+      "description": {{ section.settings.drip_description | json }}
+    },
+    {
+      "@type": "NGO",
+      "@id": {{ partner_url | append: '#organization' | json }},
+      "name": {{ partner | json }},
+      "url": {{ partner_url | json }}
+      {%- if partner_logo != blank -%},
+      "logo": {{ partner_logo | json }}
+      {%- endif -%}
+      {%- if section.settings.partner_description != blank -%},
+      "description": {{ section.settings.partner_description | json }}
+      {%- endif -%}
+      {%- if section.settings.partner_sameas != blank -%},
+      "sameAs": [
+        {%- assign sameas = section.settings.partner_sameas | split: ',' -%}
+        {%- for url in sameas -%}
+          {{ url | strip | json }}{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      ]
+      {%- endif -%}
+    },
+    {
+      "@type": "WebPage",
+      "@id": {{ canonical_url | json }},
+      "url": {{ canonical_url | json }},
+      "name": {{ section.settings.hero_heading | json }},
+      "description": {{ section.settings.seo_description | json }},
+      "isPartOf": { "@id": {{ shop.url | append: '/#organization' | json }} },
+      "about": { "@id": {{ partner_url | append: '#organization' | json }} },
+      "publisher": { "@id": {{ shop.url | append: '/#organization' | json }} }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": {{ canonical_url | append: '#breadcrumb' | json }},
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": {{ section.settings.crumb_home | json }},
+          "item": {{ shop.url | json }}
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": {{ section.settings.crumb_parent | json }},
+          "item": {{ shop.url | append: section.settings.crumb_parent_link | json }}
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": {{ page.title | default: partner | json }}
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<div
+  class="orsc"
+  style="
+    --orsc-bg: {{ section.settings.background }};
+    --orsc-bg-light: {{ section.settings.background_light }};
+    --orsc-pad: {{ section.settings.padding_block }}px;
+  "
+>
+  {%- comment -%} ---------------------------------------------------- Hero {%- endcomment -%}
+  <section class="orsc-hero">
+    {%- if section.settings.hero_image != blank -%}
+      <img
+        class="orsc-hero__media"
+        src="{{ section.settings.hero_image | image_url: width: 2000 }}"
+        alt=""
+        width="{{ section.settings.hero_image.width }}"
+        height="{{ section.settings.hero_image.height }}"
+        loading="eager"
+        fetchpriority="high"
+      >
+    {%- endif -%}
+    <div class="orsc-hero__scrim"></div>
+
+    <div class="drip-container orsc-hero__inner">
+      <div class="orsc-hero__copy">
+        <nav class="orsc-crumbs" aria-label="Breadcrumb">
+          <ol role="list">
+            <li><a href="{{ routes.root_url }}">{{ section.settings.crumb_home | escape }}</a></li>
+            <li>
+              <a href="{{ section.settings.crumb_parent_link | default: routes.root_url }}">
+                {{ section.settings.crumb_parent | escape }}
+              </a>
+            </li>
+            <li aria-current="page">{{ page.title | default: partner | escape }}</li>
+          </ol>
+        </nav>
+
+        {%- if section.settings.hero_eyebrow != blank -%}
+          <p class="orsc-eyebrow">
+            <span class="orsc-rule" aria-hidden="true"></span>
+            {{ section.settings.hero_eyebrow | escape }}
+          </p>
+        {%- endif -%}
+
+        <h1 class="orsc-hero__heading">{{ section.settings.hero_heading | escape }}</h1>
+
+        {%- if section.settings.hero_text != blank -%}
+          <p class="orsc-hero__text">{{ section.settings.hero_text }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.hero_cta_label != blank and partner_url != blank -%}
+          <div class="orsc-actions">
+            <a class="btn btn-light" href="{{ partner_url }}" rel="{{ rel_attr }}">
+              {{ section.settings.hero_cta_label | escape }}
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.partner_logo != blank -%}
+        <div class="orsc-hero__logo">
+          <img
+            src="{{ section.settings.partner_logo | image_url: width: 460 }}"
+            alt="{{ section.settings.partner_logo_alt | default: partner | escape }}"
+            width="{{ section.settings.partner_logo.width }}"
+            height="{{ section.settings.partner_logo.height }}"
+            loading="eager"
+          >
+        </div>
+      {%- endif -%}
+    </div>
+  </section>
+
+  {%- comment -%} ------------------------------------------------- Support {%- endcomment -%}
+  {%- if section.settings.support_text != blank -%}
+    <section
+      class="orsc-band orsc-band--light orsc-band--support{% if section.settings.support_invert %} orsc-band--inverted{% endif %}"
+      aria-labelledby="orsc-support"
+      {% if section.settings.support_background != blank %}
+        style="--orsc-support-bg: {{ section.settings.support_background }};"
+      {% endif %}
+    >
+      {%- comment -%}
+        The line comes from snippets/drip-rule-line, which carries its own
+        CSS. That matters: Shopify subsets {% stylesheet %} CSS to the page's
+        render tree, so borrowing .drip-rule__line from sections/drip-rule by
+        class name would resolve to nothing on this page — that section is not
+        rendered here. Rendering the snippet pulls the styles in with it.
+
+        NOT the .drip-rule wrapper class — that one paints its own background
+        and vertical padding, which would punch a band-coloured stripe through
+        this one. Only the --metallic modifier is needed, because the sweep is
+        selected as `.drip-rule--metallic .drip-rule__line`.
+
+        Placed INSIDE the band so they sit on whatever background the merchant
+        picks, rather than needing a colour of their own.
+      {%- endcomment -%}
+      {%- if section.settings.support_rules -%}
+        <div class="drip-container orsc-bandrule drip-rule--metallic">
+          {% render 'drip-rule-line' %}
+        </div>
+      {%- endif -%}
+
+      <div class="drip-container orsc-statement">
+        <p class="orsc-statement__text" id="orsc-support">{{ section.settings.support_text }}</p>
+        {%- if section.settings.support_cta_label != blank and partner_url != blank -%}
+          <div class="orsc-actions">
+            <a
+              class="btn {% if section.settings.support_invert %}btn-light{% else %}btn-dark{% endif %}"
+              href="{{ partner_url }}"
+              rel="{{ rel_attr }}"
+            >
+              {{ section.settings.support_cta_label | escape }}
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.support_rules -%}
+        <div class="drip-container orsc-bandrule drip-rule--metallic">
+          {% render 'drip-rule-line' %}
+        </div>
+      {%- endif -%}
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ------------------------------------------------- Problem {%- endcomment -%}
+  {%- if section.settings.problem_heading != blank or figures.size > 0 -%}
+    <section class="orsc-band orsc-band--ruled" aria-labelledby="orsc-problem">
+      <div class="drip-container">
+        {%- comment -%}
+          Deliberately NOT .orsc-split. The section carries a custom_css
+          override that flattens .orsc-split to a single column; reusing it
+          here would fight that rule. .orsc-showcase is its own two-column
+          layout: square image left, copy right, stacked on mobile.
+
+          Only the heading and body sit in the right column — the figures
+          below stay full width, so the three-up row keeps its rhythm.
+        {%- endcomment -%}
+        <div class="orsc-showcase">
+          {%- if section.settings.problem_image != blank -%}
+            <div class="orsc-showcase__media">
+              <img
+                src="{{ section.settings.problem_image | image_url: width: 1200 }}"
+                alt="{{ section.settings.problem_image_alt | escape }}"
+                width="{{ section.settings.problem_image.width }}"
+                height="{{ section.settings.problem_image.height }}"
+                loading="lazy"
+              >
+            </div>
+          {%- endif -%}
+
+          <div class="orsc-showcase__copy">
+            {%- if section.settings.problem_label != blank -%}
+              <p class="orsc-tab orsc-tab--accent">{{ section.settings.problem_label | escape }}</p>
+            {%- endif -%}
+            {%- if section.settings.problem_heading != blank -%}
+              <h2 class="orsc-h2" id="orsc-problem">{{ section.settings.problem_heading | escape }}</h2>
+            {%- endif -%}
+            {%- if section.settings.problem_text != blank -%}
+              <p class="orsc-lead">{{ section.settings.problem_text | newline_to_br }}</p>
+            {%- endif -%}
+          </div>
+        </div>
+
+        {%- if figures.size > 0 -%}
+          <ul class="orsc-figures" role="list">
+            {%- for block in figures -%}
+              <li class="orsc-figure" {{ block.shopify_attributes }}>
+                {%- if block.settings.value != blank -%}
+                  <p class="orsc-figure__value">{{ block.settings.value | escape }}</p>
+                {%- endif -%}
+                {%- if block.settings.text != blank -%}
+                  <p class="orsc-figure__text">{{ block.settings.text }}</p>
+                {%- endif -%}
+                {%- if block.settings.source != blank -%}
+                  <p class="orsc-figure__source">
+                    <cite>{{ block.settings.source | escape }}</cite>
+                  </p>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        {%- if section.settings.problem_cta_label != blank and partner_url != blank -%}
+          <div class="orsc-actions orsc-actions--band">
+            <a class="btn btn-outline" href="{{ partner_url }}" rel="{{ rel_attr }}">
+              {{ section.settings.problem_cta_label | escape }}
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  /* ==========================================================================
+     DRIP x Our Rescue partner page.
+
+     Same pattern as partners-mintsport: --orsc-ink flips on the light band so
+     one set of type rules serves both grounds.
+     ========================================================================== */
+
+  .orsc {
+    --orsc-ink: var(--color-text);
+    --orsc-ink-muted: var(--color-text-muted);
+    --orsc-ink-faint: var(--color-text-faint);
+    --orsc-line: var(--color-border);
+
+    background-color: var(--orsc-bg, var(--color-bg));
+    color: var(--orsc-ink);
+    font-family: var(--font-body);
+  }
+
+  /* --- shared type ------------------------------------------------------- */
+
+  .orsc-h2 {
+    margin: 0;
+    color: var(--orsc-ink);
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-display);
+    text-transform: uppercase;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+
+  .orsc-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    margin: 0 0 var(--space-sm);
+    color: var(--brand-accent);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+  .orsc-rule {
+    display: inline-block;
+    flex: none;
+    width: var(--rule-width);
+    height: var(--rule-thickness);
+    background-color: var(--brand-accent);
+  }
+
+  .orsc-lead {
+    margin: var(--space-sm) 0 0;
+    max-width: 68ch;
+    color: var(--orsc-ink-muted);
+    font-size: var(--text-lead);
+    line-height: var(--leading-body);
+  }
+
+  .orsc-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-top: var(--space-md);
+  }
+
+  .orsc-actions--band {
+    margin-top: var(--space-lg);
+  }
+
+  /* --- breadcrumbs -------------------------------------------------------- */
+
+  .orsc-crumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2xs);
+    margin: 0 0 var(--space-sm);
+    padding: 0;
+    list-style: none;
+    color: var(--color-text-faint);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+  }
+
+  .orsc-crumbs li + li::before {
+    content: '/';
+    margin-inline-end: var(--space-2xs);
+    opacity: 0.6;
+  }
+
+  .orsc-crumbs a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  @media (hover: hover) {
+    .orsc-crumbs a:hover {
+      color: var(--brand-accent);
+    }
+  }
+
+  .orsc-crumbs [aria-current='page'] {
+    color: var(--color-text);
+  }
+
+  /* --- bands -------------------------------------------------------------- */
+
+  .orsc-band {
+    padding-block: var(--orsc-pad, var(--space-section));
+  }
+
+  .orsc-band--ruled {
+    border-top: 1px solid var(--orsc-line);
+  }
+
+  .orsc-band--light {
+    --orsc-ink: var(--color-text-on-light);
+    --orsc-ink-muted: color-mix(in srgb, var(--ground) 78%, var(--light));
+    --orsc-ink-faint: color-mix(in srgb, var(--ground) 62%, var(--light));
+    --orsc-line: color-mix(in srgb, var(--ground) 12%, transparent);
+
+    background-color: var(--orsc-bg-light, var(--light));
+    color: var(--orsc-ink);
+  }
+
+  /* The support band takes its own colour when the merchant sets one, and
+     falls back to the shared light-band ground when they have not. */
+  .orsc-band--support {
+    background-color: var(--orsc-support-bg, var(--orsc-bg-light, var(--light)));
+  }
+
+  /* Flips the ink for a dark chosen background. Without this the band keeps
+     its near-black light-band type and a dark colour makes it unreadable. */
+  .orsc-band--inverted {
+    --orsc-ink: var(--color-text);
+    --orsc-ink-muted: var(--color-text-muted);
+    --orsc-ink-faint: var(--color-text-faint);
+    --orsc-line: var(--color-border);
+
+    color: var(--orsc-ink);
+  }
+
+  /* --- hero --------------------------------------------------------------- */
+
+  .orsc-hero {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    min-height: min(62rem, 84svh);
+    padding-block: calc(var(--header-height) + var(--space-md)) var(--space-xl);
+    background-color: var(--color-bg-deep);
+    overflow: hidden;
+  }
+
+  .orsc-hero__media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.42;
+    filter: grayscale(0.35) contrast(1.05);
+  }
+
+  .orsc-hero__scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--ground) 72%, transparent) 0%,
+      color-mix(in srgb, var(--ground) 35%, transparent) 40%,
+      color-mix(in srgb, var(--ground) 96%, transparent) 100%
+    );
+  }
+
+  .orsc-hero__inner {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-lg);
+  }
+
+  .orsc-hero__copy {
+    flex: 1 1 46rem;
+    min-width: 0;
+  }
+
+  .orsc-hero__heading {
+    margin: 0;
+    max-width: 20ch;
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: var(--text-display);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-display);
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  .orsc-hero__text {
+    margin: var(--space-sm) 0 0;
+    max-width: 56ch;
+    color: var(--color-text-muted);
+    font-size: var(--text-lead);
+    line-height: var(--leading-body);
+  }
+
+  .orsc-hero__logo {
+    flex: 0 1 23rem;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .orsc-hero__logo img {
+    width: clamp(12rem, 18vw, 23rem);
+    height: auto;
+  }
+
+  /* --- band rules -----------------------------------------------------------
+
+     Layout only. Every visual property of the line itself — the bronze sweep,
+     the feathered ends, the blurred glow copy — comes from .drip-rule__line in
+     sections/drip-rule.liquid, so retuning the rule there retunes it here.
+
+     --hr-glow defaults to 0 in that stylesheet, so it is set explicitly to
+     match the DRIP rule section's own 45% default. --hr-thickness falls back
+     to --rule-thickness on its own and is left alone.
+     ------------------------------------------------------------------------ */
+
+  .orsc-bandrule {
+    --hr-glow: 0.45;
+
+    display: flex;
+    justify-content: center;
+  }
+
+  .orsc-bandrule:first-child {
+    margin-block-end: var(--space-lg);
+  }
+
+  .orsc-bandrule:last-child {
+    margin-block-start: var(--space-lg);
+  }
+
+  /* --- support statement --------------------------------------------------- */
+
+  .orsc-statement {
+    display: grid;
+    gap: var(--space-md);
+    align-items: center;
+  }
+
+  .orsc-statement__text {
+    margin: 0;
+    max-width: 30ch;
+    color: var(--orsc-ink);
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-heading);
+    text-wrap: balance;
+  }
+
+  .orsc-statement .orsc-actions {
+    margin-top: 0;
+  }
+
+  /* --- label + body split -------------------------------------------------- */
+
+  .orsc-split {
+    display: grid;
+    gap: var(--space-md);
+    align-items: start;
+  }
+
+  .orsc-tab {
+    margin: 0;
+    max-width: 28rem;
+    padding-bottom: var(--space-xs);
+    border-bottom: 2px solid var(--orsc-ink);
+    color: var(--orsc-ink);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+  }
+
+  .orsc-tab--accent {
+    border-bottom-color: var(--brand-accent);
+    color: var(--brand-accent);
+  }
+
+  /* --- problem showcase: square image + copy --------------------------------
+
+     Mobile-first: one column, image first in source order so it sits on top.
+     At 750px it becomes image-left / copy-right.
+
+     The image is forced square with aspect-ratio regardless of what the
+     merchant uploads, so a portrait or landscape file crops rather than
+     distorting the two-column rhythm. --orsc-showcase-w caps the image column
+     so a full-width square does not tower over the copy beside it.
+     ------------------------------------------------------------------------ */
+
+  .orsc-showcase {
+    --orsc-showcase-w: 44rem;
+
+    display: grid;
+    gap: var(--space-md);
+    align-items: center;
+  }
+
+  .orsc-showcase__media {
+    max-width: var(--orsc-showcase-w);
+    width: 100%;
+  }
+
+  .orsc-showcase__media img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+
+  .orsc-showcase__copy > .orsc-tab {
+    margin-bottom: var(--space-md);
+  }
+
+  /* --- cited figures -------------------------------------------------------
+
+     Figures without a `value` (a statement rather than a number) keep the same
+     grid cell, so a three-up row stays a three-up row.
+     ------------------------------------------------------------------------ */
+
+  .orsc-figures {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+    list-style: none;
+    margin: var(--space-xl) 0 0;
+    padding: 0;
+    border-top: 1px solid var(--color-border-strong);
+  }
+
+  .orsc-figure {
+    display: flex;
+    flex-direction: column;
+    padding-block: var(--space-md) var(--space-lg);
+  }
+
+  .orsc-figure__value {
+    margin: 0 0 var(--space-2xs);
+    color: var(--brand-accent);
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-display);
+    line-height: 1;
+  }
+
+  .orsc-figure__text {
+    margin: 0;
+    color: var(--orsc-ink);
+    font-size: var(--text-body);
+    line-height: var(--leading-snug);
+  }
+
+  .orsc-figure__source {
+    margin: var(--space-sm) 0 0;
+    color: var(--orsc-ink-faint);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-label);
+    line-height: var(--leading-tight);
+  }
+
+  .orsc-figure__source cite {
+    font-style: normal;
+  }
+
+  /* ==========================================================================
+     750px
+     ========================================================================== */
+
+  @media screen and (min-width: 750px) {
+    .orsc-split {
+      grid-template-columns: minmax(0, 28rem) minmax(0, 2fr);
+      column-gap: var(--grid-gap);
+    }
+
+    .orsc-statement {
+      grid-template-columns: minmax(0, 1fr) auto;
+      column-gap: var(--grid-gap);
+    }
+
+    .orsc-showcase {
+      grid-template-columns: minmax(0, var(--orsc-showcase-w)) minmax(0, 1fr);
+      column-gap: var(--grid-gap);
+      align-items: start;
+    }
+
+    .orsc-statement__text {
+      max-width: 34ch;
+      font-size: var(--text-h2);
+    }
+
+    .orsc-figure {
+      padding-inline: var(--space-md);
+    }
+
+    .orsc-figure:first-child {
+      padding-inline-start: 0;
+    }
+
+    .orsc-figures > .orsc-figure:not(:last-child) {
+      border-inline-end: 1px solid var(--color-border-strong);
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .orsc-hero__logo {
+      justify-content: flex-end;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Partner — Our Rescue",
+  "tag": "section",
+  "class": "section-partner-ourrescue",
+  "settings": [
+    { "type": "header", "content": "Ground" },
+    { "type": "color", "id": "background", "label": "Background", "default": "#0b090c" },
+    { "type": "color", "id": "background_light", "label": "Light band background", "default": "#ffffff" },
+    {
+      "type": "range",
+      "id": "padding_block",
+      "label": "Band padding",
+      "min": 32,
+      "max": 128,
+      "step": 8,
+      "unit": "px",
+      "default": 64
+    },
+
+    { "type": "header", "content": "Partner" },
+    { "type": "text", "id": "partner_name", "label": "Partner name", "default": "Our Rescue" },
+    {
+      "type": "url",
+      "id": "partner_url",
+      "label": "Partner website",
+      "info": "Every button on this page links here. Buttons are hidden until it is set."
+    },
+    { "type": "image_picker", "id": "partner_logo", "label": "Partner logo" },
+    { "type": "text", "id": "partner_logo_alt", "label": "Logo alt text", "default": "Our Rescue" },
+    {
+      "type": "select",
+      "id": "partner_rel",
+      "label": "Outbound link rel",
+      "options": [
+        { "value": "none", "label": "Followed (editorial endorsement)" },
+        { "value": "sponsored", "label": "Sponsored (paid or contra)" },
+        { "value": "nofollow", "label": "Nofollow" }
+      ],
+      "default": "none",
+      "info": "If money, product or reciprocal placement changed hands, choose Sponsored."
+    },
+    {
+      "type": "textarea",
+      "id": "partner_description",
+      "label": "Partner description",
+      "info": "Structured data only. Not rendered on the page."
+    },
+    {
+      "type": "textarea",
+      "id": "partner_sameas",
+      "label": "Partner social URLs",
+      "info": "Structured data only. Comma-separated."
+    },
+
+    { "type": "header", "content": "SEO" },
+    {
+      "type": "textarea",
+      "id": "seo_description",
+      "label": "Page description",
+      "default": "Drip Pickleball supports Our Rescue in the fight to end human trafficking."
+    },
+    {
+      "type": "textarea",
+      "id": "drip_description",
+      "label": "Drip description",
+      "default": "Drip Pickleball makes the Drip 48, a 48-hole pickleball engineered for consistent flight and tournament durability."
+    },
+
+    { "type": "header", "content": "Breadcrumbs" },
+    { "type": "text", "id": "crumb_home", "label": "Home label", "default": "Home" },
+    { "type": "text", "id": "crumb_parent", "label": "Parent label", "default": "Partners" },
+    { "type": "url", "id": "crumb_parent_link", "label": "Parent link" },
+
+    { "type": "header", "content": "Hero" },
+    { "type": "image_picker", "id": "hero_image", "label": "Background image" },
+    { "type": "text", "id": "hero_eyebrow", "label": "Eyebrow", "default": "Who we stand with" },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Heading",
+      "default": "Together we can end human trafficking"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_text",
+      "label": "Body",
+      "default": "Our Rescue are true warriors for good. We are honored to stand next to Our Rescue in this fight to save our children."
+    },
+    { "type": "text", "id": "hero_cta_label", "label": "Button label", "default": "Visit Our Rescue" },
+
+    { "type": "header", "content": "Support statement" },
+    {
+      "type": "textarea",
+      "id": "support_text",
+      "label": "Statement",
+      "default": "Our Rescue is saving our children and we're proud to support them with every purchase."
+    },
+    { "type": "text", "id": "support_cta_label", "label": "Button label", "default": "Visit website" },
+    {
+      "type": "color",
+      "id": "support_background",
+      "label": "Background",
+      "info": "Leave empty to use the light band background above.",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "support_rules",
+      "label": "Bronze rules above and below",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "support_invert",
+      "label": "Light text",
+      "info": "Switch on for a dark background. Also flips the button to white.",
+      "default": false
+    },
+
+    { "type": "header", "content": "The problem" },
+    {
+      "type": "image_picker",
+      "id": "problem_image",
+      "label": "Image",
+      "info": "Cropped to a square. Sits left of the copy on desktop, above it on mobile."
+    },
+    { "type": "text", "id": "problem_image_alt", "label": "Image alt text" },
+    { "type": "text", "id": "problem_label", "label": "Label", "default": "The problem" },
+    { "type": "text", "id": "problem_heading", "label": "Heading", "default": "The problem" },
+    {
+      "type": "textarea",
+      "id": "problem_text",
+      "label": "Body",
+      "default": "Most people look away. Meanwhile, 49.6 million people are trapped in modern slavery worldwide. That includes human sex trafficking. And it's happening closer than you think."
+    },
+    { "type": "text", "id": "problem_cta_label", "label": "Button label", "default": "Visit their website" }
+  ],
+  "blocks": [
+    {
+      "type": "figure",
+      "name": "Figure",
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Number",
+          "info": "Leave empty for a statement without a figure."
+        },
+        { "type": "textarea", "id": "text", "label": "Text" },
+        {
+          "type": "text",
+          "id": "source",
+          "label": "Source",
+          "info": "Required. A figure ships with its citation or it does not ship."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Partner — Our Rescue",
+      "blocks": [
+        {
+          "type": "figure",
+          "settings": {
+            "value": "100 million",
+            "text": "Suspected child sexual abuse material files reported.",
+            "source": "National Center for Missing and Exploited Children"
+          }
+        },
+        {
+          "type": "figure",
+          "settings": {
+            "value": "",
+            "text": "Sex trafficking is the most reported form of trafficking in the U.S.",
+            "source": "Polaris, 2023"
+          }
+        },
+        {
+          "type": "figure",
+          "settings": {
+            "value": "$172.6B",
+            "text": "Generated from forced commercial sexual exploitation annually.",
+            "source": "International Labour Organization"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

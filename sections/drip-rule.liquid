@@ -1,0 +1,135 @@
+{%- comment -%}
+  DRIP rule — a standalone horizontal divider.
+
+  Not in the mockups. The homepage separates its bands with background steps
+  and draws no divider lines, so this section is an addition rather than a
+  transcription — it exists because two adjacent bands share the same ground
+  colour and the step that normally does the separating isn't available.
+
+  The "metallic" style is a sheen: the bronze scale read left to right as
+  dim -> accent -> bright -> accent -> dim, feathered to transparent at both
+  ends so the line has no hard terminus. Every colour is a token; only the
+  gradient stop positions are literal, and those are geometry, not design
+  values.
+
+  Decorative by definition, so the line itself is a <span aria-hidden> inside
+  a <section>. There is no <hr> — an <hr> is a semantic thematic break, and
+  these two bands are the same theme, just adjacent.
+{%- endcomment -%}
+
+<section
+  class="drip-rule drip-rule--{{ section.settings.style }}"
+  style="
+    --hr-bg: {{ section.settings.background }};
+    --hr-pad-block: {{ section.settings.padding_block }}px;
+    --hr-thickness: {{ section.settings.thickness }}px;
+    --hr-width: {{ section.settings.width }}%;
+    --hr-align: {{ section.settings.alignment }};
+    --hr-glow: {{ section.settings.glow | divided_by: 100.0 }};
+  "
+>
+  <div class="drip-container">
+    {% render 'drip-rule-line' %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .drip-rule {
+    background-color: var(--hr-bg, var(--color-bg));
+    padding-block: var(--hr-pad-block, var(--space-lg));
+  }
+
+  .drip-rule .drip-container {
+    display: flex;
+    justify-content: var(--hr-align, center);
+  }
+
+  /* The line itself — and all of its CSS — lives in snippets/drip-rule-line,
+     so any other file can render it and get the styles with it. Section CSS
+     is subset to the page's render tree and is not available globally. */
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "DRIP rule",
+  "tag": "section",
+  "class": "drip-rule-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Style",
+      "options": [
+        { "value": "metallic", "label": "Metallic bronze" },
+        { "value": "solid", "label": "Solid bronze" }
+      ],
+      "default": "metallic"
+    },
+    {
+      "type": "range",
+      "id": "width",
+      "label": "Width",
+      "info": "Percentage of the page container.",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "info": "Only visible when the width is under 100%.",
+      "options": [
+        { "value": "flex-start", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "flex-end", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "thickness",
+      "label": "Thickness",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "glow",
+      "label": "Glow",
+      "info": "Soft bronze bloom under the line. Metallic style only.",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 45
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "padding_block",
+      "label": "Vertical padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "DRIP rule"
+    }
+  ]
+}
+{% endschema %}

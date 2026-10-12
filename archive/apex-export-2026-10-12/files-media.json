@@ -1,0 +1,3893 @@
+{
+  "sourceShop": "Apex Pickleball",
+  "sourceDomain": "apexpickleball.org",
+  "exportedAt": "2026-10-12",
+  "recordType": "files-media",
+  "data": {
+    "files": {
+      "edges": [
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MjI5MjU3OTI5NTU0OSwibGFzdF92YWx1ZSI6IjUyMjkyNTc5Mjk1NTQ5In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52292579295549",
+            "alt": "",
+            "createdAt": "2026-07-28T11:30:10Z",
+            "updatedAt": "2026-08-21T16:24:16Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/ChatGPTImageJul14_2026_05_44_11PM.png?v=1785238213",
+                "altText": "",
+                "width": 1254,
+                "height": 1254
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/ChatGPTImageJul14_2026_05_44_11PM.png?v=1785238213",
+              "altText": "",
+              "width": 1254,
+              "height": 1254
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MjI5MjYyNDg3NTgzNywibGFzdF92YWx1ZSI6IjUyMjkyNjI0ODc1ODM3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52292624875837",
+            "alt": "",
+            "createdAt": "2026-07-28T11:33:37Z",
+            "updatedAt": "2026-08-28T23:02:22Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/ChatGPT_Image_Jul_14_2026_05_34_39_PM.png?v=1785238419",
+                "altText": "",
+                "width": 1254,
+                "height": 1254
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/ChatGPT_Image_Jul_14_2026_05_34_39_PM.png?v=1785238419",
+              "altText": "",
+              "width": 1254,
+              "height": 1254
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MjI5MjYyNDkwODYwNSwibGFzdF92YWx1ZSI6IjUyMjkyNjI0OTA4NjA1In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52292624908605",
+            "alt": "",
+            "createdAt": "2026-07-28T11:33:37Z",
+            "updatedAt": "2026-08-21T16:24:17Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/ChatGPT_Image_Jul_14_2026_05_55_33_PM.png?v=1785238419",
+                "altText": "",
+                "width": 1254,
+                "height": 1254
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/ChatGPT_Image_Jul_14_2026_05_55_33_PM.png?v=1785238419",
+              "altText": "",
+              "width": 1254,
+              "height": 1254
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MjI5Mzk4MzE3NDk3MywibGFzdF92YWx1ZSI6IjUyMjkzOTgzMTc0OTczIn0=",
+          "node": {
+            "__typename": "Video",
+            "id": "gid://shopify/Video/52293983174973",
+            "alt": "",
+            "createdAt": "2026-07-28T13:16:57Z",
+            "updatedAt": "2026-08-21T16:24:57Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/preview_images/ee4a968c4ff1439d869ba13d6af2e280.thumbnail.0000000000.jpg?v=1785244626",
+                "altText": "",
+                "width": 1332,
+                "height": 688
+              }
+            },
+            "filename": "Overhead_shot_of_players_playi_Kling_30__05988.mp4",
+            "duration": 8039,
+            "sources": [
+              {
+                "url": "https://cdn.shopify.com/videos/c/vp/ee4a968c4ff1439d869ba13d6af2e280/ee4a968c4ff1439d869ba13d6af2e280.SD-480p-1.5Mbps-90117003.mp4",
+                "format": "mp4",
+                "mimeType": "video/mp4",
+                "width": 928,
+                "height": 480,
+                "fileSize": null
+              },
+              {
+                "url": "https://cdn.shopify.com/videos/c/vp/ee4a968c4ff1439d869ba13d6af2e280/ee4a968c4ff1439d869ba13d6af2e280.m3u8",
+                "format": "m3u8",
+                "mimeType": "application/x-mpegURL",
+                "width": 928,
+                "height": 480,
+                "fileSize": null
+              }
+            ]
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MjQyNzQ3MzY0OTk4MSwibGFzdF92YWx1ZSI6IjUyNDI3NDczNjQ5OTgxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52427473649981",
+            "alt": "MINT_00072326_30058.jpg",
+            "createdAt": "2026-08-03T20:22:09Z",
+            "updatedAt": "2026-08-21T17:45:50Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/MINT_00072326_30058.jpg?v=1785788531",
+                "altText": "MINT_00072326_30058.jpg",
+                "width": 1826,
+                "height": 1826
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/MINT_00072326_30058.jpg?v=1785788531",
+              "altText": "MINT_00072326_30058.jpg",
+              "width": 1826,
+              "height": 1826
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MjQyNzQ3NDY2NTc4OSwibGFzdF92YWx1ZSI6IjUyNDI3NDc0NjY1Nzg5In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52427474665789",
+            "alt": "MINT_00072326_30061_1.jpg",
+            "createdAt": "2026-08-03T20:22:15Z",
+            "updatedAt": "2026-08-21T17:45:50Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/MINT_00072326_30061_1.jpg?v=1785788537",
+                "altText": "MINT_00072326_30061_1.jpg",
+                "width": 2215,
+                "height": 2215
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/MINT_00072326_30061_1.jpg?v=1785788537",
+              "altText": "MINT_00072326_30061_1.jpg",
+              "width": 2215,
+              "height": 2215
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MjQyNzQ3NjEwNzU4MSwibGFzdF92YWx1ZSI6IjUyNDI3NDc2MTA3NTgxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52427476107581",
+            "alt": "MINT_00072326_30063_1.jpg",
+            "createdAt": "2026-08-03T20:22:21Z",
+            "updatedAt": "2026-08-21T17:45:50Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/MINT_00072326_30063_1.jpg?v=1785788543",
+                "altText": "MINT_00072326_30063_1.jpg",
+                "width": 3219,
+                "height": 3219
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/MINT_00072326_30063_1.jpg?v=1785788543",
+              "altText": "MINT_00072326_30063_1.jpg",
+              "width": 3219,
+              "height": 3219
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MjQyNzQ3NzE1NjE1NywibGFzdF92YWx1ZSI6IjUyNDI3NDc3MTU2MTU3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52427477156157",
+            "alt": "MINT_00072326_30064_1.jpg",
+            "createdAt": "2026-08-03T20:22:27Z",
+            "updatedAt": "2026-08-21T17:45:50Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/MINT_00072326_30064_1.jpg?v=1785788548",
+                "altText": "MINT_00072326_30064_1.jpg",
+                "width": 2385,
+                "height": 2385
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/MINT_00072326_30064_1.jpg?v=1785788548",
+              "altText": "MINT_00072326_30064_1.jpg",
+              "width": 2385,
+              "height": 2385
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MjQyNzQ5Mjg4NDc5NywibGFzdF92YWx1ZSI6IjUyNDI3NDkyODg0Nzk3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52427492884797",
+            "alt": "man10.webp",
+            "createdAt": "2026-08-03T20:23:27Z",
+            "updatedAt": "2026-08-21T17:45:51Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/man10.webp?v=1785788609",
+                "altText": "man10.webp",
+                "width": 100,
+                "height": 100
+              }
+            },
+            "mimeType": "image/webp",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/man10.webp?v=1785788609",
+              "altText": "man10.webp",
+              "width": 100,
+              "height": 100
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MjUwNDA4NTgyMzgwNSwibGFzdF92YWx1ZSI6IjUyNTA0MDg1ODIzODA1In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52504085823805",
+            "alt": "",
+            "createdAt": "2026-08-07T11:26:15Z",
+            "updatedAt": "2026-08-21T18:27:48Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/50-pack_mockup.jpg?v=1786101977",
+                "altText": "",
+                "width": 1500,
+                "height": 1500
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/50-pack_mockup.jpg?v=1786101977",
+              "altText": "",
+              "width": 1500,
+              "height": 1500
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MjUwNDA4NTg1NjU3MywibGFzdF92YWx1ZSI6IjUyNTA0MDg1ODU2NTczIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52504085856573",
+            "alt": "",
+            "createdAt": "2026-08-07T11:26:16Z",
+            "updatedAt": "2026-08-21T18:27:48Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/300-pack_mockup.jpg?v=1786101977",
+                "altText": "",
+                "width": 1500,
+                "height": 1500
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/300-pack_mockup.jpg?v=1786101977",
+              "altText": "",
+              "width": 1500,
+              "height": 1500
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MjUwNDA4NTg4OTM0MSwibGFzdF92YWx1ZSI6IjUyNTA0MDg1ODg5MzQxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52504085889341",
+            "alt": "",
+            "createdAt": "2026-08-07T11:26:16Z",
+            "updatedAt": "2026-08-21T18:27:48Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/100-pack_mockup.jpg?v=1786101978",
+                "altText": "",
+                "width": 1500,
+                "height": 1500
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/100-pack_mockup.jpg?v=1786101978",
+              "altText": "",
+              "width": 1500,
+              "height": 1500
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MjUwNDI1MTUzMTU4MSwibGFzdF92YWx1ZSI6IjUyNTA0MjUxNTMxNTgxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52504251531581",
+            "alt": "",
+            "createdAt": "2026-08-07T11:37:43Z",
+            "updatedAt": "2026-08-21T18:27:48Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/daniel-traxler.png?v=1786102665",
+                "altText": "",
+                "width": 1023,
+                "height": 1537
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/daniel-traxler.png?v=1786102665",
+              "altText": "",
+              "width": 1023,
+              "height": 1537
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MjUwNDMwNjU4MTgyMSwibGFzdF92YWx1ZSI6IjUyNTA0MzA2NTgxODIxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52504306581821",
+            "alt": "",
+            "createdAt": "2026-08-07T11:41:22Z",
+            "updatedAt": "2026-08-21T18:27:48Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Apex_Banner_4.jpg?v=1786102884",
+                "altText": "",
+                "width": 462,
+                "height": 463
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Apex_Banner_4.jpg?v=1786102884",
+              "altText": "",
+              "width": 462,
+              "height": 463
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MjczMDUyNDMzNjQ0NSwibGFzdF92YWx1ZSI6IjUyNzMwNTI0MzM2NDQ1In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52730524336445",
+            "alt": "A bright green Apex brand perforated golf ball resting on a dark, reflective surface with a blurred dark background.",
+            "createdAt": "2026-08-17T18:50:27Z",
+            "updatedAt": "2026-08-21T19:24:46Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/hotspots-initial-mockup-image.png?v=1786992628",
+                "altText": "A bright green Apex brand perforated golf ball resting on a dark, reflective surface with a blurred dark background.",
+                "width": 851,
+                "height": 427
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/hotspots-initial-mockup-image.png?v=1786992628",
+              "altText": "A bright green Apex brand perforated golf ball resting on a dark, reflective surface with a blurred dark background.",
+              "width": 851,
+              "height": 427
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MjczNTExMTI5OTM4OSwibGFzdF92YWx1ZSI6IjUyNzM1MTExMjk5Mzg5In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52735111299389",
+            "alt": "",
+            "createdAt": "2026-08-17T23:53:49Z",
+            "updatedAt": "2026-08-21T19:26:07Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/photoshoot-5.jpg?v=1787010831",
+                "altText": "",
+                "width": 3755,
+                "height": 3756
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/photoshoot-5.jpg?v=1787010831",
+              "altText": "",
+              "width": 3755,
+              "height": 3756
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MjczNTExMjM0Nzk2NSwibGFzdF92YWx1ZSI6IjUyNzM1MTEyMzQ3OTY1In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52735112347965",
+            "alt": "",
+            "createdAt": "2026-08-17T23:53:52Z",
+            "updatedAt": "2026-08-21T19:26:07Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/photoshoot-1.jpg?v=1787010835",
+                "altText": "",
+                "width": 4096,
+                "height": 2731
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/photoshoot-1.jpg?v=1787010835",
+              "altText": "",
+              "width": 4096,
+              "height": 2731
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MjczNTExMjM4MDczMywibGFzdF92YWx1ZSI6IjUyNzM1MTEyMzgwNzMzIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52735112380733",
+            "alt": "",
+            "createdAt": "2026-08-17T23:53:52Z",
+            "updatedAt": "2026-08-21T19:26:07Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/photoshoot-4.jpg?v=1787010834",
+                "altText": "",
+                "width": 2731,
+                "height": 4096
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/photoshoot-4.jpg?v=1787010834",
+              "altText": "",
+              "width": 2731,
+              "height": 4096
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MjczNTExMjQxMzUwMSwibGFzdF92YWx1ZSI6IjUyNzM1MTEyNDEzNTAxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52735112413501",
+            "alt": "",
+            "createdAt": "2026-08-17T23:53:52Z",
+            "updatedAt": "2026-08-21T19:26:07Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/photoshoot-2.jpg?v=1787010835",
+                "altText": "",
+                "width": 2731,
+                "height": 4096
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/photoshoot-2.jpg?v=1787010835",
+              "altText": "",
+              "width": 2731,
+              "height": 4096
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MjczNTExMjQ3OTAzNywibGFzdF92YWx1ZSI6IjUyNzM1MTEyNDc5MDM3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52735112479037",
+            "alt": "",
+            "createdAt": "2026-08-17T23:53:53Z",
+            "updatedAt": "2026-08-21T19:26:07Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/photoshoot-3.jpg?v=1787010836",
+                "altText": "",
+                "width": 4096,
+                "height": 2731
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/photoshoot-3.jpg?v=1787010836",
+              "altText": "",
+              "width": 4096,
+              "height": 2731
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjc1MDYyMzUwNjc0OSwibGFzdF92YWx1ZSI6IjUyNzUwNjIzNTA2NzQ5In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52750623506749",
+            "alt": "",
+            "createdAt": "2026-08-18T12:36:00Z",
+            "updatedAt": "2026-08-21T19:30:05Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/apex-background-2.png?v=1787056562",
+                "altText": "",
+                "width": 752,
+                "height": 565
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/apex-background-2.png?v=1787056562",
+              "altText": "",
+              "width": 752,
+              "height": 565
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjc3Nzg5MjkwNTI3NywibGFzdF92YWx1ZSI6IjUyNzc3ODkyOTA1Mjc3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52777892905277",
+            "alt": "",
+            "createdAt": "2026-08-19T11:53:17Z",
+            "updatedAt": "2026-08-26T12:38:17Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_box_website_featured_collection_photo.png?v=1787140399",
+                "altText": "",
+                "width": 979,
+                "height": 831
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_box_website_featured_collection_photo.png?v=1787140399",
+              "altText": "",
+              "width": 979,
+              "height": 831
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjc3Nzg5MzI5ODQ5MywibGFzdF92YWx1ZSI6IjUyNzc3ODkzMjk4NDkzIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52777893298493",
+            "alt": "",
+            "createdAt": "2026-08-19T11:53:19Z",
+            "updatedAt": "2026-08-19T11:53:56Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/300-pack_box_website_featured_collection_photo.png?v=1787140400",
+                "altText": "",
+                "width": 1000,
+                "height": 805
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/300-pack_box_website_featured_collection_photo.png?v=1787140400",
+              "altText": "",
+              "width": 1000,
+              "height": 805
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjc3Nzg5MzMzMTI2MSwibGFzdF92YWx1ZSI6IjUyNzc3ODkzMzMxMjYxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52777893331261",
+            "alt": "",
+            "createdAt": "2026-08-19T11:53:19Z",
+            "updatedAt": "2026-08-19T11:53:23Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/50-pack_bucket_website_featured_collection_photo.png?v=1787140401",
+                "altText": "",
+                "width": 1000,
+                "height": 724
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/50-pack_bucket_website_featured_collection_photo.png?v=1787140401",
+              "altText": "",
+              "width": 1000,
+              "height": 724
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjc3Nzg5MzM2NDAyOSwibGFzdF92YWx1ZSI6IjUyNzc3ODkzMzY0MDI5In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52777893364029",
+            "alt": "",
+            "createdAt": "2026-08-19T11:53:19Z",
+            "updatedAt": "2026-08-19T11:53:24Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/100-pack_bucket_website_featured_collection_photo_2.png?v=1787140401",
+                "altText": "",
+                "width": 1000,
+                "height": 933
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/100-pack_bucket_website_featured_collection_photo_2.png?v=1787140401",
+              "altText": "",
+              "width": 1000,
+              "height": 933
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjc3Nzg5MzM5Njc5NywibGFzdF92YWx1ZSI6IjUyNzc3ODkzMzk2Nzk3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52777893396797",
+            "alt": "",
+            "createdAt": "2026-08-19T11:53:19Z",
+            "updatedAt": "2026-08-19T11:53:24Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/10-pack_bucket_website_featured_collection_photo.png?v=1787140401",
+                "altText": "",
+                "width": 942,
+                "height": 1000
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/10-pack_bucket_website_featured_collection_photo.png?v=1787140401",
+              "altText": "",
+              "width": 942,
+              "height": 1000
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjc3ODQyODAzOTQ4NSwibGFzdF92YWx1ZSI6IjUyNzc4NDI4MDM5NDg1In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52778428039485",
+            "alt": "",
+            "createdAt": "2026-08-19T12:18:04Z",
+            "updatedAt": "2026-08-26T12:37:32Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC9631.jpg?v=1787141887",
+                "altText": "",
+                "width": 4000,
+                "height": 6000
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC9631.jpg?v=1787141887",
+              "altText": "",
+              "width": 4000,
+              "height": 6000
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjc3ODQyODA3MjI1MywibGFzdF92YWx1ZSI6IjUyNzc4NDI4MDcyMjUzIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52778428072253",
+            "alt": "",
+            "createdAt": "2026-08-19T12:18:04Z",
+            "updatedAt": "2026-08-26T12:37:32Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC9629.jpg?v=1787141887",
+                "altText": "",
+                "width": 6000,
+                "height": 4000
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC9629.jpg?v=1787141887",
+              "altText": "",
+              "width": 6000,
+              "height": 4000
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjc3ODQyODU2Mzc3MywibGFzdF92YWx1ZSI6IjUyNzc4NDI4NTYzNzczIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52778428563773",
+            "alt": "",
+            "createdAt": "2026-08-19T12:18:05Z",
+            "updatedAt": "2026-08-26T12:37:31Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC9579.jpg?v=1787141888",
+                "altText": "",
+                "width": 6000,
+                "height": 4000
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC9579.jpg?v=1787141888",
+              "altText": "",
+              "width": 6000,
+              "height": 4000
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjc3ODQzMDEzNjYzNywibGFzdF92YWx1ZSI6IjUyNzc4NDMwMTM2NjM3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52778430136637",
+            "alt": "",
+            "createdAt": "2026-08-19T12:18:07Z",
+            "updatedAt": "2026-08-26T12:37:32Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC9554.jpg?v=1787141891",
+                "altText": "",
+                "width": 6000,
+                "height": 4000
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC9554.jpg?v=1787141891",
+              "altText": "",
+              "width": 6000,
+              "height": 4000
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjc3ODQzOTMxMTY3NywibGFzdF92YWx1ZSI6IjUyNzc4NDM5MzExNjc3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52778439311677",
+            "alt": "",
+            "createdAt": "2026-08-19T12:18:25Z",
+            "updatedAt": "2026-08-26T12:37:31Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC9567.jpg?v=1787141908",
+                "altText": "",
+                "width": 6000,
+                "height": 4000
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC9567.jpg?v=1787141908",
+              "altText": "",
+              "width": 6000,
+              "height": 4000
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjc3ODQzOTU3MzgyMSwibGFzdF92YWx1ZSI6IjUyNzc4NDM5NTczODIxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52778439573821",
+            "alt": "",
+            "createdAt": "2026-08-19T12:18:26Z",
+            "updatedAt": "2026-08-26T12:37:31Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC9758.jpg?v=1787141909",
+                "altText": "",
+                "width": 4000,
+                "height": 6000
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC9758.jpg?v=1787141909",
+              "altText": "",
+              "width": 4000,
+              "height": 6000
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjk1NTkwOTM5MDY1MywibGFzdF92YWx1ZSI6IjUyOTU1OTA5MzkwNjUzIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52955909390653",
+            "alt": "",
+            "createdAt": "2026-08-25T17:47:58Z",
+            "updatedAt": "2026-08-25T17:48:02Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/hotspots-initial-image-v2.png?v=1787680080",
+                "altText": "",
+                "width": 1092,
+                "height": 614
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/hotspots-initial-image-v2.png?v=1787680080",
+              "altText": "",
+              "width": 1092,
+              "height": 614
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjk1NTk2Nzg0ODc2NSwibGFzdF92YWx1ZSI6IjUyOTU1OTY3ODQ4NzY1In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52955967848765",
+            "alt": "",
+            "createdAt": "2026-08-25T17:50:03Z",
+            "updatedAt": "2026-08-25T17:50:08Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/court-background-v1.png?v=1787680205",
+                "altText": "",
+                "width": 1199,
+                "height": 427
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/court-background-v1.png?v=1787680205",
+              "altText": "",
+              "width": 1199,
+              "height": 427
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjk1NzM3ODQ0NTYyOSwibGFzdF92YWx1ZSI6IjUyOTU3Mzc4NDQ1NjI5In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52957378445629",
+            "alt": "",
+            "createdAt": "2026-08-25T19:12:00Z",
+            "updatedAt": "2026-08-25T19:12:04Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/hotspots-image-v3.png?v=1787685122",
+                "altText": "",
+                "width": 1190,
+                "height": 620
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/hotspots-image-v3.png?v=1787685122",
+              "altText": "",
+              "width": 1190,
+              "height": 620
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjk1NzQ0ODExMDM5NywibGFzdF92YWx1ZSI6IjUyOTU3NDQ4MTEwMzk3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52957448110397",
+            "alt": "",
+            "createdAt": "2026-08-25T19:15:35Z",
+            "updatedAt": "2026-08-25T19:15:39Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/apex-background-v3.png?v=1787685337",
+                "altText": "",
+                "width": 1447,
+                "height": 1087
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/apex-background-v3.png?v=1787685337",
+              "altText": "",
+              "width": 1447,
+              "height": 1087
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjk1Nzg5NjczNzA4NSwibGFzdF92YWx1ZSI6IjUyOTU3ODk2NzM3MDg1In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52957896737085",
+            "alt": "",
+            "createdAt": "2026-08-25T19:38:54Z",
+            "updatedAt": "2026-08-28T23:13:55Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01621_1.png?v=1787686737",
+                "altText": "",
+                "width": 2731,
+                "height": 4096
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01621_1.png?v=1787686737",
+              "altText": "",
+              "width": 2731,
+              "height": 4096
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjk1Nzg5Njc2OTg1MywibGFzdF92YWx1ZSI6IjUyOTU3ODk2NzY5ODUzIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52957896769853",
+            "alt": "",
+            "createdAt": "2026-08-25T19:38:54Z",
+            "updatedAt": "2026-08-25T19:39:00Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01539_1.png?v=1787686737",
+                "altText": "",
+                "width": 2731,
+                "height": 4096
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01539_1.png?v=1787686737",
+              "altText": "",
+              "width": 2731,
+              "height": 4096
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjk1Nzg5NzI5NDE0MSwibGFzdF92YWx1ZSI6IjUyOTU3ODk3Mjk0MTQxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52957897294141",
+            "alt": "",
+            "createdAt": "2026-08-25T19:38:55Z",
+            "updatedAt": "2026-08-27T14:25:59Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC9591_1.png?v=1787686739",
+                "altText": "",
+                "width": 4096,
+                "height": 2731
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC9591_1.png?v=1787686739",
+              "altText": "",
+              "width": 4096,
+              "height": 2731
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjk1Nzk4NDM1ODcxNywibGFzdF92YWx1ZSI6IjUyOTU3OTg0MzU4NzE3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52957984358717",
+            "alt": "",
+            "createdAt": "2026-08-25T19:42:14Z",
+            "updatedAt": "2026-08-25T19:42:23Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DD147F46-59AD-4D65-8DFE-64EFE1F11BCB_1.png?v=1787686936",
+                "altText": "",
+                "width": 1023,
+                "height": 1537
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DD147F46-59AD-4D65-8DFE-64EFE1F11BCB_1.png?v=1787686936",
+              "altText": "",
+              "width": 1023,
+              "height": 1537
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjk1ODA4ODk1NDE3MywibGFzdF92YWx1ZSI6IjUyOTU4MDg4OTU0MTczIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52958088954173",
+            "alt": "",
+            "createdAt": "2026-08-25T19:45:09Z",
+            "updatedAt": "2026-08-28T23:13:55Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A5222.jpg?v=1787687111",
+                "altText": "",
+                "width": 667,
+                "height": 1000
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A5222.jpg?v=1787687111",
+              "altText": "",
+              "width": 667,
+              "height": 1000
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjk1ODA4OTI0OTA4NSwibGFzdF92YWx1ZSI6IjUyOTU4MDg5MjQ5MDg1In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52958089249085",
+            "alt": "",
+            "createdAt": "2026-08-25T19:45:09Z",
+            "updatedAt": "2026-08-28T23:13:55Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6544.jpg?v=1787687111",
+                "altText": "",
+                "width": 1000,
+                "height": 667
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6544.jpg?v=1787687111",
+              "altText": "",
+              "width": 1000,
+              "height": 667
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjk1ODA4OTI4MTg1MywibGFzdF92YWx1ZSI6IjUyOTU4MDg5MjgxODUzIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52958089281853",
+            "alt": "",
+            "createdAt": "2026-08-25T19:45:09Z",
+            "updatedAt": "2026-08-28T23:13:55Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6500.jpg?v=1787687111",
+                "altText": "",
+                "width": 1000,
+                "height": 667
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6500.jpg?v=1787687111",
+              "altText": "",
+              "width": 1000,
+              "height": 667
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjk3NzQ4ODI5ODMwMSwibGFzdF92YWx1ZSI6IjUyOTc3NDg4Mjk4MzAxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52977488298301",
+            "alt": "",
+            "createdAt": "2026-08-26T12:08:14Z",
+            "updatedAt": "2026-08-26T12:08:19Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/daniel-traxler-with-ball.png?v=1787746095",
+                "altText": "",
+                "width": 1505,
+                "height": 1348
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/daniel-traxler-with-ball.png?v=1787746095",
+              "altText": "",
+              "width": 1505,
+              "height": 1348
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjk3ODUwNTUxNTMyNSwibGFzdF92YWx1ZSI6IjUyOTc4NTA1NTE1MzI1In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52978505515325",
+            "alt": "",
+            "createdAt": "2026-08-26T12:37:11Z",
+            "updatedAt": "2026-08-28T23:13:55Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_box_website_featured_collection_photo_c45f7ccd-4bc3-43e4-848d-03af739240ce.png?v=1787747833",
+                "altText": "",
+                "width": 1039,
+                "height": 1039
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_box_website_featured_collection_photo_c45f7ccd-4bc3-43e4-848d-03af739240ce.png?v=1787747833",
+              "altText": "",
+              "width": 1039,
+              "height": 1039
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjk3OTEzNDM5ODc4MSwibGFzdF92YWx1ZSI6IjUyOTc5MTM0Mzk4NzgxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52979134398781",
+            "alt": "",
+            "createdAt": "2026-08-26T12:53:46Z",
+            "updatedAt": "2026-08-26T12:53:51Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Ball_Collection_Page_Banner_Mobile.png?v=1787748828",
+                "altText": "",
+                "width": 374,
+                "height": 200
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Ball_Collection_Page_Banner_Mobile.png?v=1787748828",
+              "altText": "",
+              "width": 374,
+              "height": 200
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjk3OTEzNDY2MDkyNSwibGFzdF92YWx1ZSI6IjUyOTc5MTM0NjYwOTI1In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52979134660925",
+            "alt": "",
+            "createdAt": "2026-08-26T12:53:47Z",
+            "updatedAt": "2026-08-26T12:53:52Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Ball_Collection_Page_Banner_Desktop.png?v=1787748829",
+                "altText": "",
+                "width": 1140,
+                "height": 350
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Ball_Collection_Page_Banner_Desktop.png?v=1787748829",
+              "altText": "",
+              "width": 1140,
+              "height": 350
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjk3OTUzMjE2OTUzMywibGFzdF92YWx1ZSI6IjUyOTc5NTMyMTY5NTMzIn0=",
+          "node": {
+            "__typename": "Video",
+            "id": "gid://shopify/Video/52979532169533",
+            "alt": "",
+            "createdAt": "2026-08-26T13:07:17Z",
+            "updatedAt": "2026-08-26T13:07:46Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/preview_images/e0dfecffc5074b21805b1a1d68d546d9.thumbnail.0000000000.jpg?v=1787749666",
+                "altText": "",
+                "width": 3840,
+                "height": 2160
+              }
+            },
+            "filename": "C001_A038_0813HR.mov",
+            "duration": 10090,
+            "sources": [
+              {
+                "url": "https://cdn.shopify.com/videos/c/vp/e0dfecffc5074b21805b1a1d68d546d9/e0dfecffc5074b21805b1a1d68d546d9.SD-480p-1.5Mbps-92667252.mp4",
+                "format": "mp4",
+                "mimeType": "video/mp4",
+                "width": 852,
+                "height": 480,
+                "fileSize": null
+              },
+              {
+                "url": "https://cdn.shopify.com/videos/c/vp/e0dfecffc5074b21805b1a1d68d546d9/e0dfecffc5074b21805b1a1d68d546d9.HD-1080p-7.2Mbps-92667252.mp4",
+                "format": "mp4",
+                "mimeType": "video/mp4",
+                "width": 1920,
+                "height": 1080,
+                "fileSize": null
+              },
+              {
+                "url": "https://cdn.shopify.com/videos/c/vp/e0dfecffc5074b21805b1a1d68d546d9/e0dfecffc5074b21805b1a1d68d546d9.HD-720p-4.5Mbps-92667252.mp4",
+                "format": "mp4",
+                "mimeType": "video/mp4",
+                "width": 1280,
+                "height": 720,
+                "fileSize": null
+              },
+              {
+                "url": "https://cdn.shopify.com/videos/c/vp/e0dfecffc5074b21805b1a1d68d546d9/e0dfecffc5074b21805b1a1d68d546d9.m3u8",
+                "format": "m3u8",
+                "mimeType": "application/x-mpegURL",
+                "width": 1920,
+                "height": 1080,
+                "fileSize": null
+              }
+            ]
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjk4MDg0OTU0MTQzNywibGFzdF92YWx1ZSI6IjUyOTgwODQ5NTQxNDM3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52980849541437",
+            "alt": "Three neon green Apex pickleball paddles are lined up on a dark tennis court with a white baseline, casting a long shadow.",
+            "createdAt": "2026-08-26T13:44:23Z",
+            "updatedAt": "2026-08-26T13:45:12Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-on-court-background-with-fastflow.png?v=1787751865",
+                "altText": "Three neon green Apex pickleball paddles are lined up on a dark tennis court with a white baseline, casting a long shadow.",
+                "width": 4481,
+                "height": 1406
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-on-court-background-with-fastflow.png?v=1787751865",
+              "altText": "Three neon green Apex pickleball paddles are lined up on a dark tennis court with a white baseline, casting a long shadow.",
+              "width": 4481,
+              "height": 1406
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjk4MTc3MDQ4NjA3NywibGFzdF92YWx1ZSI6IjUyOTgxNzcwNDg2MDc3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52981770486077",
+            "alt": "",
+            "createdAt": "2026-08-26T14:01:57Z",
+            "updatedAt": "2026-08-26T14:02:05Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/court_background.png?v=1787752920",
+                "altText": "",
+                "width": 1500,
+                "height": 1000
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/court_background.png?v=1787752920",
+              "altText": "",
+              "width": 1500,
+              "height": 1000
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjk4MTk0NzYyOTg4NSwibGFzdF92YWx1ZSI6IjUyOTgxOTQ3NjI5ODg1In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52981947629885",
+            "alt": "",
+            "createdAt": "2026-08-26T14:06:26Z",
+            "updatedAt": "2026-08-26T14:06:32Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/hotspots-ball-v4.png?v=1787753187",
+                "altText": "",
+                "width": 595,
+                "height": 310
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/hotspots-ball-v4.png?v=1787753187",
+              "altText": "",
+              "width": 595,
+              "height": 310
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjk4MjAxODgzNDc0OSwibGFzdF92YWx1ZSI6IjUyOTgyMDE4ODM0NzQ5In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52982018834749",
+            "alt": "A bright yellow-green Apex ball with, resting on a court.",
+            "createdAt": "2026-08-26T14:08:31Z",
+            "updatedAt": "2026-08-26T14:09:58Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25_1.jpg?v=1787753312",
+                "altText": "A bright yellow-green Apex ball with, resting on a court.",
+                "width": 1066,
+                "height": 1600
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25_1.jpg?v=1787753312",
+              "altText": "A bright yellow-green Apex ball with, resting on a court.",
+              "width": 1066,
+              "height": 1600
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjk4MjAyMTUyMTcyNSwibGFzdF92YWx1ZSI6IjUyOTgyMDIxNTIxNzI1In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52982021521725",
+            "alt": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+            "createdAt": "2026-08-26T14:08:37Z",
+            "updatedAt": "2026-08-28T23:13:55Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25.jpg?v=1787753318",
+                "altText": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                "width": 1066,
+                "height": 1600
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25.jpg?v=1787753318",
+              "altText": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+              "width": 1066,
+              "height": 1600
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjk4MjAyMTU1NDQ5MywibGFzdF92YWx1ZSI6IjUyOTgyMDIxNTU0NDkzIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52982021554493",
+            "alt": "A bright neon yellow-green Apex ball resting on the court",
+            "createdAt": "2026-08-26T14:08:37Z",
+            "updatedAt": "2026-08-26T14:09:38Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.26.jpg?v=1787753318",
+                "altText": "A bright neon yellow-green Apex ball resting on the court",
+                "width": 1066,
+                "height": 1600
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.26.jpg?v=1787753318",
+              "altText": "A bright neon yellow-green Apex ball resting on the court",
+              "width": 1066,
+              "height": 1600
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjk4MjE0MDI3Mjk1NywibGFzdF92YWx1ZSI6IjUyOTgyMTQwMjcyOTU3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52982140272957",
+            "alt": "A close-up shot of bright neon Apex balls with black printed logos, stacked together with shallow depth of field.",
+            "createdAt": "2026-08-26T14:11:35Z",
+            "updatedAt": "2026-08-26T14:15:14Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket.png?v=1787753498",
+                "altText": "A close-up shot of bright neon Apex balls with black printed logos, stacked together with shallow depth of field.",
+                "width": 2731,
+                "height": 4096
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket.png?v=1787753498",
+              "altText": "A close-up shot of bright neon Apex balls with black printed logos, stacked together with shallow depth of field.",
+              "width": 2731,
+              "height": 4096
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1Mjk4MjI3MTExNTU4MSwibGFzdF92YWx1ZSI6IjUyOTgyMjcxMTE1NTgxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/52982271115581",
+            "alt": "",
+            "createdAt": "2026-08-26T14:14:47Z",
+            "updatedAt": "2026-08-28T23:13:55Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v2_3f4c5a2f-e1fa-4ffd-9242-ce4fa64266e8.png?v=1787753688",
+                "altText": "",
+                "width": 1000,
+                "height": 1500
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v2_3f4c5a2f-e1fa-4ffd-9242-ce4fa64266e8.png?v=1787753688",
+              "altText": "",
+              "width": 1000,
+              "height": 1500
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAxNjE0OTc4Njk0MSwibGFzdF92YWx1ZSI6IjUzMDE2MTQ5Nzg2OTQxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53016149786941",
+            "alt": "",
+            "createdAt": "2026-08-27T20:03:04Z",
+            "updatedAt": "2026-08-27T20:03:06Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Bronze-shutterstock_1681180837.jpg?v=1787860986",
+                "altText": "",
+                "width": 700,
+                "height": 390
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Bronze-shutterstock_1681180837.jpg?v=1787860986",
+              "altText": "",
+              "width": 700,
+              "height": 390
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAxNjI5NTM0MjM5NywibGFzdF92YWx1ZSI6IjUzMDE2Mjk1MzQyMzk3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53016295342397",
+            "alt": "",
+            "createdAt": "2026-08-27T20:14:59Z",
+            "updatedAt": "2026-08-27T20:15:04Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/apex_banner_paddle_ball_1_copy.png?v=1787861702",
+                "altText": "",
+                "width": 5362,
+                "height": 1600
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/apex_banner_paddle_ball_1_copy.png?v=1787861702",
+              "altText": "",
+              "width": 5362,
+              "height": 1600
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjQ4OTAyMSwibGFzdF92YWx1ZSI6IjUzMDI5ODM2NDg5MDIxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53029836489021",
+            "alt": "",
+            "createdAt": "2026-08-28T12:56:58Z",
+            "updatedAt": "2026-08-28T23:02:22Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_box_website_featured_collection_photo_f9da49af-dc74-4ded-bbc9-762ba50c1b50.png?v=1787921821",
+                "altText": "",
+                "width": 1039,
+                "height": 1039
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_box_website_featured_collection_photo_f9da49af-dc74-4ded-bbc9-762ba50c1b50.png?v=1787921821",
+              "altText": "",
+              "width": 1039,
+              "height": 1039
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjUyMTc4OSwibGFzdF92YWx1ZSI6IjUzMDI5ODM2NTIxNzg5In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53029836521789",
+            "alt": "",
+            "createdAt": "2026-08-28T12:56:58Z",
+            "updatedAt": "2026-08-28T23:02:23Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6544_d3008878-7ccc-4adc-8f1f-4c651eaa6843.jpg?v=1787921821",
+                "altText": "",
+                "width": 1000,
+                "height": 667
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6544_d3008878-7ccc-4adc-8f1f-4c651eaa6843.jpg?v=1787921821",
+              "altText": "",
+              "width": 1000,
+              "height": 667
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjU1NDU1NywibGFzdF92YWx1ZSI6IjUzMDI5ODM2NTU0NTU3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53029836554557",
+            "alt": "",
+            "createdAt": "2026-08-28T12:56:58Z",
+            "updatedAt": "2026-08-28T23:02:23Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6500_9c7e7a6f-e56a-41c8-9400-68a5ccbb81b4.jpg?v=1787921820",
+                "altText": "",
+                "width": 1000,
+                "height": 667
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6500_9c7e7a6f-e56a-41c8-9400-68a5ccbb81b4.jpg?v=1787921820",
+              "altText": "",
+              "width": 1000,
+              "height": 667
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjU4NzMyNSwibGFzdF92YWx1ZSI6IjUzMDI5ODM2NTg3MzI1In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53029836587325",
+            "alt": "",
+            "createdAt": "2026-08-28T12:56:58Z",
+            "updatedAt": "2026-08-28T23:02:23Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A5222_f21c37a7-11bb-447e-a65f-64bb6fc110d8.jpg?v=1787921821",
+                "altText": "",
+                "width": 667,
+                "height": 1000
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A5222_f21c37a7-11bb-447e-a65f-64bb6fc110d8.jpg?v=1787921821",
+              "altText": "",
+              "width": 667,
+              "height": 1000
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjYyMDA5MywibGFzdF92YWx1ZSI6IjUzMDI5ODM2NjIwMDkzIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53029836620093",
+            "alt": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+            "createdAt": "2026-08-28T12:56:58Z",
+            "updatedAt": "2026-08-28T23:02:23Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25_5606c3d8-82ef-4a70-a502-bbbbe5edfc7e.jpg?v=1787921820",
+                "altText": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                "width": 1066,
+                "height": 1600
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25_5606c3d8-82ef-4a70-a502-bbbbe5edfc7e.jpg?v=1787921820",
+              "altText": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+              "width": 1066,
+              "height": 1600
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjY1Mjg2MSwibGFzdF92YWx1ZSI6IjUzMDI5ODM2NjUyODYxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53029836652861",
+            "alt": "",
+            "createdAt": "2026-08-28T12:56:58Z",
+            "updatedAt": "2026-08-28T23:02:23Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01621_1_bb035d55-a2cf-4585-8269-290da349769c.png?v=1787921823",
+                "altText": "",
+                "width": 2731,
+                "height": 4096
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01621_1_bb035d55-a2cf-4585-8269-290da349769c.png?v=1787921823",
+              "altText": "",
+              "width": 2731,
+              "height": 4096
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjY4NTYyOSwibGFzdF92YWx1ZSI6IjUzMDI5ODM2Njg1NjI5In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53029836685629",
+            "alt": "",
+            "createdAt": "2026-08-28T12:56:58Z",
+            "updatedAt": "2026-08-28T23:02:23Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v2_b91fc110-0bb2-4bd5-b094-535126e87c29.png?v=1787921821",
+                "altText": "",
+                "width": 1000,
+                "height": 1500
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v2_b91fc110-0bb2-4bd5-b094-535126e87c29.png?v=1787921821",
+              "altText": "",
+              "width": 1000,
+              "height": 1500
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjcxODM5NywibGFzdF92YWx1ZSI6IjUzMDI5ODM2NzE4Mzk3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53029836718397",
+            "alt": "",
+            "createdAt": "2026-08-28T12:56:59Z",
+            "updatedAt": "2026-08-28T12:57:03Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_box_website_featured_collection_photo_2b6ccc5d-3a1e-4c4d-9e6d-aada71030408.png?v=1787921821",
+                "altText": "",
+                "width": 1039,
+                "height": 1039
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_box_website_featured_collection_photo_2b6ccc5d-3a1e-4c4d-9e6d-aada71030408.png?v=1787921821",
+              "altText": "",
+              "width": 1039,
+              "height": 1039
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjc1MTE2NSwibGFzdF92YWx1ZSI6IjUzMDI5ODM2NzUxMTY1In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53029836751165",
+            "alt": "",
+            "createdAt": "2026-08-28T12:56:59Z",
+            "updatedAt": "2026-08-28T12:57:03Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6544_356aa7e8-239c-40ed-ac13-c172298e2667.jpg?v=1787921821",
+                "altText": "",
+                "width": 1000,
+                "height": 667
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6544_356aa7e8-239c-40ed-ac13-c172298e2667.jpg?v=1787921821",
+              "altText": "",
+              "width": 1000,
+              "height": 667
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjc4MzkzMywibGFzdF92YWx1ZSI6IjUzMDI5ODM2NzgzOTMzIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53029836783933",
+            "alt": "",
+            "createdAt": "2026-08-28T12:56:59Z",
+            "updatedAt": "2026-08-28T12:57:02Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6500_8e7a6fd4-95cc-4f08-b93e-4b5940bd877c.jpg?v=1787921820",
+                "altText": "",
+                "width": 1000,
+                "height": 667
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6500_8e7a6fd4-95cc-4f08-b93e-4b5940bd877c.jpg?v=1787921820",
+              "altText": "",
+              "width": 1000,
+              "height": 667
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjgxNjcwMSwibGFzdF92YWx1ZSI6IjUzMDI5ODM2ODE2NzAxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53029836816701",
+            "alt": "",
+            "createdAt": "2026-08-28T12:56:59Z",
+            "updatedAt": "2026-08-28T12:57:03Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A5222_a584deb7-91a3-4000-890b-cae0f19121e5.jpg?v=1787921821",
+                "altText": "",
+                "width": 667,
+                "height": 1000
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A5222_a584deb7-91a3-4000-890b-cae0f19121e5.jpg?v=1787921821",
+              "altText": "",
+              "width": 667,
+              "height": 1000
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjg0OTQ2OSwibGFzdF92YWx1ZSI6IjUzMDI5ODM2ODQ5NDY5In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53029836849469",
+            "alt": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+            "createdAt": "2026-08-28T12:56:59Z",
+            "updatedAt": "2026-08-28T12:57:13Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25_d3e1b21e-7d72-49b7-ae45-32508fa1402d.jpg?v=1787921824",
+                "altText": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                "width": 1066,
+                "height": 1600
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25_d3e1b21e-7d72-49b7-ae45-32508fa1402d.jpg?v=1787921824",
+              "altText": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+              "width": 1066,
+              "height": 1600
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjg4MjIzNywibGFzdF92YWx1ZSI6IjUzMDI5ODM2ODgyMjM3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53029836882237",
+            "alt": "",
+            "createdAt": "2026-08-28T12:56:59Z",
+            "updatedAt": "2026-08-28T12:57:06Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01621_1_258c1609-a5ff-4cb6-a291-bb34e659b477.png?v=1787921824",
+                "altText": "",
+                "width": 2731,
+                "height": 4096
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01621_1_258c1609-a5ff-4cb6-a291-bb34e659b477.png?v=1787921824",
+              "altText": "",
+              "width": 2731,
+              "height": 4096
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjkxNTAwNSwibGFzdF92YWx1ZSI6IjUzMDI5ODM2OTE1MDA1In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53029836915005",
+            "alt": "",
+            "createdAt": "2026-08-28T12:56:59Z",
+            "updatedAt": "2026-08-28T12:57:10Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v2_c96420b1-ec28-4db5-baee-b269b6c36457.png?v=1787921821",
+                "altText": "",
+                "width": 1000,
+                "height": 1500
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v2_c96420b1-ec28-4db5-baee-b269b6c36457.png?v=1787921821",
+              "altText": "",
+              "width": 1000,
+              "height": 1500
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjk4MDU0MSwibGFzdF92YWx1ZSI6IjUzMDI5ODM2OTgwNTQxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53029836980541",
+            "alt": "",
+            "createdAt": "2026-08-28T12:56:59Z",
+            "updatedAt": "2026-08-28T12:57:10Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_box_website_featured_collection_photo_44094e7e-e976-4f63-ba3a-d88937ea9552.png?v=1787921821",
+                "altText": "",
+                "width": 1039,
+                "height": 1039
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_box_website_featured_collection_photo_44094e7e-e976-4f63-ba3a-d88937ea9552.png?v=1787921821",
+              "altText": "",
+              "width": 1039,
+              "height": 1039
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNzAxMzMwOSwibGFzdF92YWx1ZSI6IjUzMDI5ODM3MDEzMzA5In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53029837013309",
+            "alt": "",
+            "createdAt": "2026-08-28T12:56:59Z",
+            "updatedAt": "2026-08-28T12:57:03Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6544_52cbb834-5ecf-4bb7-af9c-54ec863a9bab.jpg?v=1787921820",
+                "altText": "",
+                "width": 1000,
+                "height": 667
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6544_52cbb834-5ecf-4bb7-af9c-54ec863a9bab.jpg?v=1787921820",
+              "altText": "",
+              "width": 1000,
+              "height": 667
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNzA0NjA3NywibGFzdF92YWx1ZSI6IjUzMDI5ODM3MDQ2MDc3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53029837046077",
+            "alt": "",
+            "createdAt": "2026-08-28T12:56:59Z",
+            "updatedAt": "2026-08-28T12:57:02Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6500_781c9ea2-9359-45ea-adad-abdd6f396b60.jpg?v=1787921821",
+                "altText": "",
+                "width": 1000,
+                "height": 667
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6500_781c9ea2-9359-45ea-adad-abdd6f396b60.jpg?v=1787921821",
+              "altText": "",
+              "width": 1000,
+              "height": 667
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNzA3ODg0NSwibGFzdF92YWx1ZSI6IjUzMDI5ODM3MDc4ODQ1In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53029837078845",
+            "alt": "",
+            "createdAt": "2026-08-28T12:56:59Z",
+            "updatedAt": "2026-08-28T12:57:03Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A5222_8e224467-36d0-4553-b80b-d6e38afd8d86.jpg?v=1787921821",
+                "altText": "",
+                "width": 667,
+                "height": 1000
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A5222_8e224467-36d0-4553-b80b-d6e38afd8d86.jpg?v=1787921821",
+              "altText": "",
+              "width": 667,
+              "height": 1000
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNzExMTYxMywibGFzdF92YWx1ZSI6IjUzMDI5ODM3MTExNjEzIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53029837111613",
+            "alt": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+            "createdAt": "2026-08-28T12:56:59Z",
+            "updatedAt": "2026-08-28T12:57:03Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25_6a5bb680-1320-490d-b0fa-8dc95d18d8ed.jpg?v=1787921821",
+                "altText": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                "width": 1066,
+                "height": 1600
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25_6a5bb680-1320-490d-b0fa-8dc95d18d8ed.jpg?v=1787921821",
+              "altText": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+              "width": 1066,
+              "height": 1600
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNzE0NDM4MSwibGFzdF92YWx1ZSI6IjUzMDI5ODM3MTQ0MzgxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53029837144381",
+            "alt": "",
+            "createdAt": "2026-08-28T12:56:59Z",
+            "updatedAt": "2026-08-28T12:57:07Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01621_1_7bde928f-cac2-4029-99a3-5112a7345c0f.png?v=1787921824",
+                "altText": "",
+                "width": 2731,
+                "height": 4096
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01621_1_7bde928f-cac2-4029-99a3-5112a7345c0f.png?v=1787921824",
+              "altText": "",
+              "width": 2731,
+              "height": 4096
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNzE3NzE0OSwibGFzdF92YWx1ZSI6IjUzMDI5ODM3MTc3MTQ5In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53029837177149",
+            "alt": "",
+            "createdAt": "2026-08-28T12:56:59Z",
+            "updatedAt": "2026-08-28T12:57:02Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v2_9c5d87f2-9b43-46f3-9a45-7eb14c24f6f2.png?v=1787921821",
+                "altText": "",
+                "width": 1000,
+                "height": 1500
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v2_9c5d87f2-9b43-46f3-9a45-7eb14c24f6f2.png?v=1787921821",
+              "altText": "",
+              "width": 1000,
+              "height": 1500
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNzIwOTkxNywibGFzdF92YWx1ZSI6IjUzMDI5ODM3MjA5OTE3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53029837209917",
+            "alt": "",
+            "createdAt": "2026-08-28T12:56:59Z",
+            "updatedAt": "2026-08-28T12:57:05Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_box_website_featured_collection_photo_adbb423b-6332-4e5b-aab0-1accec063707.png?v=1787921821",
+                "altText": "",
+                "width": 1039,
+                "height": 1039
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_box_website_featured_collection_photo_adbb423b-6332-4e5b-aab0-1accec063707.png?v=1787921821",
+              "altText": "",
+              "width": 1039,
+              "height": 1039
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNzI0MjY4NSwibGFzdF92YWx1ZSI6IjUzMDI5ODM3MjQyNjg1In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53029837242685",
+            "alt": "",
+            "createdAt": "2026-08-28T12:56:59Z",
+            "updatedAt": "2026-08-28T12:57:02Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6544_578d040b-7f06-4c2a-a117-f5919555d437.jpg?v=1787921821",
+                "altText": "",
+                "width": 1000,
+                "height": 667
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6544_578d040b-7f06-4c2a-a117-f5919555d437.jpg?v=1787921821",
+              "altText": "",
+              "width": 1000,
+              "height": 667
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNzI3NTQ1MywibGFzdF92YWx1ZSI6IjUzMDI5ODM3Mjc1NDUzIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53029837275453",
+            "alt": "",
+            "createdAt": "2026-08-28T12:56:59Z",
+            "updatedAt": "2026-08-28T12:57:03Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6500_552ee906-3ceb-4e26-aafd-b11bda2341d6.jpg?v=1787921821",
+                "altText": "",
+                "width": 1000,
+                "height": 667
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6500_552ee906-3ceb-4e26-aafd-b11bda2341d6.jpg?v=1787921821",
+              "altText": "",
+              "width": 1000,
+              "height": 667
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNzMwODIyMSwibGFzdF92YWx1ZSI6IjUzMDI5ODM3MzA4MjIxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53029837308221",
+            "alt": "",
+            "createdAt": "2026-08-28T12:56:59Z",
+            "updatedAt": "2026-08-28T12:57:04Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A5222_6b33ae3f-78c0-4ec6-abe9-d95378d79cb4.jpg?v=1787921821",
+                "altText": "",
+                "width": 667,
+                "height": 1000
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A5222_6b33ae3f-78c0-4ec6-abe9-d95378d79cb4.jpg?v=1787921821",
+              "altText": "",
+              "width": 667,
+              "height": 1000
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNzM0MDk4OSwibGFzdF92YWx1ZSI6IjUzMDI5ODM3MzQwOTg5In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53029837340989",
+            "alt": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+            "createdAt": "2026-08-28T12:56:59Z",
+            "updatedAt": "2026-08-28T12:57:03Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25_f4bea988-3936-4c6f-bc48-74e0c770510b.jpg?v=1787921821",
+                "altText": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                "width": 1066,
+                "height": 1600
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25_f4bea988-3936-4c6f-bc48-74e0c770510b.jpg?v=1787921821",
+              "altText": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+              "width": 1066,
+              "height": 1600
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNzM3Mzc1NywibGFzdF92YWx1ZSI6IjUzMDI5ODM3MzczNzU3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53029837373757",
+            "alt": "",
+            "createdAt": "2026-08-28T12:56:59Z",
+            "updatedAt": "2026-08-28T12:57:06Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01621_1_36beacb1-2dff-47ec-80a7-c1a9d560c05b.png?v=1787921824",
+                "altText": "",
+                "width": 2731,
+                "height": 4096
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01621_1_36beacb1-2dff-47ec-80a7-c1a9d560c05b.png?v=1787921824",
+              "altText": "",
+              "width": 2731,
+              "height": 4096
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNzQwNjUyNSwibGFzdF92YWx1ZSI6IjUzMDI5ODM3NDA2NTI1In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53029837406525",
+            "alt": "",
+            "createdAt": "2026-08-28T12:56:59Z",
+            "updatedAt": "2026-08-28T12:57:04Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v2_ef3aff78-6d7f-4382-9a49-21fd23bd0c1d.png?v=1787921821",
+                "altText": "",
+                "width": 1000,
+                "height": 1500
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v2_ef3aff78-6d7f-4382-9a49-21fd23bd0c1d.png?v=1787921821",
+              "altText": "",
+              "width": 1000,
+              "height": 1500
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAzODkzNTczNjYzNywibGFzdF92YWx1ZSI6IjUzMDM4OTM1NzM2NjM3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53038935736637",
+            "alt": "",
+            "createdAt": "2026-08-28T20:26:51Z",
+            "updatedAt": "2026-08-28T20:26:55Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_box_website_featured_collection_photo_cc4959f7-9cb8-4bd9-bf7a-9fc9e6393805.png?v=1787948812",
+                "altText": "",
+                "width": 1039,
+                "height": 1039
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_box_website_featured_collection_photo_cc4959f7-9cb8-4bd9-bf7a-9fc9e6393805.png?v=1787948812",
+              "altText": "",
+              "width": 1039,
+              "height": 1039
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAzODkzNzgwMTAyMSwibGFzdF92YWx1ZSI6IjUzMDM4OTM3ODAxMDIxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53038937801021",
+            "alt": "",
+            "createdAt": "2026-08-28T20:26:55Z",
+            "updatedAt": "2026-08-28T20:27:00Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/10-pack_bucket_with_balls.png?v=1787948817",
+                "altText": "",
+                "width": 1500,
+                "height": 1500
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/10-pack_bucket_with_balls.png?v=1787948817",
+              "altText": "",
+              "width": 1500,
+              "height": 1500
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAzODkzNzgzMzc4OSwibGFzdF92YWx1ZSI6IjUzMDM4OTM3ODMzNzg5In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53038937833789",
+            "alt": "",
+            "createdAt": "2026-08-28T20:26:55Z",
+            "updatedAt": "2026-08-28T20:27:01Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/10-pack_bucket.png?v=1787948817",
+                "altText": "",
+                "width": 1500,
+                "height": 1500
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/10-pack_bucket.png?v=1787948817",
+              "altText": "",
+              "width": 1500,
+              "height": 1500
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAzODkzODcxODUyNSwibGFzdF92YWx1ZSI6IjUzMDM4OTM4NzE4NTI1In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53038938718525",
+            "alt": "",
+            "createdAt": "2026-08-28T20:26:57Z",
+            "updatedAt": "2026-08-28T20:27:02Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/10-pack_box.png?v=1787948819",
+                "altText": "",
+                "width": 1500,
+                "height": 1500
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/10-pack_box.png?v=1787948819",
+              "altText": "",
+              "width": 1500,
+              "height": 1500
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAzODkzODk4MDY2OSwibGFzdF92YWx1ZSI6IjUzMDM4OTM4OTgwNjY5In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53038938980669",
+            "alt": "",
+            "createdAt": "2026-08-28T20:26:57Z",
+            "updatedAt": "2026-08-28T20:27:04Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/50-pack.png?v=1787948819",
+                "altText": "",
+                "width": 1500,
+                "height": 1500
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/50-pack.png?v=1787948819",
+              "altText": "",
+              "width": 1500,
+              "height": 1500
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAzODkzOTAxMzQzNywibGFzdF92YWx1ZSI6IjUzMDM4OTM5MDEzNDM3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53038939013437",
+            "alt": "",
+            "createdAt": "2026-08-28T20:26:58Z",
+            "updatedAt": "2026-08-28T20:27:03Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/100-pack.png?v=1787948820",
+                "altText": "",
+                "width": 1500,
+                "height": 1500
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/100-pack.png?v=1787948820",
+              "altText": "",
+              "width": 1500,
+              "height": 1500
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzAzODkzOTczNDMzMywibGFzdF92YWx1ZSI6IjUzMDM4OTM5NzM0MzMzIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53038939734333",
+            "alt": "",
+            "createdAt": "2026-08-28T20:26:59Z",
+            "updatedAt": "2026-08-28T20:27:04Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/300-pack.png?v=1787948821",
+                "altText": "",
+                "width": 1500,
+                "height": 1500
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/300-pack.png?v=1787948821",
+              "altText": "",
+              "width": 1500,
+              "height": 1500
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzA0MTMwOTI4NjcxNywibGFzdF92YWx1ZSI6IjUzMDQxMzA5Mjg2NzE3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53041309286717",
+            "alt": "",
+            "createdAt": "2026-08-28T21:40:06Z",
+            "updatedAt": "2026-08-28T21:40:11Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/300-pack_proportional_transparent_1.png?v=1787953208",
+                "altText": "",
+                "width": 700,
+                "height": 700
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/300-pack_proportional_transparent_1.png?v=1787953208",
+              "altText": "",
+              "width": 700,
+              "height": 700
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzA0Mjc3NTYyMTk0OSwibGFzdF92YWx1ZSI6IjUzMDQyNzc1NjIxOTQ5In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53042775621949",
+            "alt": "",
+            "createdAt": "2026-08-28T22:23:18Z",
+            "updatedAt": "2026-08-28T22:23:23Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/ball_on_court_corner.jpg?v=1787955800",
+                "altText": "",
+                "width": 1500,
+                "height": 1500
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/ball_on_court_corner.jpg?v=1787955800",
+              "altText": "",
+              "width": 1500,
+              "height": 1500
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzA0Mjc3NTkxNjg2MSwibGFzdF92YWx1ZSI6IjUzMDQyNzc1OTE2ODYxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53042775916861",
+            "alt": "",
+            "createdAt": "2026-08-28T22:23:19Z",
+            "updatedAt": "2026-08-28T22:23:24Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/daniel_holding_ball_2.jpg?v=1787955800",
+                "altText": "",
+                "width": 1500,
+                "height": 1500
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/daniel_holding_ball_2.jpg?v=1787955800",
+              "altText": "",
+              "width": 1500,
+              "height": 1500
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzA0Mjc3NjUwNjY4NSwibGFzdF92YWx1ZSI6IjUzMDQyNzc2NTA2Njg1In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53042776506685",
+            "alt": "",
+            "createdAt": "2026-08-28T22:23:19Z",
+            "updatedAt": "2026-08-28T22:23:23Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/daniel_holding_ball_3.jpg?v=1787955801",
+                "altText": "",
+                "width": 1500,
+                "height": 1500
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/daniel_holding_ball_3.jpg?v=1787955801",
+              "altText": "",
+              "width": 1500,
+              "height": 1500
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzA0Mjc3NjUzOTQ1MywibGFzdF92YWx1ZSI6IjUzMDQyNzc2NTM5NDUzIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53042776539453",
+            "alt": "",
+            "createdAt": "2026-08-28T22:23:19Z",
+            "updatedAt": "2026-08-28T22:23:23Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/ghostx_with_ball.jpg?v=1787955801",
+                "altText": "",
+                "width": 1500,
+                "height": 1500
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/ghostx_with_ball.jpg?v=1787955801",
+              "altText": "",
+              "width": 1500,
+              "height": 1500
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzA0Mjg2NzczMjc5NywibGFzdF92YWx1ZSI6IjUzMDQyODY3NzMyNzk3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53042867732797",
+            "alt": "A close-up of a person's hand holding a bright neon green Apex ball.",
+            "createdAt": "2026-08-28T22:25:49Z",
+            "updatedAt": "2026-08-28T22:27:09Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/daniel_holding_ball_3_1.jpg?v=1787955951",
+                "altText": "A close-up of a person's hand holding a bright neon green Apex ball.",
+                "width": 1500,
+                "height": 1500
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/daniel_holding_ball_3_1.jpg?v=1787955951",
+              "altText": "A close-up of a person's hand holding a bright neon green Apex ball.",
+              "width": 1500,
+              "height": 1500
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzA0MzQ1MzIzMTQyMSwibGFzdF92YWx1ZSI6IjUzMDQzNDUzMjMxNDIxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53043453231421",
+            "alt": "",
+            "createdAt": "2026-08-28T22:41:49Z",
+            "updatedAt": "2026-08-28T22:41:53Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_tube_proportional_transparent.psd.png?v=1787956911",
+                "altText": "",
+                "width": 700,
+                "height": 700
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_tube_proportional_transparent.psd.png?v=1787956911",
+              "altText": "",
+              "width": 700,
+              "height": 700
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzA0MzgxODI2Njk0MSwibGFzdF92YWx1ZSI6IjUzMDQzODE4MjY2OTQxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53043818266941",
+            "alt": "",
+            "createdAt": "2026-08-28T22:53:04Z",
+            "updatedAt": "2026-08-28T22:53:10Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/6-pack_pouch.png?v=1787957586",
+                "altText": "",
+                "width": 700,
+                "height": 700
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/6-pack_pouch.png?v=1787957586",
+              "altText": "",
+              "width": 700,
+              "height": 700
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzA0MzgyMDI5ODU1NywibGFzdF92YWx1ZSI6IjUzMDQzODIwMjk4NTU3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53043820298557",
+            "alt": "",
+            "createdAt": "2026-08-28T22:53:10Z",
+            "updatedAt": "2026-08-28T22:53:35Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/6-pack_pouch_1.png?v=1787957592",
+                "altText": "",
+                "width": 1500,
+                "height": 1500
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/6-pack_pouch_1.png?v=1787957592",
+              "altText": "",
+              "width": 1500,
+              "height": 1500
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzA0NDA5NDMzNzM0MSwibGFzdF92YWx1ZSI6IjUzMDQ0MDk0MzM3MzQxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53044094337341",
+            "alt": "",
+            "createdAt": "2026-08-28T23:00:23Z",
+            "updatedAt": "2026-08-28T23:00:43Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/10-pack_pouch.png?v=1787958026",
+                "altText": "",
+                "width": 1500,
+                "height": 1500
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/10-pack_pouch.png?v=1787958026",
+              "altText": "",
+              "width": 1500,
+              "height": 1500
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzA0NDEzNjE0OTMwOSwibGFzdF92YWx1ZSI6IjUzMDQ0MTM2MTQ5MzA5In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53044136149309",
+            "alt": "",
+            "createdAt": "2026-08-28T23:02:07Z",
+            "updatedAt": "2026-08-28T23:02:23Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/10-pack_box_1.png?v=1787958130",
+                "altText": "",
+                "width": 1500,
+                "height": 1500
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/10-pack_box_1.png?v=1787958130",
+              "altText": "",
+              "width": 1500,
+              "height": 1500
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzA0NDQxNjQ0Njc4MSwibGFzdF92YWx1ZSI6IjUzMDQ0NDE2NDQ2NzgxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53044416446781",
+            "alt": "",
+            "createdAt": "2026-08-28T23:13:38Z",
+            "updatedAt": "2026-08-28T23:13:55Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_box_selfie.png?v=1787958819",
+                "altText": "",
+                "width": 1024,
+                "height": 1024
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_box_selfie.png?v=1787958819",
+              "altText": "",
+              "width": 1024,
+              "height": 1024
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzA5NjIzNzUzMTQ1MywibGFzdF92YWx1ZSI6IjUzMDk2MjM3NTMxNDUzIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53096237531453",
+            "alt": "",
+            "createdAt": "2026-08-31T12:54:04Z",
+            "updatedAt": "2026-08-31T12:54:05Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/cropped-UPL_transparent.png?v=1788180845",
+                "altText": "",
+                "width": 512,
+                "height": 512
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/cropped-UPL_transparent.png?v=1788180845",
+              "altText": "",
+              "width": 512,
+              "height": 512
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzEwMDUzNjM5ODE0MSwibGFzdF92YWx1ZSI6IjUzMTAwNTM2Mzk4MTQxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53100536398141",
+            "alt": "",
+            "createdAt": "2026-08-31T17:58:56Z",
+            "updatedAt": "2026-08-31T17:59:02Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/50-pack_proportional_transparent_v2.png?v=1788199138",
+                "altText": "",
+                "width": 700,
+                "height": 700
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/50-pack_proportional_transparent_v2.png?v=1788199138",
+              "altText": "",
+              "width": 700,
+              "height": 700
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzEwMDUzOTcwNzcwOSwibGFzdF92YWx1ZSI6IjUzMTAwNTM5NzA3NzA5In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53100539707709",
+            "alt": "",
+            "createdAt": "2026-08-31T17:59:17Z",
+            "updatedAt": "2026-08-31T17:59:28Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/100-pack_proportional_transparent_v2.png?v=1788199159",
+                "altText": "",
+                "width": 700,
+                "height": 700
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/100-pack_proportional_transparent_v2.png?v=1788199159",
+              "altText": "",
+              "width": 700,
+              "height": 700
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzEwMTUxMjkxNzMwOSwibGFzdF92YWx1ZSI6IjUzMTAxNTEyOTE3MzA5In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53101512917309",
+            "alt": "Four people standing on a pickleball court holding paddleboards, with a chain-link fence, palm trees, and a dry outdoor background.",
+            "createdAt": "2026-08-31T19:44:25Z",
+            "updatedAt": "2026-08-31T19:45:13Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Project_20260813_0255.jpg?v=1788205467",
+                "altText": "Four people standing on a pickleball court holding paddleboards, with a chain-link fence, palm trees, and a dry outdoor background.",
+                "width": 1500,
+                "height": 1000
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Project_20260813_0255.jpg?v=1788205467",
+              "altText": "Four people standing on a pickleball court holding paddleboards, with a chain-link fence, palm trees, and a dry outdoor background.",
+              "width": 1500,
+              "height": 1000
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzEwMjg0NzY4OTAyMSwibGFzdF92YWx1ZSI6IjUzMTAyODQ3Njg5MDIxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53102847689021",
+            "alt": "",
+            "createdAt": "2026-08-31T21:33:30Z",
+            "updatedAt": "2026-08-31T21:33:34Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Project_20260813_0169.jpg?v=1788212012",
+                "altText": "",
+                "width": 2000,
+                "height": 1333
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Project_20260813_0169.jpg?v=1788212012",
+              "altText": "",
+              "width": 2000,
+              "height": 1333
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzEwMzAxMjI4MjY4NSwibGFzdF92YWx1ZSI6IjUzMTAzMDEyMjgyNjg1In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53103012282685",
+            "alt": "",
+            "createdAt": "2026-08-31T21:48:41Z",
+            "updatedAt": "2026-08-31T21:49:03Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Project_20260813_0169_38b2abd8-6d6e-468e-b1fa-c31aa6564ddf.jpg?v=1788212922",
+                "altText": "",
+                "width": 2000,
+                "height": 1333
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Project_20260813_0169_38b2abd8-6d6e-468e-b1fa-c31aa6564ddf.jpg?v=1788212922",
+              "altText": "",
+              "width": 2000,
+              "height": 1333
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzEwMzQxNDM3ODgxMywibGFzdF92YWx1ZSI6IjUzMTAzNDE0Mzc4ODEzIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53103414378813",
+            "alt": "",
+            "createdAt": "2026-08-31T22:29:56Z",
+            "updatedAt": "2026-08-31T22:30:02Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v4.png?v=1788215398",
+                "altText": "",
+                "width": 1000,
+                "height": 1500
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v4.png?v=1788215398",
+              "altText": "",
+              "width": 1000,
+              "height": 1500
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzExNTM5MjI2MjQ2MSwibGFzdF92YWx1ZSI6IjUzMTE1MzkyMjYyNDYxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53115392262461",
+            "alt": "",
+            "createdAt": "2026-09-01T12:32:29Z",
+            "updatedAt": "2026-09-01T12:32:33Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/hotspots-ball-tech-callouts.png?v=1788265950",
+                "altText": "",
+                "width": 1190,
+                "height": 620
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/hotspots-ball-tech-callouts.png?v=1788265950",
+              "altText": "",
+              "width": 1190,
+              "height": 620
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzExNTYwNzg0MzEzMywibGFzdF92YWx1ZSI6IjUzMTE1NjA3ODQzMTMzIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53115607843133",
+            "alt": "",
+            "createdAt": "2026-09-01T12:47:04Z",
+            "updatedAt": "2026-09-01T12:47:09Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/mint-sport-logo.png?v=1788266826",
+                "altText": "",
+                "width": 4344,
+                "height": 2480
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/mint-sport-logo.png?v=1788266826",
+              "altText": "",
+              "width": 4344,
+              "height": 2480
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzExNTYyMDUyNDM0OSwibGFzdF92YWx1ZSI6IjUzMTE1NjIwNTI0MzQ5In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53115620524349",
+            "alt": "",
+            "createdAt": "2026-09-01T12:48:21Z",
+            "updatedAt": "2026-09-01T12:48:26Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Project_20260813_0075_1.png?v=1788266903",
+                "altText": "",
+                "width": 2000,
+                "height": 1333
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Project_20260813_0075_1.png?v=1788266903",
+              "altText": "",
+              "width": 2000,
+              "height": 1333
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzExNTcwNDA0OTk4MSwibGFzdF92YWx1ZSI6IjUzMTE1NzA0MDQ5OTgxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53115704049981",
+            "alt": "",
+            "createdAt": "2026-09-01T12:56:40Z",
+            "updatedAt": "2026-09-01T12:56:45Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/variant_a.avif?v=1788267402",
+                "altText": "",
+                "width": 2100,
+                "height": 944
+              }
+            },
+            "mimeType": "image/avif",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/variant_a.avif?v=1788267402",
+              "altText": "",
+              "width": 2100,
+              "height": 944
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzExNTg4NjE0MTc1NywibGFzdF92YWx1ZSI6IjUzMTE1ODg2MTQxNzU3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53115886141757",
+            "alt": "",
+            "createdAt": "2026-09-01T13:10:31Z",
+            "updatedAt": "2026-09-01T13:10:37Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/omar-pic-1.png?v=1788268234",
+                "altText": "",
+                "width": 2000,
+                "height": 1333
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/omar-pic-1.png?v=1788268234",
+              "altText": "",
+              "width": 2000,
+              "height": 1333
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzExNTg5Njc1ODU4OSwibGFzdF92YWx1ZSI6IjUzMTE1ODk2NzU4NTg5In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53115896758589",
+            "alt": "",
+            "createdAt": "2026-09-01T13:11:13Z",
+            "updatedAt": "2026-09-01T13:12:05Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/our-rescue-logo.png?v=1788268275",
+                "altText": "",
+                "width": 1028,
+                "height": 259
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/our-rescue-logo.png?v=1788268275",
+              "altText": "",
+              "width": 1028,
+              "height": 259
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzExNTkwODU1NTA2OSwibGFzdF92YWx1ZSI6IjUzMTE1OTA4NTU1MDY5In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53115908555069",
+            "alt": "",
+            "createdAt": "2026-09-01T13:12:05Z",
+            "updatedAt": "2026-09-01T13:12:11Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/our-rescue-logo-white.png?v=1788268326",
+                "altText": "",
+                "width": 1542,
+                "height": 389
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/our-rescue-logo-white.png?v=1788268326",
+              "altText": "",
+              "width": 1542,
+              "height": 389
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzExNjAzODc3NTEwMSwibGFzdF92YWx1ZSI6IjUzMTE2MDM4Nzc1MTAxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53116038775101",
+            "alt": "",
+            "createdAt": "2026-09-01T13:22:06Z",
+            "updatedAt": "2026-09-01T13:22:10Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/image-7.webp?v=1788268928",
+                "altText": "",
+                "width": 1670,
+                "height": 658
+              }
+            },
+            "mimeType": "image/webp",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/image-7.webp?v=1788268928",
+              "altText": "",
+              "width": 1670,
+              "height": 658
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzExNjA2NzE4NDk1NywibGFzdF92YWx1ZSI6IjUzMTE2MDY3MTg0OTU3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53116067184957",
+            "alt": "",
+            "createdAt": "2026-09-01T13:23:54Z",
+            "updatedAt": "2026-09-01T13:23:58Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/AdobeStock_495391664-3-1-1024x0-c-default.webp?v=1788269036",
+                "altText": "",
+                "width": 1024,
+                "height": 1450
+              }
+            },
+            "mimeType": "image/webp",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/AdobeStock_495391664-3-1-1024x0-c-default.webp?v=1788269036",
+              "altText": "",
+              "width": 1024,
+              "height": 1450
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzExNjEyODM2MjgxMywibGFzdF92YWx1ZSI6IjUzMTE2MTI4MzYyODEzIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53116128362813",
+            "alt": "",
+            "createdAt": "2026-09-01T13:28:15Z",
+            "updatedAt": "2026-09-01T13:28:19Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/fund-therapy-for-survivor.png?v=1788269296",
+                "altText": "",
+                "width": 1479,
+                "height": 947
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/fund-therapy-for-survivor.png?v=1788269296",
+              "altText": "",
+              "width": 1479,
+              "height": 947
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzExNjM2NDk4MDU0MSwibGFzdF92YWx1ZSI6IjUzMTE2MzY0OTgwNTQxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53116364980541",
+            "alt": "",
+            "createdAt": "2026-09-01T13:49:05Z",
+            "updatedAt": "2026-09-01T13:49:11Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/IMG_5897.png?v=1788270547",
+                "altText": "",
+                "width": 2688,
+                "height": 1550
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/IMG_5897.png?v=1788270547",
+              "altText": "",
+              "width": 2688,
+              "height": 1550
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzExNzgwMTc5MTgwNSwibGFzdF92YWx1ZSI6IjUzMTE3ODAxNzkxODA1In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53117801791805",
+            "alt": "",
+            "createdAt": "2026-09-01T15:46:42Z",
+            "updatedAt": "2026-09-01T15:46:47Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/eco-system-of-facilities-apex.png?v=1788277603",
+                "altText": "",
+                "width": 2170,
+                "height": 1642
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/eco-system-of-facilities-apex.png?v=1788277603",
+              "altText": "",
+              "width": 2170,
+              "height": 1642
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzExODE0OTQyNzUxNywibGFzdF92YWx1ZSI6IjUzMTE4MTQ5NDI3NTE3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53118149427517",
+            "alt": "",
+            "createdAt": "2026-09-01T16:06:04Z",
+            "updatedAt": "2026-09-01T16:06:08Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/ball-callouts-hotsport-v5.png?v=1788278766",
+                "altText": "",
+                "width": 1190,
+                "height": 620
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/ball-callouts-hotsport-v5.png?v=1788278766",
+              "altText": "",
+              "width": 1190,
+              "height": 620
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzExODQzMjI4MDg5MywibGFzdF92YWx1ZSI6IjUzMTE4NDMyMjgwODkzIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53118432280893",
+            "alt": "",
+            "createdAt": "2026-09-01T16:25:49Z",
+            "updatedAt": "2026-09-01T16:25:54Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/eco-system-of-facilities-apex-v3.png?v=1788279951",
+                "altText": "",
+                "width": 2094,
+                "height": 1584
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/eco-system-of-facilities-apex-v3.png?v=1788279951",
+              "altText": "",
+              "width": 2094,
+              "height": 1584
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzEyMDUzNjg3MTIyOSwibGFzdF92YWx1ZSI6IjUzMTIwNTM2ODcxMjI5In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53120536871229",
+            "alt": "",
+            "createdAt": "2026-09-01T19:33:48Z",
+            "updatedAt": "2026-09-01T19:33:52Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Apex_Lifestyle_checkout_1.jpg?v=1788291230",
+                "altText": "",
+                "width": 1122,
+                "height": 1402
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Apex_Lifestyle_checkout_1.jpg?v=1788291230",
+              "altText": "",
+              "width": 1122,
+              "height": 1402
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzEyMDUzNzM2Mjc0OSwibGFzdF92YWx1ZSI6IjUzMTIwNTM3MzYyNzQ5In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53120537362749",
+            "alt": "",
+            "createdAt": "2026-09-01T19:33:49Z",
+            "updatedAt": "2026-09-01T19:33:58Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Apex_Lifestyle_Checkout_3.jpg?v=1788291231",
+                "altText": "",
+                "width": 2048,
+                "height": 2048
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Apex_Lifestyle_Checkout_3.jpg?v=1788291231",
+              "altText": "",
+              "width": 2048,
+              "height": 2048
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzEyMDUzNzQyODI4NSwibGFzdF92YWx1ZSI6IjUzMTIwNTM3NDI4Mjg1In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53120537428285",
+            "alt": "",
+            "createdAt": "2026-09-01T19:33:50Z",
+            "updatedAt": "2026-09-01T19:33:55Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Apex_Lifestyle_Checkout_2.jpg?v=1788291232",
+                "altText": "",
+                "width": 2048,
+                "height": 2048
+              }
+            },
+            "mimeType": "image/jpeg",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Apex_Lifestyle_Checkout_2.jpg?v=1788291232",
+              "altText": "",
+              "width": 2048,
+              "height": 2048
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzEyMDUzNzQ2MTA1MywibGFzdF92YWx1ZSI6IjUzMTIwNTM3NDYxMDUzIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53120537461053",
+            "alt": "",
+            "createdAt": "2026-09-01T19:33:52Z",
+            "updatedAt": "2026-09-01T19:33:59Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Apex_Lifestyle_Checkout_7.png?v=1788291233",
+                "altText": "",
+                "width": 1122,
+                "height": 1402
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Apex_Lifestyle_Checkout_7.png?v=1788291233",
+              "altText": "",
+              "width": 1122,
+              "height": 1402
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzEyMDUzNzQ5MzgyMSwibGFzdF92YWx1ZSI6IjUzMTIwNTM3NDkzODIxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53120537493821",
+            "alt": "",
+            "createdAt": "2026-09-01T19:33:52Z",
+            "updatedAt": "2026-09-01T19:33:56Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Apex_Lifestyle_Checkout_8.png?v=1788291233",
+                "altText": "",
+                "width": 1122,
+                "height": 1122
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Apex_Lifestyle_Checkout_8.png?v=1788291233",
+              "altText": "",
+              "width": 1122,
+              "height": 1122
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzEyMDUzNzUyNjU4OSwibGFzdF92YWx1ZSI6IjUzMTIwNTM3NTI2NTg5In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53120537526589",
+            "alt": "",
+            "createdAt": "2026-09-01T19:33:52Z",
+            "updatedAt": "2026-09-01T19:33:58Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Apex_Lifestyle_Checkout_5.png?v=1788291234",
+                "altText": "",
+                "width": 1122,
+                "height": 1402
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Apex_Lifestyle_Checkout_5.png?v=1788291234",
+              "altText": "",
+              "width": 1122,
+              "height": 1402
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzEyMDUzNzc4ODczMywibGFzdF92YWx1ZSI6IjUzMTIwNTM3Nzg4NzMzIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53120537788733",
+            "alt": "",
+            "createdAt": "2026-09-01T19:33:54Z",
+            "updatedAt": "2026-09-01T19:34:00Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Apex_Lifestyle_Checkout_4.png?v=1788291236",
+                "altText": "",
+                "width": 2048,
+                "height": 2048
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Apex_Lifestyle_Checkout_4.png?v=1788291236",
+              "altText": "",
+              "width": 2048,
+              "height": 2048
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzEyMDUzNzgyMTUwMSwibGFzdF92YWx1ZSI6IjUzMTIwNTM3ODIxNTAxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53120537821501",
+            "alt": "",
+            "createdAt": "2026-09-01T19:33:54Z",
+            "updatedAt": "2026-09-01T19:33:59Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Apex_Lifestyle_Checkout_6.png?v=1788291236",
+                "altText": "",
+                "width": 2048,
+                "height": 2048
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/Apex_Lifestyle_Checkout_6.png?v=1788291236",
+              "altText": "",
+              "width": 2048,
+              "height": 2048
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzE2NjA4MzMwOTg4NSwibGFzdF92YWx1ZSI6IjUzMTY2MDgzMzA5ODg1In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53166083309885",
+            "alt": "",
+            "createdAt": "2026-09-04T13:18:44Z",
+            "updatedAt": "2026-09-04T13:18:49Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/upl-club-locations.png?v=1788527926",
+                "altText": "",
+                "width": 787,
+                "height": 542
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/upl-club-locations.png?v=1788527926",
+              "altText": "",
+              "width": 787,
+              "height": 542
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzM3Njg5MjM3MTI2MSwibGFzdF92YWx1ZSI6IjUzMzc2ODkyMzcxMjYxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53376892371261",
+            "alt": "",
+            "createdAt": "2026-09-16T16:36:49Z",
+            "updatedAt": "2026-09-16T16:36:51Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/email-sig-social-facebook.png?v=1789576611",
+                "altText": "",
+                "width": 44,
+                "height": 44
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/email-sig-social-facebook.png?v=1789576611",
+              "altText": "",
+              "width": 44,
+              "height": 44
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzM3Njg5MjQwNDAyOSwibGFzdF92YWx1ZSI6IjUzMzc2ODkyNDA0MDI5In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53376892404029",
+            "alt": "",
+            "createdAt": "2026-09-16T16:36:49Z",
+            "updatedAt": "2026-09-16T16:36:54Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/email-sig-social-tiktok.png?v=1789576611",
+                "altText": "",
+                "width": 44,
+                "height": 44
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/email-sig-social-tiktok.png?v=1789576611",
+              "altText": "",
+              "width": 44,
+              "height": 44
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzM3Njg5MjQzNjc5NywibGFzdF92YWx1ZSI6IjUzMzc2ODkyNDM2Nzk3In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53376892436797",
+            "alt": "",
+            "createdAt": "2026-09-16T16:36:50Z",
+            "updatedAt": "2026-09-16T16:36:56Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/email-sig-social-x.png?v=1789576611",
+                "altText": "",
+                "width": 44,
+                "height": 44
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/email-sig-social-x.png?v=1789576611",
+              "altText": "",
+              "width": 44,
+              "height": 44
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzM3Njg5MjQ2OTU2NSwibGFzdF92YWx1ZSI6IjUzMzc2ODkyNDY5NTY1In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53376892469565",
+            "alt": "",
+            "createdAt": "2026-09-16T16:36:50Z",
+            "updatedAt": "2026-09-16T16:36:56Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/email-sig-social-instagram.png?v=1789576611",
+                "altText": "",
+                "width": 44,
+                "height": 44
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/email-sig-social-instagram.png?v=1789576611",
+              "altText": "",
+              "width": 44,
+              "height": 44
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzM3Njg5MjUwMjMzMywibGFzdF92YWx1ZSI6IjUzMzc2ODkyNTAyMzMzIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53376892502333",
+            "alt": "",
+            "createdAt": "2026-09-16T16:36:50Z",
+            "updatedAt": "2026-09-16T16:36:54Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/email-sig-social-youtube.png?v=1789576611",
+                "altText": "",
+                "width": 44,
+                "height": 44
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/email-sig-social-youtube.png?v=1789576611",
+              "altText": "",
+              "width": 44,
+              "height": 44
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzM3Njg5MjUzNTEwMSwibGFzdF92YWx1ZSI6IjUzMzc2ODkyNTM1MTAxIn0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53376892535101",
+            "alt": "",
+            "createdAt": "2026-09-16T16:36:50Z",
+            "updatedAt": "2026-09-16T16:36:54Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/email-sig-apex-logo.png?v=1789576611",
+                "altText": "",
+                "width": 300,
+                "height": 88
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/email-sig-apex-logo.png?v=1789576611",
+              "altText": "",
+              "width": 300,
+              "height": 88
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo1MzM3Njg5MjU2Nzg2OSwibGFzdF92YWx1ZSI6IjUzMzc2ODkyNTY3ODY5In0=",
+          "node": {
+            "__typename": "MediaImage",
+            "id": "gid://shopify/MediaImage/53376892567869",
+            "alt": "",
+            "createdAt": "2026-09-16T16:36:50Z",
+            "updatedAt": "2026-09-16T16:36:54Z",
+            "fileStatus": "READY",
+            "preview": {
+              "status": "READY",
+              "image": {
+                "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/email-sig-banner.png?v=1789576611",
+                "altText": "",
+                "width": 1200,
+                "height": 260
+              }
+            },
+            "mimeType": "image/png",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/email-sig-banner.png?v=1789576611",
+              "altText": "",
+              "width": 1200,
+              "height": 260
+            }
+          }
+        }
+      ],
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "eyJsYXN0X2lkIjo1MzM3Njg5MjU2Nzg2OSwibGFzdF92YWx1ZSI6IjUzMzc2ODkyNTY3ODY5In0="
+      }
+    },
+    "pageCount": 3
+  }
+}

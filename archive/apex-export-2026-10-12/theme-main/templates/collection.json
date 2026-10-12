@@ -1,0 +1,67 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "apex_collection_banner_image_fVrt3V": {
+      "type": "apex-collection-banner-image",
+      "name": "APEX collection banner",
+      "settings": {
+        "solid_header": false
+      }
+    },
+    "banner": {
+      "type": "apex-collection-banner",
+      "disabled": true,
+      "settings": {
+        "eyebrow": "",
+        "show_collection_description": false,
+        "padding_top": 32,
+        "padding_bottom": 0
+      }
+    },
+    "product-grid": {
+      "type": "apex-collection-grid",
+      "custom_css": [
+        "div.product-count {display: none;}"
+      ],
+      "settings": {
+        "products_per_page": 16,
+        "columns_desktop": 3,
+        "columns_mobile": "2",
+        "cta_label": "Shop now",
+        "enable_filtering": false,
+        "filter_type": "drawer",
+        "enable_sorting": true,
+        "padding_top": 24,
+        "padding_bottom": 96
+      }
+    },
+    "apex_cta_banner_mpiWJK": {
+      "type": "apex-cta-banner",
+      "name": "APEX CTA banner",
+      "settings": {
+        "fallback_image_name": "photoshoot-1.jpg",
+        "scrim_opacity": 70,
+        "min_height": 352,
+        "eyebrow": "",
+        "heading": "Engineered perfection.",
+        "body": "Ready for your next game?",
+        "cta_label": "",
+        "cta_link": ""
+      }
+    }
+  },
+  "order": [
+    "apex_collection_banner_image_fVrt3V",
+    "banner",
+    "product-grid",
+    "apex_cta_banner_mpiWJK"
+  ]
+}

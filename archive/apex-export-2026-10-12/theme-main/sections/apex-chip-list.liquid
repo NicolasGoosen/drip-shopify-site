@@ -1,0 +1,181 @@
+{%- comment -%}
+  APEX chip list — a wrapping row of bronze-outlined labels.
+
+  WHY A TEXTAREA AND NOT BLOCKS
+  The list this was built for is ten business types, and it will get edited as
+  a list rather than item by item. Ten section blocks would mean ten collapsed
+  rows in the Theme Editor to reorder one word. One line per chip in a textarea
+  is faster to edit and has no block limit.
+
+  It is deliberately generic — nothing here knows about wholesale, so it can be
+  reused anywhere a scannable set of short labels is wanted.
+
+  ACCESSIBILITY
+  Renders as a real <ul>. The chips are content, not controls: they carry no
+  link and no hover state, because a reader is meant to scan the set and find
+  themselves in it, not click one.
+{%- endcomment -%}
+
+{%- assign chips = section.settings.chips | newline_to_br | split: '<br />' -%}
+
+<section
+  class="chips"
+  style="
+    --chips-bg: {{ section.settings.background }};
+    --chips-pad-block: {{ section.settings.padding_block }}px;
+  "
+>
+  <div class="apex-container">
+    {%- if section.settings.eyebrow != blank or section.settings.heading != blank -%}
+      <header class="chips__head">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="chips__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="chips__heading">{{ section.settings.heading | escape }}</h2>
+        {%- endif -%}
+      </header>
+    {%- endif -%}
+
+    {%- if section.settings.chips != blank -%}
+      <ul class="chips__list" role="list">
+        {%- for chip in chips -%}
+          {%- assign chip_text = chip | strip_newlines | strip -%}
+          {%- if chip_text != blank -%}
+            <li class="chips__item">{{ chip_text | escape }}</li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    {%- if section.settings.footnote != blank -%}
+      <div class="chips__footnote">{{ section.settings.footnote }}</div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .chips {
+    padding-block: var(--chips-pad-block, var(--space-section));
+    background-color: var(--chips-bg, var(--color-bg));
+  }
+
+  .chips__head {
+    display: grid;
+    gap: var(--space-2xs);
+    margin-block-end: var(--space-lg);
+  }
+
+  .chips__eyebrow {
+    margin: 0;
+    color: var(--brand-accent);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-xs);
+    font-style: italic;
+    font-weight: var(--weight-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+  }
+
+  .chips__heading {
+    margin: 0;
+    max-width: 24ch;
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-display);
+    text-transform: uppercase;
+  }
+
+  .chips__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .chips__item {
+    padding: var(--space-2xs) var(--space-xs);
+    border: 1px solid var(--color-border-accent);
+    color: var(--brand-accent);
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-medium);
+    letter-spacing: var(--tracking-label);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+  .chips__footnote {
+    margin-block-start: var(--space-lg);
+    max-width: 52ch;
+    color: var(--color-text-muted);
+    font-size: var(--text-body);
+    line-height: var(--leading-snug);
+  }
+
+  .chips__footnote p {
+    margin: 0;
+  }
+
+  .chips__footnote a {
+    color: var(--brand-accent);
+  }
+
+  @media screen and (min-width: 750px) {
+    .chips__list {
+      gap: var(--space-xs);
+    }
+
+    .chips__item {
+      font-size: var(--text-sm);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "APEX chip list",
+  "tag": "section",
+  "class": "apex-chip-list-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Who we work with" },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "If you're on this list, we should talk."
+    },
+    {
+      "type": "textarea",
+      "id": "chips",
+      "label": "Chips",
+      "info": "One per line.",
+      "default": "Pickleball facilities\nPro shops\nSporting goods stores\nTennis & pickleball clubs\nTournament organizers\nCoaches\nAcademies\nResorts\nRetailers\nRegional distributors"
+    },
+    {
+      "type": "richtext",
+      "id": "footnote",
+      "label": "Footnote",
+      "default": "<p>Don't see yourself exactly? Apply anyway — tell us what you run and we'll tell you straight whether wholesale is the right fit.</p>"
+    },
+    { "type": "header", "content": "Appearance" },
+    { "type": "color", "id": "background", "label": "Background", "default": "#0B090C" },
+    {
+      "type": "range",
+      "id": "padding_block",
+      "label": "Vertical padding",
+      "min": 32,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    }
+  ],
+  "presets": [{ "name": "APEX chip list" }]
+}
+{% endschema %}

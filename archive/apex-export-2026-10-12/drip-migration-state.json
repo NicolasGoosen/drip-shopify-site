@@ -1,0 +1,47 @@
+{
+  "updatedAt": "2026-10-12",
+  "targetShop": "Drip Pickleball",
+  "targetDomain": "qg0urk-en.myshopify.com",
+  "completed": {
+    "images": 140,
+    "videos": 2,
+    "products": 9,
+    "collections": 5,
+    "pages": 8,
+    "blog": 1,
+    "policies": 0,
+    "menus": 6,
+    "redirects": 17,
+    "customMetafieldDefinitions": 4,
+    "customMetaobjectDefinitions": 1,
+    "customMetaobjects": 1,
+    "colorPatternProductReferences": 9
+  },
+  "pending": {
+    "videos": 0,
+    "products": 0,
+    "collections": 0,
+    "pages": 0,
+    "blog": 0,
+    "policies": 3,
+    "menus": 0,
+    "redirects": 0,
+    "customMetafieldDefinitions": 0,
+    "customMetaobjectDefinitions": 0,
+    "customMetaobjects": 0,
+    "colorPatternProductReferences": 0
+  },
+  "notes": [
+    "Apex export is complete and preserved under this archive.",
+    "140 image files and 2 video files are present in Drip and all 142 are READY.",
+    "All 9 products, 5 source collections, 8 pages, the News blog, 6 Apex storefront menus, and 17 URL redirects were imported. Drip customer-account navigation was preserved.",
+    "4 custom metafield definitions were created; product and collection metafields were linked to Drip file IDs.",
+    "Imported collections and products are published to the same two Drip publications as the existing Home page.",
+    "Source contained 0 blog articles.",
+    "Legal policy bodies are staged in drip-import-draft.json but Shopify rejected shopPolicyUpdate because the connected app lacks write_legal_policies scope.",
+    "The import draft uses info@drippickleball.com from the connected Drip store. Existing source phone/address details remain in legal copy because replacements were not supplied.",
+    "Product SKUs/barcodes were preserved as operational identifiers; Apex source handles remain only in the archive for traceability. Social redirect destinations still use Apex social profiles because new Drip profile URLs were not supplied.",
+    "Photos are preserved unchanged, including any Apex logos physically visible in the images.",
+    "The source Shopify-managed color-pattern definition was represented as a Drip-owned drip_color_pattern definition, one Optic Green entry, and nine product references."
+  ]
+}

@@ -1,0 +1,89 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "partners-ourrescue",
+      "blocks": {
+        "fig-csam": {
+          "type": "figure",
+          "settings": {
+            "value": "100 million",
+            "text": "Suspected child sexual abuse material files reported.",
+            "source": "National Center for Missing and Exploited Children"
+          }
+        },
+        "fig-reported": {
+          "type": "figure",
+          "settings": {
+            "value": "",
+            "text": "Sex trafficking is the most reported form of trafficking in the U.S.",
+            "source": "Polaris, 2023"
+          }
+        },
+        "fig-revenue": {
+          "type": "figure",
+          "settings": {
+            "value": "$172.6B",
+            "text": "Generated from forced commercial sexual exploitation annually.",
+            "source": "International Labour Organization"
+          }
+        }
+      },
+      "block_order": [
+        "fig-csam",
+        "fig-reported",
+        "fig-revenue"
+      ],
+      "custom_css": [
+        ".orsc-crumbs {display: none;}",
+        ".orsc-split {grid-template-columns: none;}",
+        "* {--orsc-showcase-w: 30rem;}",
+        ".orsc-statement__text {color: white;}"
+      ],
+      "settings": {
+        "background": "#0b090c",
+        "background_light": "#ffffff",
+        "padding_block": 64,
+        "partner_name": "Our Rescue",
+        "partner_url": "https://ourrescue.org",
+        "partner_logo": "shopify://shop_images/our-rescue-logo-white.png",
+        "partner_logo_alt": "Our Rescue",
+        "partner_rel": "none",
+        "partner_description": "Our Rescue is a nonprofit working to end human trafficking and the sexual exploitation of children.",
+        "partner_sameas": "",
+        "seo_description": "Drip Pickleball supports Our Rescue in the fight to end human trafficking.",
+        "drip_description": "Drip Pickleball makes the Drip 48, a 48-hole pickleball engineered for consistent flight and tournament durability.",
+        "crumb_home": "Home",
+        "crumb_parent": "Partners",
+        "crumb_parent_link": "/pages/partners",
+        "hero_image": "shopify://shop_images/variant_a.avif",
+        "hero_eyebrow": "Who we stand with",
+        "hero_heading": "Together we can end human trafficking",
+        "hero_text": "Our Rescue are true warriors for good. We are honored to stand next to Our Rescue in this fight to save our children.",
+        "hero_cta_label": "Visit Our Rescue",
+        "support_text": "Our Rescue is saving children and we're proud to support them.",
+        "support_cta_label": "Visit website",
+        "support_background": "#000000",
+        "support_rules": true,
+        "support_invert": false,
+        "problem_image": "shopify://shop_images/IMG_5897.png",
+        "problem_image_alt": "",
+        "problem_label": "",
+        "problem_heading": "THE PROBLEM",
+        "problem_text": "Most people look away. Meanwhile, 49.6 million people are trapped in modern slavery worldwide. That includes human sex trafficking. And it's happening closer than you think.\n\nTo stop these crimes, Our Rescue works hand-in-hand with law enforcement, local communities, and global partners to confront exploitation and human trafficking head-on.",
+        "problem_cta_label": "Visit their website"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

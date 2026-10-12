@@ -1,0 +1,336 @@
+{
+  "sourceShop": "Apex Pickleball",
+  "sourceDomain": "apexpickleball.org",
+  "exportedAt": "2026-10-12",
+  "recordType": "custom-data",
+  "data": {
+    "metaobjectDefinitions": {
+      "edges": [
+        {
+          "cursor": "eyJsYXN0X2lkIjoyMzA5NjAwMDgyOSwibGFzdF92YWx1ZSI6IjIzMDk2MDAwODI5In0=",
+          "node": {
+            "id": "gid://shopify/MetaobjectDefinition/23096000829",
+            "type": "shopify--color-pattern",
+            "name": "Color",
+            "description": "Defines the primary color or pattern, such as blue or striped",
+            "displayNameKey": "label",
+            "hasThumbnailField": true,
+            "fieldDefinitions": [
+              {
+                "key": "label",
+                "name": "Label",
+                "description": null,
+                "required": true,
+                "type": {
+                  "name": "single_line_text_field",
+                  "category": "TEXT"
+                },
+                "validations": [
+                  {
+                    "name": "max",
+                    "type": "number_integer",
+                    "value": "255"
+                  }
+                ]
+              },
+              {
+                "key": "color",
+                "name": "Color",
+                "description": null,
+                "required": false,
+                "type": {
+                  "name": "color",
+                  "category": "COLOR"
+                },
+                "validations": []
+              },
+              {
+                "key": "image",
+                "name": "Image",
+                "description": null,
+                "required": false,
+                "type": {
+                  "name": "file_reference",
+                  "category": "REFERENCE"
+                },
+                "validations": [
+                  {
+                    "name": "file_type_options",
+                    "type": "list.single_line_text_field",
+                    "value": "[\"Image\"]"
+                  }
+                ]
+              },
+              {
+                "key": "color_taxonomy_reference",
+                "name": "Base color",
+                "description": "Base values map to standards for better search and organization",
+                "required": true,
+                "type": {
+                  "name": "list.product_taxonomy_value_reference",
+                  "category": "REFERENCE"
+                },
+                "validations": [
+                  {
+                    "name": "product_taxonomy_attribute_handle",
+                    "type": "single_line_text_field",
+                    "value": "color"
+                  },
+                  {
+                    "name": "list.min",
+                    "type": "number_integer",
+                    "value": "1"
+                  },
+                  {
+                    "name": "list.max",
+                    "type": "number_integer",
+                    "value": "4"
+                  }
+                ]
+              },
+              {
+                "key": "pattern_taxonomy_reference",
+                "name": "Base pattern",
+                "description": "Base values map to standards for better search and organization",
+                "required": true,
+                "type": {
+                  "name": "product_taxonomy_value_reference",
+                  "category": "REFERENCE"
+                },
+                "validations": [
+                  {
+                    "name": "product_taxonomy_attribute_handle",
+                    "type": "single_line_text_field",
+                    "value": "pattern"
+                  }
+                ]
+              }
+            ],
+            "metaobjects": {
+              "edges": [
+                {
+                  "cursor": "eyJsYXN0X2lkIjoyNjE3OTE2NDYwMTMsImxhc3RfdmFsdWUiOiIyNjE3OTE2NDYwMTMifQ==",
+                  "node": {
+                    "id": "gid://shopify/Metaobject/261791646013",
+                    "type": "shopify--color-pattern",
+                    "handle": "optic-green",
+                    "displayName": "Optic Green",
+                    "createdAt": "2026-07-28T11:32:16Z",
+                    "updatedAt": "2026-07-28T11:32:17Z",
+                    "fields": [
+                      {
+                        "key": "label",
+                        "type": "single_line_text_field",
+                        "value": "Optic Green",
+                        "jsonValue": "Optic Green"
+                      },
+                      {
+                        "key": "color",
+                        "type": "color",
+                        "value": "#A6E949",
+                        "jsonValue": "#A6E949"
+                      },
+                      {
+                        "key": "image",
+                        "type": "file_reference",
+                        "value": null,
+                        "jsonValue": null
+                      },
+                      {
+                        "key": "color_taxonomy_reference",
+                        "type": "list.product_taxonomy_value_reference",
+                        "value": "[\"gid://shopify/TaxonomyValue/9\"]",
+                        "jsonValue": [
+                          "gid://shopify/TaxonomyValue/9"
+                        ]
+                      },
+                      {
+                        "key": "pattern_taxonomy_reference",
+                        "type": "product_taxonomy_value_reference",
+                        "value": "gid://shopify/TaxonomyValue/2874",
+                        "jsonValue": "gid://shopify/TaxonomyValue/2874"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": "eyJsYXN0X2lkIjoyNjE3OTE2NDYwMTMsImxhc3RfdmFsdWUiOiIyNjE3OTE2NDYwMTMifQ=="
+              }
+            }
+          }
+        }
+      ],
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "eyJsYXN0X2lkIjoyMzA5NjAwMDgyOSwibGFzdF92YWx1ZSI6IjIzMDk2MDAwODI5In0="
+      }
+    },
+    "productMetafieldDefinitions": {
+      "edges": [
+        {
+          "cursor": "eyJsYXN0X2lkIjoyNTcxOTk1Mzg0OTMsImxhc3RfdmFsdWUiOiIyNTcxOTk1Mzg0OTMifQ==",
+          "node": {
+            "id": "gid://shopify/MetafieldDefinition/257199538493",
+            "namespace": "shopify",
+            "key": "color-pattern",
+            "name": "Color",
+            "description": "Defines the primary color or pattern, such as blue or striped",
+            "ownerType": "PRODUCT",
+            "pinnedPosition": null,
+            "type": {
+              "name": "list.metaobject_reference",
+              "category": "REFERENCE"
+            },
+            "validations": [
+              {
+                "name": "metaobject_definition_id",
+                "type": "single_line_text_field",
+                "value": "gid://shopify/MetaobjectDefinition/23096000829"
+              }
+            ],
+            "useAsCollectionCondition": false
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjoyNjQzMzE2OTAzMDEsImxhc3RfdmFsdWUiOiIyNjQzMzE2OTAzMDEifQ==",
+          "node": {
+            "id": "gid://shopify/MetafieldDefinition/264331690301",
+            "namespace": "custom",
+            "key": "pack_label",
+            "name": "pack_label",
+            "description": "",
+            "ownerType": "PRODUCT",
+            "pinnedPosition": 1,
+            "type": {
+              "name": "single_line_text_field",
+              "category": "TEXT"
+            },
+            "validations": [],
+            "useAsCollectionCondition": false
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjoyNjQzMzIyODAxMjUsImxhc3RfdmFsdWUiOiIyNjQzMzIyODAxMjUifQ==",
+          "node": {
+            "id": "gid://shopify/MetafieldDefinition/264332280125",
+            "namespace": "custom",
+            "key": "pack_image",
+            "name": "pack_image",
+            "description": "",
+            "ownerType": "PRODUCT",
+            "pinnedPosition": 2,
+            "type": {
+              "name": "file_reference",
+              "category": "REFERENCE"
+            },
+            "validations": [
+              {
+                "name": "file_type_options",
+                "type": "list.single_line_text_field",
+                "value": "[\"Image\"]"
+              }
+            ],
+            "useAsCollectionCondition": false
+          }
+        }
+      ],
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "eyJsYXN0X2lkIjoyNjQzMzIyODAxMjUsImxhc3RfdmFsdWUiOiIyNjQzMzIyODAxMjUifQ=="
+      }
+    },
+    "variantMetafieldDefinitions": {
+      "edges": [],
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": null
+      }
+    },
+    "collectionMetafieldDefinitions": {
+      "edges": [
+        {
+          "cursor": "eyJsYXN0X2lkIjoyNjc0NDE1NzAxMDksImxhc3RfdmFsdWUiOiIyNjc0NDE1NzAxMDkifQ==",
+          "node": {
+            "id": "gid://shopify/MetafieldDefinition/267441570109",
+            "namespace": "custom",
+            "key": "banner_desktop",
+            "name": "Banner (Desktop)",
+            "description": "",
+            "ownerType": "COLLECTION",
+            "pinnedPosition": 1,
+            "type": {
+              "name": "file_reference",
+              "category": "REFERENCE"
+            },
+            "validations": [
+              {
+                "name": "file_type_options",
+                "type": "list.single_line_text_field",
+                "value": "[\"Image\"]"
+              }
+            ],
+            "useAsCollectionCondition": false
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjoyNjc0NDIxNTk5MzMsImxhc3RfdmFsdWUiOiIyNjc0NDIxNTk5MzMifQ==",
+          "node": {
+            "id": "gid://shopify/MetafieldDefinition/267442159933",
+            "namespace": "custom",
+            "key": "banner_mobile",
+            "name": "Banner (Mobile)",
+            "description": "",
+            "ownerType": "COLLECTION",
+            "pinnedPosition": 2,
+            "type": {
+              "name": "file_reference",
+              "category": "REFERENCE"
+            },
+            "validations": [
+              {
+                "name": "file_type_options",
+                "type": "list.single_line_text_field",
+                "value": "[\"Image\"]"
+              }
+            ],
+            "useAsCollectionCondition": false
+          }
+        }
+      ],
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "eyJsYXN0X2lkIjoyNjc0NDIxNTk5MzMsImxhc3RfdmFsdWUiOiIyNjc0NDIxNTk5MzMifQ=="
+      }
+    },
+    "pageMetafieldDefinitions": {
+      "edges": [],
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": null
+      }
+    },
+    "blogMetafieldDefinitions": {
+      "edges": [],
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": null
+      }
+    },
+    "articleMetafieldDefinitions": {
+      "edges": [],
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": null
+      }
+    },
+    "shopMetafieldDefinitions": {
+      "edges": [],
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": null
+      }
+    }
+  }
+}

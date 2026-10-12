@@ -1,0 +1,128 @@
+/* ==========================================================================
+   DRIP Pickleball — layout grid
+
+   EVERY NUMBER IN THIS FILE COMES FROM assets/tokens.css. If you need to
+   change how wide the page is, how far it sits from the viewport edge, or how
+   wide the gutters are, change the LAYOUT GRID block in tokens.css — not here.
+
+   Namespaced `.drip-` so it sits alongside Dawn's `.page-width` and `.grid`
+   without colliding. Dawn's own system stays intact for commerce templates.
+
+   ---------------------------------------------------------------------------
+   The container
+
+     <div class="drip-container">          max 1280, centred, gutter each side
+     <div class="drip-container is-wide">  max 1600, for full-bleed-ish bands
+     <div class="drip-container is-flush"> no gutter, for edge-to-edge media
+
+   The 12-column grid
+
+     <div class="drip-grid">
+       <div class="col-6">half on desktop, full on mobile</div>
+       <div class="col-6">...</div>
+     </div>
+
+   Columns are MOBILE-FIRST: a `.col-*` class is a DESKTOP instruction. Every
+   child is full-width until the 750px breakpoint, which is what the mockup
+   does at every band. Use `.col-*-tablet` to opt into an intermediate step.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Container
+   -------------------------------------------------------------------------- */
+
+.drip-container {
+  width: 100%;
+  max-width: calc(var(--container-max) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* max-width includes the gutters so that content — not the box — measures
+   --container-max once the viewport is wide enough. A bare
+   `max-width: var(--container-max)` would leave content 2x gutter narrower
+   than measured, which is the usual way this gets built wrong. */
+
+.drip-container.is-wide {
+  max-width: calc(var(--container-wide) + var(--gutter) * 2);
+}
+
+.drip-container.is-flush {
+  max-width: none;
+  padding-inline: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Grid
+   -------------------------------------------------------------------------- */
+
+.drip-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  column-gap: var(--grid-gap);
+  row-gap: var(--grid-gap-row);
+}
+
+/* `minmax(0, 1fr)` rather than `1fr`: a bare 1fr track has min-width auto, so
+   one long unbroken string (a product title, a URL) pushes the whole grid
+   wider than its container. This is the single most common CSS Grid overflow
+   bug and the fix belongs here, once, not in every section. */
+
+.drip-grid > * {
+  grid-column: span var(--grid-columns);
+  min-width: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Column spans
+
+   Mobile is full-width by default (above), so these only take effect from the
+   750px breakpoint up — matching how the mockup stacks everything on mobile.
+   -------------------------------------------------------------------------- */
+
+@media screen and (min-width: 750px) {
+  .col-1 { grid-column: span 1; }
+  .col-2 { grid-column: span 2; }
+  .col-3 { grid-column: span 3; }  /* 4-up: pack grid, feature strip */
+  .col-4 { grid-column: span 4; }  /* 3-up: testimonials */
+  .col-5 { grid-column: span 5; }
+  .col-6 { grid-column: span 6; }  /* 2-up: why-48 */
+  .col-7 { grid-column: span 7; }
+  .col-8 { grid-column: span 8; }
+  .col-9 { grid-column: span 9; }
+  .col-10 { grid-column: span 10; }
+  .col-11 { grid-column: span 11; }
+  .col-12 { grid-column: span 12; }
+}
+
+/* Intermediate step, for grids that should go 2-up before going 4-up. */
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .col-tablet-2 { grid-column: span 2; }
+  .col-tablet-3 { grid-column: span 3; }
+  .col-tablet-4 { grid-column: span 4; }
+  .col-tablet-6 { grid-column: span 6; }
+  .col-tablet-12 { grid-column: span 12; }
+}
+
+/* Explicit start lines, for the offset layouts in the mockup (the why-48
+   text column is inset from the container edge rather than flush). */
+@media screen and (min-width: 750px) {
+  .col-start-2 { grid-column-start: 2; }
+  .col-start-3 { grid-column-start: 3; }
+  .col-start-4 { grid-column-start: 4; }
+  .col-start-7 { grid-column-start: 7; }
+}
+
+/* --------------------------------------------------------------------------
+   Section rhythm
+   -------------------------------------------------------------------------- */
+
+.drip-section {
+  padding-block: var(--space-section);
+}
+
+/* Bands own their ground colour — the mockup has no divider rules anywhere,
+   sections are separated by background steps alone. */
+.drip-section {
+  background-color: var(--section-bg, transparent);
+}

@@ -1,0 +1,26 @@
+{
+  "sourceShop": "Apex Pickleball",
+  "sourceDomain": "apexpickleball.org",
+  "exportedAt": "2026-10-12",
+  "counts": {
+    "products": 9,
+    "productMediaReferences": 67,
+    "uniqueProductImageUrls": 43,
+    "collections": 5,
+    "pages": 8,
+    "blogs": 1,
+    "articles": 0,
+    "menus": 7,
+    "policies": 3,
+    "urlRedirects": 17,
+    "shopifyFiles": 142,
+    "downloadedMediaFiles": 144,
+    "downloadFailures": 0,
+    "metaobjectDefinitions": 1,
+    "metaobjects": 1,
+    "metafieldDefinitions": 5,
+    "mainThemeFiles": 407,
+    "themeCount": 2,
+    "downloadedBytes": 272169358
+  }
+}

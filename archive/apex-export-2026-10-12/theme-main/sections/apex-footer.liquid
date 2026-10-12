@@ -1,0 +1,696 @@
+{%- comment -%}
+  APEX footer.
+
+  Desktop, as drawn: logo, three link columns, newsletter — one 12-column row
+  measured off the mockup at 3 / 2 / 2 / 2 / 3. Copyright and policy links sit
+  in a bottom bar beneath it.
+
+  Mobile is not in the mockups and was decided here: the same DOM order stacks,
+  with the link columns going 3-up at 750 before the full row assembles at 990.
+  Collapsing the columns into accordions was the alternative and was rejected —
+  that is interaction the mockup does not specify, and the lists are short
+  enough that hiding them buys nothing.
+
+  Menus are link_list settings, not typed links, so the merchant edits them in
+  Navigation like every other Shopify menu. The headings stay separate text
+  settings because Shopify menu titles are not styled independently.
+
+  The newsletter posts through Shopify's own `form 'customer'` with the
+  newsletter tag — the same contract Dawn's footer uses, so subscribers land in
+  the same place. Its copy comes from schema settings rather than locale keys,
+  matching how every other APEX section carries its words.
+{%- endcomment -%}
+
+<footer
+  class="apex-footer"
+  style="
+    --ft-bg: {{ section.settings.background }};
+    --ft-pad-block: {{ section.settings.padding_block }}px;
+    --ft-logo-w: {{ section.settings.logo_width }}px;
+  "
+>
+  <div class="apex-container">
+    <div class="apex-footer__top">
+      <div class="apex-footer__brand">
+        <a class="apex-footer__logo" href="{{ routes.root_url }}">
+          {% render 'svg-icons', icon: 'apex-pickleball-logo-horizontal-white' %}
+          <span class="visually-hidden">{{ shop.name }}</span>
+        </a>
+
+        {%- comment -%}
+          Social block. Rendered HERE rather than in the block loop below so
+          it sits under the logo inside the 3-span brand column — the same
+          place Mint puts theirs, and the placement that leaves the measured
+          3 / 2 / 2 / 2 / 3 row intact. A fifth column would have wrapped it.
+
+          URLs come from the GLOBAL theme settings (Theme settings > Social
+          media), not block settings: Dawn's own `social-icons` snippet reads
+          the same values, so a handle is edited in one place and every
+          surface that shows it follows.
+
+          Icons are Dawn's own `assets/icon-*.svg`, inlined with
+          `inline_asset_content`. Note `icon-twitter.svg` is already the X
+          glyph, not the bird — same file Mint is serving.
+        {%- endcomment -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'social' -%}
+            {%- liquid
+              assign has_social = false
+              if settings.social_instagram_link != blank or settings.social_facebook_link != blank
+                assign has_social = true
+              endif
+              if settings.social_tiktok_link != blank or settings.social_twitter_link != blank
+                assign has_social = true
+              endif
+              if settings.social_youtube_link != blank
+                assign has_social = true
+              endif
+            -%}
+
+            {%- if has_social -%}
+              <ul class="apex-footer__social" role="list" {{ block.shopify_attributes }}>
+                {%- if block.settings.show_instagram and settings.social_instagram_link != blank -%}
+                  <li>
+                    <a class="apex-footer__social-badge" href="{{ settings.social_instagram_link }}" aria-label="Instagram" rel="me noopener" target="_blank">
+                      {{- 'icon-instagram.svg' | inline_asset_content -}}
+                    </a>
+                  </li>
+                {%- endif -%}
+                {%- if block.settings.show_facebook and settings.social_facebook_link != blank -%}
+                  <li>
+                    <a class="apex-footer__social-badge" href="{{ settings.social_facebook_link }}" aria-label="Facebook" rel="me noopener" target="_blank">
+                      {{- 'icon-facebook.svg' | inline_asset_content -}}
+                    </a>
+                  </li>
+                {%- endif -%}
+                {%- if block.settings.show_tiktok and settings.social_tiktok_link != blank -%}
+                  <li>
+                    <a class="apex-footer__social-badge" href="{{ settings.social_tiktok_link }}" aria-label="TikTok" rel="me noopener" target="_blank">
+                      {{- 'icon-tiktok.svg' | inline_asset_content -}}
+                    </a>
+                  </li>
+                {%- endif -%}
+                {%- if block.settings.show_x and settings.social_twitter_link != blank -%}
+                  <li>
+                    <a class="apex-footer__social-badge" href="{{ settings.social_twitter_link }}" aria-label="X" rel="me noopener" target="_blank">
+                      {{- 'icon-twitter.svg' | inline_asset_content -}}
+                    </a>
+                  </li>
+                {%- endif -%}
+                {%- if block.settings.show_youtube and settings.social_youtube_link != blank -%}
+                  <li>
+                    <a class="apex-footer__social-badge" href="{{ settings.social_youtube_link }}" aria-label="YouTube" rel="me noopener" target="_blank">
+                      {{- 'icon-youtube.svg' | inline_asset_content -}}
+                    </a>
+                  </li>
+                {%- endif -%}
+              </ul>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      {%- comment -%}
+        The link columns are wrapped so the sitemap can be a grid of its own.
+        At three columns they used to sit directly on the 12-column row beside
+        the brand and newsletter; five will not fit there (3 + 5x2 + 3 = 16),
+        so the wrapper takes a full row of its own below them.
+      {%- endcomment -%}
+      <div class="apex-footer__menus">
+      {%- for block in section.blocks -%}
+        {%- if block.type != 'menu' -%}
+          {%- continue -%}
+        {%- endif -%}
+        <nav
+          class="apex-footer__menu"
+          {% if block.settings.heading != blank %}
+            aria-label="{{ block.settings.heading | escape }}"
+          {% endif %}
+          {{ block.shopify_attributes }}
+        >
+          {%- if block.settings.heading != blank -%}
+            <h2 class="apex-footer__menu-heading">{{ block.settings.heading | escape }}</h2>
+          {%- endif -%}
+
+          {%- if block.settings.menu != blank -%}
+            <ul class="apex-footer__links" role="list">
+              {%- for link in block.settings.menu.links -%}
+                <li>
+                  <a class="apex-footer__link" href="{{ link.url }}">{{ link.title | escape }}</a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </nav>
+      {%- endfor -%}
+      </div>
+
+      {%- if section.settings.newsletter_enable -%}
+        <div class="apex-footer__newsletter">
+          {%- if section.settings.newsletter_heading != blank -%}
+            <h2 class="apex-footer__newsletter-heading">
+              {{ section.settings.newsletter_heading | escape }}
+            </h2>
+          {%- endif -%}
+
+          {%- form 'customer', id: 'ApexFooterNewsletter', class: 'apex-footer__form' -%}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+
+            <label class="visually-hidden" for="ApexFooterNewsletter-email">
+              {{ section.settings.newsletter_placeholder | escape }}
+            </label>
+
+            <div class="apex-footer__field">
+              <input
+                id="ApexFooterNewsletter-email"
+                class="apex-footer__input"
+                type="email"
+                name="contact[email]"
+                value="{{ form.email }}"
+                placeholder="{{ section.settings.newsletter_placeholder | escape }}"
+                autocomplete="email"
+                autocorrect="off"
+                autocapitalize="off"
+                aria-required="true"
+                {% if form.errors %}
+                  autofocus
+                  aria-invalid="true"
+                  aria-describedby="ApexFooterNewsletter-error"
+                {% elsif form.posted_successfully? %}
+                  aria-describedby="ApexFooterNewsletter-success"
+                {% endif %}
+                required
+              >
+
+              <button
+                class="apex-footer__submit"
+                type="submit"
+                aria-label="{{ section.settings.newsletter_button_label | escape }}"
+              >
+                {% render 'icon-arrow-right' %}
+              </button>
+            </div>
+
+            {%- if form.errors -%}
+              <p class="apex-footer__form-message apex-footer__form-message--error" id="ApexFooterNewsletter-error">
+                {{ form.errors.messages.email }}
+              </p>
+            {%- elsif form.posted_successfully? -%}
+              <p class="apex-footer__form-message" id="ApexFooterNewsletter-success" tabindex="-1">
+                {{ section.settings.newsletter_success | escape }}
+              </p>
+            {%- endif -%}
+          {%- endform -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="apex-footer__bottom">
+      <p class="apex-footer__copyright">
+        &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}.
+        {{- ' ' }}{{ section.settings.rights_text | escape }}
+      </p>
+
+      {%- if section.settings.policy_menu != blank -%}
+        <nav class="apex-footer__policies" aria-label="{{ section.settings.policy_label | escape }}">
+          <ul class="apex-footer__policy-links" role="list">
+            {%- for link in section.settings.policy_menu.links -%}
+              <li>
+                <a class="apex-footer__policy-link" href="{{ link.url }}">{{ link.title | escape }}</a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      {%- endif -%}
+    </div>
+  </div>
+</footer>
+
+{% stylesheet %}
+  .apex-footer {
+    padding-block: var(--ft-pad-block, var(--space-xl));
+    background-color: var(--ft-bg, var(--color-bg));
+    border-top: 1px solid var(--brand-accent);
+
+  }
+
+  /* --------------------------------------------------------------------
+     Top row.
+
+     Mobile stacks. At 990 it becomes the measured 3 / 2 / 2 / 2 / 3 row —
+     expressed as an explicit 12-track grid rather than .apex-grid, because
+     the children need different spans and .apex-grid's .col-* classes would
+     have to be sprinkled through the markup to say so.
+     -------------------------------------------------------------------- */
+
+  .apex-footer__top {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .apex-footer__logo {
+    display: inline-block;
+    line-height: 0;
+  }
+
+  .apex-footer__logo svg {
+    display: block;
+    width: var(--ft-logo-w, 16rem);
+    height: auto;
+  }
+
+  /* --- menus ------------------------------------------------------------
+
+     Mobile: the columns stack. auto-fit rather than a fixed count so a
+     merchant adding or removing a column does not need a CSS change, and so
+     two narrow columns pair up on a wide phone instead of leaving a dead
+     half-row. */
+
+  .apex-footer__menus {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: var(--space-lg) var(--grid-gap);
+  }
+
+  .apex-footer__menu-heading {
+    margin: 0 0 var(--space-xs);
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-label);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+  .apex-footer__links,
+  .apex-footer__policy-links {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .apex-footer__links {
+    flex-direction: column;
+    gap: var(--space-2xs);
+  }
+
+  .apex-footer__link,
+  .apex-footer__policy-link {
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+    letter-spacing: 0.01em;
+    line-height: var(--leading-tight);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color var(--motion-fast) var(--ease-out);
+  }
+
+  @media (hover: hover) {
+    .apex-footer__link:hover,
+    .apex-footer__policy-link:hover {
+      color: var(--brand-accent);
+    }
+  }
+
+  .apex-footer__link:focus-visible,
+  .apex-footer__policy-link:focus-visible {
+    outline: var(--rule-thickness) solid var(--brand-accent);
+    outline-offset: var(--space-unit);
+  }
+
+  /* --- newsletter -------------------------------------------------------- */
+
+  .apex-footer__newsletter-heading {
+    margin: 0 0 var(--space-xs);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    font-weight: var(--weight-regular);
+    letter-spacing: var(--tracking-body);
+    line-height: var(--leading-tight);
+  }
+
+  /* The field is a single underline with the submit sitting on its end — no
+     box, no fill. The border lives on the wrapper rather than the input so
+     the arrow sits inside the same rule. */
+  .apex-footer__field {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    border-block-end: 1px solid var(--color-border);
+    transition: border-color var(--motion-fast) var(--ease-out);
+  }
+
+  .apex-footer__field:focus-within {
+    border-block-end-color: var(--brand-accent);
+  }
+
+  .apex-footer__input {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: var(--space-2xs) 0;
+    border: 0;
+    background-color: transparent;
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    line-height: var(--leading-tight);
+  }
+
+  .apex-footer__input::placeholder {
+    color: var(--color-text-faint);
+  }
+
+  /* The focus ring belongs to the field, which is what visually reads as the
+     control — an outline on the borderless input alone would draw a box that
+     exists nowhere else in the design. */
+  .apex-footer__input:focus {
+    outline: none;
+  }
+
+  .apex-footer__submit {
+    display: grid;
+    flex: none;
+    place-items: center;
+    padding: var(--space-2xs);
+    border: 0;
+    background: none;
+    color: var(--color-text);
+    cursor: pointer;
+    transition: color var(--motion-fast) var(--ease-out);
+  }
+
+  .apex-footer__submit svg {
+    display: block;
+    width: 1em;
+    height: auto;
+  }
+
+  @media (hover: hover) {
+    .apex-footer__submit:hover {
+      color: var(--brand-accent);
+    }
+  }
+
+  .apex-footer__submit:focus-visible {
+    outline: var(--rule-thickness) solid var(--brand-accent);
+    outline-offset: var(--space-unit);
+  }
+
+  .apex-footer__form-message {
+    margin: var(--space-2xs) 0 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+    line-height: var(--leading-snug);
+  }
+
+  .apex-footer__form-message--error {
+    color: var(--brand-accent);
+  }
+
+  /* --- social badges -----------------------------------------------------
+
+     Circular white badges with a dark glyph, as Mint draws them. The circle
+     is the one place --radius-pill earns its keep: every other radius in this
+     theme is 0, and a squared social badge reads as a mistake rather than a
+     choice.
+
+     44px (--btn-height), not Mint's 38.5 — that is under the 44px WCAG 2.2
+     target-size minimum, and these are the smallest tap targets on the page.
+     The 20px glyph inside matches Mint exactly.
+     -------------------------------------------------------------------- */
+
+  .apex-footer__social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin: var(--space-sm) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .apex-footer__social-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(var(--btn-height) / 1.3);
+    height: calc(var(--btn-height) / 1.3);
+    border-radius: var(--radius-pill);
+    background-color: var(--brand-primary);
+    color: var(--color-text-on-light);
+    transition: background-color var(--motion-fast) var(--ease-out),
+      color var(--motion-fast) var(--ease-out);
+  }
+
+  .apex-footer__social-badge svg {
+    display: block;
+    width: var(--header-icon-size);
+    height: var(--header-icon-size);
+  }
+
+  /* Bronze on hover — GUESSED. No mockup shows a social row at all, so this
+     is the theme's accent applied consistently, not a measured state. */
+  @media (hover: hover) {
+    .apex-footer__social-badge:hover {
+      background-color: var(--brand-accent);
+      color: var(--brand-primary);
+    }
+  }
+
+  .apex-footer__social-badge:focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-focus);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  /* --------------------------------------------------------------------
+     Bottom bar. Separated by space alone — the design uses no divider rules.
+     -------------------------------------------------------------------- */
+
+  .apex-footer__bottom {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    margin-block-start: var(--space-xl);
+  }
+
+  .apex-footer__copyright {
+    margin: 0;
+    color: var(--color-text-faint);
+    font-size: var(--text-xs);
+    line-height: var(--leading-tight);
+  }
+
+  .apex-footer__policy-links {
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  .apex-footer__policy-link {
+    text-transform: none;
+  }
+
+  /* --- link columns go 3-up --------------------------------------------- */
+
+  @media screen and (min-width: 750px) {
+    .apex-footer__top {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      column-gap: var(--grid-gap);
+    }
+
+    .apex-footer__brand,
+    .apex-footer__menus,
+    .apex-footer__newsletter {
+      grid-column: 1 / -1;
+    }
+
+    .apex-footer__bottom {
+      flex-direction: row;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+  }
+
+  /* --- the measured row ------------------------------------------------- */
+
+  @media screen and (min-width: 990px) {
+    .apex-footer__top {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      align-items: start;
+      row-gap: var(--grid-gap-row);
+    }
+
+    /* Row 1 keeps the measured mockup arrangement: brand hard left, newsletter
+       hard right. Explicit placement rather than source order, because the
+       sitemap now sits between them in the DOM. */
+    .apex-footer__brand {
+      grid-column: 1 / span 3;
+      grid-row: 1;
+    }
+
+    .apex-footer__newsletter {
+      grid-column: 10 / span 3;
+      grid-row: 1;
+    }
+
+    /* Row 2: the sitemap, full width, one track per column. Five columns of
+       the 1280 container is ~230px each — enough for "Clubs & Facilities" to
+       set on one line. */
+    .apex-footer__menus {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "APEX footer",
+  "tag": "footer",
+  "class": "apex-footer-section",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 100,
+      "max": 320,
+      "step": 4,
+      "unit": "px",
+      "label": "Logo width",
+      "default": 160
+    },
+    {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
+      "type": "checkbox",
+      "id": "newsletter_enable",
+      "label": "Show email signup",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Heading",
+      "default": "Stay in the game."
+    },
+    {
+      "type": "text",
+      "id": "newsletter_placeholder",
+      "label": "Field placeholder",
+      "info": "Also the field's label for screen readers.",
+      "default": "Enter your email"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_button_label",
+      "label": "Submit button label",
+      "info": "Not shown — the button draws an arrow. This is its screen reader name.",
+      "default": "Subscribe"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_success",
+      "label": "Success message",
+      "default": "Thanks for subscribing."
+    },
+    {
+      "type": "header",
+      "content": "Bottom bar"
+    },
+    {
+      "type": "text",
+      "id": "rights_text",
+      "label": "Rights text",
+      "info": "Follows the year and shop name automatically.",
+      "default": "All Rights Reserved."
+    },
+    {
+      "type": "link_list",
+      "id": "policy_menu",
+      "label": "Policy menu",
+      "info": "Terms, privacy, shipping. Create it under Content > Menus.",
+      "default": "footer"
+    },
+    {
+      "type": "text",
+      "id": "policy_label",
+      "label": "Policy menu label",
+      "info": "Screen reader name for the bottom-bar navigation.",
+      "default": "Legal"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#0B090C"
+    },
+    {
+      "type": "range",
+      "id": "padding_block",
+      "min": 24,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 64
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Link column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Shop"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu",
+          "info": "Create it under Content > Menus."
+        }
+      ]
+    },
+    {
+      "type": "social",
+      "name": "Social links",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Profile URLs are set in Theme settings > Social media. A platform is hidden here unless its URL is filled in there."
+        },
+        { "type": "checkbox", "id": "show_instagram", "label": "Instagram", "default": true },
+        { "type": "checkbox", "id": "show_facebook", "label": "Facebook", "default": true },
+        { "type": "checkbox", "id": "show_tiktok", "label": "TikTok", "default": true },
+        { "type": "checkbox", "id": "show_x", "label": "X", "default": true },
+        { "type": "checkbox", "id": "show_youtube", "label": "YouTube", "default": true }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "APEX footer",
+      "blocks": [
+        { "type": "menu", "settings": { "heading": "Shop" } },
+        { "type": "menu", "settings": { "heading": "The ball" } },
+        { "type": "menu", "settings": { "heading": "Company" } },
+        { "type": "social" }
+      ]
+    }
+  ]
+}
+{% endschema %}

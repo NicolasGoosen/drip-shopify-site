@@ -1,0 +1,480 @@
+{%- comment -%}
+  DRIP cross-sell — "COMPLETE YOUR GAME".
+
+  Block-driven rather than collection-driven, because the mockup's row is not
+  one collection: four products and one collection tile ("DRIP PADDLE
+  COLLECTION / View Collection / SHOP PADDLES"). A collection setting could
+  not express that fifth card without a metafield convention, and the row is
+  a merchandising decision that belongs in the Theme Editor.
+
+  ---------------------------------------------------------------------------
+  THE RAIL
+
+  The mockup draws arrows outside the card row, which only means one thing —
+  the row scrolls. It is built as a scroll-snap rail: native scrolling and
+  swipe on touch, arrows that page it by one card on desktop. The arrows
+  disable themselves at each end rather than wrapping, because a wrapping
+  carousel is a behaviour the mockup cannot vouch for. Nothing autoplays.
+
+  ---------------------------------------------------------------------------
+  ADD TO CART
+
+  Single-variant products get a real <product-form> — Dawn's product-form.js
+  gives us the AJAX add and the cart drawer for free. A product with options
+  cannot be added blind, so those cards fall back to a link to the product
+  page automatically, whatever the button behaviour is set to.
+{%- endcomment -%}
+
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+
+<div
+  class="xsell"
+  style="
+    --xs-bg: {{ section.settings.background }};
+    --xs-card-bg: {{ section.settings.card_background }};
+    --xs-pad-block: {{ section.settings.padding_block }}px;
+    --xs-media-ratio: {{ section.settings.media_ratio }};
+  "
+>
+  <div class="drip-container">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="xsell__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.heading != blank -%}
+      <h2 class="xsell__heading">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <drip-rail class="xsell__rail">
+        <button class="xsell__arrow xsell__arrow--prev" type="button" data-rail-prev>
+          <span class="visually-hidden">{{ 'general.slider.previous_slide' | t }}</span>
+          {% render 'svg-icons', icon: 'chevron-left', class: 'xsell__arrow-icon' %}
+        </button>
+
+        <ul class="xsell__track" role="list" data-rail-track>
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign card_product = block.settings.product
+              assign card_collection = block.settings.collection
+
+              if block.type == 'collection'
+                assign card_url = card_collection.url
+                assign card_title = block.settings.title | default: card_collection.title
+                assign card_image = block.settings.image | default: card_collection.featured_image
+              else
+                assign card_url = card_product.url
+                assign card_title = block.settings.title | default: card_product.title
+                assign card_image = block.settings.image | default: card_product.featured_image
+              endif
+
+              assign variant = card_product.selected_or_first_available_variant
+
+              comment
+                A product with options cannot be added blind, so multi-variant
+                cards fall back to a link whatever the setting says.
+              endcomment
+              assign can_add = false
+              if block.type == 'product' and section.settings.button_behaviour == 'add' and card_product.variants.size == 1 and variant.available
+                assign can_add = true
+              endif
+
+              assign card_form_id = 'xsell-form-' | append: section.id | append: '-' | append: block.id
+            -%}
+
+            <li class="xcard" {{ block.shopify_attributes }}>
+              <a class="xcard__media" href="{{ card_url | default: '#' }}" tabindex="-1" aria-hidden="true">
+                {%- if card_image != blank -%}
+                  {{
+                    card_image
+                    | image_url: width: 800
+                    | image_tag:
+                      loading: 'lazy',
+                      class: 'xcard__img',
+                      alt: '',
+                      widths: '200, 300, 400, 600, 800',
+                      sizes: '(min-width: 990px) 22vw, (min-width: 750px) 40vw, 70vw'
+                  }}
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag: 'xcard__img' }}
+                {%- endif -%}
+              </a>
+
+              <h3 class="xcard__title">
+                <a class="xcard__link" href="{{ card_url | default: '#' }}">{{ card_title | escape }}</a>
+              </h3>
+
+              {%- if block.type == 'collection' -%}
+                {%- if block.settings.subtitle != blank -%}
+                  <p class="xcard__sub">{{ block.settings.subtitle | escape }}</p>
+                {%- endif -%}
+              {%- elsif card_product != blank -%}
+                <p class="xcard__price">{{ variant.price | money }}</p>
+              {%- endif -%}
+
+              {%- if can_add -%}
+                <product-form class="xcard__form" data-section-id="{{ section.id }}">
+                  <div class="product-form__error-message-wrapper" role="alert" hidden>
+                    <span class="product-form__error-message"></span>
+                  </div>
+                  {%- form 'product',
+                    card_product,
+                    id: card_form_id,
+                    class: 'form',
+                    novalidate: 'novalidate',
+                    data-type: 'add-to-cart-form'
+                  -%}
+                    <input type="hidden" name="id" value="{{ variant.id }}" class="product-variant-id">
+                    <button class="btn btn-ghost btn-sm btn-full xcard__btn" type="submit" name="add">
+                      <span>{{ block.settings.button_label | default: 'Add to cart' | escape }}</span>
+                    </button>
+                  {%- endform -%}
+                </product-form>
+              {%- else -%}
+                <a class="btn btn-ghost btn-sm btn-full xcard__btn" href="{{ card_url | default: '#' }}">
+                  {{ block.settings.button_label | default: 'View' | escape }}
+                </a>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+
+        <button class="xsell__arrow xsell__arrow--next" type="button" data-rail-next>
+          <span class="visually-hidden">{{ 'general.slider.next_slide' | t }}</span>
+          {% render 'svg-icons', icon: 'chevron-right', class: 'xsell__arrow-icon' %}
+        </button>
+      </drip-rail>
+    {%- endif -%}
+  </div>
+</div>
+
+<script>
+  // A rail, not a carousel: it pages the native scroll container by one card
+  // and disables its arrows at the ends. No wrap, no autoplay, no timers —
+  // the mockup gives no basis for any of those.
+  if (!customElements.get('drip-rail')) {
+    customElements.define(
+      'drip-rail',
+      class DripRail extends HTMLElement {
+        connectedCallback() {
+          this.track = this.querySelector('[data-rail-track]');
+          this.prev = this.querySelector('[data-rail-prev]');
+          this.next = this.querySelector('[data-rail-next]');
+          if (!this.track) return;
+
+          this.prev?.addEventListener('click', () => this.page(-1));
+          this.next?.addEventListener('click', () => this.page(1));
+          this.track.addEventListener('scroll', () => this.syncArrows(), { passive: true });
+
+          this.resizeObserver = new ResizeObserver(() => this.syncArrows());
+          this.resizeObserver.observe(this.track);
+          this.syncArrows();
+        }
+
+        disconnectedCallback() {
+          this.resizeObserver?.disconnect();
+        }
+
+        get step() {
+          const card = this.track.querySelector('li');
+          if (!card) return this.track.clientWidth;
+          const gap = parseFloat(getComputedStyle(this.track).columnGap) || 0;
+          return card.getBoundingClientRect().width + gap;
+        }
+
+        page(direction) {
+          this.track.scrollBy({ left: this.step * direction, behavior: 'smooth' });
+        }
+
+        syncArrows() {
+          // 1px of slack: fractional layout widths mean scrollLeft rarely
+          // lands exactly on the maximum, which would leave "next" enabled
+          // forever at the end of the rail.
+          const max = this.track.scrollWidth - this.track.clientWidth;
+          const atStart = this.track.scrollLeft <= 1;
+          const atEnd = this.track.scrollLeft >= max - 1;
+          this.toggleAttribute('data-rail-static', max <= 1);
+          if (this.prev) this.prev.disabled = atStart;
+          if (this.next) this.next.disabled = atEnd;
+        }
+      }
+    );
+  }
+</script>
+
+{% stylesheet %}
+  .xsell {
+    padding-block: var(--xs-pad-block, var(--space-xl));
+    background-color: var(--xs-bg, var(--color-bg));
+  }
+
+  .xsell__eyebrow {
+    margin: 0 0 var(--space-sm);
+    color: var(--brand-accent);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-xs);
+    font-style: italic;
+    font-weight: var(--weight-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .xsell__heading {
+    margin: 0 0 var(--space-md);
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-display);
+    text-align: center;
+  }
+
+  .xsell__rail {
+    position: relative;
+    display: block;
+  }
+
+  .xsell__track {
+    /* Auto columns rather than a fixed count: the card width is what decides
+       how many are on screen, so the same rail serves 320px and 1920px. */
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(20rem, 1fr);
+    gap: var(--space-xs);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-inline: contain;
+  }
+
+  .xsell__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .xcard {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+    padding: var(--space-xs);
+    background-color: var(--xs-card-bg, var(--color-bg-elevated));
+    scroll-snap-align: start;
+  }
+
+  .xcard__media {
+    display: block;
+    margin-block-end: var(--space-2xs);
+  }
+
+  .xcard__img {
+    display: block;
+    width: 100%;
+    aspect-ratio: var(--xs-media-ratio, 1);
+    object-fit: contain;
+  }
+
+  .xcard__title {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-label);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+  .xcard__link {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .xcard__link:focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-focus);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  @media (hover: hover) {
+    .xcard__link:hover {
+      color: var(--brand-accent);
+    }
+  }
+
+  .xcard__price,
+  .xcard__sub {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+  }
+
+  /* Pins every button to the card foot, so a one-line title and a three-line
+     title still align their buttons across the row. */
+  .xcard__form,
+  .xcard > .xcard__btn {
+    margin-block-start: auto;
+    padding-block-start: var(--space-2xs);
+  }
+
+  .xcard .product-form__error-message-wrapper {
+    color: var(--brand-accent-bright);
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+  }
+
+  /* --- arrows ---------------------------------------------------------- */
+
+  .xsell__arrow {
+    position: absolute;
+    inset-block-start: 50%;
+    translate: 0 -50%;
+    z-index: 1;
+    display: none;
+    place-items: center;
+    width: var(--space-lg);
+    height: var(--space-lg);
+    padding: 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    background-color: color-mix(in srgb, var(--ground) 70%, transparent);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: border-color var(--motion-fast) var(--ease-out),
+      opacity var(--motion-fast) var(--ease-out);
+  }
+
+  .xsell__arrow--prev {
+    inset-inline-start: calc(var(--space-lg) * -1);
+  }
+
+  .xsell__arrow--next {
+    inset-inline-end: calc(var(--space-lg) * -1);
+  }
+
+  .xsell__arrow[disabled] {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+  .xsell__arrow:focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-focus);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  .xsell__arrow-icon {
+    width: var(--space-sm);
+    height: var(--space-sm);
+  }
+
+  @media (hover: hover) {
+    .xsell__arrow:not([disabled]):hover {
+      border-color: var(--color-border-accent);
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    .xsell__track {
+      grid-auto-columns: minmax(24rem, 1fr);
+      gap: var(--space-sm);
+    }
+  }
+
+  /* Arrows only appear where there is room for them outside the container —
+     below this they would sit on top of the cards, and the rail swipes. */
+  @media screen and (min-width: 1200px) {
+    .xsell__arrow {
+      display: grid;
+    }
+
+    /* Nothing to page: hide the controls rather than show two dead buttons. */
+    .xsell__rail[data-rail-static] .xsell__arrow {
+      display: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "DRIP cross-sell",
+  "tag": "section",
+  "class": "drip-cross-sell-section",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Complete your game" },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Not in the mockup — the eyebrow carries the band on its own. Blank hides it."
+    },
+    {
+      "type": "select",
+      "id": "button_behaviour",
+      "label": "Button behaviour",
+      "info": "Products with options always fall back to a link — they cannot be added without a variant chosen.",
+      "options": [
+        { "value": "add", "label": "Add to cart" },
+        { "value": "link", "label": "Link to product" }
+      ],
+      "default": "add"
+    },
+    { "type": "header", "content": "Appearance" },
+    { "type": "color", "id": "background", "label": "Background", "default": "#0B090C" },
+    { "type": "color", "id": "card_background", "label": "Card background", "default": "#1F161B" },
+    {
+      "type": "range",
+      "id": "padding_block",
+      "min": 16,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 64
+    },
+    {
+      "type": "text",
+      "id": "media_ratio",
+      "label": "Media aspect ratio",
+      "info": "Width / height. 1 is square — what the mockup draws.",
+      "default": "1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "text", "id": "title", "label": "Title override" },
+        { "type": "image_picker", "id": "image", "label": "Image override" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "Add to cart" }
+      ]
+    },
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "title", "label": "Title override" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "View Collection" },
+        { "type": "image_picker", "id": "image", "label": "Image override" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop paddles" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "DRIP cross-sell",
+      "blocks": [
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "collection" }
+      ]
+    }
+  ]
+}
+{% endschema %}

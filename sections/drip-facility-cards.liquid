@@ -1,0 +1,702 @@
+{%- comment -%}
+  DRIP facility subscriptions — UPDATE.
+
+  A port of the Claude Design "Facility Subscriptions Banner" artboard onto the
+  theme's own type, colour and layout systems. Sits alongside
+  `drip-facility-subscriptions.liquid` rather than replacing it, so the two can
+  be compared on the homepage.
+
+  What changed from the artboard:
+
+  - FONTS. The artboard used Archivo (headline + prices), Barlow (body) and
+    JetBrains Mono (labels). All three are replaced by the theme roles —
+    --font-display / --font-body / --font-eyebrow — and every size comes from
+    the type scale, so mobile is never larger than desktop (hard rule 5).
+  - LAYOUT. The artboard's own 1560px max-width and `repeat(3, 1fr)` grid are
+    replaced by `.drip-container` + `.drip-grid` / `.col-4`, so the band lines
+    up with every other section and stacks full-width below 750px.
+  - COLOUR. The metallic border ramps are DERIVED from --tier-bronze /
+    --tier-silver / --tier-gold with color-mix() rather than being written as
+    literal hex ramps, so re-pointing a tier tone re-tunes its whole card.
+  - The artboard's lime CTA is the theme's bronze `.btn-outline`; there is no
+    lime anywhere in this palette.
+
+  Two values are NOT in tokens.css and are exposed as schema settings instead
+  of being invented as tokens: the card corner radius (all theme radii are 0)
+  and the metallic border thickness (a hairline, so it stays in px, matching
+  --btn-border-width / --rule-thickness).
+
+  Like the original, there is no per-card CTA — subscriptions are not
+  purchasable yet.
+{%- endcomment -%}
+
+<section
+  class="fcards"
+  style="
+    --fcard-bg: {{ section.settings.background }};
+    --fcard-pad-block: {{ section.settings.padding_block }}px;
+    --fcard-radius: {{ section.settings.card_radius }}px;
+    --fcard-border-w: {{ section.settings.border_width }}px;
+  "
+>
+  <div class="drip-container">
+    <div class="fcard__intro">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="fcard__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="fcard__heading">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.subheading != blank -%}
+        <p class="fcard__subheading">{{ section.settings.subheading | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.body != blank -%}
+        <div class="fcard__body">{{ section.settings.body }}</div>
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <ul class="fcard__list drip-grid" role="list">
+        {%- for block in section.blocks -%}
+          {%- assign feature_items = block.settings.features | newline_to_br | split: '<br />' -%}
+          <li
+            class="fcard__item col-4{% if block.settings.featured %} fcard__item--featured{% endif %}"
+            style="--fcard-tone: var(--tier-{{ block.settings.tier_tone }});"
+            {{ block.shopify_attributes }}
+          >
+            {%- comment -%}
+              The metallic border is a gradient-filled wrapper with the card
+              face painted on top, not a `border-image` — border-image cannot
+              follow a border-radius, and every card here is rounded.
+            {%- endcomment -%}
+            <div class="fcard__frame">
+              {%- if block.settings.featured and block.settings.featured_label != blank -%}
+                <span class="fcard__badge">{{ block.settings.featured_label | escape }}</span>
+              {%- endif -%}
+
+              <div class="fcard__card">
+                <div class="fcard__card-head">
+                  <span class="fcard__tier">{{ block.settings.tier_name | escape }}</span>
+                  <span class="fcard__dot" aria-hidden="true"></span>
+                </div>
+
+                {%- if block.settings.price != blank -%}
+                  <p class="fcard__price">
+                    <span class="fcard__price-amount">{{ block.settings.price | escape }}</span>
+                    {%- if block.settings.price_suffix != blank -%}
+                      <span class="fcard__price-suffix">{{ block.settings.price_suffix | escape }}</span>
+                    {%- endif -%}
+                  </p>
+                {%- endif -%}
+
+                {%- if block.settings.description != blank -%}
+                  <p class="fcard__description">{{ block.settings.description | escape }}</p>
+                {%- endif -%}
+
+                {%- if block.settings.features != blank -%}
+                  <span class="fcard__rule" aria-hidden="true"></span>
+
+                  <ul class="fcard__features" role="list">
+                    {%- for item in feature_items -%}
+                      {%- assign item_text = item | strip -%}
+                      {%- if item_text != blank -%}
+                        <li class="fcard__feature">
+                          {% render 'svg-icons', icon: 'check-circle', class: 'fcard__feature-icon' %}
+                          <span>{{ item_text | escape }}</span>
+                        </li>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+
+                {%- if block.settings.pack_note != blank -%}
+                  <p class="fcard__pack-note">{{ block.settings.pack_note | escape }}</p>
+                {%- endif -%}
+              </div>
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    {%- if section.settings.footnote != blank or section.settings.cta_label != blank -%}
+      <div class="fcard__outro">
+        {%- if section.settings.footnote != blank -%}
+          <p class="fcard__footnote">{{ section.settings.footnote | escape }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.cta_label != blank -%}
+          <a class="btn btn-outline" href="{{ section.settings.cta_link | default: '#' }}">
+            {{ section.settings.cta_label | escape }}
+            {% render 'icon-arrow-right' %}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .fcards {
+    padding-block: var(--fcard-pad-block, var(--space-section));
+    background-color: var(--fcard-bg, var(--color-bg));
+
+    /* The artboard's radial lift behind the heading. Mixed off --light so it
+       tracks whatever background colour the merchant sets rather than being a
+       second hardcoded dark. */
+    background-image: radial-gradient(
+      120% 90% at 50% 0%,
+      color-mix(in srgb, var(--light) 5%, var(--fcard-bg, var(--color-bg))) 0%,
+      var(--fcard-bg, var(--color-bg)) 60%
+    );
+  }
+
+  /* --- intro -------------------------------------------------------------- */
+
+  .fcard__intro {
+    margin-block-end: var(--space-xl);
+    text-align: left;
+  }
+
+  /* The eyebrow is the one place the metallic treatment appears in type: a
+     bronze ramp clipped to the glyphs. `color` is set first and only
+     overridden inside @supports, so a browser without background-clip: text
+     still gets a solid bronze eyebrow rather than an invisible one. */
+  .fcard__eyebrow {
+    margin: 0 0 var(--space-2xs);
+    color: var(--brand-accent);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-xs);
+    font-style: italic;
+    font-weight: var(--weight-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
+    .fcard__eyebrow {
+      background-image: linear-gradient(
+        96deg,
+        color-mix(in srgb, var(--brand-accent) 40%, var(--light)),
+        var(--brand-accent) 45%,
+        color-mix(in srgb, var(--brand-accent) 55%, var(--light))
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+  }
+
+  .fcard__heading {
+    margin: 0;
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-heading);
+    text-transform: uppercase;
+  }
+
+  .fcard__subheading {
+    margin: var(--space-2xs) 0 0;
+    color: var(--brand-accent);
+    font-family: var(--font-display);
+    font-size: var(--text-h4);
+    font-weight: var(--weight-display);
+    line-height: var(--leading-tight);
+  }
+
+  .fcard__body {
+    max-width: 64ch;
+    margin: var(--space-xs) 0 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+    text-wrap: pretty;
+  }
+
+  .fcard__body > :first-child { margin-block-start: 0; }
+  .fcard__body > :last-child { margin-block-end: 0; }
+
+  /* --- card track ---------------------------------------------------------
+     .drip-grid supplies the columns and gaps; this only strips list styling
+     and makes the cards top-aligned rather than stretched. */
+
+  .fcard__list {
+    margin: 0 0 var(--space-lg);
+    padding: 0;
+    align-items: start;
+    list-style: none;
+  }
+
+  /* Every metallic ramp on the card is derived from --fcard-tone here, so a
+     tier's border, dot, rule, glow and check marks all move together when the
+     tone token is re-pointed.
+       -hi  highlight — tone lifted toward the light
+       -lo  shadow    — tone sunk toward the ground */
+  .fcard__item {
+    --fcard-tone-hi: color-mix(in srgb, var(--fcard-tone) 45%, var(--light));
+    --fcard-tone-lo: color-mix(in srgb, var(--fcard-tone) 40%, var(--ground));
+  }
+
+  .fcard__frame {
+    position: relative;
+    height: 100%;
+    padding: 6px;
+    border-radius: var(--fcard-radius, 16px);
+    background-image: linear-gradient(
+      150deg,
+      var(--fcard-tone-hi) 0%,
+      var(--fcard-tone) 26%,
+      var(--fcard-tone-lo) 52%,
+      color-mix(in srgb, var(--fcard-tone) 55%, var(--light)) 74%,
+      var(--fcard-tone-hi) 100%
+    );
+    box-shadow: 0 24px 60px -30px color-mix(in srgb, var(--fcard-tone) 50%, transparent);
+  }
+
+  /* The face sits inside the frame, so its radius is the outer radius minus
+     the border thickness — anything larger and the gradient shows through the
+     corners as four bright pips. */
+  .fcard__card {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding: var(--space-md);
+    border-radius: calc(var(--fcard-radius, 16px) - var(--fcard-border-w, 1.5px));
+    background-image: linear-gradient(
+      165deg,
+      color-mix(in srgb, var(--fcard-tone) 6%, var(--color-bg-elevated)) 0%,
+      var(--color-bg) 100%
+    );
+  }
+
+  .fcard__item--featured .fcard__card {
+    background-image: linear-gradient(
+      165deg,
+      color-mix(in srgb, var(--fcard-tone) 10%, var(--color-bg-elevated)) 0%,
+      var(--color-bg) 100%
+    );
+  }
+
+  /* Overhangs the top edge of the card it belongs to. The section's own
+     padding is what keeps it off the band above. */
+  .fcard__badge {
+    position: absolute;
+    z-index: 1;
+    inset-block-start: -9px;
+    inset-inline-start: 50%;
+    padding: var(--space-unit) var(--space-xs);
+    border-radius: calc(var(--fcard-radius, 16px) * 0.4);
+    background-image: linear-gradient(
+      140deg,
+      var(--fcard-tone-hi),
+      color-mix(in srgb, var(--fcard-tone) 75%, var(--light))
+    );
+    color: var(--color-text-on-light);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-eyebrow);
+    letter-spacing: var(--tracking-label);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+    white-space: nowrap;
+    transform: translateX(-50%);
+  }
+
+  .fcard__card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2xs);
+  }
+
+  .fcard__tier {
+    color: var(--fcard-tone);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+  .fcard__dot {
+    flex: none;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: var(--radius-pill);
+    background-image: linear-gradient(140deg, var(--fcard-tone-hi), var(--fcard-tone));
+    box-shadow: 0 0 12px color-mix(in srgb, var(--fcard-tone) 70%, transparent);
+  }
+
+  .fcard__price {
+    margin: 0;
+    color: var(--color-text);
+  }
+
+  /* Amount and suffix stack rather than sharing a baseline — same reason as
+     the original section: the markup strips the whitespace between the two
+     spans, so inline they form one unbreakable run, and a 7-character price
+     plus a word-length suffix cannot fit a third of the rail at 750. */
+  .fcard__price-amount {
+    display: block;
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-body);
+    line-height: 1;
+  }
+
+  .fcard__price-suffix {
+    display: block;
+    margin-block-start: var(--space-unit);
+    color: var(--color-text-muted);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-label);
+  }
+
+  .fcard__description {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+  }
+
+  /* The artboard's divider — a tinted hairline that fades out to the right,
+     not a full-width rule. */
+  .fcard__rule {
+    display: block;
+    height: var(--rule-thickness);
+    background-image: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--fcard-tone) 55%, transparent),
+      color-mix(in srgb, var(--fcard-tone) 6%, transparent)
+    );
+  }
+
+  .fcard__features {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .fcard__feature {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2xs);
+    color: var(--color-text);
+    font-size: var(--text-sm);
+    line-height: var(--leading-snug);
+  }
+
+  .fcard__feature-icon {
+    flex: none;
+    width: 1.8rem;
+    height: 1.8rem;
+    margin-block-start: 0.2rem;
+    color: var(--fcard-tone);
+  }
+
+  .fcard__pack-note {
+    margin: auto 0 0;
+    color: var(--color-text-faint);
+    font-size: var(--text-xs);
+    line-height: var(--leading-tight);
+  }
+
+  /* --- outro -------------------------------------------------------------- */
+
+  .fcard__outro {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    text-align: left;
+  }
+
+  .fcard__footnote {
+    max-width: 64ch;
+    margin: 0;
+    color: var(--color-text-muted);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-body);
+    font-style: italic;
+    line-height: var(--leading-tight);
+  }
+
+  /* --- desktop ------------------------------------------------------------ */
+
+  @media screen and (min-width: 750px) {
+    .fcard__eyebrow {
+      font-size: var(--text-sm);
+    }
+
+    .fcard__body,
+    .fcard__footnote {
+      font-size: var(--text-lead);
+    }
+
+    .fcard__description,
+    .fcard__feature {
+      font-size: var(--text-body);
+    }
+
+    .fcard__tier,
+    .fcard__pack-note {
+      font-size: var(--text-sm);
+    }
+
+    /* --text-h1 steps up to 5.6rem here, but 750 is where a card is at its
+       NARROWEST — a third of the rail is ~205px, leaving ~140px of card
+       content, and "$865.39" needs far more than that at 5.6rem. Held down
+       until the gutter and rail give the room back. */
+    .fcard__price-amount {
+      font-size: 3.2rem;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    /* Still not --text-h1. --gutter jumps 4.8rem -> 8rem at 990, so a card is
+       narrower at 990 than at 989. Full display size returns at 1200. */
+    .fcard__price-amount {
+      font-size: 4.4rem;
+    }
+  }
+
+  @media screen and (min-width: 1200px) {
+    .fcard__price-amount {
+      font-size: var(--text-h1);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "DRIP facility cards",
+  "tag": "section",
+  "class": "drip-facility-cards-section",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Copy"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "For Clubs & Facilities"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Facility Subscriptions"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Keep your courts stocked. Let your pro shop offset the cost."
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>Each quarterly plan includes facility-use balls for your courts plus retail-ready inventory for your pro shop.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Footer"
+    },
+    {
+      "type": "text",
+      "id": "footnote",
+      "label": "Footnote",
+      "default": "Retail-ready inventory can help offset your subscription cost."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "info": "Leave blank to hide the button.",
+      "default": "Learn more"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Card corner radius",
+      "info": "Not a theme token — every other radius in this theme is 0. Set to 0 to square the cards off.",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Metallic border thickness",
+      "default": 2
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#0b090c"
+    },
+    {
+      "type": "range",
+      "id": "padding_block",
+      "min": 16,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tier",
+      "name": "Plan",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tier_name",
+          "label": "Plan name",
+          "default": "Bronze"
+        },
+        {
+          "type": "select",
+          "id": "tier_tone",
+          "label": "Metallic tone",
+          "info": "Drives the card's border, dot, divider, check marks and glow.",
+          "options": [
+            { "value": "bronze", "label": "Bronze" },
+            { "value": "silver", "label": "Silver" },
+            { "value": "gold", "label": "Gold" }
+          ],
+          "default": "bronze"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price",
+          "info": "Include the currency symbol, e.g. $204.83.",
+          "default": "$204.83"
+        },
+        {
+          "type": "text",
+          "id": "price_suffix",
+          "label": "Price suffix",
+          "default": "/quarter"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "For smaller facilities getting started."
+        },
+        {
+          "type": "textarea",
+          "id": "features",
+          "label": "Features",
+          "info": "One per line.",
+          "default": "50 balls for your courts\n100 balls for your pro shop\nPotential retail revenue: $219.84"
+        },
+        {
+          "type": "text",
+          "id": "pack_note",
+          "label": "Pack breakdown",
+          "info": "The fine print under the feature list. Leave blank to hide.",
+          "default": "10 × 4-packs + 6 × 10-packs"
+        },
+        {
+          "type": "checkbox",
+          "id": "featured",
+          "label": "Featured plan",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "featured_label",
+          "label": "Featured badge label",
+          "default": "Most popular"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "DRIP facility cards",
+      "blocks": [
+        {
+          "type": "tier",
+          "settings": {
+            "tier_name": "Bronze",
+            "tier_tone": "bronze",
+            "price": "$204.83",
+            "price_suffix": "/quarter",
+            "description": "For smaller facilities getting started.",
+            "features": "50 balls for your courts\n100 balls for your pro shop\nPotential retail revenue: $219.84",
+            "pack_note": "10 × 4-packs + 6 × 10-packs",
+            "featured": false
+          }
+        },
+        {
+          "type": "tier",
+          "settings": {
+            "tier_name": "Silver",
+            "tier_tone": "silver",
+            "price": "$333.74",
+            "price_suffix": "/quarter",
+            "description": "For active facilities with steady demand.",
+            "features": "100 balls for your courts\n160 balls for your pro shop\nPotential retail revenue: $349.75",
+            "pack_note": "15 × 4-packs + 10 × 10-packs",
+            "featured": true,
+            "featured_label": "Most popular"
+          }
+        },
+        {
+          "type": "tier",
+          "settings": {
+            "tier_name": "Gold",
+            "tier_tone": "gold",
+            "price": "$865.39",
+            "price_suffix": "/quarter",
+            "description": "For busy clubs and high-volume venues.",
+            "features": "300 balls for your courts\n420 balls for your pro shop\nPotential retail revenue: $899.40",
+            "pack_note": "30 × 4-packs + 30 × 10-packs",
+            "featured": false
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

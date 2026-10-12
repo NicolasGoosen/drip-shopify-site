@@ -1,0 +1,2920 @@
+{
+  "sourceShop": "Apex Pickleball",
+  "sourceDomain": "apexpickleball.org",
+  "exportedAt": "2026-10-12",
+  "recordType": "products",
+  "data": {
+    "products": {
+      "edges": [
+        {
+          "cursor": "eyJsYXN0X2lkIjoxMDQ0MTIxNjM2MDc2NSwibGFzdF92YWx1ZSI6IjEwNDQxMjE2MzYwNzY1In0=",
+          "node": {
+            "id": "gid://shopify/Product/10441216360765",
+            "legacyResourceId": "10441216360765",
+            "handle": "apex-pickleball-4-pack",
+            "title": "Apex 4-pack Tube",
+            "vendor": "Apex Pickleball",
+            "productType": "",
+            "status": "ACTIVE",
+            "tags": [],
+            "createdAt": "2026-07-28T11:32:24Z",
+            "updatedAt": "2026-08-29T08:33:52Z",
+            "publishedAt": "2026-07-28T11:32:26Z",
+            "onlineStoreUrl": null,
+            "onlineStorePreviewUrl": "https://apexpickleball.org/products/apex-pickleball-4-pack",
+            "templateSuffix": "ball",
+            "isGiftCard": false,
+            "requiresSellingPlan": false,
+            "totalInventory": 1000,
+            "tracksInventory": true,
+            "descriptionHtml": "<p dir=\"ltr\">APEX is injection molded with a patent-pending seam engineered to resist deformation under hard hits. The ball you open in warmups is the ball you're still playing with sessions later: same shape, same bounce, same line off the paddle.</p>\n<p dir=\"ltr\">That structural integrity is what makes the flight repeatable. 48 precision holes give balanced airflow and a predictable path through crosswind — but a hole pattern is only honest if the shell around it holds its geometry. This one does, game after game.</p>\n<p dir=\"ltr\">USA Pickleball Approved for sanctioned play and molded in high-visibility fluorescent optic-ember, APEX is built for the sessions that destroy ordinary balls: two-hour drill blocks, open play that won't end, and third-shot drops hit until they're automatic.</p>\n<p dir=\"ltr\"><strong>SPECS</strong></p>\n<ul dir=\"ltr\">\n<li>Injection molded construction for game-after-game durability</li>\n<li>Patent-pending seam resists deformation under hard hits</li>\n<li>48 precision holes for stable, predictable flight</li>\n<li>USA Pickleball Approved — tournament and club legal</li>\n<li>High-visibility fluorescent optic-ember<br>\n</li>\n</ul>",
+            "seo": {
+              "title": null,
+              "description": null
+            },
+            "options": [
+              {
+                "id": "gid://shopify/ProductOption/13033396175165",
+                "name": "Title",
+                "position": 1,
+                "values": [
+                  "Default Title"
+                ]
+              }
+            ],
+            "variants": {
+              "edges": [
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MjQzMzExOTgwNTc1NywibGFzdF92YWx1ZSI6MX0=",
+                  "node": {
+                    "id": "gid://shopify/ProductVariant/52433119805757",
+                    "legacyResourceId": "52433119805757",
+                    "title": "Default Title",
+                    "displayName": "Apex 4-pack Tube - Default Title",
+                    "sku": "APEX48-4PACK",
+                    "barcode": "5061062596318",
+                    "price": "9.99",
+                    "compareAtPrice": null,
+                    "inventoryQuantity": 1000,
+                    "sellableOnlineQuantity": 1000,
+                    "availableForSale": true,
+                    "taxable": true,
+                    "inventoryPolicy": "DENY",
+                    "position": 1,
+                    "selectedOptions": [
+                      {
+                        "name": "Title",
+                        "value": "Default Title"
+                      }
+                    ],
+                    "createdAt": "2026-07-28T11:32:25Z",
+                    "updatedAt": "2026-07-28T11:33:00Z",
+                    "inventoryItem": {
+                      "id": "gid://shopify/InventoryItem/54458135609661",
+                      "tracked": true,
+                      "requiresShipping": true
+                    }
+                  }
+                }
+              ],
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": "eyJsYXN0X2lkIjo1MjQzMzExOTgwNTc1NywibGFzdF92YWx1ZSI6MX0="
+              }
+            },
+            "media": {
+              "edges": [
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1Mjk3ODUwNTUxNTMyNSwibGFzdF92YWx1ZSI6IjEifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/52978505515325",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_box_website_featured_collection_photo_c45f7ccd-4bc3-43e4-848d-03af739240ce.png?v=1787747833",
+                        "altText": "",
+                        "width": 1039,
+                        "height": 1039
+                      }
+                    },
+                    "mimeType": "image/png",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_box_website_featured_collection_photo_c45f7ccd-4bc3-43e4-848d-03af739240ce.png?v=1787747833",
+                      "altText": "",
+                      "width": 1039,
+                      "height": 1039
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1Mjk1ODA4OTI0OTA4NSwibGFzdF92YWx1ZSI6IjIifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/52958089249085",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6544.jpg?v=1787687111",
+                        "altText": "",
+                        "width": 1000,
+                        "height": 667
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6544.jpg?v=1787687111",
+                      "altText": "",
+                      "width": 1000,
+                      "height": 667
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1Mjk1ODA4OTI4MTg1MywibGFzdF92YWx1ZSI6IjMifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/52958089281853",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6500.jpg?v=1787687111",
+                        "altText": "",
+                        "width": 1000,
+                        "height": 667
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6500.jpg?v=1787687111",
+                      "altText": "",
+                      "width": 1000,
+                      "height": 667
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1Mjk1ODA4ODk1NDE3MywibGFzdF92YWx1ZSI6IjQifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/52958088954173",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A5222.jpg?v=1787687111",
+                        "altText": "",
+                        "width": 667,
+                        "height": 1000
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A5222.jpg?v=1787687111",
+                      "altText": "",
+                      "width": 667,
+                      "height": 1000
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1Mjk4MjAyMTUyMTcyNSwibGFzdF92YWx1ZSI6IjUifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/52982021521725",
+                    "alt": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25.jpg?v=1787753318",
+                        "altText": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                        "width": 1066,
+                        "height": 1600
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25.jpg?v=1787753318",
+                      "altText": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                      "width": 1066,
+                      "height": 1600
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1Mjk1Nzg5NjczNzA4NSwibGFzdF92YWx1ZSI6IjYifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/52957896737085",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01621_1.png?v=1787686737",
+                        "altText": "",
+                        "width": 2731,
+                        "height": 4096
+                      }
+                    },
+                    "mimeType": "image/png",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01621_1.png?v=1787686737",
+                      "altText": "",
+                      "width": 2731,
+                      "height": 4096
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1Mjk4MjI3MTExNTU4MSwibGFzdF92YWx1ZSI6IjcifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/52982271115581",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v2_3f4c5a2f-e1fa-4ffd-9242-ce4fa64266e8.png?v=1787753688",
+                        "altText": "",
+                        "width": 1000,
+                        "height": 1500
+                      }
+                    },
+                    "mimeType": "image/png",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v2_3f4c5a2f-e1fa-4ffd-9242-ce4fa64266e8.png?v=1787753688",
+                      "altText": "",
+                      "width": 1000,
+                      "height": 1500
+                    }
+                  }
+                }
+              ],
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": "eyJsYXN0X2lkIjo1Mjk4MjI3MTExNTU4MSwibGFzdF92YWx1ZSI6IjcifQ=="
+              }
+            },
+            "collections": {
+              "nodes": [
+                {
+                  "id": "gid://shopify/Collection/554306863421",
+                  "handle": "balls-homepage-carousel",
+                  "title": "Balls Homepage Carousel"
+                },
+                {
+                  "id": "gid://shopify/Collection/555996840253",
+                  "handle": "pickleballs",
+                  "title": "Pickleballs Collection Page"
+                },
+                {
+                  "id": "gid://shopify/Collection/556641911101",
+                  "handle": "play",
+                  "title": "Play"
+                }
+              ]
+            },
+            "metafields": {
+              "nodes": [
+                {
+                  "id": "gid://shopify/Metafield/46310043222333",
+                  "namespace": "shopify",
+                  "key": "color-pattern",
+                  "type": "list.metaobject_reference",
+                  "value": "[\"gid://shopify/Metaobject/261791646013\"]",
+                  "updatedAt": "2026-07-28T11:32:25Z"
+                },
+                {
+                  "id": "gid://shopify/Metafield/46736113107261",
+                  "namespace": "custom",
+                  "key": "pack_image",
+                  "type": "file_reference",
+                  "value": "gid://shopify/MediaImage/53043453231421",
+                  "updatedAt": "2026-08-28T22:41:57Z"
+                },
+                {
+                  "id": "gid://shopify/Metafield/46736113140029",
+                  "namespace": "custom",
+                  "key": "pack_label",
+                  "type": "single_line_text_field",
+                  "value": "4",
+                  "updatedAt": "2026-08-17T22:34:11Z"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjoxMDQ0MTIxNjc4Njc0OSwibGFzdF92YWx1ZSI6IjEwNDQxMjE2Nzg2NzQ5In0=",
+          "node": {
+            "id": "gid://shopify/Product/10441216786749",
+            "legacyResourceId": "10441216786749",
+            "handle": "apex-pickleball-10-pack",
+            "title": "Apex 10-pack Bucket",
+            "vendor": "Apex Pickleball",
+            "productType": "",
+            "status": "ACTIVE",
+            "tags": [],
+            "createdAt": "2026-07-28T11:33:15Z",
+            "updatedAt": "2026-08-29T00:57:27Z",
+            "publishedAt": "2026-07-28T11:33:15Z",
+            "onlineStoreUrl": null,
+            "onlineStorePreviewUrl": "https://apexpickleball.org/products/apex-pickleball-10-pack",
+            "templateSuffix": "ball",
+            "isGiftCard": false,
+            "requiresSellingPlan": false,
+            "totalInventory": 1000,
+            "tracksInventory": true,
+            "descriptionHtml": "<p dir=\"ltr\">APEX is injection molded with a patent-pending seam engineered to resist deformation under hard hits. The ball you open in warmups is the ball you're still playing with sessions later: same shape, same bounce, same line off the paddle.</p>\n<p dir=\"ltr\">That structural integrity is what makes the flight repeatable. 48 precision holes give balanced airflow and a predictable path through crosswind — but a hole pattern is only honest if the shell around it holds its geometry. This one does, game after game.</p>\n<p dir=\"ltr\">USA Pickleball Approved for sanctioned play and molded in high-visibility fluorescent optic-ember, APEX is built for the sessions that destroy ordinary balls: two-hour drill blocks, open play that won't end, and third-shot drops hit until they're automatic.</p>\n<p dir=\"ltr\"><strong>SPECS</strong></p>\n<ul dir=\"ltr\">\n<li>Injection molded construction for game-after-game durability</li>\n<li>Patent-pending seam resists deformation under hard hits</li>\n<li>48 precision holes for stable, predictable flight</li>\n<li>USA Pickleball Approved — tournament and club legal</li>\n<li>High-visibility fluorescent optic-ember<br>\n</li>\n</ul>",
+            "seo": {
+              "title": null,
+              "description": null
+            },
+            "options": [
+              {
+                "id": "gid://shopify/ProductOption/13033397322045",
+                "name": "Title",
+                "position": 1,
+                "values": [
+                  "Default Title"
+                ]
+              }
+            ],
+            "variants": {
+              "edges": [
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MjQzMzIwOTYyMjg0NSwibGFzdF92YWx1ZSI6MX0=",
+                  "node": {
+                    "id": "gid://shopify/ProductVariant/52433209622845",
+                    "legacyResourceId": "52433209622845",
+                    "title": "Default Title",
+                    "displayName": "Apex 10-pack Bucket - Default Title",
+                    "sku": "APEX48-10PACK",
+                    "barcode": "5061062596271",
+                    "price": "19.99",
+                    "compareAtPrice": null,
+                    "inventoryQuantity": 1000,
+                    "sellableOnlineQuantity": 1000,
+                    "availableForSale": true,
+                    "taxable": true,
+                    "inventoryPolicy": "DENY",
+                    "position": 1,
+                    "selectedOptions": [
+                      {
+                        "name": "Title",
+                        "value": "Default Title"
+                      }
+                    ],
+                    "createdAt": "2026-07-28T11:33:15Z",
+                    "updatedAt": "2026-07-28T11:34:35Z",
+                    "inventoryItem": {
+                      "id": "gid://shopify/InventoryItem/54458225426749",
+                      "tracked": true,
+                      "requiresShipping": true
+                    }
+                  }
+                }
+              ],
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": "eyJsYXN0X2lkIjo1MjQzMzIwOTYyMjg0NSwibGFzdF92YWx1ZSI6MX0="
+              }
+            },
+            "media": {
+              "edges": [
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MjI5MjYyNDg3NTgzNywibGFzdF92YWx1ZSI6IjEifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/52292624875837",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/ChatGPT_Image_Jul_14_2026_05_34_39_PM.png?v=1785238419",
+                        "altText": "",
+                        "width": 1254,
+                        "height": 1254
+                      }
+                    },
+                    "mimeType": "image/png",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/ChatGPT_Image_Jul_14_2026_05_34_39_PM.png?v=1785238419",
+                      "altText": "",
+                      "width": 1254,
+                      "height": 1254
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjQ4OTAyMSwibGFzdF92YWx1ZSI6IjIifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836489021",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_box_website_featured_collection_photo_f9da49af-dc74-4ded-bbc9-762ba50c1b50.png?v=1787921821",
+                        "altText": "",
+                        "width": 1039,
+                        "height": 1039
+                      }
+                    },
+                    "mimeType": "image/png",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_box_website_featured_collection_photo_f9da49af-dc74-4ded-bbc9-762ba50c1b50.png?v=1787921821",
+                      "altText": "",
+                      "width": 1039,
+                      "height": 1039
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjUyMTc4OSwibGFzdF92YWx1ZSI6IjMifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836521789",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6544_d3008878-7ccc-4adc-8f1f-4c651eaa6843.jpg?v=1787921821",
+                        "altText": "",
+                        "width": 1000,
+                        "height": 667
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6544_d3008878-7ccc-4adc-8f1f-4c651eaa6843.jpg?v=1787921821",
+                      "altText": "",
+                      "width": 1000,
+                      "height": 667
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjU1NDU1NywibGFzdF92YWx1ZSI6IjQifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836554557",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6500_9c7e7a6f-e56a-41c8-9400-68a5ccbb81b4.jpg?v=1787921820",
+                        "altText": "",
+                        "width": 1000,
+                        "height": 667
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6500_9c7e7a6f-e56a-41c8-9400-68a5ccbb81b4.jpg?v=1787921820",
+                      "altText": "",
+                      "width": 1000,
+                      "height": 667
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjU4NzMyNSwibGFzdF92YWx1ZSI6IjUifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836587325",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A5222_f21c37a7-11bb-447e-a65f-64bb6fc110d8.jpg?v=1787921821",
+                        "altText": "",
+                        "width": 667,
+                        "height": 1000
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A5222_f21c37a7-11bb-447e-a65f-64bb6fc110d8.jpg?v=1787921821",
+                      "altText": "",
+                      "width": 667,
+                      "height": 1000
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjYyMDA5MywibGFzdF92YWx1ZSI6IjYifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836620093",
+                    "alt": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25_5606c3d8-82ef-4a70-a502-bbbbe5edfc7e.jpg?v=1787921820",
+                        "altText": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                        "width": 1066,
+                        "height": 1600
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25_5606c3d8-82ef-4a70-a502-bbbbe5edfc7e.jpg?v=1787921820",
+                      "altText": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                      "width": 1066,
+                      "height": 1600
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjY1Mjg2MSwibGFzdF92YWx1ZSI6IjcifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836652861",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01621_1_bb035d55-a2cf-4585-8269-290da349769c.png?v=1787921823",
+                        "altText": "",
+                        "width": 2731,
+                        "height": 4096
+                      }
+                    },
+                    "mimeType": "image/png",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01621_1_bb035d55-a2cf-4585-8269-290da349769c.png?v=1787921823",
+                      "altText": "",
+                      "width": 2731,
+                      "height": 4096
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjY4NTYyOSwibGFzdF92YWx1ZSI6IjgifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836685629",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v2_b91fc110-0bb2-4bd5-b094-535126e87c29.png?v=1787921821",
+                        "altText": "",
+                        "width": 1000,
+                        "height": 1500
+                      }
+                    },
+                    "mimeType": "image/png",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v2_b91fc110-0bb2-4bd5-b094-535126e87c29.png?v=1787921821",
+                      "altText": "",
+                      "width": 1000,
+                      "height": 1500
+                    }
+                  }
+                }
+              ],
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjY4NTYyOSwibGFzdF92YWx1ZSI6IjgifQ=="
+              }
+            },
+            "collections": {
+              "nodes": [
+                {
+                  "id": "gid://shopify/Collection/554306863421",
+                  "handle": "balls-homepage-carousel",
+                  "title": "Balls Homepage Carousel"
+                },
+                {
+                  "id": "gid://shopify/Collection/555996840253",
+                  "handle": "pickleballs",
+                  "title": "Pickleballs Collection Page"
+                },
+                {
+                  "id": "gid://shopify/Collection/556641943869",
+                  "handle": "train",
+                  "title": "Train"
+                }
+              ]
+            },
+            "metafields": {
+              "nodes": [
+                {
+                  "id": "gid://shopify/Metafield/46310046728509",
+                  "namespace": "shopify",
+                  "key": "color-pattern",
+                  "type": "list.metaobject_reference",
+                  "value": "[\"gid://shopify/Metaobject/261791646013\"]",
+                  "updatedAt": "2026-07-28T11:33:15Z"
+                },
+                {
+                  "id": "gid://shopify/Metafield/46736113631549",
+                  "namespace": "custom",
+                  "key": "pack_image",
+                  "type": "file_reference",
+                  "value": "gid://shopify/MediaImage/53038937801021",
+                  "updatedAt": "2026-08-28T20:27:37Z"
+                },
+                {
+                  "id": "gid://shopify/Metafield/46736113664317",
+                  "namespace": "custom",
+                  "key": "pack_label",
+                  "type": "single_line_text_field",
+                  "value": "10",
+                  "updatedAt": "2026-08-17T22:34:25Z"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjoxMDQ0MTIxNzkwMDg2MSwibGFzdF92YWx1ZSI6IjEwNDQxMjE3OTAwODYxIn0=",
+          "node": {
+            "id": "gid://shopify/Product/10441217900861",
+            "legacyResourceId": "10441217900861",
+            "handle": "apex-pickleball-50-pack",
+            "title": "Apex 50-pack Box",
+            "vendor": "Apex Pickleball",
+            "productType": "",
+            "status": "ACTIVE",
+            "tags": [],
+            "createdAt": "2026-07-28T11:35:06Z",
+            "updatedAt": "2026-08-31T17:59:05Z",
+            "publishedAt": "2026-07-28T11:35:06Z",
+            "onlineStoreUrl": null,
+            "onlineStorePreviewUrl": "https://apexpickleball.org/products/apex-pickleball-50-pack",
+            "templateSuffix": "ball",
+            "isGiftCard": false,
+            "requiresSellingPlan": false,
+            "totalInventory": 1000,
+            "tracksInventory": true,
+            "descriptionHtml": "<p dir=\"ltr\">APEX is injection molded with a patent-pending seam engineered to resist deformation under hard hits. The ball you open in warmups is the ball you're still playing with sessions later: same shape, same bounce, same line off the paddle.</p>\n<p dir=\"ltr\">That structural integrity is what makes the flight repeatable. 48 precision holes give balanced airflow and a predictable path through crosswind — but a hole pattern is only honest if the shell around it holds its geometry. This one does, game after game.</p>\n<p dir=\"ltr\">USA Pickleball Approved for sanctioned play and molded in high-visibility fluorescent optic-ember, APEX is built for the sessions that destroy ordinary balls: two-hour drill blocks, open play that won't end, and third-shot drops hit until they're automatic.</p>\n<p dir=\"ltr\"><strong>SPECS</strong></p>\n<ul dir=\"ltr\">\n<li>Injection molded construction for game-after-game durability</li>\n<li>Patent-pending seam resists deformation under hard hits</li>\n<li>48 precision holes for stable, predictable flight</li>\n<li>USA Pickleball Approved — tournament and club legal</li>\n<li>High-visibility fluorescent optic-ember<br>\n</li>\n</ul>",
+            "seo": {
+              "title": null,
+              "description": null
+            },
+            "options": [
+              {
+                "id": "gid://shopify/ProductOption/13033399976253",
+                "name": "Title",
+                "position": 1,
+                "values": [
+                  "Default Title"
+                ]
+              }
+            ],
+            "variants": {
+              "edges": [
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MjQzMzM5MDI0MDA2MSwibGFzdF92YWx1ZSI6MX0=",
+                  "node": {
+                    "id": "gid://shopify/ProductVariant/52433390240061",
+                    "legacyResourceId": "52433390240061",
+                    "title": "Default Title",
+                    "displayName": "Apex 50-pack Box - Default Title",
+                    "sku": "APEX48-50PACK",
+                    "barcode": "5061062596288",
+                    "price": "99.99",
+                    "compareAtPrice": null,
+                    "inventoryQuantity": 1000,
+                    "sellableOnlineQuantity": 1000,
+                    "availableForSale": true,
+                    "taxable": true,
+                    "inventoryPolicy": "DENY",
+                    "position": 1,
+                    "selectedOptions": [
+                      {
+                        "name": "Title",
+                        "value": "Default Title"
+                      }
+                    ],
+                    "createdAt": "2026-07-28T11:35:07Z",
+                    "updatedAt": "2026-07-28T11:36:07Z",
+                    "inventoryItem": {
+                      "id": "gid://shopify/InventoryItem/54458406043965",
+                      "tracked": true,
+                      "requiresShipping": true
+                    }
+                  }
+                }
+              ],
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": "eyJsYXN0X2lkIjo1MjQzMzM5MDI0MDA2MSwibGFzdF92YWx1ZSI6MX0="
+              }
+            },
+            "media": {
+              "edges": [
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MjUwNDA4NTgyMzgwNSwibGFzdF92YWx1ZSI6IjEifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/52504085823805",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/50-pack_mockup.jpg?v=1786101977",
+                        "altText": "",
+                        "width": 1500,
+                        "height": 1500
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/50-pack_mockup.jpg?v=1786101977",
+                      "altText": "",
+                      "width": 1500,
+                      "height": 1500
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjcxODM5NywibGFzdF92YWx1ZSI6IjIifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836718397",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_box_website_featured_collection_photo_2b6ccc5d-3a1e-4c4d-9e6d-aada71030408.png?v=1787921821",
+                        "altText": "",
+                        "width": 1039,
+                        "height": 1039
+                      }
+                    },
+                    "mimeType": "image/png",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_box_website_featured_collection_photo_2b6ccc5d-3a1e-4c4d-9e6d-aada71030408.png?v=1787921821",
+                      "altText": "",
+                      "width": 1039,
+                      "height": 1039
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjc1MTE2NSwibGFzdF92YWx1ZSI6IjMifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836751165",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6544_356aa7e8-239c-40ed-ac13-c172298e2667.jpg?v=1787921821",
+                        "altText": "",
+                        "width": 1000,
+                        "height": 667
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6544_356aa7e8-239c-40ed-ac13-c172298e2667.jpg?v=1787921821",
+                      "altText": "",
+                      "width": 1000,
+                      "height": 667
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjc4MzkzMywibGFzdF92YWx1ZSI6IjQifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836783933",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6500_8e7a6fd4-95cc-4f08-b93e-4b5940bd877c.jpg?v=1787921820",
+                        "altText": "",
+                        "width": 1000,
+                        "height": 667
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6500_8e7a6fd4-95cc-4f08-b93e-4b5940bd877c.jpg?v=1787921820",
+                      "altText": "",
+                      "width": 1000,
+                      "height": 667
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjgxNjcwMSwibGFzdF92YWx1ZSI6IjUifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836816701",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A5222_a584deb7-91a3-4000-890b-cae0f19121e5.jpg?v=1787921821",
+                        "altText": "",
+                        "width": 667,
+                        "height": 1000
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A5222_a584deb7-91a3-4000-890b-cae0f19121e5.jpg?v=1787921821",
+                      "altText": "",
+                      "width": 667,
+                      "height": 1000
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjg0OTQ2OSwibGFzdF92YWx1ZSI6IjYifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836849469",
+                    "alt": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25_d3e1b21e-7d72-49b7-ae45-32508fa1402d.jpg?v=1787921824",
+                        "altText": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                        "width": 1066,
+                        "height": 1600
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25_d3e1b21e-7d72-49b7-ae45-32508fa1402d.jpg?v=1787921824",
+                      "altText": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                      "width": 1066,
+                      "height": 1600
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjg4MjIzNywibGFzdF92YWx1ZSI6IjcifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836882237",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01621_1_258c1609-a5ff-4cb6-a291-bb34e659b477.png?v=1787921824",
+                        "altText": "",
+                        "width": 2731,
+                        "height": 4096
+                      }
+                    },
+                    "mimeType": "image/png",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01621_1_258c1609-a5ff-4cb6-a291-bb34e659b477.png?v=1787921824",
+                      "altText": "",
+                      "width": 2731,
+                      "height": 4096
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjkxNTAwNSwibGFzdF92YWx1ZSI6IjgifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836915005",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v2_c96420b1-ec28-4db5-baee-b269b6c36457.png?v=1787921821",
+                        "altText": "",
+                        "width": 1000,
+                        "height": 1500
+                      }
+                    },
+                    "mimeType": "image/png",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v2_c96420b1-ec28-4db5-baee-b269b6c36457.png?v=1787921821",
+                      "altText": "",
+                      "width": 1000,
+                      "height": 1500
+                    }
+                  }
+                }
+              ],
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjkxNTAwNSwibGFzdF92YWx1ZSI6IjgifQ=="
+              }
+            },
+            "collections": {
+              "nodes": [
+                {
+                  "id": "gid://shopify/Collection/554306863421",
+                  "handle": "balls-homepage-carousel",
+                  "title": "Balls Homepage Carousel"
+                },
+                {
+                  "id": "gid://shopify/Collection/555996840253",
+                  "handle": "pickleballs",
+                  "title": "Pickleballs Collection Page"
+                },
+                {
+                  "id": "gid://shopify/Collection/556642074941",
+                  "handle": "club",
+                  "title": "Club"
+                }
+              ]
+            },
+            "metafields": {
+              "nodes": [
+                {
+                  "id": "gid://shopify/Metafield/46310054297917",
+                  "namespace": "shopify",
+                  "key": "color-pattern",
+                  "type": "list.metaobject_reference",
+                  "value": "[\"gid://shopify/Metaobject/261791646013\"]",
+                  "updatedAt": "2026-07-28T11:35:07Z"
+                },
+                {
+                  "id": "gid://shopify/Metafield/46736135389501",
+                  "namespace": "custom",
+                  "key": "pack_label",
+                  "type": "single_line_text_field",
+                  "value": "50",
+                  "updatedAt": "2026-08-17T22:42:25Z"
+                },
+                {
+                  "id": "gid://shopify/Metafield/46757286052157",
+                  "namespace": "custom",
+                  "key": "pack_image",
+                  "type": "file_reference",
+                  "value": "gid://shopify/MediaImage/53100536398141",
+                  "updatedAt": "2026-08-31T17:59:02Z"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjoxMDQ0MTIxODY4NzI5MywibGFzdF92YWx1ZSI6IjEwNDQxMjE4Njg3MjkzIn0=",
+          "node": {
+            "id": "gid://shopify/Product/10441218687293",
+            "legacyResourceId": "10441218687293",
+            "handle": "apex-pickleball-100-pack",
+            "title": "Apex 100-pack Box",
+            "vendor": "Apex Pickleball",
+            "productType": "",
+            "status": "ACTIVE",
+            "tags": [],
+            "createdAt": "2026-07-28T11:36:26Z",
+            "updatedAt": "2026-08-31T17:59:26Z",
+            "publishedAt": "2026-07-28T11:36:26Z",
+            "onlineStoreUrl": null,
+            "onlineStorePreviewUrl": "https://apexpickleball.org/products/apex-pickleball-100-pack",
+            "templateSuffix": "ball",
+            "isGiftCard": false,
+            "requiresSellingPlan": false,
+            "totalInventory": 1000,
+            "tracksInventory": true,
+            "descriptionHtml": "<p dir=\"ltr\">APEX is injection molded with a patent-pending seam engineered to resist deformation under hard hits. The ball you open in warmups is the ball you're still playing with sessions later: same shape, same bounce, same line off the paddle.</p>\n<p dir=\"ltr\">That structural integrity is what makes the flight repeatable. 48 precision holes give balanced airflow and a predictable path through crosswind — but a hole pattern is only honest if the shell around it holds its geometry. This one does, game after game.</p>\n<p dir=\"ltr\">USA Pickleball Approved for sanctioned play and molded in high-visibility fluorescent optic-ember, APEX is built for the sessions that destroy ordinary balls: two-hour drill blocks, open play that won't end, and third-shot drops hit until they're automatic.</p>\n<p dir=\"ltr\"><strong>SPECS</strong></p>\n<ul dir=\"ltr\">\n<li>Injection molded construction for game-after-game durability</li>\n<li>Patent-pending seam resists deformation under hard hits</li>\n<li>48 precision holes for stable, predictable flight</li>\n<li>USA Pickleball Approved — tournament and club legal</li>\n<li>High-visibility fluorescent optic-ember<br>\n</li>\n</ul>",
+            "seo": {
+              "title": null,
+              "description": null
+            },
+            "options": [
+              {
+                "id": "gid://shopify/ProductOption/13033401909565",
+                "name": "Title",
+                "position": 1,
+                "values": [
+                  "Default Title"
+                ]
+              }
+            ],
+            "variants": {
+              "edges": [
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MjQzMzUzNzY5NjA2MSwibGFzdF92YWx1ZSI6MX0=",
+                  "node": {
+                    "id": "gid://shopify/ProductVariant/52433537696061",
+                    "legacyResourceId": "52433537696061",
+                    "title": "Default Title",
+                    "displayName": "Apex 100-pack Box - Default Title",
+                    "sku": "APEX48-100PACK",
+                    "barcode": "5061062596295",
+                    "price": "199.99",
+                    "compareAtPrice": null,
+                    "inventoryQuantity": 1000,
+                    "sellableOnlineQuantity": 1000,
+                    "availableForSale": true,
+                    "taxable": true,
+                    "inventoryPolicy": "DENY",
+                    "position": 1,
+                    "selectedOptions": [
+                      {
+                        "name": "Title",
+                        "value": "Default Title"
+                      }
+                    ],
+                    "createdAt": "2026-07-28T11:36:26Z",
+                    "updatedAt": "2026-07-28T11:37:03Z",
+                    "inventoryItem": {
+                      "id": "gid://shopify/InventoryItem/54458553499965",
+                      "tracked": true,
+                      "requiresShipping": true
+                    }
+                  }
+                }
+              ],
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": "eyJsYXN0X2lkIjo1MjQzMzUzNzY5NjA2MSwibGFzdF92YWx1ZSI6MX0="
+              }
+            },
+            "media": {
+              "edges": [
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MjUwNDA4NTg4OTM0MSwibGFzdF92YWx1ZSI6IjEifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/52504085889341",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/100-pack_mockup.jpg?v=1786101978",
+                        "altText": "",
+                        "width": 1500,
+                        "height": 1500
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/100-pack_mockup.jpg?v=1786101978",
+                      "altText": "",
+                      "width": 1500,
+                      "height": 1500
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjk4MDU0MSwibGFzdF92YWx1ZSI6IjIifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836980541",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_box_website_featured_collection_photo_44094e7e-e976-4f63-ba3a-d88937ea9552.png?v=1787921821",
+                        "altText": "",
+                        "width": 1039,
+                        "height": 1039
+                      }
+                    },
+                    "mimeType": "image/png",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_box_website_featured_collection_photo_44094e7e-e976-4f63-ba3a-d88937ea9552.png?v=1787921821",
+                      "altText": "",
+                      "width": 1039,
+                      "height": 1039
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNzAxMzMwOSwibGFzdF92YWx1ZSI6IjMifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029837013309",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6544_52cbb834-5ecf-4bb7-af9c-54ec863a9bab.jpg?v=1787921820",
+                        "altText": "",
+                        "width": 1000,
+                        "height": 667
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6544_52cbb834-5ecf-4bb7-af9c-54ec863a9bab.jpg?v=1787921820",
+                      "altText": "",
+                      "width": 1000,
+                      "height": 667
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNzA0NjA3NywibGFzdF92YWx1ZSI6IjQifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029837046077",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6500_781c9ea2-9359-45ea-adad-abdd6f396b60.jpg?v=1787921821",
+                        "altText": "",
+                        "width": 1000,
+                        "height": 667
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6500_781c9ea2-9359-45ea-adad-abdd6f396b60.jpg?v=1787921821",
+                      "altText": "",
+                      "width": 1000,
+                      "height": 667
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNzA3ODg0NSwibGFzdF92YWx1ZSI6IjUifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029837078845",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A5222_8e224467-36d0-4553-b80b-d6e38afd8d86.jpg?v=1787921821",
+                        "altText": "",
+                        "width": 667,
+                        "height": 1000
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A5222_8e224467-36d0-4553-b80b-d6e38afd8d86.jpg?v=1787921821",
+                      "altText": "",
+                      "width": 667,
+                      "height": 1000
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNzExMTYxMywibGFzdF92YWx1ZSI6IjYifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029837111613",
+                    "alt": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25_6a5bb680-1320-490d-b0fa-8dc95d18d8ed.jpg?v=1787921821",
+                        "altText": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                        "width": 1066,
+                        "height": 1600
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25_6a5bb680-1320-490d-b0fa-8dc95d18d8ed.jpg?v=1787921821",
+                      "altText": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                      "width": 1066,
+                      "height": 1600
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNzE0NDM4MSwibGFzdF92YWx1ZSI6IjcifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029837144381",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01621_1_7bde928f-cac2-4029-99a3-5112a7345c0f.png?v=1787921824",
+                        "altText": "",
+                        "width": 2731,
+                        "height": 4096
+                      }
+                    },
+                    "mimeType": "image/png",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01621_1_7bde928f-cac2-4029-99a3-5112a7345c0f.png?v=1787921824",
+                      "altText": "",
+                      "width": 2731,
+                      "height": 4096
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNzE3NzE0OSwibGFzdF92YWx1ZSI6IjgifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029837177149",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v2_9c5d87f2-9b43-46f3-9a45-7eb14c24f6f2.png?v=1787921821",
+                        "altText": "",
+                        "width": 1000,
+                        "height": 1500
+                      }
+                    },
+                    "mimeType": "image/png",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v2_9c5d87f2-9b43-46f3-9a45-7eb14c24f6f2.png?v=1787921821",
+                      "altText": "",
+                      "width": 1000,
+                      "height": 1500
+                    }
+                  }
+                }
+              ],
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": "eyJsYXN0X2lkIjo1MzAyOTgzNzE3NzE0OSwibGFzdF92YWx1ZSI6IjgifQ=="
+              }
+            },
+            "collections": {
+              "nodes": [
+                {
+                  "id": "gid://shopify/Collection/554306863421",
+                  "handle": "balls-homepage-carousel",
+                  "title": "Balls Homepage Carousel"
+                },
+                {
+                  "id": "gid://shopify/Collection/555996840253",
+                  "handle": "pickleballs",
+                  "title": "Pickleballs Collection Page"
+                },
+                {
+                  "id": "gid://shopify/Collection/556642074941",
+                  "handle": "club",
+                  "title": "Club"
+                }
+              ]
+            },
+            "metafields": {
+              "nodes": [
+                {
+                  "id": "gid://shopify/Metafield/46310058950973",
+                  "namespace": "shopify",
+                  "key": "color-pattern",
+                  "type": "list.metaobject_reference",
+                  "value": "[\"gid://shopify/Metaobject/261791646013\"]",
+                  "updatedAt": "2026-07-28T11:36:26Z"
+                },
+                {
+                  "id": "gid://shopify/Metafield/46736135618877",
+                  "namespace": "custom",
+                  "key": "pack_image",
+                  "type": "file_reference",
+                  "value": "gid://shopify/MediaImage/53100539707709",
+                  "updatedAt": "2026-08-31T17:59:24Z"
+                },
+                {
+                  "id": "gid://shopify/Metafield/46736135651645",
+                  "namespace": "custom",
+                  "key": "pack_label",
+                  "type": "single_line_text_field",
+                  "value": "100",
+                  "updatedAt": "2026-08-17T22:42:35Z"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjoxMDQ0MTIxOTM3NTQyMSwibGFzdF92YWx1ZSI6IjEwNDQxMjE5Mzc1NDIxIn0=",
+          "node": {
+            "id": "gid://shopify/Product/10441219375421",
+            "legacyResourceId": "10441219375421",
+            "handle": "apex-pickleball-300-pack",
+            "title": "Apex 300-pack Box",
+            "vendor": "Apex Pickleball",
+            "productType": "",
+            "status": "ACTIVE",
+            "tags": [],
+            "createdAt": "2026-07-28T11:37:26Z",
+            "updatedAt": "2026-08-29T00:57:05Z",
+            "publishedAt": "2026-07-28T11:37:26Z",
+            "onlineStoreUrl": null,
+            "onlineStorePreviewUrl": "https://apexpickleball.org/products/apex-pickleball-300-pack",
+            "templateSuffix": "ball",
+            "isGiftCard": false,
+            "requiresSellingPlan": false,
+            "totalInventory": 1000,
+            "tracksInventory": true,
+            "descriptionHtml": "<p dir=\"ltr\">APEX is injection molded with a patent-pending seam engineered to resist deformation under hard hits. The ball you open in warmups is the ball you're still playing with sessions later: same shape, same bounce, same line off the paddle.</p>\n<p dir=\"ltr\">That structural integrity is what makes the flight repeatable. 48 precision holes give balanced airflow and a predictable path through crosswind — but a hole pattern is only honest if the shell around it holds its geometry. This one does, game after game.</p>\n<p dir=\"ltr\">USA Pickleball Approved for sanctioned play and molded in high-visibility fluorescent optic-ember, APEX is built for the sessions that destroy ordinary balls: two-hour drill blocks, open play that won't end, and third-shot drops hit until they're automatic.</p>\n<p dir=\"ltr\"><strong>SPECS</strong></p>\n<ul dir=\"ltr\">\n<li>Injection molded construction for game-after-game durability</li>\n<li>Patent-pending seam resists deformation under hard hits</li>\n<li>48 precision holes for stable, predictable flight</li>\n<li>USA Pickleball Approved — tournament and club legal</li>\n<li>High-visibility fluorescent optic-ember<br>\n</li>\n</ul>",
+            "seo": {
+              "title": null,
+              "description": null
+            },
+            "options": [
+              {
+                "id": "gid://shopify/ProductOption/13033403679037",
+                "name": "Title",
+                "position": 1,
+                "values": [
+                  "Default Title"
+                ]
+              }
+            ],
+            "variants": {
+              "edges": [
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MjQzMzY2MDgwNTQzNywibGFzdF92YWx1ZSI6MX0=",
+                  "node": {
+                    "id": "gid://shopify/ProductVariant/52433660805437",
+                    "legacyResourceId": "52433660805437",
+                    "title": "Default Title",
+                    "displayName": "Apex 300-pack Box - Default Title",
+                    "sku": "APEX48-300PACK",
+                    "barcode": "5061062596301",
+                    "price": "475.99",
+                    "compareAtPrice": null,
+                    "inventoryQuantity": 1000,
+                    "sellableOnlineQuantity": 1000,
+                    "availableForSale": true,
+                    "taxable": true,
+                    "inventoryPolicy": "DENY",
+                    "position": 1,
+                    "selectedOptions": [
+                      {
+                        "name": "Title",
+                        "value": "Default Title"
+                      }
+                    ],
+                    "createdAt": "2026-07-28T11:37:26Z",
+                    "updatedAt": "2026-07-28T11:37:58Z",
+                    "inventoryItem": {
+                      "id": "gid://shopify/InventoryItem/54458676609341",
+                      "tracked": true,
+                      "requiresShipping": true
+                    }
+                  }
+                }
+              ],
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": "eyJsYXN0X2lkIjo1MjQzMzY2MDgwNTQzNywibGFzdF92YWx1ZSI6MX0="
+              }
+            },
+            "media": {
+              "edges": [
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MjUwNDA4NTg1NjU3MywibGFzdF92YWx1ZSI6IjEifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/52504085856573",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/300-pack_mockup.jpg?v=1786101977",
+                        "altText": "",
+                        "width": 1500,
+                        "height": 1500
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/300-pack_mockup.jpg?v=1786101977",
+                      "altText": "",
+                      "width": 1500,
+                      "height": 1500
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNzIwOTkxNywibGFzdF92YWx1ZSI6IjIifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029837209917",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_box_website_featured_collection_photo_adbb423b-6332-4e5b-aab0-1accec063707.png?v=1787921821",
+                        "altText": "",
+                        "width": 1039,
+                        "height": 1039
+                      }
+                    },
+                    "mimeType": "image/png",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_box_website_featured_collection_photo_adbb423b-6332-4e5b-aab0-1accec063707.png?v=1787921821",
+                      "altText": "",
+                      "width": 1039,
+                      "height": 1039
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNzI0MjY4NSwibGFzdF92YWx1ZSI6IjMifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029837242685",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6544_578d040b-7f06-4c2a-a117-f5919555d437.jpg?v=1787921821",
+                        "altText": "",
+                        "width": 1000,
+                        "height": 667
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6544_578d040b-7f06-4c2a-a117-f5919555d437.jpg?v=1787921821",
+                      "altText": "",
+                      "width": 1000,
+                      "height": 667
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNzI3NTQ1MywibGFzdF92YWx1ZSI6IjQifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029837275453",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6500_552ee906-3ceb-4e26-aafd-b11bda2341d6.jpg?v=1787921821",
+                        "altText": "",
+                        "width": 1000,
+                        "height": 667
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6500_552ee906-3ceb-4e26-aafd-b11bda2341d6.jpg?v=1787921821",
+                      "altText": "",
+                      "width": 1000,
+                      "height": 667
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNzMwODIyMSwibGFzdF92YWx1ZSI6IjUifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029837308221",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A5222_6b33ae3f-78c0-4ec6-abe9-d95378d79cb4.jpg?v=1787921821",
+                        "altText": "",
+                        "width": 667,
+                        "height": 1000
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A5222_6b33ae3f-78c0-4ec6-abe9-d95378d79cb4.jpg?v=1787921821",
+                      "altText": "",
+                      "width": 667,
+                      "height": 1000
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNzM0MDk4OSwibGFzdF92YWx1ZSI6IjYifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029837340989",
+                    "alt": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25_f4bea988-3936-4c6f-bc48-74e0c770510b.jpg?v=1787921821",
+                        "altText": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                        "width": 1066,
+                        "height": 1600
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25_f4bea988-3936-4c6f-bc48-74e0c770510b.jpg?v=1787921821",
+                      "altText": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                      "width": 1066,
+                      "height": 1600
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNzM3Mzc1NywibGFzdF92YWx1ZSI6IjcifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029837373757",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01621_1_36beacb1-2dff-47ec-80a7-c1a9d560c05b.png?v=1787921824",
+                        "altText": "",
+                        "width": 2731,
+                        "height": 4096
+                      }
+                    },
+                    "mimeType": "image/png",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01621_1_36beacb1-2dff-47ec-80a7-c1a9d560c05b.png?v=1787921824",
+                      "altText": "",
+                      "width": 2731,
+                      "height": 4096
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNzQwNjUyNSwibGFzdF92YWx1ZSI6IjgifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029837406525",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v2_ef3aff78-6d7f-4382-9a49-21fd23bd0c1d.png?v=1787921821",
+                        "altText": "",
+                        "width": 1000,
+                        "height": 1500
+                      }
+                    },
+                    "mimeType": "image/png",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v2_ef3aff78-6d7f-4382-9a49-21fd23bd0c1d.png?v=1787921821",
+                      "altText": "",
+                      "width": 1000,
+                      "height": 1500
+                    }
+                  }
+                }
+              ],
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": "eyJsYXN0X2lkIjo1MzAyOTgzNzQwNjUyNSwibGFzdF92YWx1ZSI6IjgifQ=="
+              }
+            },
+            "collections": {
+              "nodes": [
+                {
+                  "id": "gid://shopify/Collection/554306863421",
+                  "handle": "balls-homepage-carousel",
+                  "title": "Balls Homepage Carousel"
+                },
+                {
+                  "id": "gid://shopify/Collection/555996840253",
+                  "handle": "pickleballs",
+                  "title": "Pickleballs Collection Page"
+                },
+                {
+                  "id": "gid://shopify/Collection/556642074941",
+                  "handle": "club",
+                  "title": "Club"
+                }
+              ]
+            },
+            "metafields": {
+              "nodes": [
+                {
+                  "id": "gid://shopify/Metafield/46310062817597",
+                  "namespace": "shopify",
+                  "key": "color-pattern",
+                  "type": "list.metaobject_reference",
+                  "value": "[\"gid://shopify/Metaobject/261791646013\"]",
+                  "updatedAt": "2026-07-28T11:37:26Z"
+                },
+                {
+                  "id": "gid://shopify/Metafield/46736135749949",
+                  "namespace": "custom",
+                  "key": "pack_image",
+                  "type": "file_reference",
+                  "value": "gid://shopify/MediaImage/53041309286717",
+                  "updatedAt": "2026-08-28T21:40:18Z"
+                },
+                {
+                  "id": "gid://shopify/Metafield/46736135782717",
+                  "namespace": "custom",
+                  "key": "pack_label",
+                  "type": "single_line_text_field",
+                  "value": "300",
+                  "updatedAt": "2026-08-17T22:42:43Z"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjoxMDQ4NzMyMjE0OTE4MSwibGFzdF92YWx1ZSI6IjEwNDg3MzIyMTQ5MTgxIn0=",
+          "node": {
+            "id": "gid://shopify/Product/10487322149181",
+            "legacyResourceId": "10487322149181",
+            "handle": "4-pack-bag",
+            "title": "Apex 4-pack Box",
+            "vendor": "Apex Pickleball",
+            "productType": "",
+            "status": "UNLISTED",
+            "tags": [],
+            "createdAt": "2026-08-28T20:23:38Z",
+            "updatedAt": "2026-09-01T16:13:32Z",
+            "publishedAt": "2026-09-01T16:13:32Z",
+            "onlineStoreUrl": null,
+            "onlineStorePreviewUrl": "https://apexpickleball.org/products/4-pack-bag",
+            "templateSuffix": "ball",
+            "isGiftCard": false,
+            "requiresSellingPlan": false,
+            "totalInventory": 1000,
+            "tracksInventory": true,
+            "descriptionHtml": "<p dir=\"ltr\">APEX is injection molded with a patent-pending seam engineered to resist deformation under hard hits. The ball you open in warmups is the ball you're still playing with sessions later: same shape, same bounce, same line off the paddle.</p>\n<p dir=\"ltr\">That structural integrity is what makes the flight repeatable. 48 precision holes give balanced airflow and a predictable path through crosswind — but a hole pattern is only honest if the shell around it holds its geometry. This one does, game after game.</p>\n<p dir=\"ltr\">USA Pickleball Approved for sanctioned play and molded in high-visibility fluorescent optic-ember, APEX is built for the sessions that destroy ordinary balls: two-hour drill blocks, open play that won't end, and third-shot drops hit until they're automatic.</p>\n<p dir=\"ltr\"><strong>SPECS</strong></p>\n<ul dir=\"ltr\">\n<li>Injection molded construction for game-after-game durability</li>\n<li>Patent-pending seam resists deformation under hard hits</li>\n<li>48 precision holes for stable, predictable flight</li>\n<li>USA Pickleball Approved — tournament and club legal</li>\n<li>High-visibility fluorescent optic-ember<br>\n</li>\n</ul>",
+            "seo": {
+              "title": null,
+              "description": null
+            },
+            "options": [
+              {
+                "id": "gid://shopify/ProductOption/13089114587453",
+                "name": "Title",
+                "position": 1,
+                "values": [
+                  "Default Title"
+                ]
+              }
+            ],
+            "variants": {
+              "edges": [
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1Mjk0MTYzMTQ4ODMxNywibGFzdF92YWx1ZSI6MX0=",
+                  "node": {
+                    "id": "gid://shopify/ProductVariant/52941631488317",
+                    "legacyResourceId": "52941631488317",
+                    "title": "Default Title",
+                    "displayName": "Apex 4-pack Box - Default Title",
+                    "sku": "APEX48-4PACK",
+                    "barcode": "5061062596318",
+                    "price": "9.99",
+                    "compareAtPrice": null,
+                    "inventoryQuantity": 1000,
+                    "sellableOnlineQuantity": 1000,
+                    "availableForSale": true,
+                    "taxable": true,
+                    "inventoryPolicy": "DENY",
+                    "position": 1,
+                    "selectedOptions": [
+                      {
+                        "name": "Title",
+                        "value": "Default Title"
+                      }
+                    ],
+                    "createdAt": "2026-08-28T20:23:38Z",
+                    "updatedAt": "2026-08-28T20:23:38Z",
+                    "inventoryItem": {
+                      "id": "gid://shopify/InventoryItem/54967416324413",
+                      "tracked": true,
+                      "requiresShipping": true
+                    }
+                  }
+                }
+              ],
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": "eyJsYXN0X2lkIjo1Mjk0MTYzMTQ4ODMxNywibGFzdF92YWx1ZSI6MX0="
+              }
+            },
+            "media": {
+              "edges": [
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzA0NDQxNjQ0Njc4MSwibGFzdF92YWx1ZSI6IjEifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53044416446781",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_box_selfie.png?v=1787958819",
+                        "altText": "",
+                        "width": 1024,
+                        "height": 1024
+                      }
+                    },
+                    "mimeType": "image/png",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/4-pack_box_selfie.png?v=1787958819",
+                      "altText": "",
+                      "width": 1024,
+                      "height": 1024
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1Mjk1ODA4OTI0OTA4NSwibGFzdF92YWx1ZSI6IjIifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/52958089249085",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6544.jpg?v=1787687111",
+                        "altText": "",
+                        "width": 1000,
+                        "height": 667
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6544.jpg?v=1787687111",
+                      "altText": "",
+                      "width": 1000,
+                      "height": 667
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1Mjk1ODA4OTI4MTg1MywibGFzdF92YWx1ZSI6IjMifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/52958089281853",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6500.jpg?v=1787687111",
+                        "altText": "",
+                        "width": 1000,
+                        "height": 667
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6500.jpg?v=1787687111",
+                      "altText": "",
+                      "width": 1000,
+                      "height": 667
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1Mjk1ODA4ODk1NDE3MywibGFzdF92YWx1ZSI6IjQifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/52958088954173",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A5222.jpg?v=1787687111",
+                        "altText": "",
+                        "width": 667,
+                        "height": 1000
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A5222.jpg?v=1787687111",
+                      "altText": "",
+                      "width": 667,
+                      "height": 1000
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1Mjk4MjAyMTUyMTcyNSwibGFzdF92YWx1ZSI6IjUifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/52982021521725",
+                    "alt": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25.jpg?v=1787753318",
+                        "altText": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                        "width": 1066,
+                        "height": 1600
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25.jpg?v=1787753318",
+                      "altText": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                      "width": 1066,
+                      "height": 1600
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1Mjk1Nzg5NjczNzA4NSwibGFzdF92YWx1ZSI6IjYifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/52957896737085",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01621_1.png?v=1787686737",
+                        "altText": "",
+                        "width": 2731,
+                        "height": 4096
+                      }
+                    },
+                    "mimeType": "image/png",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01621_1.png?v=1787686737",
+                      "altText": "",
+                      "width": 2731,
+                      "height": 4096
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1Mjk4MjI3MTExNTU4MSwibGFzdF92YWx1ZSI6IjcifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/52982271115581",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v2_3f4c5a2f-e1fa-4ffd-9242-ce4fa64266e8.png?v=1787753688",
+                        "altText": "",
+                        "width": 1000,
+                        "height": 1500
+                      }
+                    },
+                    "mimeType": "image/png",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v2_3f4c5a2f-e1fa-4ffd-9242-ce4fa64266e8.png?v=1787753688",
+                      "altText": "",
+                      "width": 1000,
+                      "height": 1500
+                    }
+                  }
+                }
+              ],
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": "eyJsYXN0X2lkIjo1Mjk4MjI3MTExNTU4MSwibGFzdF92YWx1ZSI6IjcifQ=="
+              }
+            },
+            "collections": {
+              "nodes": [
+                {
+                  "id": "gid://shopify/Collection/555996840253",
+                  "handle": "pickleballs",
+                  "title": "Pickleballs Collection Page"
+                }
+              ]
+            },
+            "metafields": {
+              "nodes": [
+                {
+                  "id": "gid://shopify/Metafield/46977101300029",
+                  "namespace": "custom",
+                  "key": "pack_image",
+                  "type": "file_reference",
+                  "value": "gid://shopify/MediaImage/53038935736637",
+                  "updatedAt": "2026-08-28T20:27:17Z"
+                },
+                {
+                  "id": "gid://shopify/Metafield/46977101332797",
+                  "namespace": "custom",
+                  "key": "pack_label",
+                  "type": "single_line_text_field",
+                  "value": "4",
+                  "updatedAt": "2026-08-28T20:23:38Z"
+                },
+                {
+                  "id": "gid://shopify/Metafield/46977101365565",
+                  "namespace": "shopify",
+                  "key": "color-pattern",
+                  "type": "list.metaobject_reference",
+                  "value": "[\"gid://shopify/Metaobject/261791646013\"]",
+                  "updatedAt": "2026-08-28T20:23:38Z"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjoxMDQ4NzMyMzk1MTQyMSwibGFzdF92YWx1ZSI6IjEwNDg3MzIzOTUxNDIxIn0=",
+          "node": {
+            "id": "gid://shopify/Product/10487323951421",
+            "legacyResourceId": "10487323951421",
+            "handle": "10-pack-box",
+            "title": "Apex 10-pack Box",
+            "vendor": "Apex Pickleball",
+            "productType": "",
+            "status": "UNLISTED",
+            "tags": [],
+            "createdAt": "2026-08-28T20:24:18Z",
+            "updatedAt": "2026-09-01T16:13:52Z",
+            "publishedAt": "2026-09-01T16:13:52Z",
+            "onlineStoreUrl": null,
+            "onlineStorePreviewUrl": "https://apexpickleball.org/products/10-pack-box",
+            "templateSuffix": "ball",
+            "isGiftCard": false,
+            "requiresSellingPlan": false,
+            "totalInventory": 1000,
+            "tracksInventory": true,
+            "descriptionHtml": "<p dir=\"ltr\">APEX is injection molded with a patent-pending seam engineered to resist deformation under hard hits. The ball you open in warmups is the ball you're still playing with sessions later: same shape, same bounce, same line off the paddle.</p>\n<p dir=\"ltr\">That structural integrity is what makes the flight repeatable. 48 precision holes give balanced airflow and a predictable path through crosswind — but a hole pattern is only honest if the shell around it holds its geometry. This one does, game after game.</p>\n<p dir=\"ltr\">USA Pickleball Approved for sanctioned play and molded in high-visibility fluorescent optic-ember, APEX is built for the sessions that destroy ordinary balls: two-hour drill blocks, open play that won't end, and third-shot drops hit until they're automatic.</p>\n<p dir=\"ltr\"><strong>SPECS</strong></p>\n<ul dir=\"ltr\">\n<li>Injection molded construction for game-after-game durability</li>\n<li>Patent-pending seam resists deformation under hard hits</li>\n<li>48 precision holes for stable, predictable flight</li>\n<li>USA Pickleball Approved — tournament and club legal</li>\n<li>High-visibility fluorescent optic-ember<br>\n</li>\n</ul>",
+            "seo": {
+              "title": null,
+              "description": null
+            },
+            "options": [
+              {
+                "id": "gid://shopify/ProductOption/13089116487997",
+                "name": "Title",
+                "position": 1,
+                "values": [
+                  "Default Title"
+                ]
+              }
+            ],
+            "variants": {
+              "edges": [
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1Mjk0MTYzMzI5MDU1NywibGFzdF92YWx1ZSI6MX0=",
+                  "node": {
+                    "id": "gid://shopify/ProductVariant/52941633290557",
+                    "legacyResourceId": "52941633290557",
+                    "title": "Default Title",
+                    "displayName": "Apex 10-pack Box - Default Title",
+                    "sku": "APEX48-10PACK",
+                    "barcode": "5061062596271",
+                    "price": "19.99",
+                    "compareAtPrice": null,
+                    "inventoryQuantity": 1000,
+                    "sellableOnlineQuantity": 1000,
+                    "availableForSale": true,
+                    "taxable": true,
+                    "inventoryPolicy": "DENY",
+                    "position": 1,
+                    "selectedOptions": [
+                      {
+                        "name": "Title",
+                        "value": "Default Title"
+                      }
+                    ],
+                    "createdAt": "2026-08-28T20:24:18Z",
+                    "updatedAt": "2026-08-28T20:24:18Z",
+                    "inventoryItem": {
+                      "id": "gid://shopify/InventoryItem/54967418126653",
+                      "tracked": true,
+                      "requiresShipping": true
+                    }
+                  }
+                }
+              ],
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": "eyJsYXN0X2lkIjo1Mjk0MTYzMzI5MDU1NywibGFzdF92YWx1ZSI6MX0="
+              }
+            },
+            "media": {
+              "edges": [
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzA0NDEzNjE0OTMwOSwibGFzdF92YWx1ZSI6IjEifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53044136149309",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/10-pack_box_1.png?v=1787958130",
+                        "altText": "",
+                        "width": 1500,
+                        "height": 1500
+                      }
+                    },
+                    "mimeType": "image/png",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/10-pack_box_1.png?v=1787958130",
+                      "altText": "",
+                      "width": 1500,
+                      "height": 1500
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjUyMTc4OSwibGFzdF92YWx1ZSI6IjIifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836521789",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6544_d3008878-7ccc-4adc-8f1f-4c651eaa6843.jpg?v=1787921821",
+                        "altText": "",
+                        "width": 1000,
+                        "height": 667
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6544_d3008878-7ccc-4adc-8f1f-4c651eaa6843.jpg?v=1787921821",
+                      "altText": "",
+                      "width": 1000,
+                      "height": 667
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjU1NDU1NywibGFzdF92YWx1ZSI6IjMifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836554557",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6500_9c7e7a6f-e56a-41c8-9400-68a5ccbb81b4.jpg?v=1787921820",
+                        "altText": "",
+                        "width": 1000,
+                        "height": 667
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6500_9c7e7a6f-e56a-41c8-9400-68a5ccbb81b4.jpg?v=1787921820",
+                      "altText": "",
+                      "width": 1000,
+                      "height": 667
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjU4NzMyNSwibGFzdF92YWx1ZSI6IjQifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836587325",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A5222_f21c37a7-11bb-447e-a65f-64bb6fc110d8.jpg?v=1787921821",
+                        "altText": "",
+                        "width": 667,
+                        "height": 1000
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A5222_f21c37a7-11bb-447e-a65f-64bb6fc110d8.jpg?v=1787921821",
+                      "altText": "",
+                      "width": 667,
+                      "height": 1000
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjYyMDA5MywibGFzdF92YWx1ZSI6IjUifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836620093",
+                    "alt": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25_5606c3d8-82ef-4a70-a502-bbbbe5edfc7e.jpg?v=1787921820",
+                        "altText": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                        "width": 1066,
+                        "height": 1600
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25_5606c3d8-82ef-4a70-a502-bbbbe5edfc7e.jpg?v=1787921820",
+                      "altText": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                      "width": 1066,
+                      "height": 1600
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjY1Mjg2MSwibGFzdF92YWx1ZSI6IjYifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836652861",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01621_1_bb035d55-a2cf-4585-8269-290da349769c.png?v=1787921823",
+                        "altText": "",
+                        "width": 2731,
+                        "height": 4096
+                      }
+                    },
+                    "mimeType": "image/png",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01621_1_bb035d55-a2cf-4585-8269-290da349769c.png?v=1787921823",
+                      "altText": "",
+                      "width": 2731,
+                      "height": 4096
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjY4NTYyOSwibGFzdF92YWx1ZSI6IjcifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836685629",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v2_b91fc110-0bb2-4bd5-b094-535126e87c29.png?v=1787921821",
+                        "altText": "",
+                        "width": 1000,
+                        "height": 1500
+                      }
+                    },
+                    "mimeType": "image/png",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v2_b91fc110-0bb2-4bd5-b094-535126e87c29.png?v=1787921821",
+                      "altText": "",
+                      "width": 1000,
+                      "height": 1500
+                    }
+                  }
+                }
+              ],
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjY4NTYyOSwibGFzdF92YWx1ZSI6IjcifQ=="
+              }
+            },
+            "collections": {
+              "nodes": [
+                {
+                  "id": "gid://shopify/Collection/555996840253",
+                  "handle": "pickleballs",
+                  "title": "Pickleballs Collection Page"
+                }
+              ]
+            },
+            "metafields": {
+              "nodes": [
+                {
+                  "id": "gid://shopify/Metafield/46977130594621",
+                  "namespace": "custom",
+                  "key": "pack_image",
+                  "type": "file_reference",
+                  "value": "gid://shopify/MediaImage/53038937801021",
+                  "updatedAt": "2026-08-28T20:27:30Z"
+                },
+                {
+                  "id": "gid://shopify/Metafield/46977130627389",
+                  "namespace": "custom",
+                  "key": "pack_label",
+                  "type": "single_line_text_field",
+                  "value": "10",
+                  "updatedAt": "2026-08-28T20:24:18Z"
+                },
+                {
+                  "id": "gid://shopify/Metafield/46977130660157",
+                  "namespace": "shopify",
+                  "key": "color-pattern",
+                  "type": "list.metaobject_reference",
+                  "value": "[\"gid://shopify/Metaobject/261791646013\"]",
+                  "updatedAt": "2026-08-28T20:24:18Z"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjoxMDQ4NzMyNjI3Nzk0OSwibGFzdF92YWx1ZSI6IjEwNDg3MzI2Mjc3OTQ5In0=",
+          "node": {
+            "id": "gid://shopify/Product/10487326277949",
+            "legacyResourceId": "10487326277949",
+            "handle": "6-pack-bag",
+            "title": "Apex 6-pack Pouch",
+            "vendor": "Apex Pickleball",
+            "productType": "",
+            "status": "UNLISTED",
+            "tags": [],
+            "createdAt": "2026-08-28T20:25:07Z",
+            "updatedAt": "2026-09-01T16:11:54Z",
+            "publishedAt": "2026-09-01T16:11:54Z",
+            "onlineStoreUrl": null,
+            "onlineStorePreviewUrl": "https://apexpickleball.org/products/6-pack-bag",
+            "templateSuffix": "ball",
+            "isGiftCard": false,
+            "requiresSellingPlan": false,
+            "totalInventory": 1000,
+            "tracksInventory": true,
+            "descriptionHtml": "<p dir=\"ltr\">APEX is injection molded with a patent-pending seam engineered to resist deformation under hard hits. The ball you open in warmups is the ball you're still playing with sessions later: same shape, same bounce, same line off the paddle.</p>\n<p dir=\"ltr\">That structural integrity is what makes the flight repeatable. 48 precision holes give balanced airflow and a predictable path through crosswind — but a hole pattern is only honest if the shell around it holds its geometry. This one does, game after game.</p>\n<p dir=\"ltr\">USA Pickleball Approved for sanctioned play and molded in high-visibility fluorescent optic-ember, APEX is built for the sessions that destroy ordinary balls: two-hour drill blocks, open play that won't end, and third-shot drops hit until they're automatic.</p>\n<p dir=\"ltr\"><strong>SPECS</strong></p>\n<ul dir=\"ltr\">\n<li>Injection molded construction for game-after-game durability</li>\n<li>Patent-pending seam resists deformation under hard hits</li>\n<li>48 precision holes for stable, predictable flight</li>\n<li>USA Pickleball Approved — tournament and club legal</li>\n<li>High-visibility fluorescent optic-ember<br>\n</li>\n</ul>",
+            "seo": {
+              "title": null,
+              "description": null
+            },
+            "options": [
+              {
+                "id": "gid://shopify/ProductOption/13089118912829",
+                "name": "Title",
+                "position": 1,
+                "values": [
+                  "Default Title"
+                ]
+              }
+            ],
+            "variants": {
+              "edges": [
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1Mjk0MTYzNTc4MDkyNSwibGFzdF92YWx1ZSI6MX0=",
+                  "node": {
+                    "id": "gid://shopify/ProductVariant/52941635780925",
+                    "legacyResourceId": "52941635780925",
+                    "title": "Default Title",
+                    "displayName": "Apex 6-pack Pouch - Default Title",
+                    "sku": "APEX48-10PACK",
+                    "barcode": "5061062596271",
+                    "price": "14.99",
+                    "compareAtPrice": null,
+                    "inventoryQuantity": 1000,
+                    "sellableOnlineQuantity": 1000,
+                    "availableForSale": true,
+                    "taxable": true,
+                    "inventoryPolicy": "DENY",
+                    "position": 1,
+                    "selectedOptions": [
+                      {
+                        "name": "Title",
+                        "value": "Default Title"
+                      }
+                    ],
+                    "createdAt": "2026-08-28T20:25:08Z",
+                    "updatedAt": "2026-09-01T16:08:54Z",
+                    "inventoryItem": {
+                      "id": "gid://shopify/InventoryItem/54967420617021",
+                      "tracked": true,
+                      "requiresShipping": true
+                    }
+                  }
+                }
+              ],
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": "eyJsYXN0X2lkIjo1Mjk0MTYzNTc4MDkyNSwibGFzdF92YWx1ZSI6MX0="
+              }
+            },
+            "media": {
+              "edges": [
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzA0MzgyMDI5ODU1NywibGFzdF92YWx1ZSI6IjEifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53043820298557",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/6-pack_pouch_1.png?v=1787957592",
+                        "altText": "",
+                        "width": 1500,
+                        "height": 1500
+                      }
+                    },
+                    "mimeType": "image/png",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/6-pack_pouch_1.png?v=1787957592",
+                      "altText": "",
+                      "width": 1500,
+                      "height": 1500
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjUyMTc4OSwibGFzdF92YWx1ZSI6IjIifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836521789",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6544_d3008878-7ccc-4adc-8f1f-4c651eaa6843.jpg?v=1787921821",
+                        "altText": "",
+                        "width": 1000,
+                        "height": 667
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6544_d3008878-7ccc-4adc-8f1f-4c651eaa6843.jpg?v=1787921821",
+                      "altText": "",
+                      "width": 1000,
+                      "height": 667
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjU1NDU1NywibGFzdF92YWx1ZSI6IjMifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836554557",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6500_9c7e7a6f-e56a-41c8-9400-68a5ccbb81b4.jpg?v=1787921820",
+                        "altText": "",
+                        "width": 1000,
+                        "height": 667
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6500_9c7e7a6f-e56a-41c8-9400-68a5ccbb81b4.jpg?v=1787921820",
+                      "altText": "",
+                      "width": 1000,
+                      "height": 667
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjU4NzMyNSwibGFzdF92YWx1ZSI6IjQifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836587325",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A5222_f21c37a7-11bb-447e-a65f-64bb6fc110d8.jpg?v=1787921821",
+                        "altText": "",
+                        "width": 667,
+                        "height": 1000
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A5222_f21c37a7-11bb-447e-a65f-64bb6fc110d8.jpg?v=1787921821",
+                      "altText": "",
+                      "width": 667,
+                      "height": 1000
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjYyMDA5MywibGFzdF92YWx1ZSI6IjUifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836620093",
+                    "alt": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25_5606c3d8-82ef-4a70-a502-bbbbe5edfc7e.jpg?v=1787921820",
+                        "altText": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                        "width": 1066,
+                        "height": 1600
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25_5606c3d8-82ef-4a70-a502-bbbbe5edfc7e.jpg?v=1787921820",
+                      "altText": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                      "width": 1066,
+                      "height": 1600
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjY1Mjg2MSwibGFzdF92YWx1ZSI6IjYifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836652861",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01621_1_bb035d55-a2cf-4585-8269-290da349769c.png?v=1787921823",
+                        "altText": "",
+                        "width": 2731,
+                        "height": 4096
+                      }
+                    },
+                    "mimeType": "image/png",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01621_1_bb035d55-a2cf-4585-8269-290da349769c.png?v=1787921823",
+                      "altText": "",
+                      "width": 2731,
+                      "height": 4096
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjY4NTYyOSwibGFzdF92YWx1ZSI6IjcifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836685629",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v2_b91fc110-0bb2-4bd5-b094-535126e87c29.png?v=1787921821",
+                        "altText": "",
+                        "width": 1000,
+                        "height": 1500
+                      }
+                    },
+                    "mimeType": "image/png",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v2_b91fc110-0bb2-4bd5-b094-535126e87c29.png?v=1787921821",
+                      "altText": "",
+                      "width": 1000,
+                      "height": 1500
+                    }
+                  }
+                }
+              ],
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjY4NTYyOSwibGFzdF92YWx1ZSI6IjcifQ=="
+              }
+            },
+            "collections": {
+              "nodes": [
+                {
+                  "id": "gid://shopify/Collection/554306863421",
+                  "handle": "balls-homepage-carousel",
+                  "title": "Balls Homepage Carousel"
+                },
+                {
+                  "id": "gid://shopify/Collection/555996840253",
+                  "handle": "pickleballs",
+                  "title": "Pickleballs Collection Page"
+                }
+              ]
+            },
+            "metafields": {
+              "nodes": [
+                {
+                  "id": "gid://shopify/Metafield/46977338016061",
+                  "namespace": "custom",
+                  "key": "pack_image",
+                  "type": "file_reference",
+                  "value": "gid://shopify/MediaImage/53043818266941",
+                  "updatedAt": "2026-08-28T22:53:36Z"
+                },
+                {
+                  "id": "gid://shopify/Metafield/46977338048829",
+                  "namespace": "custom",
+                  "key": "pack_label",
+                  "type": "single_line_text_field",
+                  "value": "6",
+                  "updatedAt": "2026-08-28T22:53:36Z"
+                },
+                {
+                  "id": "gid://shopify/Metafield/46977338081597",
+                  "namespace": "shopify",
+                  "key": "color-pattern",
+                  "type": "list.metaobject_reference",
+                  "value": "[\"gid://shopify/Metaobject/261791646013\"]",
+                  "updatedAt": "2026-08-28T20:25:08Z"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjoxMDQ4NzcxNTk4Nzc3MywibGFzdF92YWx1ZSI6IjEwNDg3NzE1OTg3NzczIn0=",
+          "node": {
+            "id": "gid://shopify/Product/10487715987773",
+            "legacyResourceId": "10487715987773",
+            "handle": "10-pack-bag",
+            "title": "Apex 10-pack Pouch",
+            "vendor": "Apex Pickleball",
+            "productType": "",
+            "status": "UNLISTED",
+            "tags": [],
+            "createdAt": "2026-08-28T22:44:28Z",
+            "updatedAt": "2026-09-01T16:11:44Z",
+            "publishedAt": "2026-09-01T16:11:44Z",
+            "onlineStoreUrl": null,
+            "onlineStorePreviewUrl": "https://apexpickleball.org/products/10-pack-bag",
+            "templateSuffix": "ball",
+            "isGiftCard": false,
+            "requiresSellingPlan": false,
+            "totalInventory": 1000,
+            "tracksInventory": true,
+            "descriptionHtml": "<p dir=\"ltr\">APEX is injection molded with a patent-pending seam engineered to resist deformation under hard hits. The ball you open in warmups is the ball you're still playing with sessions later: same shape, same bounce, same line off the paddle.</p>\n<p dir=\"ltr\">That structural integrity is what makes the flight repeatable. 48 precision holes give balanced airflow and a predictable path through crosswind — but a hole pattern is only honest if the shell around it holds its geometry. This one does, game after game.</p>\n<p dir=\"ltr\">USA Pickleball Approved for sanctioned play and molded in high-visibility fluorescent optic-ember, APEX is built for the sessions that destroy ordinary balls: two-hour drill blocks, open play that won't end, and third-shot drops hit until they're automatic.</p>\n<p dir=\"ltr\"><strong>SPECS</strong></p>\n<ul dir=\"ltr\">\n<li>Injection molded construction for game-after-game durability</li>\n<li>Patent-pending seam resists deformation under hard hits</li>\n<li>48 precision holes for stable, predictable flight</li>\n<li>USA Pickleball Approved — tournament and club legal</li>\n<li>High-visibility fluorescent optic-ember<br>\n</li>\n</ul>",
+            "seo": {
+              "title": null,
+              "description": null
+            },
+            "options": [
+              {
+                "id": "gid://shopify/ProductOption/13089558135101",
+                "name": "Title",
+                "position": 1,
+                "values": [
+                  "Default Title"
+                ]
+              }
+            ],
+            "variants": {
+              "edges": [
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1Mjk0MjY0OTU5MDA3NywibGFzdF92YWx1ZSI6MX0=",
+                  "node": {
+                    "id": "gid://shopify/ProductVariant/52942649590077",
+                    "legacyResourceId": "52942649590077",
+                    "title": "Default Title",
+                    "displayName": "Apex 10-pack Pouch - Default Title",
+                    "sku": "APEX48-10PACK",
+                    "barcode": "5061062596271",
+                    "price": "17.99",
+                    "compareAtPrice": null,
+                    "inventoryQuantity": 1000,
+                    "sellableOnlineQuantity": 1000,
+                    "availableForSale": true,
+                    "taxable": true,
+                    "inventoryPolicy": "DENY",
+                    "position": 1,
+                    "selectedOptions": [
+                      {
+                        "name": "Title",
+                        "value": "Default Title"
+                      }
+                    ],
+                    "createdAt": "2026-08-28T22:44:29Z",
+                    "updatedAt": "2026-09-01T16:09:26Z",
+                    "inventoryItem": {
+                      "id": "gid://shopify/InventoryItem/54968435114301",
+                      "tracked": true,
+                      "requiresShipping": true
+                    }
+                  }
+                }
+              ],
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": "eyJsYXN0X2lkIjo1Mjk0MjY0OTU5MDA3NywibGFzdF92YWx1ZSI6MX0="
+              }
+            },
+            "media": {
+              "edges": [
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzA0NDA5NDMzNzM0MSwibGFzdF92YWx1ZSI6IjEifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53044094337341",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/10-pack_pouch.png?v=1787958026",
+                        "altText": "",
+                        "width": 1500,
+                        "height": 1500
+                      }
+                    },
+                    "mimeType": "image/png",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/10-pack_pouch.png?v=1787958026",
+                      "altText": "",
+                      "width": 1500,
+                      "height": 1500
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjUyMTc4OSwibGFzdF92YWx1ZSI6IjIifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836521789",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6544_d3008878-7ccc-4adc-8f1f-4c651eaa6843.jpg?v=1787921821",
+                        "altText": "",
+                        "width": 1000,
+                        "height": 667
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6544_d3008878-7ccc-4adc-8f1f-4c651eaa6843.jpg?v=1787921821",
+                      "altText": "",
+                      "width": 1000,
+                      "height": 667
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjU1NDU1NywibGFzdF92YWx1ZSI6IjMifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836554557",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6500_9c7e7a6f-e56a-41c8-9400-68a5ccbb81b4.jpg?v=1787921820",
+                        "altText": "",
+                        "width": 1000,
+                        "height": 667
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A6500_9c7e7a6f-e56a-41c8-9400-68a5ccbb81b4.jpg?v=1787921820",
+                      "altText": "",
+                      "width": 1000,
+                      "height": 667
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjU4NzMyNSwibGFzdF92YWx1ZSI6IjQifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836587325",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A5222_f21c37a7-11bb-447e-a65f-64bb6fc110d8.jpg?v=1787921821",
+                        "altText": "",
+                        "width": 667,
+                        "height": 1000
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/0E7A5222_f21c37a7-11bb-447e-a65f-64bb6fc110d8.jpg?v=1787921821",
+                      "altText": "",
+                      "width": 667,
+                      "height": 1000
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjYyMDA5MywibGFzdF92YWx1ZSI6IjUifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836620093",
+                    "alt": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25_5606c3d8-82ef-4a70-a502-bbbbe5edfc7e.jpg?v=1787921820",
+                        "altText": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                        "width": 1066,
+                        "height": 1600
+                      }
+                    },
+                    "mimeType": "image/jpeg",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/WhatsApp_Image_2026-08-26_at_15.23.25_5606c3d8-82ef-4a70-a502-bbbbe5edfc7e.jpg?v=1787921820",
+                      "altText": "A bright neon yellow-green Apex ball resting on a dark blue and beige putting green surface against a dark background.",
+                      "width": 1066,
+                      "height": 1600
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjY1Mjg2MSwibGFzdF92YWx1ZSI6IjYifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836652861",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01621_1_bb035d55-a2cf-4585-8269-290da349769c.png?v=1787921823",
+                        "altText": "",
+                        "width": 2731,
+                        "height": 4096
+                      }
+                    },
+                    "mimeType": "image/png",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/DSC01621_1_bb035d55-a2cf-4585-8269-290da349769c.png?v=1787921823",
+                      "altText": "",
+                      "width": 2731,
+                      "height": 4096
+                    }
+                  }
+                },
+                {
+                  "cursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjY4NTYyOSwibGFzdF92YWx1ZSI6IjcifQ==",
+                  "node": {
+                    "__typename": "MediaImage",
+                    "id": "gid://shopify/MediaImage/53029836685629",
+                    "alt": "",
+                    "mediaContentType": "IMAGE",
+                    "status": "READY",
+                    "preview": {
+                      "image": {
+                        "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v2_b91fc110-0bb2-4bd5-b094-535126e87c29.png?v=1787921821",
+                        "altText": "",
+                        "width": 1000,
+                        "height": 1500
+                      }
+                    },
+                    "mimeType": "image/png",
+                    "fileStatus": "READY",
+                    "image": {
+                      "url": "https://cdn.shopify.com/s/files/1/1010/2040/1981/files/balls-bucket-v2_b91fc110-0bb2-4bd5-b094-535126e87c29.png?v=1787921821",
+                      "altText": "",
+                      "width": 1000,
+                      "height": 1500
+                    }
+                  }
+                }
+              ],
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": "eyJsYXN0X2lkIjo1MzAyOTgzNjY4NTYyOSwibGFzdF92YWx1ZSI6IjcifQ=="
+              }
+            },
+            "collections": {
+              "nodes": [
+                {
+                  "id": "gid://shopify/Collection/555996840253",
+                  "handle": "pickleballs",
+                  "title": "Pickleballs Collection Page"
+                }
+              ]
+            },
+            "metafields": {
+              "nodes": [
+                {
+                  "id": "gid://shopify/Metafield/46985162686781",
+                  "namespace": "custom",
+                  "key": "pack_image",
+                  "type": "file_reference",
+                  "value": "gid://shopify/MediaImage/53038937801021",
+                  "updatedAt": "2026-08-28T22:44:29Z"
+                },
+                {
+                  "id": "gid://shopify/Metafield/46985162719549",
+                  "namespace": "custom",
+                  "key": "pack_label",
+                  "type": "single_line_text_field",
+                  "value": "10",
+                  "updatedAt": "2026-08-28T22:44:29Z"
+                },
+                {
+                  "id": "gid://shopify/Metafield/46985162752317",
+                  "namespace": "shopify",
+                  "key": "color-pattern",
+                  "type": "list.metaobject_reference",
+                  "value": "[\"gid://shopify/Metaobject/261791646013\"]",
+                  "updatedAt": "2026-08-28T22:44:29Z"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "eyJsYXN0X2lkIjoxMDQ4NzcxNTk4Nzc3MywibGFzdF92YWx1ZSI6IjEwNDg3NzE1OTg3NzczIn0="
+      }
+    }
+  }
+}

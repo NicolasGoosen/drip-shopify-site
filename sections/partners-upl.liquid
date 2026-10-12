@@ -1,0 +1,1416 @@
+{%- comment -%}
+  DRIP x UPL — partner page.
+
+  Imported from the Claude Design canvas "Drip x UPL Partner Page.dc.html".
+
+  WHAT WAS DROPPED FROM THE DESIGN, AND WHY
+  The canvas is a standalone page, so it draws its own announcement bar,
+  header and footer. This theme renders all three from section groups on
+  every template (drip-announcement + drip-header in header-group.json,
+  drip-footer in footer-group.json), so reproducing them here would double
+  them up. Only the page body is implemented.
+
+  The theme header is `overlay` (position: absolute; top: 0), which needs the
+  first section on the template to be full-bleed media — the hero is, so the
+  existing header setting works on this template unchanged. The hero pays for
+  the overlay with a --header-height top pad, same as sections/drip-hero.liquid.
+
+  GREEN -> BRONZE
+  The canvas accent (#C6FF00, with #DFFF6B as its hover step) maps onto
+  --brand-accent / --brand-accent-bright. Nothing else about the accent
+  changed: it still carries the eyebrows, the stat numeral, the rules, the
+  quote band and the "most popular" tier.
+
+  TYPE
+  The canvas is Archivo at 800/900 with negative tracking. This theme's
+  display face is Zalando Sans at --weight-display (600) with POSITIVE
+  tracking that opens up on desktop. The theme wins — the brief was to match
+  the Drip site. Sizes come off the --text-* ramp, so nothing grows as the
+  viewport shrinks (hard rule 5).
+
+  Two bands are light (#F4F4F2 in the canvas). That step is structural — it
+  is what gives the page its rhythm — so it is kept, mapped onto --light and
+  exposed as a colour setting so it can be flipped dark in the editor.
+{%- endcomment -%}
+
+{%- liquid
+  assign packs = section.settings.packs_collection
+-%}
+
+<div
+  class="upl"
+  style="
+    --upl-bg: {{ section.settings.background }};
+    --upl-bg-light: {{ section.settings.background_light }};
+    --upl-pad: {{ section.settings.padding_block }}px;
+  "
+>
+  {%- comment -%} ---------------------------------------------- Hero {%- endcomment -%}
+  <section class="upl-hero">
+    {%- if section.settings.hero_image != blank -%}
+      <img
+        class="upl-hero__media"
+        src="{{ section.settings.hero_image | image_url: width: 2000 }}"
+        alt=""
+        width="{{ section.settings.hero_image.width }}"
+        height="{{ section.settings.hero_image.height }}"
+        loading="eager"
+        fetchpriority="high"
+      >
+    {%- endif -%}
+    <div class="upl-hero__scrim"></div>
+
+    <div class="drip-container upl-hero__inner">
+      <div class="upl-hero__copy">
+        {%- if section.settings.hero_eyebrow != blank -%}
+          <p class="upl-eyebrow">
+            <span class="upl-rule" aria-hidden="true"></span>
+            {{ section.settings.hero_eyebrow | escape }}
+          </p>
+        {%- endif -%}
+
+        {%- if section.settings.hero_heading != blank -%}
+          <h1 class="upl-hero__heading">
+            {{ section.settings.hero_heading | escape }}
+            {%- if section.settings.hero_heading_accent != blank -%}
+              <span class="upl-accent">{{ section.settings.hero_heading_accent | escape }}</span>
+            {%- endif -%}
+          </h1>
+        {%- endif -%}
+
+        {%- if section.settings.hero_text != blank -%}
+          <p class="upl-hero__text">{{ section.settings.hero_text }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.hero_cta_label != blank or section.settings.hero_cta2_label != blank -%}
+          <div class="upl-actions">
+            {%- if section.settings.hero_cta_label != blank -%}
+              <a class="btn btn-light" href="{{ section.settings.hero_cta_link | default: '#' }}">
+                {{ section.settings.hero_cta_label | escape }}
+              </a>
+            {%- endif -%}
+            {%- if section.settings.hero_cta2_label != blank -%}
+              <a class="btn btn-ghost" href="{{ section.settings.hero_cta2_link | default: '#' }}">
+                {{ section.settings.hero_cta2_label | escape }}
+              </a>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="upl-hero__logo">
+        {%- if section.settings.upl_logo != blank -%}
+          <img
+            src="{{ section.settings.upl_logo | image_url: width: 460 }}"
+            alt="{{ section.settings.upl_logo_alt | escape }}"
+            width="{{ section.settings.upl_logo.width }}"
+            height="{{ section.settings.upl_logo.height }}"
+            loading="eager"
+          >
+        {%- else -%}
+          <img
+            src="{{ 'upl-logo.png' | asset_url }}"
+            alt="{{ section.settings.upl_logo_alt | escape }}"
+            width="512"
+            height="512"
+            loading="eager"
+          >
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} --------------------------------------------- Stats {%- endcomment -%}
+  {%- assign stats = section.blocks | where: 'type', 'stat' -%}
+  {%- if stats.size > 0 -%}
+    <section class="upl-stats">
+      <div class="drip-container upl-stats__grid">
+        {%- for block in stats -%}
+          <div class="upl-stat" {{ block.shopify_attributes }}>
+            <p class="upl-stat__value{% if block.settings.highlight %} upl-accent{% endif %}">
+              {{ block.settings.value | escape }}
+            </p>
+            <p class="upl-stat__label">{{ block.settings.label | escape }}</p>
+          </div>
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} --------------------------------------- The partnership {%- endcomment -%}
+  {%- if section.settings.partnership_heading != blank or section.settings.partnership_text != blank -%}
+    {%- comment -%}
+      Absorbed "What is the Ultimate Pickleball League?" — the announcement
+      and the explanation of the league are one band now.
+
+      No .upl-band--light: this band carries its own ground, and the default
+      --upl-ink is already the light-on-dark set, so dropping the modifier is
+      all that is needed to flip the type.
+    {%- endcomment -%}
+    <section
+      class="upl-band upl-band--partnership"
+      {% if section.settings.partnership_background != blank %}
+        style="--upl-partnership-bg: {{ section.settings.partnership_background }};"
+      {% endif %}
+    >
+      <div class="drip-container upl-split">
+        {%- if section.settings.partnership_label != blank -%}
+          <p class="upl-tab upl-tab--accent">{{ section.settings.partnership_label | escape }}</p>
+        {%- endif -%}
+        <div class="upl-split__body">
+          {%- if section.settings.partnership_heading != blank -%}
+            <h2 class="upl-h2">{{ section.settings.partnership_heading | escape }}</h2>
+          {%- endif -%}
+          {%- if section.settings.partnership_text != blank -%}
+            <div class="upl-rte upl-rte--lead">{{ section.settings.partnership_text }}</div>
+          {%- endif -%}
+          {%- if section.settings.partnership_cta_label != blank -%}
+            <div class="upl-actions">
+              <a class="btn btn-ghost" href="{{ section.settings.partnership_cta_link | default: '#' }}">
+                {{ section.settings.partnership_cta_label | escape }}
+              </a>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ------------------------------------------ The league {%- endcomment -%}
+  {%- if section.settings.league_heading != blank or section.settings.league_text != blank -%}
+    <section class="upl-band upl-band--ruled">
+      <div class="drip-container upl-split">
+        {%- if section.settings.league_label != blank -%}
+          <p class="upl-tab upl-tab--accent">{{ section.settings.league_label | escape }}</p>
+        {%- endif -%}
+        <div class="upl-split__body">
+          {%- if section.settings.league_heading != blank -%}
+            <h2 class="upl-h2">{{ section.settings.league_heading | escape }}</h2>
+          {%- endif -%}
+          {%- if section.settings.league_text != blank -%}
+            <div class="upl-rte upl-rte--lead">{{ section.settings.league_text }}</div>
+          {%- endif -%}
+          {%- if section.settings.league_cta_label != blank -%}
+            <div class="upl-actions">
+              <a class="btn btn-ghost" href="{{ section.settings.league_cta_link | default: '#' }}">
+                {{ section.settings.league_cta_label | escape }}
+              </a>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ------------------------------------- Watch the season {%- endcomment -%}
+  {%- if section.settings.watch_heading != blank -%}
+    <section class="upl-feature upl-feature--flat">
+      {%- if section.settings.watch_image != blank -%}
+        <img
+          class="upl-feature__media"
+          src="{{ section.settings.watch_image | image_url: width: 2000 }}"
+          alt=""
+          width="{{ section.settings.watch_image.width }}"
+          height="{{ section.settings.watch_image.height }}"
+          loading="lazy"
+        >
+      {%- endif -%}
+      <div class="upl-feature__scrim upl-feature__scrim--even"></div>
+      <div class="drip-container upl-feature__inner">
+        <div class="upl-measure upl-measure--wide">
+          {%- if section.settings.watch_eyebrow != blank -%}
+            <p class="upl-eyebrow">{{ section.settings.watch_eyebrow | escape }}</p>
+          {%- endif -%}
+          <h2 class="upl-h2">{{ section.settings.watch_heading | escape }}</h2>
+          {%- if section.settings.watch_text != blank -%}
+            <p class="upl-lead">{{ section.settings.watch_text }}</p>
+          {%- endif -%}
+          {%- if section.settings.watch_cta_label != blank or section.settings.watch_cta2_label != blank -%}
+            <div class="upl-actions">
+              {%- if section.settings.watch_cta_label != blank -%}
+                <a class="btn btn-light" href="{{ section.settings.watch_cta_link | default: '#' }}">
+                  {{ section.settings.watch_cta_label | escape }}
+                </a>
+              {%- endif -%}
+              {%- if section.settings.watch_cta2_label != blank -%}
+                <a class="btn btn-ghost" href="{{ section.settings.watch_cta2_link | default: '#' }}">
+                  {{ section.settings.watch_cta2_label | escape }}
+                </a>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ------------------------------------------- Find a team {%- endcomment -%}
+  {%- if section.settings.team_heading != blank -%}
+    <section class="upl-strip">
+      <div class="drip-container upl-strip__inner">
+        <div>
+          <h2 class="upl-h3">{{ section.settings.team_heading | escape }}</h2>
+          {%- if section.settings.team_text != blank -%}
+            <p class="upl-strip__text">{{ section.settings.team_text }}</p>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.team_cta_label != blank -%}
+          <a class="btn btn-outline" href="{{ section.settings.team_cta_link | default: '#' }}">
+            {{ section.settings.team_cta_label | escape }}
+          </a>
+        {%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} --------------------------------------- Shop the packs {%- endcomment -%}
+  {%- if section.settings.show_packs -%}
+    <section class="upl-band upl-band--light">
+      <div class="drip-container">
+        <div class="upl-headrow">
+          {%- if section.settings.packs_heading != blank -%}
+            <h2 class="upl-h2">{{ section.settings.packs_heading | escape }}</h2>
+          {%- endif -%}
+          {%- if section.settings.packs_link_label != blank -%}
+            <a class="btn btn-link" href="{{ section.settings.packs_link | default: '#' }}">
+              {{ section.settings.packs_link_label | escape }}
+              {% render 'icon-arrow-right' %}
+            </a>
+          {%- endif -%}
+        </div>
+
+        {%- if packs != blank and packs.products_count > 0 -%}
+          <ul class="upl-packs" role="list">
+            {%- for product in packs.products limit: section.settings.packs_count -%}
+              <li class="upl-packs__item">
+                <a class="upl-pack" href="{{ product.url }}">
+                  <span class="upl-pack__media">
+                    {%- if product.featured_image -%}
+                      <img
+                        src="{{ product.featured_image | image_url: width: 600 }}"
+                        alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                        width="{{ product.featured_image.width }}"
+                        height="{{ product.featured_image.height }}"
+                        loading="lazy"
+                      >
+                    {%- endif -%}
+                  </span>
+                  <span class="upl-pack__title">{{ product.title | escape }}</span>
+                  <span class="upl-pack__price">{{ product.price | money }}</span>
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ---------------------------------------- Subscriptions {%- endcomment -%}
+  {%- assign tiers = section.blocks | where: 'type', 'tier' -%}
+  {%- if section.settings.show_subscriptions and tiers.size > 0 -%}
+    <section class="upl-band">
+      <div class="drip-container">
+        <div class="upl-headrow upl-headrow--split">
+          {%- if section.settings.subs_heading != blank -%}
+            <h2 class="upl-h2">{{ section.settings.subs_heading | escape }}</h2>
+          {%- endif -%}
+          {%- if section.settings.subs_text != blank -%}
+            <p class="upl-lead">{{ section.settings.subs_text }}</p>
+          {%- endif -%}
+        </div>
+
+        <ul class="upl-tiers" role="list">
+          {%- for block in tiers -%}
+            <li
+              class="upl-tier{% if block.settings.featured %} upl-tier--featured{% endif %}"
+              {{ block.shopify_attributes }}
+            >
+              {%- if block.settings.featured and block.settings.badge != blank -%}
+                <p class="upl-tier__badge">{{ block.settings.badge | escape }}</p>
+              {%- endif -%}
+              <p class="upl-tier__name">{{ block.settings.name | escape }}</p>
+              {%- if block.settings.price != blank -%}
+                <p class="upl-tier__price">
+                  {{ block.settings.price | escape }}
+                  {%- if block.settings.period != blank -%}
+                    <span class="upl-tier__period">{{ block.settings.period | escape }}</span>
+                  {%- endif -%}
+                </p>
+              {%- endif -%}
+              {%- if block.settings.text != blank -%}
+                <p class="upl-tier__text">{{ block.settings.text }}</p>
+              {%- endif -%}
+              {%- if block.settings.features != blank -%}
+                <div class="upl-tier__list">{{ block.settings.features }}</div>
+              {%- endif -%}
+              {%- if block.settings.highlight != blank -%}
+                <p class="upl-tier__highlight">{{ block.settings.highlight | escape }}</p>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+
+        {%- if section.settings.subs_note != blank -%}
+          <p class="upl-note">{{ section.settings.subs_note }}</p>
+        {%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ------------------------------------------- Newsletter {%- endcomment -%}
+  {%- if section.settings.show_newsletter -%}
+    <section class="upl-feature upl-feature--flat">
+      {%- if section.settings.news_image != blank -%}
+        <img
+          class="upl-feature__media"
+          src="{{ section.settings.news_image | image_url: width: 2400 }}"
+          alt=""
+          width="{{ section.settings.news_image.width }}"
+          height="{{ section.settings.news_image.height }}"
+          loading="lazy"
+        >
+      {%- endif -%}
+      <div class="upl-feature__scrim upl-feature__scrim--even"></div>
+      <div class="drip-container upl-feature__inner upl-news">
+        <div>
+          {%- if section.settings.news_eyebrow != blank -%}
+            <p class="upl-eyebrow">{{ section.settings.news_eyebrow | escape }}</p>
+          {%- endif -%}
+          {%- if section.settings.news_heading != blank -%}
+            <h2 class="upl-h2">{{ section.settings.news_heading | escape }}</h2>
+          {%- endif -%}
+        </div>
+
+        <div>
+          {%- form 'customer', id: 'UplNewsletter', class: 'upl-news__form' -%}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+
+            <label class="visually-hidden" for="UplNewsletter-email">
+              {{ section.settings.news_placeholder | escape }}
+            </label>
+
+            <div class="upl-news__field">
+              <input
+                id="UplNewsletter-email"
+                class="upl-news__input"
+                type="email"
+                name="contact[email]"
+                value="{{ form.email }}"
+                placeholder="{{ section.settings.news_placeholder | escape }}"
+                autocomplete="email"
+                autocorrect="off"
+                autocapitalize="off"
+                aria-required="true"
+                {% if form.errors %}
+                  autofocus
+                  aria-invalid="true"
+                  aria-describedby="UplNewsletter-error"
+                {% elsif form.posted_successfully? %}
+                  aria-describedby="UplNewsletter-success"
+                {% endif %}
+                required
+              >
+              <button class="btn btn-light upl-news__submit" type="submit">
+                {{ section.settings.news_button_label | escape }}
+              </button>
+            </div>
+
+            {%- if form.errors -%}
+              <p class="upl-news__note upl-news__note--error" id="UplNewsletter-error">
+                {{ form.errors.messages.email }}
+              </p>
+            {%- elsif form.posted_successfully? -%}
+              <p class="upl-news__note" id="UplNewsletter-success" tabindex="-1">
+                {{ section.settings.news_success | escape }}
+              </p>
+            {%- else -%}
+              {%- if section.settings.news_note != blank -%}
+                <p class="upl-news__note">{{ section.settings.news_note | escape }}</p>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endform -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  /* ==========================================================================
+     DRIP x UPL partner page.
+
+     Every value here resolves to a token in assets/tokens.css. The only local
+     custom properties are the three the schema writes inline (--upl-bg,
+     --upl-bg-light, --upl-pad) and --upl-ink, which flips the text colour on
+     the light and accent bands so one set of type rules serves all three
+     grounds.
+     ========================================================================== */
+
+  .upl {
+    --upl-ink: var(--color-text);
+    --upl-ink-muted: var(--color-text-muted);
+    --upl-ink-faint: var(--color-text-faint);
+    --upl-line: var(--color-border);
+
+    background-color: var(--upl-bg, var(--color-bg));
+    color: var(--upl-ink);
+    font-family: var(--font-body);
+  }
+
+  /* --- shared type ------------------------------------------------------- */
+
+  .upl-h2 {
+    margin: 0;
+    color: var(--upl-ink);
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-display);
+    text-transform: uppercase;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+
+  .upl-h3 {
+    margin: 0;
+    color: var(--upl-ink);
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-heading);
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  .upl-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    margin: 0 0 var(--space-sm);
+    color: var(--brand-accent);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+
+  .upl-rule {
+    display: inline-block;
+    flex: none;
+    width: var(--rule-width);
+    height: var(--rule-thickness);
+    background-color: var(--brand-accent);
+  }
+
+
+  .upl-accent {
+    color: var(--brand-accent);
+  }
+
+  .upl-lead {
+    margin: var(--space-sm) 0 0;
+    max-width: 68ch;
+    color: var(--upl-ink-muted);
+    font-size: var(--text-lead);
+    line-height: var(--leading-body);
+  }
+
+  .upl-rte {
+    display: grid;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+    max-width: 68ch;
+    color: var(--upl-ink-muted);
+    line-height: var(--leading-body);
+  }
+
+  .upl-rte--lead {
+    font-size: var(--text-lead);
+  }
+
+  .upl-rte :where(p) {
+    margin: 0;
+  }
+
+  .upl-rte :where(strong) {
+    color: var(--upl-ink);
+    font-weight: var(--weight-bold);
+  }
+
+  .upl-rte :where(a) {
+    color: var(--upl-ink);
+    font-weight: var(--weight-bold);
+    text-decoration: none;
+    border-bottom: 2px solid var(--brand-accent);
+  }
+
+  .upl-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-top: var(--space-md);
+  }
+
+  .upl-measure {
+    max-width: 62ch;
+  }
+
+  .upl-measure--wide {
+    max-width: 78ch;
+  }
+
+  /* --- bands ------------------------------------------------------------- */
+
+  .upl-band {
+    padding-block: var(--upl-pad, var(--space-section));
+  }
+
+  .upl-band--ruled {
+    border-top: 1px solid var(--upl-line);
+  }
+
+  /* The combined partnership + league band. Takes its own ground so it can sit
+     black against the page's warm --ground without changing either neighbour. */
+  .upl-band--partnership {
+    background-color: var(--upl-partnership-bg, var(--upl-bg, var(--color-bg)));
+  }
+
+  /* The light band. Flipping --upl-ink here is what lets every type rule
+     above serve the dark, light and accent grounds without a variant each. */
+  .upl-band--light {
+    --upl-ink: var(--color-text-on-light);
+    --upl-ink-muted: color-mix(in srgb, var(--ground) 78%, var(--light));
+    --upl-ink-faint: color-mix(in srgb, var(--ground) 62%, var(--light));
+    --upl-line: color-mix(in srgb, var(--ground) 12%, transparent);
+
+    background-color: var(--upl-bg-light, var(--light));
+    color: var(--upl-ink);
+  }
+
+
+  /* --- hero -------------------------------------------------------------- */
+
+  .upl-hero {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    min-height: min(66rem, 88svh);
+    padding-block: calc(var(--header-height) + var(--space-md)) var(--space-xl);
+    background-color: var(--color-bg-deep);
+    overflow: hidden;
+  }
+
+  .upl-hero__media,
+  .upl-feature__media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.42;
+    filter: grayscale(0.35) contrast(1.05);
+  }
+
+  .upl-hero__scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--ground) 72%, transparent) 0%,
+      color-mix(in srgb, var(--ground) 35%, transparent) 40%,
+      color-mix(in srgb, var(--ground) 96%, transparent) 100%
+    );
+  }
+
+  .upl-hero__inner {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-lg);
+  }
+
+  .upl-hero__copy {
+    flex: 1 1 46rem;
+    min-width: 0;
+  }
+
+  .upl-hero__heading {
+    margin: 0;
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: var(--text-display);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-display);
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  .upl-hero__text {
+    margin: var(--space-sm) 0 0;
+    max-width: 56ch;
+    color: var(--color-text-muted);
+    font-size: var(--text-lead);
+    line-height: var(--leading-body);
+  }
+
+  .upl-hero__logo {
+    flex: 0 1 23rem;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .upl-hero__logo img {
+    width: clamp(12rem, 18vw, 23rem);
+    height: auto;
+    filter: drop-shadow(2px 4px 6px white);
+  }
+
+  /* --- stats ------------------------------------------------------------- */
+
+  .upl-stats {
+    border-block: 1px solid var(--color-border);
+  }
+
+  .upl-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  }
+
+  .upl-stat {
+    padding-block: var(--space-md);
+  }
+
+  .upl-stat__value {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-display);
+    line-height: 1;
+  }
+
+  .upl-stat__label {
+    margin: var(--space-2xs) 0 0;
+    color: var(--color-text-faint);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+  /* --- label + body split ------------------------------------------------ */
+
+  .upl-split {
+    display: grid;
+    gap: var(--space-md);
+    align-items: start;
+  }
+
+  .upl-tab {
+    margin: 0;
+    max-width: 28rem;
+    padding-bottom: var(--space-xs);
+    border-bottom: 2px solid var(--upl-ink);
+    color: var(--upl-ink);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+  }
+
+  .upl-tab--accent {
+    border-bottom-color: var(--brand-accent);
+    color: var(--brand-accent);
+  }
+
+  /* --- full-bleed feature bands ------------------------------------------ */
+
+  .upl-feature {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: min(56rem, 80svh);
+    background-color: var(--color-bg-deep);
+    overflow: hidden;
+  }
+
+  .upl-feature--flat {
+    min-height: 0;
+  }
+
+  .upl-feature__media {
+    opacity: 0.5;
+    filter: grayscale(0.5);
+  }
+
+  .upl-feature__scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--ground) 94%, transparent) 0%,
+      color-mix(in srgb, var(--ground) 72%, transparent) 55%,
+      color-mix(in srgb, var(--ground) 35%, transparent) 100%
+    );
+  }
+
+  .upl-feature__scrim--even {
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--ground) 90%, transparent),
+      color-mix(in srgb, var(--ground) 94%, transparent)
+    );
+  }
+
+  .upl-feature__inner {
+    position: relative;
+    padding-block: var(--upl-pad, var(--space-section));
+  }
+
+  /* --- find a team strip ---------------------------------------------------- */
+
+  .upl-strip {
+    border-block: 1px solid var(--color-border);
+  }
+
+  .upl-strip__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    padding-block: var(--space-lg);
+  }
+
+  .upl-strip__text {
+    margin: var(--space-2xs) 0 0;
+    max-width: 60ch;
+    color: var(--color-text-faint);
+    font-size: var(--text-body);
+    line-height: var(--leading-snug);
+  }
+
+  /* --- heading rows ---------------------------------------------------------- */
+
+  .upl-headrow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--upl-ink);
+  }
+
+  .upl-headrow--split {
+    align-items: end;
+    border-bottom-width: 1px;
+    border-bottom-color: var(--color-border-strong);
+    padding-bottom: var(--space-md);
+  }
+
+  .upl-headrow--split .upl-lead {
+    margin-top: 0;
+    flex: 1 1 34rem;
+  }
+
+  /* --- packs ------------------------------------------------------------------ */
+
+  .upl-packs {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: var(--space-sm);
+    margin: var(--space-lg) 0 0;
+    padding: 0;
+  }
+
+  .upl-pack {
+    display: block;
+    height: 100%;
+    padding: var(--space-sm);
+    border: 1px solid var(--upl-line);
+    background-color: var(--light);
+    color: var(--upl-ink);
+    text-decoration: none;
+    transition: border-color var(--motion-fast) var(--ease-out);
+  }
+
+  @media (hover: hover) {
+    .upl-pack:hover {
+      border-color: var(--upl-ink);
+    }
+  }
+
+  .upl-pack:focus-visible {
+    outline: var(--focus-ring-width) solid var(--brand-accent);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  .upl-pack__media {
+    display: block;
+    aspect-ratio: 1;
+  }
+
+  .upl-pack__media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .upl-pack__title {
+    display: block;
+    margin-top: var(--space-sm);
+    font-family: var(--font-display);
+    font-size: var(--text-h4);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-label);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+  .upl-pack__price {
+    display: block;
+    margin-top: var(--space-2xs);
+    color: var(--upl-ink-faint);
+    font-size: var(--text-body);
+    font-weight: var(--weight-medium);
+  }
+
+  /* --- subscription tiers -------------------------------------------------------- */
+
+  .upl-tiers {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr));
+    gap: var(--space-sm);
+    margin: var(--space-lg) 0 0;
+    padding: 0;
+  }
+
+  .upl-tier {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding: var(--space-md) var(--space-sm) var(--space-lg);
+    border: 1px solid var(--color-border-strong);
+  }
+
+  .upl-tier--featured {
+    border-color: var(--brand-accent);
+  }
+
+  .upl-tier__badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: var(--space-unit) var(--space-2xs);
+    background-color: var(--brand-accent);
+    color: var(--color-text-on-light);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+  }
+
+  .upl-tier__name {
+    margin: 0;
+    color: var(--color-text-faint);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+  }
+
+  .upl-tier--featured .upl-tier__name {
+    color: var(--brand-accent);
+  }
+
+  .upl-tier__price {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-display);
+    line-height: 1;
+  }
+
+  .upl-tier__period {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    letter-spacing: 0;
+    color: var(--color-text-faint);
+  }
+
+  .upl-tier__text {
+    margin: 0;
+    color: var(--color-text-faint);
+    font-size: var(--text-body);
+    line-height: var(--leading-snug);
+  }
+
+  .upl-tier__list {
+    display: grid;
+    gap: var(--space-2xs);
+    margin-top: var(--space-unit);
+    padding-top: var(--space-xs);
+    border-top: 1px solid var(--color-border-strong);
+    color: var(--color-text-muted);
+    font-size: var(--text-body);
+    line-height: var(--leading-snug);
+  }
+
+  .upl-tier__list :where(p, ul, ol) {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .upl-tier__highlight {
+    margin: 0;
+    color: var(--brand-accent);
+    font-size: var(--text-body);
+    font-weight: var(--weight-bold);
+  }
+
+  .upl-note {
+    margin: var(--space-sm) 0 0;
+    color: var(--color-text-faint);
+    font-size: var(--text-xs);
+  }
+
+  /* --- newsletter ------------------------------------------------------------------ */
+
+  .upl-news {
+    display: grid;
+    gap: var(--space-lg);
+    align-items: center;
+  }
+
+  .upl-news__field {
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid var(--color-border-strong);
+  }
+
+  .upl-news__input {
+    flex: 1 1 20rem;
+    min-width: 0;
+    padding: var(--space-xs) var(--space-sm);
+    border: 0;
+    background-color: transparent;
+    color: var(--color-text);
+    font-family: inherit;
+    font-size: var(--text-body);
+  }
+
+  .upl-news__input::placeholder {
+    color: var(--color-text-faint);
+  }
+
+  .upl-news__input:focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-focus);
+    outline-offset: calc(var(--focus-ring-offset) * -1);
+  }
+
+  /* The submit sits flush inside the field's hairline, so it drops the
+     button radius rather than rounding a corner inside a square box. */
+  .upl-news__submit {
+    flex: 0 0 auto;
+    border-radius: 0;
+  }
+
+  .upl-news__note {
+    margin: var(--space-2xs) 0 0;
+    color: var(--color-text-faint);
+    font-size: var(--text-xs);
+  }
+
+  .upl-news__note--error {
+    color: var(--brand-accent-bright);
+  }
+
+  /* ==========================================================================
+     750px — two-column splits, the tab column beside its body.
+     ========================================================================== */
+
+  @media screen and (min-width: 750px) {
+    .upl-split {
+      grid-template-columns: minmax(0, 28rem) minmax(0, 2fr);
+      column-gap: var(--grid-gap);
+    }
+
+    .upl-stat {
+      padding-inline: var(--space-sm);
+    }
+
+    .upl-stat:first-child {
+      padding-inline-start: 0;
+    }
+
+    .upl-stats__grid > .upl-stat:not(:last-child) {
+      border-inline-end: 1px solid var(--color-border);
+    }
+
+
+    .upl-news {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: var(--grid-gap);
+    }
+
+  }
+
+  @media screen and (min-width: 990px) {
+    .upl-hero__logo {
+      justify-content: flex-end;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "UPL partner page",
+  "tag": "section",
+  "class": "upl-partner-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "The announcement bar, header and footer come from the theme's header and footer groups — this section is the page body only."
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Page background",
+      "default": "#0B090C"
+    },
+    {
+      "type": "color",
+      "id": "background_light",
+      "label": "Light band background",
+      "info": "Used by the Partnership and Shop the packs bands.",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "padding_block",
+      "min": 32,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Band vertical padding",
+      "default": 96
+    },
+
+    { "type": "header", "content": "Hero" },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Background image",
+      "info": "The design used 0E7A6500.jpg. The band falls back to solid black when empty."
+    },
+    {
+      "type": "text",
+      "id": "hero_eyebrow",
+      "label": "Eyebrow",
+      "default": "Official ball partner · 2026 season"
+    },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Heading",
+      "default": "The official ball of the"
+    },
+    {
+      "type": "text",
+      "id": "hero_heading_accent",
+      "label": "Heading — accent phrase",
+      "info": "Rendered in bronze, immediately after the heading.",
+      "default": "Ultimate Pickleball League."
+    },
+    {
+      "type": "textarea",
+      "id": "hero_text",
+      "label": "Body",
+      "default": "Drip 48 is in play for every match, every rally and every championship point of the UPL's 2026 season."
+    },
+    { "type": "text", "id": "hero_cta_label", "label": "Primary button label", "default": "Shop Drip 48" },
+    { "type": "url", "id": "hero_cta_link", "label": "Primary button link" },
+    { "type": "text", "id": "hero_cta2_label", "label": "Secondary button label", "default": "Visit the UPL" },
+    { "type": "url", "id": "hero_cta2_link", "label": "Secondary button link" },
+    {
+      "type": "image_picker",
+      "id": "upl_logo",
+      "label": "UPL logo",
+      "info": "Falls back to assets/upl-logo.png when empty."
+    },
+    {
+      "type": "text",
+      "id": "upl_logo_alt",
+      "label": "UPL logo alt text",
+      "default": "Ultimate Pickleball League"
+    },
+
+    { "type": "header", "content": "The partnership" },
+    {
+      "type": "paragraph",
+      "content": "Combines the partnership announcement with the explanation of the league. The separate League band below is now unused."
+    },
+    { "type": "text", "id": "partnership_label", "label": "Label", "default": "The partnership" },
+    {
+      "type": "text",
+      "id": "partnership_heading",
+      "label": "Heading",
+      "default": "Drip and the Ultimate Pickleball League."
+    },
+    {
+      "type": "richtext",
+      "id": "partnership_text",
+      "label": "Body",
+      "default": "<p>Drip is proud to confirm that the <strong>Drip 48</strong> is the official ball of the <a href=\"https://ultimatepickleballleague.com\">Ultimate Pickleball League</a> for the 2026 season. Every tournament the UPL organises, every match played across their regions, every moment of competition captured on camera — Drip is the only ball in play.</p><p>The UPL is a city-based semi-professional pickleball league built to give competitive players what the sport has long needed: a real structure, a real pathway, and a genuine league experience between recreational play and the pro tour.</p><p>Regional divisions feed into a national championship, with teams spanning the US and expanding internationally into Costa Rica, the Philippines and beyond. Match results are validated through DUPR+, building credible competitive records that carry real weight as the sport continues to expand.</p>"
+    },
+    { "type": "text", "id": "partnership_cta_label", "label": "Button label", "default": "Explore the league" },
+    { "type": "url", "id": "partnership_cta_link", "label": "Button link" },
+    {
+      "type": "color",
+      "id": "partnership_background",
+      "label": "Background",
+      "default": "#000000"
+    },
+
+    { "type": "header", "content": "The league" },
+    {
+      "type": "paragraph",
+      "content": "Unused since this band was merged into The partnership. Leave the heading and body empty to keep it hidden."
+    },
+    { "type": "text", "id": "league_label", "label": "Label", "default": "The league" },
+    {
+      "type": "text",
+      "id": "league_heading",
+      "label": "Heading",
+      "default": "What is the Ultimate Pickleball League?"
+    },
+    {
+      "type": "richtext",
+      "id": "league_text",
+      "label": "Body",
+      "default": "<p>The UPL is a city-based semi-professional pickleball league built to give competitive players what the sport has long needed: a real structure, a real pathway, and a genuine league experience between recreational play and the pro tour.</p><p>Regional divisions feed into a national championship, with teams spanning the US and expanding internationally into Costa Rica, the Philippines and beyond. Match results are validated through DUPR+, building credible competitive records that carry real weight as the sport continues to expand.</p>"
+    },
+    { "type": "text", "id": "league_cta_label", "label": "Button label", "default": "Explore the league" },
+    { "type": "url", "id": "league_cta_link", "label": "Button link" },
+
+
+
+    { "type": "header", "content": "Watch the season" },
+    {
+      "type": "image_picker",
+      "id": "watch_image",
+      "label": "Background image",
+      "info": "The design used photoshoot-2.jpg."
+    },
+    { "type": "text", "id": "watch_eyebrow", "label": "Eyebrow", "default": "Follow the season" },
+    {
+      "type": "text",
+      "id": "watch_heading",
+      "label": "Heading",
+      "default": "Watch every match. Back every rally."
+    },
+    {
+      "type": "textarea",
+      "id": "watch_text",
+      "label": "Body",
+      "default": "The UPL 2026 season is live. Matches stream across regions with elite athletes pushing the pace every week — see the Drip 48 in action at the highest level of semi-pro pickleball."
+    },
+    { "type": "text", "id": "watch_cta_label", "label": "Primary button label", "default": "Watch live matches" },
+    { "type": "url", "id": "watch_cta_link", "label": "Primary button link" },
+    { "type": "text", "id": "watch_cta2_label", "label": "Secondary button label", "default": "Follow @uplsemiprocircuit" },
+    { "type": "url", "id": "watch_cta2_link", "label": "Secondary button link" },
+
+    { "type": "header", "content": "Find a team" },
+    { "type": "text", "id": "team_heading", "label": "Heading", "default": "Find a team near you." },
+    {
+      "type": "textarea",
+      "id": "team_text",
+      "label": "Body",
+      "default": "Divisions across the US, Costa Rica and the Philippines — with new teams added every season."
+    },
+    { "type": "text", "id": "team_cta_label", "label": "Button label", "default": "Team locations" },
+    { "type": "url", "id": "team_cta_link", "label": "Button link" },
+
+    { "type": "header", "content": "Shop the packs" },
+    { "type": "checkbox", "id": "show_packs", "label": "Show this band", "default": true },
+    { "type": "text", "id": "packs_heading", "label": "Heading", "default": "Choose your pack." },
+    {
+      "type": "collection",
+      "id": "packs_collection",
+      "label": "Collection",
+      "info": "Titles, images and prices come live from the products. The grid is hidden until a collection is picked."
+    },
+    {
+      "type": "range",
+      "id": "packs_count",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "label": "Products to show",
+      "default": 4
+    },
+    { "type": "text", "id": "packs_link_label", "label": "Link label", "default": "View all packs" },
+    { "type": "url", "id": "packs_link", "label": "Link" },
+
+    { "type": "header", "content": "Facility subscriptions" },
+    { "type": "checkbox", "id": "show_subscriptions", "label": "Show this band", "default": true },
+    { "type": "text", "id": "subs_heading", "label": "Heading", "default": "Running a UPL venue?" },
+    {
+      "type": "textarea",
+      "id": "subs_text",
+      "label": "Body",
+      "default": "Keep your courts stocked year-round and let your pro shop offset the cost. Each quarterly plan includes facility-use balls plus retail-ready inventory."
+    },
+    {
+      "type": "text",
+      "id": "subs_note",
+      "label": "Footnote",
+      "default": "*Facility subscriptions are not currently available for preorder."
+    },
+
+    { "type": "header", "content": "Newsletter" },
+    {
+      "type": "checkbox",
+      "id": "show_newsletter",
+      "label": "Show this band",
+      "info": "The theme footer already carries a newsletter — switch this off to avoid two on one page.",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "news_image",
+      "label": "Background image",
+      "info": "The design used balls-on-court-background-with-fastflow.png."
+    },
+    { "type": "text", "id": "news_eyebrow", "label": "Eyebrow", "default": "Stay in the game" },
+    {
+      "type": "text",
+      "id": "news_heading",
+      "label": "Heading",
+      "default": "Season news, drops and UPL results."
+    },
+    { "type": "text", "id": "news_placeholder", "label": "Field placeholder", "default": "Enter your email" },
+    { "type": "text", "id": "news_button_label", "label": "Button label", "default": "Sign up" },
+    {
+      "type": "text",
+      "id": "news_note",
+      "label": "Helper text",
+      "default": "No spam. Season updates and product drops only."
+    },
+    {
+      "type": "text",
+      "id": "news_success",
+      "label": "Success message",
+      "default": "You're on the list — see you courtside."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Value", "default": "100+" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Teams nationwide" },
+        {
+          "type": "checkbox",
+          "id": "highlight",
+          "label": "Bronze numeral",
+          "info": "The design paints the first stat in the accent and the rest in white.",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "tier",
+      "name": "Subscription tier",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Tier name", "default": "Bronze" },
+        { "type": "text", "id": "price", "label": "Price", "default": "$204.95" },
+        { "type": "text", "id": "period", "label": "Period", "default": "/quarter" },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Description",
+          "default": "For smaller facilities getting started."
+        },
+        {
+          "type": "richtext",
+          "id": "features",
+          "label": "What's included",
+          "default": "<p>50 balls for your courts</p><p>100 balls for your pro shop</p>"
+        },
+        { "type": "text", "id": "highlight", "label": "Highlight line", "default": "Retail potential: $219.84" },
+        { "type": "checkbox", "id": "featured", "label": "Highlight this tier", "default": false },
+        { "type": "text", "id": "badge", "label": "Badge label", "default": "Most popular" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "UPL partner page",
+      "blocks": [
+        { "type": "stat", "settings": { "value": "100+", "label": "Teams nationwide", "highlight": true } },
+        { "type": "stat", "settings": { "value": "8", "label": "Countries", "highlight": false } },
+        { "type": "stat", "settings": { "value": "1", "label": "Official ball", "highlight": false } },
+        { "type": "stat", "settings": { "value": "2026", "label": "Season", "highlight": false } },
+        {
+          "type": "tier",
+          "settings": {
+            "name": "Bronze",
+            "price": "$204.95",
+            "period": "/quarter",
+            "text": "For smaller facilities getting started.",
+            "features": "<p>50 balls for your courts</p><p>100 balls for your pro shop</p>",
+            "highlight": "Retail potential: $219.84",
+            "featured": false
+          }
+        },
+        {
+          "type": "tier",
+          "settings": {
+            "name": "Silver",
+            "price": "$333.95",
+            "period": "/quarter",
+            "text": "For active facilities with steady demand.",
+            "features": "<p>100 balls for your courts</p><p>160 balls for your pro shop</p>",
+            "highlight": "Retail potential: $349.75",
+            "featured": true,
+            "badge": "Most popular"
+          }
+        },
+        {
+          "type": "tier",
+          "settings": {
+            "name": "Gold",
+            "price": "$865.95",
+            "period": "/quarter",
+            "text": "For busy clubs and high-volume venues.",
+            "features": "<p>300 balls for your courts</p><p>420 balls for your pro shop</p>",
+            "highlight": "Retail potential: $899.40",
+            "featured": false
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

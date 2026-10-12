@@ -1,0 +1,1747 @@
+{%- comment -%}
+  DRIP main product.
+
+  The PDP hero: breadcrumb, gallery, buy column. Everything below it (trust
+  bar, hotspots, feature cards, reviews, cross-sell, CTA) is its own section
+  in templates/product.ball.json.
+
+  ---------------------------------------------------------------------------
+  WHAT IS BORROWED FROM DAWN, AND WHY
+
+  Hard rule 6 says don't rebuild commerce, so the variant/cart machinery here
+  is Dawn's, untouched — only the skin is ours:
+
+    <product-info>     product-info.js. Refetches ?section_id=<this section>
+                       on option change and swaps the pieces below back in.
+                       It is section-agnostic; it only needs the IDs to match.
+    <variant-selects>  global.js. Publishes the option change.
+    <product-form>     product-form.js. AJAX add-to-cart, wired to the drawer.
+    quantity-input     global.js. The +/- stepper.
+
+  IDs product-info.js looks up by name. Renaming any of these silently breaks
+  variant switching:
+
+    #price-{{ section.id }}                swapped wholesale on variant change
+    #Quantity-Form-{{ section.id }}        quantity rules
+    #ProductSubmitButton-{{ section.id }}  read for its disabled state
+    #product-form-{{ section.id }}         input[name="id"] is rewritten
+
+  ---------------------------------------------------------------------------
+  THE PRICE IN THE ADD-TO-CART LABEL
+
+  The mockup draws "ADD TO CART  •  $14.99". Dawn's toggleSubmitButton() owns
+  the button's FIRST <span> — it overwrites it with "Sold out"/"Add to cart"
+  on every variant change. So the label lives in that first span and the price
+  in a second one, updated from the `variantChange` pub/sub event at the foot
+  of this file. Putting the price in the first span would make it disappear
+  the first time anyone switched pack size.
+
+  ---------------------------------------------------------------------------
+  THE GALLERY IS OURS, NOT DAWN'S
+
+  `drip-gallery` below draws exactly what the mockup shows: a vertical
+  thumbnail rail beside the stage on desktop, dots on mobile, prev/next, and a
+  zoom dialog. Dawn's media-gallery is a slider-component wrapper whose
+  thumbnails sit *under* the stage and cannot be moved beside it without
+  rewriting it anyway.
+
+  The cost is that product-info.js's updateMedia() no-ops here — it looks for
+  a literal `media-gallery ul`. Variant-image switching is handled instead by
+  the same `variantChange` subscription, which is more direct.
+
+  ---------------------------------------------------------------------------
+  THE OVERLAY HEADER
+
+  header-group.json ships the header on `overlay` — absolutely positioned, so
+  it takes no space in flow. Right for the homepage hero, wrong here. Rather
+  than force the whole site to `solid`, this section pads itself by one header
+  height. Switch the setting to Solid if the header group ever changes.
+{%- endcomment -%}
+
+<script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign product_form_id = 'product-form-' | append: section.id
+
+  assign rating = section.settings.rating_value
+  if product.metafields.reviews.rating.value != blank
+    assign rating = product.metafields.reviews.rating.value.rating | round: 1
+  endif
+
+  assign rating_count = section.settings.rating_count
+  if product.metafields.reviews.rating_count.value != blank
+    assign rating_count = product.metafields.reviews.rating_count.value
+  endif
+
+  assign rating_rounded = rating | times: 1.0 | round
+
+  assign badge = section.settings.badge_text
+  if product.metafields.custom.badge != blank
+    assign badge = product.metafields.custom.badge
+  endif
+
+  comment
+    Title split. The mockup draws "DRIP 48" as a display line with
+    "Pickleball (4 Pack)" beneath it on desktop, and the whole string on one
+    line on mobile. Same markup either way — only `display` changes.
+  endcomment
+  assign words = product.title | split: ' '
+  assign split_after = section.settings.title_split_words
+  assign title_lead = product.title
+  assign title_rest = ''
+  if split_after > 0 and words.size > split_after
+    assign title_lead = ''
+    for word in words
+      if forloop.index0 < split_after
+        assign title_lead = title_lead | append: word | append: ' '
+      else
+        assign title_rest = title_rest | append: word | append: ' '
+      endif
+    endfor
+    assign title_lead = title_lead | strip
+    assign title_rest = title_rest | strip
+  endif
+-%}
+
+<div
+  class="pdp{% if section.settings.header_layout == 'overlay' %} pdp--header-offset{% endif %}"
+  style="
+    --pdp-bg: {{ section.settings.background }};
+    --pdp-pad-bottom: {{ section.settings.padding_bottom }}px;
+    --pdp-media-ratio: {{ section.settings.media_ratio }};
+  "
+>
+  <div class="drip-container">
+    {%- if section.settings.show_breadcrumb -%}
+      <nav class="pdp-crumbs" aria-label="Breadcrumb">
+        <ol class="pdp-crumbs__list" role="list">
+          <li class="pdp-crumbs__item">
+            <a class="pdp-crumbs__link" href="{{ routes.root_url }}">{{ section.settings.crumb_home | escape }}</a>
+          </li>
+          {%- if section.settings.crumb_parent_label != blank -%}
+            <li class="pdp-crumbs__item">
+              <a
+                class="pdp-crumbs__link"
+                href="{{ section.settings.crumb_parent_link | default: routes.all_products_collection_url }}"
+              >
+                {{- section.settings.crumb_parent_label | escape -}}
+              </a>
+            </li>
+          {%- endif -%}
+          <li class="pdp-crumbs__item" aria-current="page">
+            {{- product.title | default: 'Product' | escape -}}
+          </li>
+        </ol>
+      </nav>
+    {%- endif -%}
+
+    <product-info
+      id="MainProduct-{{ section.id }}"
+      class="pdp__layout"
+      data-section="{{ section.id }}"
+      data-product-id="{{ product.id }}"
+      data-url="{{ product.url }}"
+      data-update-url="true"
+    >
+      {%- comment -%} ------------------------------------------------ gallery {%- endcomment -%}
+      <drip-gallery class="pgal" data-section="{{ section.id }}">
+        <div class="pgal__stage">
+          <ul class="pgal__viewer" role="list">
+            {%- if product.media.size > 0 -%}
+              {%- for media in product.media -%}
+                <li
+                  class="pgal__slide{% if forloop.first %} is-active{% endif %}"
+                  data-media-id="{{ media.id }}"
+                >
+                  {%- if media.media_type == 'image' -%}
+                    {%- comment -%}
+                      `image_url` returns a string, so `image_tag` can no longer
+                      see the image drop and cannot emit the focal point itself.
+                      Pass it through as an explicit object-position.
+                    {%- endcomment -%}
+                    {%- assign focal = media.preview_image.presentation.focal_point | default: 'center center' -%}
+                    {%- assign focal_style = 'object-position: ' | append: focal | append: ';' -%}
+                    {{
+                      media
+                      | image_url: width: 1600
+                      | image_tag:
+                        loading: 'lazy',
+                        widths: '400, 600, 800, 1200, 1600',
+                        sizes: '(min-width: 990px) 46vw, 100vw',
+                        class: 'pgal__img',
+                        style: focal_style,
+                        alt: media.alt | default: product.title
+                    }}
+                  {%- else -%}
+                    {{ media | media_tag: image_size: '1600x', class: 'pgal__img' }}
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+            {%- else -%}
+              <li class="pgal__slide is-active" data-media-id="placeholder">
+                {{ 'product-1' | placeholder_svg_tag: 'pgal__img' }}
+              </li>
+            {%- endif -%}
+          </ul>
+
+          {%- if badge != blank -%}
+            <span class="pgal__badge">{{ badge | escape }}</span>
+          {%- endif -%}
+
+          {%- if product.media.size > 1 -%}
+            <button class="pgal__nav pgal__nav--prev" type="button" data-gallery-prev>
+              <span class="visually-hidden">{{ 'general.slider.previous_slide' | t }}</span>
+              {% render 'svg-icons', icon: 'chevron-left', class: 'pgal__nav-icon' %}
+            </button>
+            <button class="pgal__nav pgal__nav--next" type="button" data-gallery-next>
+              <span class="visually-hidden">{{ 'general.slider.next_slide' | t }}</span>
+              {% render 'svg-icons', icon: 'chevron-right', class: 'pgal__nav-icon' %}
+            </button>
+          {%- endif -%}
+
+          {%- if section.settings.enable_zoom -%}
+            <button class="pgal__zoom" type="button" data-gallery-zoom>
+              <span class="visually-hidden">{{ 'products.product.media.open_media' | t: index: 1 }}</span>
+              {% render 'svg-icons', icon: 'zoom-in', class: 'pgal__zoom-icon' %}
+            </button>
+          {%- endif -%}
+
+          {%- if product.media.size > 1 -%}
+            <div class="pgal__dots">
+              {%- for media in product.media -%}
+                <button
+                  class="pgal__dot{% if forloop.first %} is-active{% endif %}"
+                  type="button"
+                  aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
+                  data-gallery-index="{{ forloop.index0 }}"
+                >
+                  <span class="visually-hidden">
+                    {{- 'products.product.media.image_available' | t: index: forloop.index -}}
+                  </span>
+                </button>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </div>
+
+        {%- if product.media.size > 1 -%}
+          <ul class="pgal__thumbs" role="list">
+            {%- for media in product.media -%}
+              <li class="pgal__thumb-item">
+                <button
+                  class="pgal__thumb{% if forloop.first %} is-active{% endif %}"
+                  type="button"
+                  data-gallery-index="{{ forloop.index0 }}"
+                  aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
+                >
+                  <span class="visually-hidden">
+                    {{- media.alt | default: product.title | escape }} — {{ forloop.index -}}
+                  </span>
+                  {%- assign thumb_focal = media.preview_image.presentation.focal_point | default: 'center center' -%}
+                  {%- assign thumb_focal_style = 'object-position: ' | append: thumb_focal | append: ';' -%}
+                  {{
+                    media.preview_image
+                    | image_url: width: 300
+                    | image_tag:
+                      loading: 'lazy',
+                      widths: '100, 150, 200, 300',
+                      sizes: '80px',
+                      style: thumb_focal_style,
+                      alt: ''
+                  }}
+                  {%- if media.media_type != 'image' -%}
+                    <span class="pgal__thumb-play" aria-hidden="true"></span>
+                  {%- endif -%}
+                </button>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        {%- if section.settings.enable_zoom -%}
+          <dialog class="pgal__dialog" data-gallery-dialog>
+            <button class="pgal__dialog-close" type="button" data-gallery-close>
+              <span class="visually-hidden">{{ 'accessibility.close' | t }}</span>
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <img class="pgal__dialog-img" src="" alt="" data-gallery-dialog-img width="1600" height="1600">
+          </dialog>
+        {%- endif -%}
+      </drip-gallery>
+
+      {%- comment -%} --------------------------------------------- buy column {%- endcomment -%}
+      <div class="pdp__info">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+
+            {%- when 'rating' -%}
+              <div class="pdp-rating" {{ block.shopify_attributes }}>
+                <span class="pdp-rating__stars" role="img" aria-label="{{ rating }} out of 5 stars">
+                  {%- for i in (1..5) -%}
+                    {%- if i <= rating_rounded -%}
+                      {% render 'svg-icons', icon: 'star', class: 'pdp-rating__star' %}
+                    {%- else -%}
+                      {% render 'svg-icons', icon: 'star-outline', class: 'pdp-rating__star' %}
+                    {%- endif -%}
+                  {%- endfor -%}
+                </span>
+                <span class="pdp-rating__value">{{ rating }}</span>
+                {%- if rating_count != blank -%}
+                  <span class="pdp-rating__sep" aria-hidden="true"></span>
+                  {%- if block.settings.reviews_anchor != blank -%}
+                    <a class="pdp-rating__count" href="{{ block.settings.reviews_anchor }}">
+                      {{- rating_count }} {{ block.settings.reviews_label | escape -}}
+                    </a>
+                  {%- else -%}
+                    <span class="pdp-rating__count">
+                      {{- rating_count }} {{ block.settings.reviews_label | escape -}}
+                    </span>
+                  {%- endif -%}
+                {%- endif -%}
+
+                {%- if block.settings.badge_label != blank -%}
+                  <span class="pdp-rating__badge">
+                    {% render 'svg-icons', icon: block.settings.badge_icon, class: 'pdp-rating__badge-icon' %}
+                    {{ block.settings.badge_label | escape }}
+                  </span>
+                {%- endif -%}
+              </div>
+
+            {%- when 'title' -%}
+              <h1 class="pdp-title" {{ block.shopify_attributes }}>
+                <span class="pdp-title__lead">{{ title_lead | escape }}</span>
+                {%- if title_rest != blank -%}
+                  <span class="pdp-title__rest">{{ title_rest | escape }}</span>
+                {%- endif -%}
+              </h1>
+
+            {%- when 'price' -%}
+              <div class="pdp-price-row" {{ block.shopify_attributes }}>
+                <div class="pdp-price" id="price-{{ section.id }}">
+                  {%- render 'price', product: product, use_variant: true, show_badges: false -%}
+                </div>
+                {%- if block.settings.note != blank -%}
+                  <p class="pdp-price__note">
+                    {% render 'svg-icons', icon: block.settings.note_icon, class: 'pdp-price__note-icon' %}
+                    {{ block.settings.note | escape }}
+                  </p>
+                {%- endif -%}
+              </div>
+
+            {%- when 'description' -%}
+              <div class="pdp-description rte" {{ block.shopify_attributes }}>
+                {%- if block.settings.lead != blank -%}
+                  <p class="pdp-description__lead">{{ block.settings.lead | escape }}</p>
+                {%- endif -%}
+                {{ product.description }}
+              </div>
+
+            {%- when 'feature_icons' -%}
+              {%- comment -%}
+                Four flat slots rather than four blocks: a block's settings
+                cannot nest, and grouping consecutive sibling blocks back into
+                one row in Liquid costs more than it saves. Empty label = the
+                slot is dropped, which is how the fourth is hidden on the
+                desktop mockup's three-up row.
+              {%- endcomment -%}
+              <ul class="pdp-features" role="list" {{ block.shopify_attributes }}>
+                {%- for i in (1..4) -%}
+                  {%- liquid
+                    case i
+                      when 1
+                        assign f_icon = block.settings.icon_1
+                        assign f_label = block.settings.label_1
+                      when 2
+                        assign f_icon = block.settings.icon_2
+                        assign f_label = block.settings.label_2
+                      when 3
+                        assign f_icon = block.settings.icon_3
+                        assign f_label = block.settings.label_3
+                      when 4
+                        assign f_icon = block.settings.icon_4
+                        assign f_label = block.settings.label_4
+                    endcase
+                  -%}
+                  {%- if f_label != blank -%}
+                    <li class="pdp-feature">
+                      {% render 'svg-icons', icon: f_icon, class: 'pdp-feature__icon' %}
+                      <span class="pdp-feature__label">{{ f_label | escape }}</span>
+                    </li>
+                  {%- endif -%}
+                {%- endfor -%}
+              </ul>
+
+            {%- when 'variant_picker' -%}
+              {%- unless product.has_only_default_variant -%}
+                <div class="pdp-picker" {{ block.shopify_attributes }}>
+                  <variant-selects
+                    id="variant-selects-{{ section.id }}"
+                    data-section="{{ section.id }}"
+                    data-product-handle="{{ product.handle }}"
+                    data-product-title="{{ product.title | escape }}"
+                    data-product-id="{{ product.id }}"
+                    data-currency-code="{{ cart.currency.iso_code }}"
+                    {% # theme-check-disable %}
+                    data-selected-price-amount="{{ product.selected_or_first_available_variant.price | default: 0 | money_amount | escape }}"
+                    {% # theme-check-enable %}
+                  >
+                    {%- for option in product.options_with_values -%}
+                      <fieldset class="js pdp-picker__group product-form__input">
+                        <legend class="pdp-picker__legend">{{ option.name }}</legend>
+                        <div class="pdp-picker__options">
+                          {% render 'product-variant-options',
+                            product: product,
+                            option: option,
+                            block: block,
+                            picker_type: 'button'
+                          %}
+                        </div>
+                      </fieldset>
+                    {%- endfor -%}
+
+                    <script type="application/json" data-selected-variant>
+                      {{ product.selected_or_first_available_variant | json }}
+                    </script>
+                  </variant-selects>
+                </div>
+              {%- endunless -%}
+
+            {%- when 'quantity_selector' -%}
+              {%- assign variant = product.selected_or_first_available_variant -%}
+              <div
+                id="Quantity-Form-{{ section.id }}"
+                class="pdp-quantity product-form__input product-form__quantity"
+                {{ block.shopify_attributes }}
+              >
+                <label class="pdp-quantity__label" for="Quantity-{{ section.id }}">
+                  {{ 'products.product.quantity.label' | t }}
+                </label>
+                <quantity-input
+                  class="pdp-quantity__control quantity"
+                  data-url="{{ product.url }}"
+                  data-section="{{ section.id }}"
+                >
+                  <button class="pdp-quantity__button quantity__button" name="minus" type="button">
+                    <span class="visually-hidden">
+                      {{- 'products.product.quantity.decrease' | t: product: product.title | escape -}}
+                    </span>
+                    <span aria-hidden="true">&minus;</span>
+                  </button>
+                  <input
+                    class="pdp-quantity__input quantity__input"
+                    type="number"
+                    name="quantity"
+                    id="Quantity-{{ section.id }}"
+                    min="{{ variant.quantity_rule.min | default: 1 }}"
+                    data-min="{{ variant.quantity_rule.min | default: 1 }}"
+                    {% if variant.quantity_rule.max != null %}
+                      max="{{ variant.quantity_rule.max }}"
+                      data-max="{{ variant.quantity_rule.max }}"
+                    {% endif %}
+                    step="{{ variant.quantity_rule.increment | default: 1 }}"
+                    value="{{ variant.quantity_rule.min | default: 1 }}"
+                    form="{{ product_form_id }}"
+                  >
+                  <button class="pdp-quantity__button quantity__button" name="plus" type="button">
+                    <span class="visually-hidden">
+                      {{- 'products.product.quantity.increase' | t: product: product.title | escape -}}
+                    </span>
+                    <span aria-hidden="true">+</span>
+                  </button>
+                </quantity-input>
+              </div>
+
+            {%- when 'buy_buttons' -%}
+              <div class="pdp-buy" {{ block.shopify_attributes }}>
+                {%- if product != blank -%}
+                  <product-form class="product-form" data-section-id="{{ section.id }}">
+                    <div class="product-form__error-message-wrapper" role="alert" hidden>
+                      <span class="product-form__error-message"></span>
+                    </div>
+
+                    {%- form 'product',
+                      product,
+                      id: product_form_id,
+                      class: 'form pdp-buy__form',
+                      novalidate: 'novalidate',
+                      data-type: 'add-to-cart-form'
+                    -%}
+                      <input
+                        type="hidden"
+                        name="id"
+                        value="{{ product.selected_or_first_available_variant.id }}"
+                        {% if product.selected_or_first_available_variant.available == false %}
+                          disabled
+                        {% endif %}
+                        class="product-variant-id"
+                      >
+
+                      <button
+                        id="ProductSubmitButton-{{ section.id }}"
+                        class="btn btn-light btn-full pdp-atc product-form__submit"
+                        type="submit"
+                        name="add"
+                        {% if block.settings.preorders_open == false
+                          or product.selected_or_first_available_variant.available == false
+                          or product.selected_or_first_available_variant == null
+                        %}
+                          disabled
+                          aria-disabled="true"
+                        {% endif %}
+                      >
+                        <span class="pdp-atc__label">
+                          {%- if block.settings.preorders_open == false -%}
+                            {{ block.settings.preorder_closed_message | escape }}
+                          {%- elsif product.selected_or_first_available_variant == null -%}
+                            {{ 'products.product.unavailable' | t }}
+                          {%- elsif product.selected_or_first_available_variant.available == false -%}
+                            {{ 'products.product.sold_out' | t }}
+                          {%- else -%}
+                            {{ 'products.product.add_to_cart' | t }}
+                          {%- endif -%}
+                        </span>
+                        {%- if block.settings.preorders_open -%}
+                          <span class="pdp-atc__price" data-atc-price>
+                            {{- product.selected_or_first_available_variant.price | money -}}
+                          </span>
+                        {%- endif -%}
+                      </button>
+
+                      {%- if block.settings.preorders_open and block.settings.show_dynamic_checkout -%}
+                        <div class="pdp-buy__dynamic">{{ form | payment_button }}</div>
+                      {%- endif -%}
+                    {%- endform -%}
+                  </product-form>
+                {%- else -%}
+                  <button class="btn btn-light btn-full pdp-atc" type="button" disabled>
+                    <span class="pdp-atc__label">{{ 'products.product.sold_out' | t }}</span>
+                  </button>
+                {%- endif -%}
+              </div>
+
+            {%- when 'text' -%}
+              <div class="pdp-rte rte" {{ block.shopify_attributes }}>{{ block.settings.content }}</div>
+
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </product-info>
+  </div>
+</div>
+
+<script>
+  // -------------------------------------------------------------------------
+  // Gallery. Index-driven: active slide, active thumb and active dot are all
+  // derived from `this.index`. Nothing else holds state.
+  // -------------------------------------------------------------------------
+  if (!customElements.get('drip-gallery')) {
+    customElements.define(
+      'drip-gallery',
+      class DripGallery extends HTMLElement {
+        connectedCallback() {
+          this.slides = Array.from(this.querySelectorAll('.pgal__slide'));
+          this.thumbs = Array.from(this.querySelectorAll('.pgal__thumb'));
+          this.dots = Array.from(this.querySelectorAll('.pgal__dot'));
+          this.dialog = this.querySelector('[data-gallery-dialog]');
+          this.dialogImg = this.querySelector('[data-gallery-dialog-img]');
+          this.index = 0;
+
+          // Touch. The stage stacks its slides rather than scrolling, so there
+          // is no native swipe to inherit — pointer events stand in for it.
+          // `touch-action: pan-y` on the stage keeps vertical page scrolling.
+          this.stage = this.querySelector('.pgal__stage');
+          if (this.stage && this.slides.length > 1) {
+            let startX = null;
+            let startY = null;
+
+            this.stage.addEventListener(
+              'pointerdown',
+              (event) => {
+                if (event.pointerType === 'mouse') return;
+                startX = event.clientX;
+                startY = event.clientY;
+              },
+              { passive: true }
+            );
+
+            this.stage.addEventListener(
+              'pointerup',
+              (event) => {
+                if (startX === null) return;
+                const dx = event.clientX - startX;
+                const dy = event.clientY - startY;
+                startX = null;
+                startY = null;
+                // Ignore taps and anything more vertical than horizontal, so a
+                // scroll that starts on the image is never stolen.
+                if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
+                this.step(dx < 0 ? 1 : -1);
+              },
+              { passive: true }
+            );
+
+            this.stage.addEventListener('pointercancel', () => {
+              startX = null;
+              startY = null;
+            });
+          }
+
+          this.addEventListener('click', (event) => {
+            const jump = event.target.closest('[data-gallery-index]');
+            if (jump) return this.select(Number(jump.dataset.galleryIndex));
+            if (event.target.closest('[data-gallery-prev]')) return this.step(-1);
+            if (event.target.closest('[data-gallery-next]')) return this.step(1);
+            if (event.target.closest('[data-gallery-zoom]')) return this.openZoom();
+            if (event.target.closest('[data-gallery-close]')) return this.dialog?.close();
+          });
+
+          // Variant image switching. product-info.js's updateMedia() only knows
+          // how to drive Dawn's <media-gallery>, so this stands in for it.
+          if (typeof subscribe === 'function' && typeof PUB_SUB_EVENTS === 'object') {
+            this.unsubscribeVariant = subscribe(PUB_SUB_EVENTS.variantChange, ({ data }) => {
+              if (data.sectionId !== this.dataset.section) return;
+              const mediaId = data.variant?.featured_media?.id;
+              if (!mediaId) return;
+              const target = this.slides.findIndex((slide) => slide.dataset.mediaId === String(mediaId));
+              if (target > -1) this.select(target);
+            });
+          }
+        }
+
+        disconnectedCallback() {
+          this.unsubscribeVariant?.();
+        }
+
+        step(delta) {
+          if (!this.slides.length) return;
+          this.select((this.index + delta + this.slides.length) % this.slides.length);
+        }
+
+        select(index) {
+          if (!this.slides.length) return;
+          this.index = index;
+
+          this.slides.forEach((slide, i) => slide.classList.toggle('is-active', i === index));
+          [this.thumbs, this.dots].forEach((group) =>
+            group.forEach((control, i) => {
+              control.classList.toggle('is-active', i === index);
+              control.setAttribute('aria-pressed', i === index ? 'true' : 'false');
+            })
+          );
+        }
+
+        openZoom() {
+          if (!this.dialog || !this.dialogImg) return;
+          const img = this.slides[this.index]?.querySelector('img');
+          if (img) {
+            this.dialogImg.src = img.currentSrc || img.src;
+            this.dialogImg.alt = img.alt || '';
+          }
+          this.dialog.showModal();
+        }
+      }
+    );
+  }
+
+  // -------------------------------------------------------------------------
+  // Keep the price in the add-to-cart label in step with the variant. Dawn
+  // owns the button's first <span>; we own the second.
+  // -------------------------------------------------------------------------
+  (() => {
+    if (typeof subscribe !== 'function' || typeof PUB_SUB_EVENTS !== 'object') return;
+    const sectionId = {{ section.id | json }};
+
+    subscribe(PUB_SUB_EVENTS.variantChange, ({ data }) => {
+      if (data.sectionId !== sectionId) return;
+      const target = document.querySelector('#MainProduct-' + sectionId + ' [data-atc-price]');
+      if (!target) return;
+      const source = data.html?.getElementById('price-' + data.sectionId);
+      target.textContent = source ? source.textContent.trim().split('\n')[0].trim() : '';
+      target.hidden = !data.variant?.available;
+    });
+  })();
+</script>
+
+{% stylesheet %}
+  .pdp {
+    background-color: var(--pdp-bg, var(--color-bg));
+    padding-block-end: var(--pdp-pad-bottom, var(--space-xl));
+  }
+
+  /* The header ships on `overlay` for the homepage hero, which means it takes
+     no space in flow. One header height of padding puts the breadcrumb back
+     where the mockup draws it. */
+  .pdp--header-offset {
+    padding-block-start: var(--header-height);
+  }
+
+  /* --- breadcrumb ------------------------------------------------------ */
+
+  .pdp-crumbs {
+    padding-block: var(--space-sm);
+  }
+
+  .pdp-crumbs__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2xs);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: var(--color-text-faint);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+  }
+
+  .pdp-crumbs__item + .pdp-crumbs__item::before {
+    content: '>';
+    margin-inline-end: var(--space-2xs);
+    color: var(--color-text-faint);
+  }
+
+  .pdp-crumbs__link {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .pdp-crumbs__link:focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-focus);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  @media (hover: hover) {
+    .pdp-crumbs__link:hover {
+      color: var(--brand-accent);
+    }
+  }
+
+  /* --- layout ---------------------------------------------------------- */
+
+  .pdp__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-lg);
+    align-items: start;
+  }
+
+  .pdp__info {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-sm);
+    min-width: 0;
+  }
+
+  /* --- gallery --------------------------------------------------------- */
+
+  .pgal {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-xs);
+    min-width: 0;
+  }
+
+  .pgal__stage {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-bg-alt);
+    touch-action: pan-y;
+  }
+
+  .pgal__viewer {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Every slide shares one grid cell; only the active one is painted. Stacking
+     rather than sliding keeps the stage height stable when the images are not
+     all the same shape, and needs no scroll container to reset. */
+  .pgal__slide {
+    grid-area: 1 / 1;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--motion-med) var(--ease-out);
+  }
+
+  .pgal__slide.is-active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .pgal__img,
+  .pgal__stage svg {
+    display: block;
+    width: 100%;
+    /* `height: auto` is load-bearing. Shopify's image_tag writes width and
+       height attributes, and Chrome maps those to presentational CSS width /
+       height — the height hint beat aspect-ratio and stretched a square stage
+       to the full intrinsic height of the file. */
+    height: auto;
+    aspect-ratio: var(--pdp-media-ratio, 1);
+    object-fit: cover;
+    /* Overridden per image by the inline object-position the markup writes
+       from Shopify's focal point; this is the fallback for media that has
+       none set (videos, 3D models, the placeholder). */
+    object-position: center center;
+  }
+
+  .pgal__badge {
+    position: absolute;
+    inset-block-start: var(--space-xs);
+    inset-inline-start: var(--space-xs);
+    padding: var(--space-2xs) var(--space-xs);
+    /* Same radius as the buttons — the badge is a pill-shaped chip sitting on
+       the same surface, and a square-cornered one read as a different family. */
+    border-radius: var(--btn-radius);
+    background-color: var(--brand-accent-dim);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+  }
+
+  .pgal__nav,
+  .pgal__zoom {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    width: var(--space-lg);
+    height: var(--space-lg);
+    padding: 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    background-color: color-mix(in srgb, var(--ground) 55%, transparent);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: background-color var(--motion-fast) var(--ease-out),
+      border-color var(--motion-fast) var(--ease-out);
+  }
+
+  /* Arrows are a desktop affordance in the mockup — mobile gets the dots. */
+  .pgal__nav {
+    display: none;
+    inset-block-start: 50%;
+    translate: 0 -50%;
+  }
+
+  .pgal__nav--prev {
+    inset-inline-start: var(--space-xs);
+  }
+
+  .pgal__nav--next {
+    inset-inline-end: var(--space-xs);
+  }
+
+  .pgal__zoom {
+    inset-block-start: var(--space-xs);
+    inset-inline-end: var(--space-xs);
+  }
+
+  .pgal__nav-icon,
+  .pgal__zoom-icon {
+    width: var(--space-sm);
+    height: var(--space-sm);
+  }
+
+  /* The zoom glyph is drawn with more slack in its viewBox than the chevrons,
+     so it reads oversized and low-right against them without this. */
+  svg.pgal__zoom-icon {
+    position: relative;
+    top: -4%;
+    left: -4%;
+    width: 80%;
+  }
+
+  .pgal__nav:focus-visible,
+  .pgal__zoom:focus-visible,
+  .pgal__thumb:focus-visible,
+  .pgal__dot:focus-visible,
+  .pgal__dialog-close:focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-focus);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  @media (hover: hover) {
+    .pgal__nav:hover,
+    .pgal__zoom:hover {
+      border-color: var(--color-border-accent);
+      background-color: var(--ground);
+    }
+  }
+
+  .pgal__dots {
+    position: absolute;
+    inset-block-end: var(--space-xs);
+    inset-inline: 0;
+    display: flex;
+    justify-content: center;
+    gap: var(--space-2xs);
+  }
+
+  .pgal__dot {
+    width: var(--space-2xs);
+    height: var(--space-2xs);
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-pill);
+    background-color: var(--color-border-strong);
+    cursor: pointer;
+    transition: background-color var(--motion-fast) var(--ease-out);
+  }
+
+  .pgal__dot.is-active {
+    background-color: var(--brand-accent);
+  }
+
+  .pgal__thumbs {
+    display: none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pgal__thumb {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 1px solid transparent;
+    background: none;
+    cursor: pointer;
+    transition: border-color var(--motion-fast) var(--ease-out);
+  }
+
+  .pgal__thumb.is-active {
+    border-color: var(--brand-accent);
+  }
+
+  .pgal__thumb img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  .pgal__thumb-play {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    translate: -50% -50%;
+    width: var(--space-sm);
+    height: var(--space-sm);
+    border: 1px solid var(--color-text);
+    border-radius: var(--radius-pill);
+    background-color: color-mix(in srgb, var(--ground) 55%, transparent);
+  }
+
+  .pgal__thumb-play::after {
+    content: '';
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    translate: -35% -50%;
+    border-block: 4px solid transparent;
+    border-inline-start: 6px solid var(--color-text);
+  }
+
+  /* --- zoom dialog ----------------------------------------------------- */
+
+  .pgal__dialog {
+    position: fixed;
+    width: min(92vw, 96rem);
+    max-width: none;
+    padding: 0;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+  }
+
+  .pgal__dialog::backdrop {
+    background-color: color-mix(in srgb, var(--ground) 88%, transparent);
+  }
+
+  .pgal__dialog-img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .pgal__dialog-close {
+    position: absolute;
+    inset-block-start: var(--space-2xs);
+    inset-inline-end: var(--space-2xs);
+    width: var(--space-lg);
+    height: var(--space-lg);
+    padding: 0;
+    border: 1px solid var(--color-border);
+    background-color: color-mix(in srgb, var(--ground) 55%, transparent);
+    color: var(--color-text);
+    font-size: var(--text-h4);
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  /* --- rating ---------------------------------------------------------- */
+
+  .pdp-rating {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2xs);
+    color: var(--color-text-muted);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+  }
+
+  .pdp-rating__stars {
+    display: inline-flex;
+    gap: 2px;
+    color: var(--brand-accent);
+  }
+
+  .pdp-rating__star {
+    width: var(--space-xs);
+    height: var(--space-xs);
+  }
+
+  .pdp-rating__value {
+    color: var(--color-text);
+    font-weight: var(--weight-medium);
+  }
+
+  .pdp-rating__sep {
+    width: 1px;
+    height: var(--space-xs);
+    background-color: var(--color-border-strong);
+  }
+
+  .pdp-rating__count {
+    color: var(--color-text-muted);
+  }
+
+  /* Mobile only. Desktop carries the same claim in the feature-icon row, and
+     the mockup does not draw it twice. */
+  .pdp-rating__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    margin-inline-start: auto;
+    color: var(--color-text);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+  }
+
+  .pdp-rating__badge-icon {
+    width: var(--space-sm);
+    height: var(--space-sm);
+  }
+
+  /* --- title ----------------------------------------------------------- */
+
+  .pdp-title {
+    margin: 0;
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-heading);
+  }
+
+  /* Mobile runs the title as one continuous line; desktop breaks it into a
+     display line plus a subtitle. Same markup, only `display` changes. */
+  .pdp-title__lead,
+  .pdp-title__rest {
+    display: inline;
+  }
+
+  /* --- price ----------------------------------------------------------- */
+
+  .pdp-price-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-xs) var(--space-sm);
+  }
+
+  .pdp-price,
+  .pdp-price .price,
+  .pdp-price .price__container,
+  .pdp-price .price-item {
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-display);
+    line-height: 1;
+  }
+
+  /* Dawn's price snippet always renders BOTH .price__regular and .price__sale
+     and lets component-price.css hide whichever does not apply — but this
+     section never loads component-price.css, so nothing was hiding the unused
+     branch and the price printed twice. The switch is reproduced here rather
+     than pulled in wholesale, so the only Dawn price CSS this template carries
+     is the part it actually needs. */
+  .pdp-price .price__sale {
+    display: none;
+  }
+
+  .pdp-price .price__regular {
+    display: inline;
+  }
+
+  .pdp-price .price--on-sale .price__regular {
+    display: none;
+  }
+
+  .pdp-price .price--on-sale .price__sale {
+    display: inline;
+  }
+
+  .pdp-price .price-item--regular {
+    text-decoration: none;
+  }
+
+  .pdp-price__note {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    margin: 0;
+    color: var(--color-text-muted);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+  }
+
+  .pdp-price__note-icon {
+    flex: none;
+    width: var(--space-sm);
+    height: var(--space-sm);
+    color: var(--brand-accent);
+  }
+
+  /* --- description ----------------------------------------------------- */
+
+  .pdp-description {
+    color: var(--color-text-muted);
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+  }
+
+  .pdp-description > * {
+    margin-block: 0 var(--space-2xs);
+  }
+
+  .pdp-description__lead {
+    color: var(--color-text);
+  }
+
+  /* --- feature icons --------------------------------------------------- */
+
+  .pdp-features {
+    /* auto-fit rather than a hard 4: at 320px four tracks would be ~60px wide
+       and "TOURNAMENT" alone would overflow, so it folds to 2x2 instead. */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(7.6rem, 1fr));
+    gap: var(--space-sm) var(--space-xs);
+    margin: 0;
+    padding-block: var(--space-2xs);
+    list-style: none;
+  }
+
+  .pdp-feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2xs);
+    text-align: center;
+  }
+
+  /* Bare SVG — no ring, no wrapper. The icons paint with currentColor, so the
+     colour is set here rather than on a parent.
+
+     Height-driven, with width left to the viewBox. The set is not all square
+     — `usap-approved` is a 118x72 lockup — and pinning both axes to one value
+     letterboxes that inside a square box at a third of its legible width. The
+     square 24x24 icons come out at 32x32 either way. */
+  .pdp-feature__icon {
+    width: auto;
+    height: var(--space-md);
+    color: var(--color-text);
+  }
+
+  .pdp-feature__label {
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-label);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+  /* --- variant picker -------------------------------------------------- */
+
+  .pdp-picker {
+    padding-block-start: var(--space-sm);
+    border-block-start: 1px solid var(--color-border);
+  }
+
+  .pdp-picker__group {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .pdp-picker__group + .pdp-picker__group {
+    margin-block-start: var(--space-sm);
+  }
+
+  .pdp-picker__legend {
+    margin-block-end: var(--space-2xs);
+    padding: 0;
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+  }
+
+  .pdp-picker__options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(7.6rem, 1fr));
+    gap: var(--space-2xs);
+  }
+
+  /* The radio is visually hidden but still focusable and still in the tab
+     order — `display: none` would take it out of the accessibility tree and
+     kill keyboard selection entirely. */
+  .pdp-picker__options input[type='radio'] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .pdp-picker__options label {
+    display: grid;
+    place-items: center;
+    min-height: var(--btn-height);
+    padding-inline: var(--space-xs);
+    border: var(--btn-border-width) solid var(--color-border);
+    color: var(--color-text-muted);
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-label);
+    text-align: center;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color var(--motion-fast) var(--ease-out),
+      color var(--motion-fast) var(--ease-out);
+  }
+
+  .pdp-picker__options input[type='radio']:checked + label {
+    border-color: var(--brand-accent);
+    color: var(--color-text);
+  }
+
+  .pdp-picker__options input[type='radio']:focus-visible + label {
+    outline: var(--focus-ring-width) solid var(--color-focus);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  .pdp-picker__options input[type='radio'].disabled + label {
+    opacity: 0.4;
+  }
+
+  @media (hover: hover) {
+    .pdp-picker__options label:hover {
+      border-color: var(--color-border-accent);
+      color: var(--color-text);
+    }
+  }
+
+  /* --- quantity -------------------------------------------------------- */
+
+  .pdp-quantity__label {
+    display: block;
+    margin-block-end: var(--space-2xs);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+  }
+
+  /* Dawn's .quantity paints a light card here: `color: rgb(--color-foreground)`
+     (black under the product section's colour scheme), a `::before` filled with
+     `--color-background`, and a `::after` border ring — all of which land on our
+     dark ground as black-on-black. These selectors carry an extra class so they
+     beat Dawn's regardless of stylesheet order. */
+  .pdp-quantity .pdp-quantity__control {
+    /* Three identical squares. The cell is the button height MINUS the
+       control's own border, so the stepper's outer height still matches the
+       buy button beside it while each cell stays square. */
+    --qty-cell: calc(var(--btn-height) - (var(--btn-border-width) * 2));
+
+    display: inline-grid;
+    grid-template-columns: repeat(3, var(--qty-cell));
+    width: max-content;
+    max-width: none;
+    /* Dawn's .quantity sets min-height: 4.5rem, which is 1px taller than our
+       button height and would leave the stepper standing proud of the buy
+       button beside it. The cells size the control now. */
+    min-height: 0;
+    border: var(--btn-border-width) solid var(--color-border);
+    background-color: transparent;
+    color: var(--color-text);
+  }
+
+  .pdp-quantity .pdp-quantity__control::before,
+  .pdp-quantity .pdp-quantity__control::after {
+    display: none;
+  }
+
+  .pdp-quantity .pdp-quantity__button {
+    display: grid;
+    place-items: center;
+    width: var(--qty-cell);
+    height: var(--qty-cell);
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    cursor: pointer;
+  }
+
+  .pdp-quantity .pdp-quantity__input {
+    width: var(--qty-cell);
+    height: var(--qty-cell);
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    border-inline: var(--btn-border-width) solid var(--color-border);
+    background-color: transparent;
+    color: var(--color-text);
+    opacity: 1;
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    text-align: center;
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
+  .pdp-quantity__input::-webkit-outer-spin-button,
+  .pdp-quantity__input::-webkit-inner-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
+  }
+
+  .pdp-quantity .pdp-quantity__button:focus-visible,
+  .pdp-quantity .pdp-quantity__input:focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-focus);
+    outline-offset: calc(var(--focus-ring-offset) * -1);
+  }
+
+  /* --- buy ------------------------------------------------------------- */
+
+  .pdp-buy {
+    display: grid;
+    gap: var(--space-xs);
+  }
+
+  .pdp-atc {
+    gap: var(--space-xs);
+    font-weight: var(--weight-bold);
+  }
+
+  /* The separating bullet is a pseudo-element, not markup, so it leaves with
+     the price when a variant goes unavailable. */
+  .pdp-atc__price::before {
+    content: '\2022';
+    margin-inline-end: var(--space-xs);
+  }
+
+  .pdp-atc__price[hidden] {
+    display: none;
+  }
+
+  /* Shopify's dynamic checkout button is left entirely alone — it is
+     Shopify-rendered chrome (Shop Pay / PayPal / GPay) and merchants expect
+     it to look like itself. Only the gap above it is ours. */
+  .pdp-buy__dynamic {
+    margin-block-start: var(--space-xs);
+  }
+
+  .pdp-buy .product-form__error-message-wrapper {
+    margin-block-end: var(--space-2xs);
+    color: var(--brand-accent-bright);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+  }
+
+  /* ======================================================================
+     Tablet and up
+     ====================================================================== */
+
+  @media screen and (min-width: 750px) {
+    .pdp-features {
+      grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    }
+
+    .pdp-title {
+      font-size: var(--text-h2);
+    }
+
+    .pdp-title__lead,
+    .pdp-title__rest {
+      display: block;
+    }
+
+    .pdp-title__rest {
+      font-size: var(--text-h3);
+    }
+  }
+
+  /* ======================================================================
+     Desktop — gallery beside the buy column, thumbnail rail under the stage
+     ====================================================================== */
+
+  @media screen and (min-width: 990px) {
+    .pdp__layout {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      gap: var(--space-lg);
+    }
+
+    /* Single column: the stage, then the thumbnail rail beneath it. Source
+       order is already stage-then-thumbs, so nothing needs reordering here —
+       the rail simply falls into the next row. */
+    .pgal__thumbs {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 8rem);
+      gap: var(--space-2xs);
+    }
+
+    .pgal__nav {
+      display: grid;
+    }
+
+    .pgal__dots {
+      display: none;
+    }
+
+    .pgal__zoom {
+      inset-block-start: auto;
+      inset-block-end: var(--space-xs);
+    }
+
+    /* Quantity beside the buy block. Flex column becomes a two-track grid;
+       every child still spans both tracks except the quantity / buy pair.
+       The adjacency selector is deliberate — a merchant who reorders those two
+       blocks in the Theme Editor falls back to the stacked layout rather than
+       getting a half-built row. */
+    .pdp__info {
+      display: grid;
+      grid-template-columns: max-content minmax(0, 1fr);
+      align-content: start;
+      gap: var(--space-md) var(--space-sm);
+    }
+
+    .pdp__info > * {
+      grid-column: 1 / -1;
+    }
+
+    .pdp__info > .pdp-quantity {
+      grid-column: 1;
+    }
+
+    .pdp__info > .pdp-quantity + .pdp-buy {
+      grid-column: 2;
+    }
+
+    /* In-row, the control sits directly beside a button that already reads as
+       "Add to cart" — the visible label only knocks the two out of alignment.
+       It stays in the DOM, so the input keeps its accessible name. */
+    .pdp__info > .pdp-quantity:has(+ .pdp-buy) .pdp-quantity__label {
+      position: absolute;
+      overflow: hidden;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      border: 0;
+      clip: rect(0 0 0 0);
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    .pdp-rating__badge {
+      display: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "DRIP main product",
+  "tag": "section",
+  "class": "drip-main-product-section",
+  "settings": [
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "header_layout",
+      "label": "Header layout on this template",
+      "info": "The header group ships on Overlay for the homepage hero, which takes no space in flow. Leave this on Overlay so the breadcrumb clears it.",
+      "options": [
+        { "value": "overlay", "label": "Overlay — pad for the header" },
+        { "value": "solid", "label": "Solid — no padding needed" }
+      ],
+      "default": "overlay"
+    },
+    { "type": "color", "id": "background", "label": "Background", "default": "#0B090C" },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "title_split_words",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "label": "Words on the display line",
+      "info": "Desktop splits the title after this many words — 2 turns \"DRIP 48 Pickleball (4 Pack)\" into \"DRIP 48\" plus a subtitle. 0 keeps it on one line.",
+      "default": 2
+    },
+
+    { "type": "header", "content": "Breadcrumb" },
+    { "type": "checkbox", "id": "show_breadcrumb", "label": "Show breadcrumb", "default": true },
+    { "type": "text", "id": "crumb_home", "label": "Home label", "default": "Home" },
+    { "type": "text", "id": "crumb_parent_label", "label": "Parent label", "default": "Shop" },
+    { "type": "url", "id": "crumb_parent_link", "label": "Parent link" },
+
+    { "type": "header", "content": "Gallery" },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge",
+      "info": "Overridden per product by the custom.badge metafield. Blank for no badge.",
+      "default": "Best seller"
+    },
+    {
+      "type": "text",
+      "id": "media_ratio",
+      "label": "Media aspect ratio",
+      "info": "Width / height. 1 is square — what the mockup draws.",
+      "default": "1"
+    },
+    { "type": "checkbox", "id": "enable_zoom", "label": "Enable zoom", "default": true },
+
+    { "type": "header", "content": "Rating" },
+    {
+      "type": "text",
+      "id": "rating_value",
+      "label": "Rating",
+      "info": "Fallback only — the reviews.rating metafield wins when a reviews app has set it.",
+      "default": "4.8"
+    },
+    { "type": "text", "id": "rating_count", "label": "Review count", "default": "620" }
+  ],
+  "blocks": [
+    {
+      "type": "rating",
+      "name": "Rating",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "reviews_label", "label": "Reviews label", "default": "reviews" },
+        { "type": "url", "id": "reviews_anchor", "label": "Link to reviews" },
+        { "type": "header", "content": "Mobile badge" },
+        {
+          "type": "text",
+          "id": "badge_label",
+          "label": "Badge label",
+          "info": "Mobile only — desktop carries the same claim in the feature-icon row.",
+          "default": "USAPA approved"
+        },
+        {
+          "type": "select",
+          "id": "badge_icon",
+          "label": "Badge icon",
+          "options": [
+            { "value": "shield-check", "label": "Shield" },
+            { "value": "check-circle", "label": "Check" },
+            { "value": "medal", "label": "Medal" },
+            { "value": "trophy", "label": "Trophy" }
+          ],
+          "default": "shield-check"
+        }
+      ]
+    },
+    { "type": "title", "name": "Title", "limit": 1, "settings": [] },
+    {
+      "type": "price",
+      "name": "Price",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "note", "label": "Note", "default": "Free shipping on orders $150+" },
+        {
+          "type": "select",
+          "id": "note_icon",
+          "label": "Note icon",
+          "options": [
+            { "value": "truck", "label": "Truck" },
+            { "value": "check-circle", "label": "Check" },
+            { "value": "returns", "label": "Returns" },
+            { "value": "lock", "label": "Lock" }
+          ],
+          "default": "truck"
+        }
+      ]
+    },
+    {
+      "type": "description",
+      "name": "Description",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "lead",
+          "label": "Lead line",
+          "info": "Sits above the product description. Blank shows the description alone.",
+          "default": "Engineered for a more consistent flight."
+        }
+      ]
+    },
+    {
+      "type": "feature_icons",
+      "name": "Feature icons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon_1",
+          "label": "Icon 1",
+          "options": [
+            { "value": "medal", "label": "Medal" },
+            { "value": "shield-check", "label": "Shield" },
+            { "value": "trophy", "label": "Trophy" },
+            { "value": "indoor-outdoor", "label": "Indoor / outdoor" },
+            { "value": "target", "label": "Target" },
+            { "value": "value-props-icon-ball-design", "label": "Ball design" },
+            { "value": "usap-approved", "label": "USA Pickleball approved" }
+          ],
+          "default": "medal"
+        },
+        { "type": "text", "id": "label_1", "label": "Label 1", "default": "USAPA approved" },
+        {
+          "type": "select",
+          "id": "icon_2",
+          "label": "Icon 2",
+          "options": [
+            { "value": "medal", "label": "Medal" },
+            { "value": "shield-check", "label": "Shield" },
+            { "value": "trophy", "label": "Trophy" },
+            { "value": "indoor-outdoor", "label": "Indoor / outdoor" },
+            { "value": "target", "label": "Target" },
+            { "value": "value-props-icon-ball-design", "label": "Ball design" },
+            { "value": "usap-approved", "label": "USA Pickleball approved" }
+          ],
+          "default": "trophy"
+        },
+        { "type": "text", "id": "label_2", "label": "Label 2", "default": "Tournament grade" },
+        {
+          "type": "select",
+          "id": "icon_3",
+          "label": "Icon 3",
+          "options": [
+            { "value": "medal", "label": "Medal" },
+            { "value": "shield-check", "label": "Shield" },
+            { "value": "trophy", "label": "Trophy" },
+            { "value": "indoor-outdoor", "label": "Indoor / outdoor" },
+            { "value": "target", "label": "Target" },
+            { "value": "value-props-icon-ball-design", "label": "Ball design" },
+            { "value": "usap-approved", "label": "USA Pickleball approved" }
+          ],
+          "default": "indoor-outdoor"
+        },
+        { "type": "text", "id": "label_3", "label": "Label 3", "default": "Indoor & outdoor play" },
+        {
+          "type": "select",
+          "id": "icon_4",
+          "label": "Icon 4",
+          "options": [
+            { "value": "medal", "label": "Medal" },
+            { "value": "shield-check", "label": "Shield" },
+            { "value": "trophy", "label": "Trophy" },
+            { "value": "indoor-outdoor", "label": "Indoor / outdoor" },
+            { "value": "target", "label": "Target" },
+            { "value": "value-props-icon-ball-design", "label": "Ball design" },
+            { "value": "usap-approved", "label": "USA Pickleball approved" }
+          ],
+          "default": "target"
+        },
+        {
+          "type": "text",
+          "id": "label_4",
+          "label": "Label 4",
+          "info": "Mobile draws four here, desktop three. Blank drops the fourth.",
+          "default": "Built to perform"
+        }
+      ]
+    },
+    { "type": "variant_picker", "name": "Variant picker", "limit": 1, "settings": [] },
+    { "type": "quantity_selector", "name": "Quantity selector", "limit": 1, "settings": [] },
+    {
+      "type": "buy_buttons",
+      "name": "Buy buttons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "preorders_open",
+          "label": "Preorders open",
+          "info": "Off greys out Add to cart storewide and shows the message below instead. Flip on when the store is ready to take orders again.",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "preorder_closed_message",
+          "label": "Message when preorders are closed",
+          "default": "Preorders Opening Soon"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_dynamic_checkout",
+          "label": "Show dynamic checkout buttons",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Rich text",
+      "settings": [{ "type": "richtext", "id": "content", "label": "Content" }]
+    }
+  ],
+  "enabled_on": { "templates": ["product"] }
+}
+{% endschema %}

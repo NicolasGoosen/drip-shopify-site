@@ -1,0 +1,479 @@
+{%- comment -%}
+  DRIP athlete banner — "The ball serious players choose."
+
+  Two mockups, two genuinely different compositions rather than one layout
+  collapsed:
+
+  Desktop (1280 frame): the copy runs down a left column — stacked lockup,
+  three-line statement, one supporting line — while the athlete portrait is
+  right-justified against the CONTENT COLUMN, so its right edge lands on the
+  same line the copy, the nav and every band below it end on. Below 1440 that
+  is the page gutter and the composition matches the mockup exactly; above it
+  the portrait travels inward with the column rather than riding the glass.
+
+  The trade-off, since it is not free: the photograph is shot on black, so its
+  right edge is invisible against the band at the top of the frame, but the
+  wall along the bottom is not. On a wide screen that wall now stops at the
+  column edge with flat black beyond it. Worth a look at 1920 before shipping;
+  raising the scrim or extending the source image are the two ways out.
+
+  Mobile (375 frame): centred copy, then the portrait full-bleed edge to edge,
+  then the credit beneath it. The portrait is wider than the viewport in the
+  mockup (608 into 375) and offset left so the ball lands on the centre line —
+  reproduced here with object-position rather than negative margins, which
+  keeps it correct at 320 and at 430 instead of only at 375.
+
+  The band height drives the portrait, not the other way round: the media is
+  sized off the section height and derives its width from the source ratio.
+  That is what stops the photograph eating the copy column between 990 and
+  1280, where a width-based portrait would leave the heading nowhere to go.
+{%- endcomment -%}
+
+{%- liquid
+  assign img = section.settings.image
+
+  # The alt on the file itself wins. The fallback describes the picture rather
+  # than repeating the credit underneath it — "Daniel Traxler" alone tells a
+  # screen reader nothing the figcaption is not already about to say.
+  assign default_alt = 'Pickleball player holding an DRIP ball toward the camera'
+  if section.settings.credit_name != blank
+    assign default_alt = section.settings.credit_name | append: ' holding an DRIP pickleball toward the camera'
+  endif
+  assign portrait_alt = img.alt | default: default_alt
+-%}
+
+<section
+  class="athlete-banner"
+  style="
+    --ab-bg: {{ section.settings.background }};
+    --ab-pad: {{ section.settings.padding_block }}px;
+    --ab-band-h: {{ section.settings.min_height }}px;
+    --ab-media-h-mobile: {{ section.settings.mobile_media_height }}px;
+    --ab-focal-x: {{ section.settings.focus_x_mobile }}%;
+  "
+>
+  <div class="drip-container athlete-banner__head">
+    <div class="athlete-banner__copy">
+      {%- if section.settings.show_lockup -%}
+        {%- comment -%}
+          aria-hidden: the lockup is a picture of the brand name, and the
+          brand name is already announced by the site header. Reading it a
+          second time is noise, not information.
+        {%- endcomment -%}
+        <span class="athlete-banner__lockup" aria-hidden="true">
+          {% render 'svg-icons', icon: 'drip-lockup-stacked' %}
+        </span>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="athlete-banner__heading">
+          {{- section.settings.heading | escape | newline_to_br -}}
+        </h2>
+      {%- endif -%}
+
+      {%- if section.settings.body != blank -%}
+        <p class="athlete-banner__body">{{ section.settings.body | escape }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <figure class="athlete-banner__media">
+    <div class="athlete-banner__frame">
+      {%- if img != blank -%}
+        {{
+          img
+          | image_url: width: 1600
+          | image_tag:
+            loading: 'lazy',
+            sizes: '(min-width: 750px) 700px, 100vw',
+            widths: '400, 600, 800, 1000, 1216, 1600',
+            class: 'athlete-banner__image',
+            alt: portrait_alt
+        }}
+      {%- else -%}
+        {%- comment -%}
+          Falls back to a file uploaded under Content > Files. The width/height
+          pair is the source frame from the mockup, not a measurement of the
+          file — a filename carries no intrinsic dimensions, so this only
+          reserves a box before the stylesheet lands.
+        {%- endcomment -%}
+        <img
+          class="athlete-banner__image"
+          src="{{ section.settings.fallback_image_name | file_url }}"
+          alt="{{ portrait_alt | escape }}"
+          width="608"
+          height="544"
+          loading="lazy"
+        >
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.credit_name != blank or section.settings.credit_role != blank -%}
+      <figcaption class="athlete-banner__credit">
+        {%- if section.settings.credit_name != blank -%}
+          <span class="athlete-banner__credit-name">{{ section.settings.credit_name | escape }}</span>
+        {%- endif -%}
+        {%- if section.settings.credit_role != blank -%}
+          <span class="athlete-banner__credit-role">{{ section.settings.credit_role | escape }}</span>
+        {%- endif -%}
+      </figcaption>
+    {%- endif -%}
+  </figure>
+</section>
+
+{% stylesheet %}
+  .athlete-banner {
+    /* 32px at 375, the width the mobile mockup was drawn at — the same value
+       --text-h3 carries from 750 up. It steps down below 375 rather than
+       wrapping: SERIOUS PLAYERS needs 265px and a 320px phone only offers 260
+       between the gutters. */
+    --ab-heading-size: min(3.2rem, 8.53vw); /* 32px at 375 (measured) */
+    --ab-credit-size: 1.5rem;  /* 15px (measured) — the photo credit has no token */
+
+    position: relative;
+    overflow: hidden;
+    padding-block-end: var(--ab-pad, var(--space-lg));
+    background-color: var(--ab-bg, var(--color-bg-deep));
+    isolation: isolate;
+  }
+
+  .athlete-banner__head {
+    padding-block: var(--ab-pad, var(--space-lg)) 0;
+  }
+
+  .athlete-banner__copy {
+    display: flex;
+    flex-direction: column;
+    /* Mobile centres the whole stack; desktop flips this to flex-start. */
+    align-items: center;
+    text-align: center;
+  }
+
+  /* --- lockup ----------------------------------------------------------- */
+
+  .athlete-banner__lockup {
+    display: block;
+    width: 21.9rem; /* 219px (measured — identical on both breakpoints) */
+    max-width: 100%;
+    margin-block-end: var(--space-md);
+  }
+
+  .athlete-banner__lockup svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* --- copy ------------------------------------------------------------- */
+
+  /* Set exactly as .mosaic__heading and .science-split__heading are: the same
+     family, weight, tracking, leading, colour and case. Only the size differs,
+     and only because it has to — see --ab-heading-size above and the desktop
+     override below. */
+  .athlete-banner__heading {
+    max-width: 35rem; /* 350px (measured, mobile) */
+    margin: 0;
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: var(--ab-heading-size);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-heading);
+    text-transform: uppercase;
+  }
+
+  /* Likewise .mosaic__body and .science-split__body: muted rather than full
+     white, --text-body, --leading-body, and a measure counted in characters
+     rather than pixels — 34ch is the mosaic's. The mockup drew this at 22px on
+     solid white with tight leading, which is what made it read as a different
+     system from the two bands either side of it. */
+  .athlete-banner__body {
+    max-width: 34ch;
+    margin: var(--space-xs) 0 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+  }
+
+  /* --- media ------------------------------------------------------------
+     Mobile: full-bleed, in flow, capped so it cannot become a full-screen
+     wall on a large phone or a small tablet. min() rather than a fixed
+     height so a 320px viewport scales the portrait down instead of cropping
+     the athlete out of it. */
+
+  .athlete-banner__media {
+    margin: 0;
+  }
+
+  /* Capped at the source frame width and centred: past 608px the portrait
+     would fill by width and crop the athlete top and bottom instead. Black
+     ground either side, so the cap is invisible — the photograph is shot on
+     the same black the band is painted. */
+  .athlete-banner__frame {
+    width: 100%;
+    max-width: 60.8rem; /* 608px — the source frame */
+    height: min(var(--ab-media-h-mobile, 54.4rem), 145vw);
+    margin-inline: auto;
+  }
+
+  .athlete-banner__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    /* X puts the ball on the centre line at phone widths, where the source is
+       wider than the viewport. Y only takes effect from ~750px up, where the
+       crop turns vertical instead. */
+    object-fit: cover;
+    object-position: var(--ab-focal-x, 82%) 45%;
+  }
+
+  /* --- credit ----------------------------------------------------------- */
+
+  .athlete-banner__credit {
+    display: flex;
+    flex-direction: column;
+    margin: var(--space-xs) 0 0;
+    padding-inline: var(--gutter);
+    font-size: var(--ab-credit-size);
+    font-style: italic;
+    line-height: var(--leading-snug);
+    text-align: center;
+  }
+
+  .athlete-banner__credit-name {
+    color: var(--color-text);
+    font-weight: var(--weight-semibold);
+  }
+
+  .athlete-banner__credit-role {
+    color: var(--brand-accent);
+  }
+
+  /* --- desktop ----------------------------------------------------------
+     The portrait leaves the flow and pins to the right viewport edge; the
+     copy column keeps the container gutter. Band height is fluid between the
+     990 breakpoint and the 1280 the mockup was drawn at, because the portrait
+     is sized FROM that height — a fixed 500px band would put a 608px-wide
+     photograph next to a 302px copy column at 990, and the statement does not
+     fit in 302px at 42px. */
+
+  @media screen and (min-width: 990px) {
+    .athlete-banner {
+      /* Fluid between the 990 breakpoint and the 1280 the mockup was drawn at,
+         interpolating 28px to the measured 42px and capped there. The two
+         terms are a line through those points, not a single vw: right-
+         justifying the portrait to the content column pulls it one whole
+         gutter further left than a viewport-anchored one, and the statement
+         has to give that width back or its third line runs under the athlete
+         at 990. A plain 3.28vw only just reaches 42px at 1280 and is far too
+         shallow to clear it down there. */
+      --ab-heading-size: clamp(2.8rem, calc(4.83vw - 1.98rem), var(--text-h2)); /* 42px at 1280 (measured) */
+
+      display: flex;
+      align-items: center;
+      min-height: clamp(38rem, 39vw, var(--ab-band-h, 50rem));
+      padding-block-end: 0;
+    }
+
+    .athlete-banner__head {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      padding-block: var(--ab-pad, var(--space-lg));
+    }
+
+    .athlete-banner__copy {
+      align-items: flex-start;
+      text-align: start;
+    }
+
+    .athlete-banner__heading {
+      max-width: 46rem; /* 455px (measured, desktop) */
+    }
+
+    /* The mosaic's 34ch measure, but capped against the portrait. At 16px,
+       34ch is 349px — WIDER than the statement above it once that has stepped
+       down, so between 990 and about 1160 the supporting line, not the
+       heading, is what runs into the athlete. Above 1160 the cap is inert and
+       the measure is the mosaic's exactly. */
+    .athlete-banner__body {
+      max-width: min(34ch, 30vw);
+      margin-block-start: var(--space-sm);
+    }
+
+    /* 108.8% tall and 3.8% below the base line reproduces the mockup: a 544px
+       portrait bleeding off the top and bottom of a 500px band. Width follows
+       from the source ratio, so the photograph never scales independently of
+       the band it sits in. */
+    .athlete-banner__media {
+      position: absolute;
+      inset-block-end: -3.8%;
+      /* Right edge of the CONTENT COLUMN, not of the viewport.
+
+         The container is `max-width: container-max + 2 * gutter`, centred,
+         with `gutter` of padding each side. So the distance from the section's
+         right edge in to the content's right edge is:
+
+           narrower than the container's max     gutter
+           wider                                 (100% - (container-max + 2 * gutter)) / 2 + gutter
+
+         which reduces, because the two gutters cancel, to `50% - container-max / 2`.
+         Taking the max of the two branches covers both cases in one value.
+
+         Percentages, not vw: an inset percentage resolves against this
+         section's width, which is the same width the container measures
+         against. `50vw` includes the scrollbar the container never sees, and
+         would sit the portrait half a scrollbar left of the column. */
+      inset-inline-end: max(var(--gutter), calc(50% - var(--container-max) / 2));
+      z-index: 0;
+      width: auto;
+      height: 108.8%;
+      margin: 0;
+      aspect-ratio: 608 / 544;
+      pointer-events: none;
+    }
+
+    .athlete-banner__frame {
+      max-width: none;
+      height: 100%;
+    }
+
+    .athlete-banner__image {
+      object-position: center;
+    }
+
+    /* Pinned to the athlete rather than to the page gutter: on a 1920 screen
+       the portrait sits far right of the container, and a gutter-anchored
+       credit would float in empty black away from the person it names. */
+    .athlete-banner__credit {
+      position: absolute;
+      inset-block-end: 6.8%;
+      inset-inline-start: 65%;
+      z-index: 1;
+      width: 31rem;
+      max-width: 100%;
+      margin: 0;
+      padding-inline: 0;
+      transform: translateX(-50%);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "DRIP athlete banner",
+  "tag": "section",
+  "class": "drip-athlete-banner-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_lockup",
+      "label": "Show DRIP lockup",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Each line break is kept as a line break. Set in uppercase automatically.",
+      "default": "The ball\nserious players\nchoose."
+    },
+    {
+      "type": "text",
+      "id": "body",
+      "label": "Supporting line",
+      "default": "Trusted from local courts to championship weekends."
+    },
+    {
+      "type": "header",
+      "content": "Athlete"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Portrait",
+      "info": "Shot on a dark ground so it reads against the band. Recommended: 1216px wide or more. Falls back to the file named below if empty."
+    },
+    {
+      "type": "text",
+      "id": "fallback_image_name",
+      "label": "Fallback file name",
+      "info": "A file uploaded under Content > Files. Used only when no portrait is picked above.",
+      "default": "daniel-traxler-with-ball.png"
+    },
+    {
+      "type": "text",
+      "id": "credit_name",
+      "label": "Name",
+      "default": "Daniel Traxler"
+    },
+    {
+      "type": "text",
+      "id": "credit_role",
+      "label": "Title",
+      "default": "Professional Pickleball Player"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "min": 400,
+      "max": 720,
+      "step": 10,
+      "unit": "px",
+      "label": "Band height, desktop",
+      "info": "The portrait is sized from this, so raising it enlarges the athlete too.",
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "mobile_media_height",
+      "min": 320,
+      "max": 720,
+      "step": 8,
+      "unit": "px",
+      "label": "Portrait height, mobile",
+      "default": 544
+    },
+    {
+      "type": "range",
+      "id": "focus_x_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Portrait focus, mobile",
+      "info": "Which part of the portrait stays in frame when it is wider than the phone. 82% centres the ball.",
+      "default": 82
+    },
+    {
+      "type": "range",
+      "id": "padding_block",
+      "min": 0,
+      "max": 128,
+      "step": 4,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 48
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "DRIP athlete banner"
+    }
+  ]
+}
+{% endschema %}

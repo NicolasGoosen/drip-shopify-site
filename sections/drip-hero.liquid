@@ -1,0 +1,682 @@
+{%- comment -%}
+  DRIP hero.
+
+  Sits under the overlay header, so it owns the full viewport from y=0 and the
+  header floats on top of it. Content is vertically CENTRED in a right-hand
+  column on desktop, and BOTTOM-anchored full-width on mobile — that difference
+  is measured from the two mockups, not a convenience.
+
+  The wordmark is the same lockup the header uses, so it can never drift from
+  the header logo. It is wrapped in the page <h1> with a visually-hidden text
+  equivalent — an SVG alone gives the page no heading.
+
+  BACKGROUND VIDEO. `Background` switches the media between the image and a
+  video; the video crops to fill on exactly the same rules, sharing the
+  breakpoint focal points rather than inventing its own. It is muted, looping
+  and inert — no controls, no picture-in-picture, out of the tab order and
+  hidden from assistive tech, because it carries no information the copy does
+  not already carry.
+
+  It never renders alone. Whatever the video is, a poster frame paints first
+  (its own preview, or the image below it), so the hero is composed before a
+  single video byte lands and stays composed if the browser refuses to
+  autoplay — low-power mode and a data saver both do.
+
+  The pause control is not decoration. WCAG 2.2.2 wants a way to stop any
+  motion that starts on its own and runs past five seconds, and a looping hero
+  is exactly that. `prefers-reduced-motion` starts it paused on the poster
+  instead, and the button follows the video's own play/pause events rather
+  than tracking state of its own, so a browser-blocked autoplay still shows
+  the honest label.
+{%- endcomment -%}
+
+{%- liquid
+  assign img = section.settings.image
+  assign has_picked_image = false
+  if img != blank
+    assign has_picked_image = true
+  endif
+
+  # Resolved separately: filters cannot be chained inside an image_tag
+  # argument — `alt: img.alt | default: x` would apply default to the whole
+  # rendered tag, not to the alt value.
+  #
+  # The heading is no longer usable as a fallback: it is now a multi-line
+  # statement, not the brand name, and it would read as a caption for a
+  # photograph it does not describe.
+  assign hero_alt = img.alt | default: shop.name
+
+  assign vid = section.settings.video
+  assign use_video = false
+  if section.settings.background_type == 'video' and vid != blank
+    assign use_video = true
+  endif
+
+  comment
+    Poster. The video's own preview frame first — it is a frame OF the video,
+    so the swap from poster to playback is invisible. The picked image is the
+    next best thing, and the named file is the last resort, mirroring the
+    image branch below.
+  endcomment
+  if use_video
+    if vid.preview_image != blank
+      assign poster_url = vid.preview_image | image_url: width: 2000
+    elsif has_picked_image
+      assign poster_url = img | image_url: width: 2000
+    else
+      assign poster_url = section.settings.fallback_image_name | file_url
+    endif
+  endif
+-%}
+
+<section
+  class="hero"
+  style="
+    --hero-min-h: calc(100svh - 170px);
+    --hero-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --hero-logo-w-mobile: {{ section.settings.logo_width_mobile }}px;
+    --hero-logo-w-desktop: {{ section.settings.logo_width_desktop }}px;
+    --hero-focus-x-mobile: {{ section.settings.focus_x_mobile }}%;
+    --hero-focus-x-desktop: {{ section.settings.focus_x_desktop }}%;
+  "
+>
+  <div class="hero__media">
+    {%- if use_video -%}
+      <video
+        class="hero__video"
+        data-hero-video
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        disablepictureinpicture
+        tabindex="-1"
+        aria-hidden="true"
+        {% if poster_url != blank %}
+          poster="{{ poster_url }}"
+        {% endif %}
+      >
+        {%- comment -%}
+          Shopify's own transcodes, in the order it hands them over: HLS where
+          a browser speaks it, progressive MP4 everywhere else. This is why the
+          picker is worth using over a raw file URL — a .mov straight out of
+          Content > Files is video/quicktime, which Chrome and Firefox will
+          not play.
+        {%- endcomment -%}
+        {%- for source in vid.sources -%}
+          <source src="{{ source.url }}" type="{{ source.mime_type }}">
+        {%- endfor -%}
+      </video>
+    {%- elsif has_picked_image -%}
+      {{
+        img
+        | image_url: width: 3000
+        | image_tag:
+          loading: 'eager',
+          fetchpriority: 'high',
+          sizes: '100vw',
+          widths: '600, 900, 1200, 1600, 2000, 2600, 3000',
+          class: 'hero__image',
+          alt: hero_alt
+      }}
+    {%- else -%}
+      {%- comment -%}
+        Fallback to a file uploaded under Content > Files, so the section renders
+        before anyone opens the Theme Editor. Picking an image in the editor is
+        preferable — it gives responsive srcset and a focal point.
+      {%- endcomment -%}
+      <img
+        class="hero__image"
+        src="{{ section.settings.fallback_image_name | file_url }}"
+        alt="{{ shop.name | escape }}"
+        width="3000"
+        height="2000"
+        loading="eager"
+        fetchpriority="high"
+      >
+    {%- endif -%}
+  </div>
+
+  <div class="drip-container hero__inner">
+    <div class="hero__content">
+      {%- comment -%}
+        The lockup is aria-hidden: it is a picture of the brand name, and the
+        header already announces it. The <h1> below carries real text now, so
+        hiding it costs the document outline nothing — which is what closes
+        the "mobile homepage has no <h1>" concern in CLAUDE.md.
+      {%- endcomment -%}
+      {%- if section.settings.show_lockup -%}
+        <span class="hero__lockup" aria-hidden="true">
+          {% render 'svg-icons', icon: 'drip-lockup-stacked' %}
+        </span>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h1 class="hero__heading">
+          {{- section.settings.heading | escape | newline_to_br -}}
+        </h1>
+      {%- endif -%}
+
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="hero__heading">ENGINEERED PERFECTION<span style="font-size: 0.5em; position: relative; top: -0.7em;">™</span></p>
+      {%- endif -%}
+
+      {%- if section.settings.supporting_line != blank -%}
+        <p class="hero__supporting">{{ section.settings.supporting_line | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.cta_label != blank -%}
+        <a
+          class="btn btn-light hero__cta"
+          {% if section.settings.cta_link != blank %}
+            href="{{ section.settings.cta_link }}"
+          {% else %}
+            href="{{ routes.all_products_collection_url }}"
+          {% endif %}
+        >
+          {{ section.settings.cta_label | escape }}
+          {%- if section.settings.cta_show_arrow -%}
+            {% render 'icon-arrow-right' %}
+          {%- endif -%}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if use_video -%}
+    {%- comment -%}
+      Outside .hero__media on purpose: that layer sits at z-index -1 so the
+      photograph can pass behind the copy, and nothing inside it can be
+      clicked.
+    {%- endcomment -%}
+    <drip-hero-video>
+      <button
+        class="hero__video-toggle"
+        type="button"
+        aria-pressed="false"
+        aria-label="{{ 'sections.video.pause_video' | t }}"
+        data-label-play="{{ 'sections.video.play_video' | t | escape }}"
+        data-label-pause="{{ 'sections.video.pause_video' | t | escape }}"
+      >
+        <span class="hero__video-icon hero__video-icon--pause">
+          {% render 'svg-icons', icon: 'pause' %}
+        </span>
+        <span class="hero__video-icon hero__video-icon--play">
+          {% render 'svg-icons', icon: 'play' %}
+        </span>
+      </button>
+    </drip-hero-video>
+
+    <script>
+      if (!customElements.get('drip-hero-video')) {
+        customElements.define(
+          'drip-hero-video',
+          class DripHeroVideo extends HTMLElement {
+            connectedCallback() {
+              this.video = this.closest('.hero')?.querySelector('[data-hero-video]');
+              this.button = this.querySelector('button');
+              if (!this.video || !this.button) return;
+
+              // The button reports the VIDEO's state rather than the state it
+              // thinks it set. Autoplay is a request, not a guarantee — Safari
+              // in low-power mode and every data saver refuse it — and reading
+              // back from the element is what keeps the label honest when they
+              // do.
+              this.sync = () => {
+                const paused = this.video.paused;
+                this.button.setAttribute('aria-pressed', paused ? 'true' : 'false');
+                this.button.setAttribute(
+                  'aria-label',
+                  paused ? this.button.dataset.labelPlay : this.button.dataset.labelPause
+                );
+              };
+
+              this.video.addEventListener('play', this.sync);
+              this.video.addEventListener('pause', this.sync);
+
+              this.button.addEventListener('click', () => {
+                if (this.video.paused) {
+                  this.video.play().catch(this.sync);
+                } else {
+                  this.video.pause();
+                }
+              });
+
+              this.motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+              this.applyMotion = () => {
+                if (this.motionQuery.matches) {
+                  this.video.pause();
+                } else if (this.video.autoplay) {
+                  this.video.play().catch(this.sync);
+                }
+              };
+              this.motionQuery.addEventListener('change', this.applyMotion);
+
+              this.applyMotion();
+              this.sync();
+            }
+
+            disconnectedCallback() {
+              this.video?.removeEventListener('play', this.sync);
+              this.video?.removeEventListener('pause', this.sync);
+              this.motionQuery?.removeEventListener('change', this.applyMotion);
+            }
+          }
+        );
+      }
+    </script>
+  {%- endif -%}
+</section>
+
+{% stylesheet %}
+  .hero {
+    position: relative;
+    display: flex;
+    min-height: var(--hero-min-h, 100svh);
+    isolation: isolate;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  .hero svg {
+      filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+  }
+  .hero .btn {
+    text-shadow: none;
+  }
+
+  .hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: var(--color-bg);
+  }
+
+  .hero__image,
+  .hero__video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Horizontal focus is per-breakpoint because `cover` crops a different
+       axis at each shape. The supplied photograph is ~4:3 with the subject in
+       the left 45%: a desktop viewport is WIDER than 4:3, so nothing is
+       cropped horizontally and this value is inert there. A phone is far
+       taller, leaving only ~35% of the source width visible — and `left` would
+       window onto 0-35%, cutting the ball and hand out of frame completely.
+       Mobile therefore pulls toward the subject; desktop pins it left so it
+       stays clear of the right-hand copy column. Vertical stays centred: the
+       composition has headroom top and bottom and needs no tuning. */
+    object-position: var(--hero-focus-x-mobile, 40%) center;
+  }
+  .hero__video {
+    filter: grayscale(100%) contrast(1.3) brightness(0.8);
+  }
+
+  /* Optional scrim. Defaults to 0 because the supplied photograph already
+     falls off to near-black where the copy sits — raise it only if a
+     replacement image leaves the text short of contrast. */
+  .hero__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-bg);
+    opacity: var(--hero-overlay, 0);
+  }
+
+  .hero__inner {
+    display: flex;
+    /* Mobile: content sits at the bottom of the frame, over the darker
+       lower third of the photograph. Measured, not assumed. */
+    align-items: flex-end;
+    padding-block: calc(var(--header-height) + var(--space-md)) var(--space-lg);
+  }
+
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    /* Right-aligned at BOTH breakpoints — the copy block hangs off the right
+       edge of the container and the ragged edge runs down its right side. */
+    align-items: flex-end;
+    gap: var(--space-sm);
+    width: 100%;
+    text-align: end;
+  }
+
+  /* --- lockup ----------------------------------------------------------
+     Decorative and aria-hidden (see the markup). Sized by the two schema
+     controls, which is why it keeps the horizontal lockup's width tokens
+     rather than the banner's fixed 219px. */
+
+  .hero__lockup {
+    display: block;
+    width: var(--hero-logo-w-mobile, 18.4rem);
+    max-width: 100%;
+    line-height: 0;
+  }
+
+  .hero__lockup svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* --- eyebrow ----------------------------------------------------------
+     This section's own original eyebrow treatment, restored: hero scale
+     (--text-lead), not the --text-xs used by the band eyebrows further down
+     the page. Lumo-green italic, per the "italic is a role" rule in CLAUDE.md.
+
+     No margin — .hero__content is a flex column with gap: var(--space-sm),
+     which already sets it off the heading below. */
+  .hero__eyebrow {
+    margin: 0;
+    color: var(--brand-accent);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-lead);
+    font-style: italic;
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-label);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+  /* --- heading ----------------------------------------------------------
+     Set exactly as .athlete-banner__heading is — same family, weight,
+     tracking, leading, colour and case — so the two bands read as one
+     system. Only the size differs: the banner steps down on mobile to clear
+     the portrait beside it, and the hero has nothing beside it, so it rides
+     the shared ramp instead of carrying a one-off. */
+  .hero__heading {
+    max-width: 35rem; /* 350px — the banner's mobile measure */
+    margin: 0;
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-heading);
+    text-transform: uppercase;
+  }
+
+  /* --- supporting line -------------------------------------------------- */
+
+  .hero__supporting {
+    max-width: 34ch;
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-h4);
+    line-height: var(--leading-body);
+    font-style: italic;
+  }
+
+  /* The mockup sets the CTA further from the copy than the other gaps. */
+  .hero__cta {
+    margin-block-start: var(--space-xs);
+  }
+
+  /* --- video pause control ---------------------------------------------
+
+     Bottom LEFT. It was bottom right, opposite copy that used to be
+     left-aligned on mobile; now the copy is right-aligned at both
+     breakpoints and bottom-anchored on mobile, so the right corner is
+     exactly where the CTA lands. Square, because --radius-* is 0 across
+     this theme. */
+
+  drip-hero-video {
+    position: absolute;
+    inset-block-end: var(--space-md);
+    inset-inline-start: var(--gutter);
+    z-index: 1;
+    display: block;
+  }
+
+  .hero__video-toggle {
+    display: grid;
+    place-items: center;
+    width: 4rem;
+    height: 4rem;
+    padding: 0;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background-color: color-mix(in srgb, var(--color-bg) 55%, transparent);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: background-color var(--motion-fast) var(--ease-out),
+      border-color var(--motion-fast) var(--ease-out);
+  }
+
+  @media (hover: hover) {
+    .hero__video-toggle:hover {
+      border-color: var(--color-text);
+      background-color: color-mix(in srgb, var(--color-bg) 80%, transparent);
+    }
+  }
+
+  .hero__video-toggle:focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-focus);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  /* Both icons occupy the same cell, so the button never changes size as the
+     glyph swaps. aria-pressed is the single source of truth for which shows -
+     the state lives in the attribute the screen reader reads, not beside it. */
+  .hero__video-icon {
+    grid-area: 1 / 1;
+    display: none;
+    line-height: 0;
+  }
+
+  .hero__video-icon svg {
+    display: block;
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+
+  .hero__video-toggle[aria-pressed='false'] .hero__video-icon--pause,
+  .hero__video-toggle[aria-pressed='true'] .hero__video-icon--play {
+    display: block;
+  }
+
+  /* --- desktop --------------------------------------------------------- */
+
+  @media screen and (min-width: 990px) {
+    .hero__image,
+    .hero__video {
+      object-position: var(--hero-focus-x-desktop, 0%) center;
+    }
+
+    .hero__inner {
+      /* Vertically centred rather than bottom-anchored. */
+      align-items: center;
+      padding-block: var(--header-height);
+    }
+
+    .hero__content {
+      /* Right-hand column. The mockup places this at ~58% across the
+         container; a col-start-8 grid span lands within ~30px and keeps the
+         hero on the same 12-column rhythm as every other band. */
+      gap: var(--space-sm);
+      width: auto;
+      max-width: 52rem;
+      margin-inline-start: auto;
+    }
+
+    .hero__lockup {
+      width: var(--hero-logo-w-desktop, 24rem);
+    }
+
+    .hero__heading {
+      max-width: 46rem; /* 460px — the banner's desktop measure */
+      font-size: var(--text-h2);
+    }
+
+    .hero__cta {
+      margin-block-start: var(--space-xs);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "DRIP hero",
+  "tag": "section",
+  "class": "drip-hero-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "select",
+      "id": "background_type",
+      "label": "Background",
+      "options": [
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Background video",
+      "info": "Silent, looping, and cropped to fill exactly as the image is. Pick it here rather than pasting a file URL — Shopify serves its own MP4 and HLS transcodes, so a .mov uploaded to Content > Files plays in every browser. The image below is still used as the poster frame."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image",
+      "info": "Recommended: 2600px wide or more. Falls back to the file named below if empty."
+    },
+    {
+      "type": "text",
+      "id": "fallback_image_name",
+      "label": "Fallback file name",
+      "info": "A file uploaded under Content > Files. Used only when no image is picked above.",
+      "default": "drip-background-2.png"
+    },
+    {
+      "type": "range",
+      "id": "focus_x_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Horizontal focus, mobile",
+      "info": "A phone crops the sides hard — only about a third of the image width is visible. 40% keeps the ball and hand in frame; 0% would show only the left edge.",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "focus_x_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Horizontal focus, desktop",
+      "info": "Pins the subject left, clear of the copy column. Has no visible effect once the viewport is wider than the image's own ratio, since nothing is cropped horizontally there.",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Darken image",
+      "info": "Leave at 0 for the supplied photograph — it is already dark where the copy sits.",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "height",
+      "min": 60,
+      "max": 100,
+      "step": 2,
+      "unit": "%",
+      "label": "Height, share of viewport",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_lockup",
+      "label": "Show DRIP lockup",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "info": "Lumo-green italic callout above the heading. Set in uppercase automatically.",
+      "default": "Engineered perfection."
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "info": "The page's H1. Each line break is kept as a line break. Set in uppercase automatically.",
+      "default": "The ball\nserious players\nchoose."
+    },
+    {
+      "type": "text",
+      "id": "supporting_line",
+      "label": "Supporting line",
+      "default": "Trusted from local courts to championship weekends."
+    },
+    {
+      "type": "header",
+      "content": "Call to action"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Shop Drip 48"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "cta_show_arrow",
+      "label": "Show arrow on button",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Lockup size"
+    },
+    {
+      "type": "range",
+      "id": "logo_width_mobile",
+      "min": 120,
+      "max": 320,
+      "step": 4,
+      "unit": "px",
+      "label": "Wordmark width, mobile",
+      "default": 184
+    },
+    {
+      "type": "range",
+      "id": "logo_width_desktop",
+      "min": 160,
+      "max": 480,
+      "step": 4,
+      "unit": "px",
+      "label": "Wordmark width, desktop",
+      "default": 240
+    }
+  ],
+  "presets": [
+    {
+      "name": "DRIP hero"
+    }
+  ]
+}
+{% endschema %}

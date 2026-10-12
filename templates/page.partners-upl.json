@@ -1,0 +1,74 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "partners-upl",
+      "settings": {
+        "background": "#0b090c",
+        "background_light": "#ffffff",
+        "padding_block": 96,
+        "hero_image": "shopify://shop_images/Project_20260813_0169_38b2abd8-6d6e-468e-b1fa-c31aa6564ddf.jpg",
+        "hero_eyebrow": "Official ball partner · 2026 season",
+        "hero_heading": "The official ball of the",
+        "hero_heading_accent": "Ultimate Pickleball League.",
+        "hero_text": "Drip will be in play for every match, every rally and every championship point of the UPL's 2027 season.",
+        "hero_cta_label": "Shop Drip 48",
+        "hero_cta_link": "",
+        "hero_cta2_label": "Visit the UPL",
+        "hero_cta2_link": "",
+        "upl_logo": "shopify://shop_images/cropped-UPL_transparent.png",
+        "upl_logo_alt": "Ultimate Pickleball League",
+        "partnership_label": "The partnership",
+        "partnership_heading": "Drip and the Ultimate Pickleball League.",
+        "partnership_text": "<p>Drip is proud to confirm that we are the official ball of the <a href=\"https://ultimatepickleballleague.com\">Ultimate Pickleball League</a> for the 2027 season. Every tournament the UPL organises, every match played across their regions, every moment of competition captured on camera — Drip is the only ball in play.</p><p>The UPL is a city-based semi-professional pickleball league built to give competitive players what the sport has long needed: a real structure, a real pathway, and a genuine league experience between recreational play and the pro tour.</p><p>Regional divisions feed into a national championship, with teams spanning the US and expanding internationally into Costa Rica, the Philippines and beyond. Match results are validated through DUPR+, building credible competitive records that carry real weight as the sport continues to expand.</p>",
+        "partnership_cta_label": "Explore the league",
+        "partnership_cta_link": "",
+        "partnership_background": "#000000",
+        "league_label": "",
+        "league_heading": "",
+        "league_text": "",
+        "league_cta_label": "",
+        "league_cta_link": "",
+        "watch_eyebrow": "Follow the season",
+        "watch_heading": "Watch every match. Back every rally.",
+        "watch_text": "The UPL 2026 season is live. Matches stream across regions with elite athletes pushing the pace every week — see the Drip 48 in action at the highest level of semi-pro pickleball.",
+        "watch_cta_label": "Watch live matches",
+        "watch_cta_link": "",
+        "watch_cta2_label": "Follow @uplsemiprocircuit",
+        "watch_cta2_link": "",
+        "team_heading": "Find a team near you.",
+        "team_text": "Divisions across the US, Costa Rica and the Philippines — with new teams added every season.",
+        "team_cta_label": "Team locations",
+        "team_cta_link": "",
+        "show_packs": true,
+        "packs_heading": "Choose your pack.",
+        "packs_collection": "",
+        "packs_count": 4,
+        "packs_link_label": "View all packs",
+        "packs_link": "",
+        "show_subscriptions": true,
+        "subs_heading": "Running a UPL venue?",
+        "subs_text": "Keep your courts stocked year-round and let your pro shop offset the cost. Each quarterly plan includes facility-use balls plus retail-ready inventory.",
+        "subs_note": "*Facility subscriptions are not currently available for preorder.",
+        "show_newsletter": true,
+        "news_eyebrow": "Stay in the game",
+        "news_heading": "Season news, drops and UPL results.",
+        "news_placeholder": "Enter your email",
+        "news_button_label": "Sign up",
+        "news_note": "No spam. Season updates and product drops only.",
+        "news_success": "You're on the list — see you courtside."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

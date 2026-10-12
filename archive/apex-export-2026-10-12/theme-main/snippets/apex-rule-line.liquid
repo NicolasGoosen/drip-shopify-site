@@ -1,0 +1,63 @@
+{%- comment -%}
+  APEX rule — the line itself.
+
+  WHY THIS IS A SNIPPET
+  Shopify subsets {% stylesheet %} CSS to each page's render tree: only files
+  actually rendered on a page contribute their styles. Section CSS is NOT
+  global. So a second section cannot borrow `.apex-rule__line` from
+  sections/apex-rule.liquid by class name alone — on any page without that
+  section, the class resolves to nothing and the line renders invisible.
+
+  Holding the markup and its CSS together in a snippet is the documented
+  compatible pattern: whoever renders it pulls the styles in with it.
+
+  USAGE
+  The caller owns layout and the modifier class; this snippet owns the line.
+
+    <div class="apex-container my-rule apex-rule--metallic">
+      {% render 'apex-rule-line' %}
+    </div>
+
+  Set --hr-thickness, --hr-width and --hr-glow on any ancestor to tune it.
+  --hr-glow defaults to 0, so the metallic bloom is opt-in.
+{%- endcomment -%}
+
+<span class="apex-rule__line" aria-hidden="true"></span>
+
+{% stylesheet %}
+  .apex-rule__line {
+    display: block;
+    width: 100%;
+    max-width: var(--hr-width, 100%);
+    height: var(--hr-thickness, var(--rule-thickness));
+    border-radius: var(--radius-pill);
+    background-color: var(--brand-accent);
+  }
+
+  /* Metallic: the bronze scale swept across the line, feathered at both ends.
+     The glow is a second, blurred copy of the same sweep sitting under it. */
+  .apex-rule--metallic .apex-rule__line {
+    position: relative;
+    background-color: transparent;
+    background-image: linear-gradient(
+      to right,
+      transparent 0%,
+      var(--brand-accent-dim) 10%,
+      var(--brand-accent) 28%,
+      var(--brand-accent-bright) 50%,
+      var(--brand-accent) 72%,
+      var(--brand-accent-dim) 90%,
+      transparent 100%
+    );
+  }
+
+  .apex-rule--metallic .apex-rule__line::after {
+    content: '';
+    position: absolute;
+    inset: calc(var(--hr-thickness, 2px) * -2) 0;
+    background-image: inherit;
+    filter: blur(calc(var(--hr-thickness, 2px) * 1.5));
+    opacity: var(--hr-glow, 0);
+    pointer-events: none;
+  }
+{% endstylesheet %}

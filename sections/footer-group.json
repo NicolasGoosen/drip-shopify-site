@@ -1,0 +1,89 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "drip-footer",
+      "blocks": {
+        "menu-shop": {
+          "type": "menu",
+          "settings": {
+            "heading": "Shop",
+            "menu": "footer-shop"
+          }
+        },
+        "menu-clubs": {
+          "type": "menu",
+          "settings": {
+            "heading": "Clubs & Facilities",
+            "menu": "footer-clubs-facilities"
+          }
+        },
+        "menu-partners": {
+          "type": "menu",
+          "settings": {
+            "heading": "Partners",
+            "menu": "footer-partners"
+          }
+        },
+        "menu-ambassadors": {
+          "type": "menu",
+          "settings": {
+            "heading": "Ambassadors",
+            "menu": "footer-ambassadors"
+          }
+        },
+        "menu-legal": {
+          "type": "menu",
+          "settings": {
+            "heading": "Legal",
+            "menu": "footer"
+          }
+        },
+        "social": {
+          "type": "social",
+          "settings": {
+            "show_instagram": true,
+            "show_facebook": true,
+            "show_tiktok": true,
+            "show_x": true,
+            "show_youtube": true
+          }
+        }
+      },
+      "block_order": [
+        "menu-shop",
+        "menu-clubs",
+        "menu-partners",
+        "menu-ambassadors",
+        "menu-legal",
+        "social"
+      ],
+      "settings": {
+        "logo_width": 160,
+        "newsletter_enable": true,
+        "newsletter_heading": "Stay in the game.",
+        "newsletter_placeholder": "Enter your email",
+        "newsletter_button_label": "Subscribe",
+        "newsletter_success": "Thanks for subscribing.",
+        "rights_text": "All Rights Reserved.",
+        "policy_menu": "",
+        "policy_label": "Legal",
+        "background": "#000000",
+        "padding_block": 64
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

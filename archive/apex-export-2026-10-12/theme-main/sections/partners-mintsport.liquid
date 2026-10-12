@@ -1,0 +1,1538 @@
+{%- comment -%}
+  APEX x MINT SPORT — partner page.
+
+  Built from sections/partners-upl.liquid, same visual language, same token
+  discipline. The differences are all in service of the SEO brief.
+
+  WHAT THE SEO BRIEF CHANGED
+  1. STRUCTURED DATA. A single ld+json @graph carries five nodes: both
+     Organizations, the WebPage that links them, a BreadcrumbList, and a
+     FAQPage assembled from the `faq` blocks. The FAQ answers are real DOM
+     text inside <details> — not injected by script — so what a crawler reads
+     and what the JSON-LD claims are the same strings.
+  2. HEADING ORDER. One <h1>, every band an <h2>, cards and questions <h3>.
+     No level is skipped, which is what makes the outline legible to a parser.
+  3. VISIBLE BREADCRUMBS that mirror the BreadcrumbList exactly. Structured
+     data that contradicts the rendered page is worse than none.
+  4. LINK REL IS A SETTING, NOT A CONSTANT. See the note on rel below.
+  5. NO JS. The accordion is <details>/<summary>. Nothing here defers text
+     behind a script, and there is no third-party request on the page.
+
+  ON rel — READ BEFORE LAUNCH
+  `partner_rel` defaults to "none", which means the outbound Mint links are
+  followed and pass ranking signal. That is correct ONLY if this endorsement
+  is genuinely editorial. If any money, free product, or reciprocal-placement
+  agreement changed hands, Google's link spam policy requires rel="sponsored"
+  — the setting offers it, and the choice is a disclosure question, not a
+  performance one.
+
+  COPY IS DRAFTED, NOT SUPPLIED
+  There was no mockup and no supplied wording for this page, so the defaults
+  below are written to the brief. They deliberately make no factual claim
+  about Mint Sport beyond product CATEGORIES — no model names, specs, prices,
+  awards, dates or certifications — because those are not mine to invent.
+  Anywhere a real fact belongs, the default says so plainly.
+{%- endcomment -%}
+
+{%- liquid
+  assign faqs = section.blocks | where: 'type', 'faq'
+  assign stats = section.blocks | where: 'type', 'stat'
+  assign packs = section.settings.packs_collection
+
+  assign partner = section.settings.partner_name | default: 'Mint Sport'
+  assign partner_url = section.settings.partner_url
+
+  assign rel_attr = ''
+  case section.settings.partner_rel
+    when 'sponsored'
+      assign rel_attr = 'sponsored noopener'
+    when 'nofollow'
+      assign rel_attr = 'nofollow noopener'
+    else
+      assign rel_attr = 'noopener'
+  endcase
+-%}
+
+{%- comment -%} --------------------------------------------- Structured data {%- endcomment -%}
+{%- liquid
+  assign og = ''
+  if section.settings.hero_image != blank
+    assign og = section.settings.hero_image | image_url: width: 1200
+    unless og contains 'http'
+      assign og = og | prepend: 'https:'
+    endunless
+  endif
+
+  assign partner_logo = ''
+  if section.settings.partner_logo != blank
+    assign partner_logo = section.settings.partner_logo | image_url: width: 600
+    unless partner_logo contains 'http'
+      assign partner_logo = partner_logo | prepend: 'https:'
+    endunless
+  endif
+-%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": {{ shop.url | append: '/#organization' | json }},
+      "name": {{ shop.name | json }},
+      "url": {{ shop.url | json }},
+      "description": {{ section.settings.apex_description | json }}
+    },
+    {
+      "@type": "Organization",
+      "@id": {{ partner_url | append: '#organization' | json }},
+      "name": {{ partner | json }},
+      "url": {{ partner_url | json }}
+      {%- if partner_logo != blank -%},
+      "logo": {{ partner_logo | json }}
+      {%- endif -%}
+      {%- if section.settings.partner_description != blank -%},
+      "description": {{ section.settings.partner_description | json }}
+      {%- endif -%}
+      {%- if section.settings.partner_sameas != blank -%},
+      "sameAs": [
+        {%- assign sameas = section.settings.partner_sameas | split: ',' -%}
+        {%- for url in sameas -%}
+          {{ url | strip | json }}{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      ]
+      {%- endif -%}
+    },
+    {
+      "@type": "WebPage",
+      "@id": {{ canonical_url | json }},
+      "url": {{ canonical_url | json }},
+      "name": {{ section.settings.hero_heading | append: ' ' | append: section.settings.hero_heading_accent | strip | json }},
+      "description": {{ section.settings.seo_description | json }},
+      "isPartOf": { "@id": {{ shop.url | append: '/#organization' | json }} },
+      "about": { "@id": {{ partner_url | append: '#organization' | json }} },
+      "publisher": { "@id": {{ shop.url | append: '/#organization' | json }} }
+      {%- if og != blank -%},
+      "primaryImageOfPage": {{ og | json }}
+      {%- endif -%}
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": {{ canonical_url | append: '#breadcrumb' | json }},
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": {{ section.settings.crumb_home | json }},
+          "item": {{ shop.url | json }}
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": {{ section.settings.crumb_parent | json }},
+          "item": {{ shop.url | append: section.settings.crumb_parent_link | json }}
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": {{ page.title | default: partner | json }}
+        }
+      ]
+    }
+    {%- if faqs.size > 0 -%},
+    {
+      "@type": "FAQPage",
+      "@id": {{ canonical_url | append: '#faq' | json }},
+      "mainEntity": [
+        {%- for block in faqs -%}
+        {
+          "@type": "Question",
+          "name": {{ block.settings.question | json }},
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": {{ block.settings.answer | strip_html | strip | json }}
+          }
+        }{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      ]
+    }
+    {%- endif -%}
+  ]
+}
+</script>
+
+<div
+  class="mint"
+  style="
+    --mint-bg: {{ section.settings.background }};
+    --mint-bg-light: {{ section.settings.background_light }};
+    --mint-pad: {{ section.settings.padding_block }}px;
+  "
+>
+  {%- comment -%} ---------------------------------------------- Hero {%- endcomment -%}
+  <section class="mint-hero">
+    {%- if section.settings.hero_image != blank -%}
+      <img
+        class="mint-hero__media"
+        src="{{ section.settings.hero_image | image_url: width: 2000 }}"
+        alt=""
+        width="{{ section.settings.hero_image.width }}"
+        height="{{ section.settings.hero_image.height }}"
+        loading="eager"
+        fetchpriority="high"
+      >
+    {%- endif -%}
+    <div class="mint-hero__scrim"></div>
+
+    <div class="apex-container mint-hero__inner">
+      <div class="mint-hero__copy">
+        <nav class="mint-crumbs" aria-label="Breadcrumb">
+          <ol role="list">
+            <li><a href="{{ routes.root_url }}">{{ section.settings.crumb_home | escape }}</a></li>
+            <li>
+              <a href="{{ section.settings.crumb_parent_link | default: routes.root_url }}">
+                {{ section.settings.crumb_parent | escape }}
+              </a>
+            </li>
+            <li aria-current="page">{{ page.title | default: partner | escape }}</li>
+          </ol>
+        </nav>
+
+        {%- if section.settings.hero_eyebrow != blank -%}
+          <p class="mint-eyebrow">
+            <span class="mint-rule" aria-hidden="true"></span>
+            {{ section.settings.hero_eyebrow | escape }}
+          </p>
+        {%- endif -%}
+
+        {%- comment -%}
+          The logo word is a SETTING, not a constant: if `hero_logo_word` is
+          found in the heading it is swapped for the Unleash wordmark, and the
+          word itself is kept as visually-hidden text so the <h1> still reads
+          "THE UNLEASH SERIES" to a screen reader and to a crawler. Clear the
+          setting and the heading renders as plain text again.
+        {%- endcomment -%}
+        {%- liquid
+          assign hero_logo_word = section.settings.hero_logo_word
+          assign hero_has_logo = false
+          if hero_logo_word != blank and section.settings.hero_heading contains hero_logo_word
+            assign hero_has_logo = true
+            assign hero_parts = section.settings.hero_heading | split: hero_logo_word
+          endif
+        -%}
+        <h1 class="mint-hero__heading">
+          {%- if hero_has_logo -%}
+            {{- hero_parts[0] | escape -}}
+            <span class="mint-wordmark mint-wordmark--unleash">
+              {%- render 'svg-icons', icon: 'unleash-logo', class: 'mint-wordmark__svg' -%}
+              <span class="visually-hidden">{{ hero_logo_word | escape }}</span>
+            </span>
+            {{- hero_parts[1] | escape -}}
+          {%- else -%}
+            {{ section.settings.hero_heading | escape }}
+          {%- endif -%}
+          {%- if section.settings.hero_heading_accent != blank -%}
+            <span class="mint-accent">{{ section.settings.hero_heading_accent | escape }}</span>
+          {%- endif -%}
+        </h1>
+
+        {%- if section.settings.hero_text != blank -%}
+          <p class="mint-hero__text">{{ section.settings.hero_text }}</p>
+        {%- endif -%}
+
+        <div class="mint-actions">
+          {%- if section.settings.hero_cta_label != blank and partner_url != blank -%}
+            <a class="btn btn-light" href="{{ partner_url }}" rel="{{ rel_attr }}">
+              {{ section.settings.hero_cta_label | escape }}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.hero_cta2_label != blank -%}
+            <a class="btn btn-ghost" href="{{ section.settings.hero_cta2_link | default: '#' }}">
+              {{ section.settings.hero_cta2_label | escape }}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- if section.settings.partner_logo != blank -%}
+        <div class="mint-hero__logo">
+          <img
+            src="{{ section.settings.partner_logo | image_url: width: 460 }}"
+            alt="{{ section.settings.partner_logo_alt | default: partner | escape }}"
+            width="{{ section.settings.partner_logo.width }}"
+            height="{{ section.settings.partner_logo.height }}"
+            loading="eager"
+          >
+        </div>
+      {%- endif -%}
+    </div>
+  </section>
+
+  {%- comment -%} --------------------------------------------- Stats {%- endcomment -%}
+  {%- if stats.size > 0 -%}
+    <section class="mint-stats" aria-label="{{ section.settings.stats_label | escape }}">
+      <div class="apex-container mint-stats__grid">
+        {%- for block in stats -%}
+          <div class="mint-stat" {{ block.shopify_attributes }}>
+            <p class="mint-stat__value{% if block.settings.highlight %} mint-accent{% endif %}">
+              {{ block.settings.value | escape }}
+            </p>
+            <p class="mint-stat__label">{{ block.settings.label | escape }}</p>
+          </div>
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ---------------------------------------- The endorsement {%- endcomment -%}
+  {%- if section.settings.endorse_heading != blank or section.settings.endorse_text != blank -%}
+    <section class="mint-band mint-band--light" aria-labelledby="mint-endorsement">
+      <div class="apex-container mint-split">
+        {%- if section.settings.endorse_label != blank -%}
+          <p class="mint-tab">{{ section.settings.endorse_label | escape }}</p>
+        {%- endif -%}
+        <div>
+          {%- if section.settings.endorse_heading != blank -%}
+            <h2 class="mint-h2" id="mint-endorsement">{{ section.settings.endorse_heading | escape }}</h2>
+          {%- endif -%}
+          {%- if section.settings.endorse_text != blank -%}
+            <div class="mint-rte mint-rte--lead">{{ section.settings.endorse_text }}</div>
+          {%- endif -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ------------------------------------- What Mint makes {%- endcomment -%}
+  {%- if section.settings.range_heading != blank or section.settings.range_text != blank or section.settings.range_image != blank -%}
+    <section class="mint-band mint-band--ruled" aria-labelledby="mint-range">
+      <div class="apex-container mint-showcase">
+        {%- comment -%}
+          Deliberately NOT .mint-split. The section carries a custom_css
+          override that flattens .mint-split to a single column; reusing it
+          here would fight that rule. .mint-showcase is its own two-column
+          layout: square image left, copy right, stacked on mobile.
+        {%- endcomment -%}
+        {%- if section.settings.range_image != blank -%}
+          <div class="mint-showcase__media">
+            <img
+              src="{{ section.settings.range_image | image_url: width: 1200 }}"
+              alt="{{ section.settings.range_image_alt | escape }}"
+              width="{{ section.settings.range_image.width }}"
+              height="{{ section.settings.range_image.height }}"
+              loading="lazy"
+            >
+          </div>
+        {%- endif -%}
+
+        <div class="mint-showcase__copy">
+          {%- if section.settings.range_label != blank -%}
+            <p class="mint-tab mint-tab--accent">{{ section.settings.range_label | escape }}</p>
+          {%- endif -%}
+          {%- if section.settings.range_heading != blank -%}
+            {%- liquid
+              assign range_logo_word = section.settings.range_logo_word
+              assign range_has_logo = false
+              if range_logo_word != blank and section.settings.range_heading contains range_logo_word
+                assign range_has_logo = true
+                assign range_parts = section.settings.range_heading | split: range_logo_word
+              endif
+            -%}
+            <h2 class="mint-h2" id="mint-range">
+              {%- if range_has_logo -%}
+                {{- range_parts[0] | escape -}}
+                <span class="mint-wordmark mint-wordmark--mint">
+                  {%- render 'svg-icons', icon: 'mint-sport-horz-r-logo', class: 'mint-wordmark__svg' -%}
+                  <span class="visually-hidden">{{ range_logo_word | escape }}</span>
+                </span>
+                {{- range_parts[1] | escape -}}
+              {%- else -%}
+                {{- section.settings.range_heading | escape -}}
+              {%- endif -%}
+            </h2>
+          {%- endif -%}
+          {%- if section.settings.range_text != blank -%}
+            <p class="mint-lead">{{ section.settings.range_text | newline_to_br }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} -------------------------------------- The complete kit {%- endcomment -%}
+  {%- if section.settings.kit_heading != blank -%}
+    <section class="mint-band mint-band--ruled" aria-labelledby="mint-kit">
+      <div class="apex-container mint-kit">
+        <div>
+          {%- if section.settings.kit_eyebrow != blank -%}
+            <p class="mint-eyebrow">{{ section.settings.kit_eyebrow | escape }}</p>
+          {%- endif -%}
+          <h2 class="mint-h2" id="mint-kit">{{ section.settings.kit_heading | escape }}</h2>
+          {%- if section.settings.kit_text != blank -%}
+            <div class="mint-rte mint-rte--lead">{{ section.settings.kit_text }}</div>
+          {%- endif -%}
+          <div class="mint-actions">
+            {%- if section.settings.kit_cta_label != blank and partner_url != blank -%}
+              <a class="btn btn-light" href="{{ partner_url }}" rel="{{ rel_attr }}">
+                {{ section.settings.kit_cta_label | escape }}
+              </a>
+            {%- endif -%}
+            {%- if section.settings.kit_cta2_label != blank -%}
+              <a class="btn btn-ghost" href="{{ section.settings.kit_cta2_link | default: '#' }}">
+                {{ section.settings.kit_cta2_label | escape }}
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+        {%- if section.settings.kit_image != blank -%}
+          <div class="mint-kit__media">
+            <img
+              src="{{ section.settings.kit_image | image_url: width: 1200 }}"
+              alt="{{ section.settings.kit_image_alt | escape }}"
+              width="{{ section.settings.kit_image.width }}"
+              height="{{ section.settings.kit_image.height }}"
+              loading="lazy"
+            >
+          </div>
+        {%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ------------------------------------------- Statement {%- endcomment -%}
+  {%- if section.settings.quote_text != blank -%}
+    <section class="mint-band mint-band--accent">
+      <div class="apex-container mint-quote">
+        <div>
+          {%- if section.settings.quote_label != blank -%}
+            <p class="mint-eyebrow mint-eyebrow--on-accent">{{ section.settings.quote_label | escape }}</p>
+          {%- endif -%}
+          <blockquote class="mint-quote__text">{{ section.settings.quote_text }}</blockquote>
+          {%- if section.settings.quote_name != blank -%}
+            <div class="mint-quote__cite">
+              <span class="mint-rule mint-rule--dark" aria-hidden="true"></span>
+              <div>
+                <p class="mint-quote__name">{{ section.settings.quote_name | escape }}</p>
+                {%- if section.settings.quote_role != blank -%}
+                  <p class="mint-quote__role">{{ section.settings.quote_role | escape }}</p>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.quote_image != blank -%}
+          <div class="mint-quote__media">
+            <img
+              src="{{ section.settings.quote_image | image_url: width: 1200 }}"
+              alt="{{ section.settings.quote_image.alt | escape }}"
+              width="{{ section.settings.quote_image.width }}"
+              height="{{ section.settings.quote_image.height }}"
+              loading="lazy"
+            >
+          </div>
+        {%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ------------------------------------------------- FAQ
+
+    <details>/<summary> rather than a scripted accordion: the answer text is
+    in the DOM on first paint, so it is crawlable and it matches the
+    acceptedAnswer strings in the FAQPage graph above exactly.
+  {%- endcomment -%}
+  {%- if faqs.size > 0 -%}
+    <section class="mint-band" aria-labelledby="mint-faq">
+      <div class="apex-container mint-split">
+        {%- if section.settings.faq_label != blank -%}
+          <p class="mint-tab mint-tab--accent">{{ section.settings.faq_label | escape }}</p>
+        {%- endif -%}
+        <div>
+          {%- if section.settings.faq_heading != blank -%}
+            <h2 class="mint-h2" id="mint-faq">{{ section.settings.faq_heading | escape }}</h2>
+          {%- endif -%}
+
+          <div class="mint-faq">
+            {%- for block in faqs -%}
+              <details class="mint-faq__item" {{ block.shopify_attributes }}
+                {% if forloop.first and section.settings.faq_open_first %}open{% endif %}>
+                <summary class="mint-faq__q">
+                  <h3>{{ block.settings.question | escape }}</h3>
+                  <span class="mint-faq__mark" aria-hidden="true"></span>
+                </summary>
+                <div class="mint-faq__a mint-rte">{{ block.settings.answer }}</div>
+              </details>
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} --------------------------------------- Shop Apex packs {%- endcomment -%}
+  {%- if section.settings.show_packs -%}
+    <section class="mint-band mint-band--light" aria-labelledby="mint-packs">
+      <div class="apex-container">
+        <div class="mint-headrow">
+          {%- if section.settings.packs_heading != blank -%}
+            <h2 class="mint-h2" id="mint-packs">{{ section.settings.packs_heading | escape }}</h2>
+          {%- endif -%}
+          {%- if section.settings.packs_link_label != blank -%}
+            <a class="btn btn-link" href="{{ section.settings.packs_link | default: '#' }}">
+              {{ section.settings.packs_link_label | escape }}
+              {% render 'icon-arrow-right' %}
+            </a>
+          {%- endif -%}
+        </div>
+
+        {%- if packs != blank and packs.products_count > 0 -%}
+          <ul class="mint-packs" role="list">
+            {%- for product in packs.products limit: section.settings.packs_count -%}
+              <li>
+                <a class="mint-pack" href="{{ product.url }}">
+                  <span class="mint-pack__media">
+                    {%- if product.featured_image -%}
+                      <img
+                        src="{{ product.featured_image | image_url: width: 600 }}"
+                        alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                        width="{{ product.featured_image.width }}"
+                        height="{{ product.featured_image.height }}"
+                        loading="lazy"
+                      >
+                    {%- endif -%}
+                  </span>
+                  <span class="mint-pack__title">{{ product.title | escape }}</span>
+                  <span class="mint-pack__price">{{ product.price | money }}</span>
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ------------------------------------------- Closing CTA {%- endcomment -%}
+  {%- if section.settings.cta_heading != blank -%}
+    <section class="mint-strip">
+      <div class="apex-container mint-strip__inner">
+        <div>
+          <h2 class="mint-h3">{{ section.settings.cta_heading | escape }}</h2>
+          {%- if section.settings.cta_text != blank -%}
+            <p class="mint-strip__text">{{ section.settings.cta_text }}</p>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.cta_label != blank and partner_url != blank -%}
+          <a class="btn btn-outline" href="{{ partner_url }}" rel="{{ rel_attr }}">
+            {{ section.settings.cta_label | escape }}
+          </a>
+        {%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  /* ==========================================================================
+     APEX x Mint Sport partner page.
+
+     Same token discipline as partners-upl: --mint-ink flips on the light and
+     accent bands so one set of type rules serves every ground.
+     ========================================================================== */
+
+  .mint {
+    --mint-ink: var(--color-text);
+    --mint-ink-muted: var(--color-text-muted);
+    --mint-ink-faint: var(--color-text-faint);
+    --mint-line: var(--color-border);
+
+    background-color: var(--mint-bg, var(--color-bg));
+    color: var(--mint-ink);
+    font-family: var(--font-body);
+  }
+
+  /* --- shared type ------------------------------------------------------- */
+
+  .mint-h2 {
+    margin: 0;
+    color: var(--mint-ink);
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-display);
+    text-transform: uppercase;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+
+  /* --- inline wordmarks ---------------------------------------------------
+     A brand logo standing in for a word inside a heading. Sized off the
+     heading's own em, so it tracks --text-display / --text-h2 and the
+     merchant's font-scale setting rather than any fixed pixel size.
+
+     --wordmark-cap  height of the mark, as a fraction of the heading em.
+     --wordmark-ratio  the artwork's own viewBox aspect (w / h).
+
+     Width is min(100%, cap * ratio) so a very extended wordmark shrinks to
+     the column on narrow viewports instead of overflowing it; height follows
+     from the viewBox, so it never distorts. The svg is the only in-flow child
+     (the accessible text is absolutely positioned), which puts the inline-
+     block's baseline on the svg's bottom edge — where the cap line of the
+     surrounding text sits. */
+
+  .mint-wordmark {
+    display: inline-block;
+    width: min(100%, calc(var(--wordmark-cap) * var(--wordmark-ratio)));
+    vertical-align: baseline;
+  }
+
+  .mint-wordmark__svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    color: currentColor;
+  }
+
+  .mint-wordmark--unleash {
+    --wordmark-cap: 0.7em;
+    --wordmark-ratio: 14.27; /* viewBox 4466 x 313 */
+  }
+
+  .mint-wordmark--mint {
+    --wordmark-cap: 0.78em;
+    --wordmark-ratio: 9.44; /* viewBox 2172 x 230 */
+  }
+
+  .mint-h3 {
+    margin: 0;
+    color: var(--mint-ink);
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-heading);
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  .mint-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    margin: 0 0 var(--space-sm);
+    color: var(--brand-accent);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+  .mint-eyebrow--on-accent {
+    color: var(--color-text-on-light);
+    opacity: 0.7;
+  }
+
+  .mint-rule {
+    display: inline-block;
+    flex: none;
+    width: var(--rule-width);
+    height: var(--rule-thickness);
+    background-color: var(--brand-accent);
+  }
+
+  .mint-rule--dark {
+    background-color: var(--color-text-on-light);
+  }
+
+  .mint-accent {
+    color: var(--brand-accent);
+  }
+
+  .mint-lead {
+    margin: var(--space-sm) 0 0;
+    max-width: 68ch;
+    color: var(--mint-ink-muted);
+    font-size: var(--text-lead);
+    line-height: var(--leading-body);
+  }
+
+  .mint-rte {
+    display: grid;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+    max-width: 68ch;
+    color: var(--mint-ink-muted);
+    line-height: var(--leading-body);
+  }
+
+  .mint-rte--lead {
+    font-size: var(--text-lead);
+  }
+
+  .mint-rte :where(p) {
+    margin: 0;
+  }
+
+  .mint-rte :where(ul, ol) {
+    margin: 0;
+    padding-inline-start: var(--space-sm);
+  }
+
+  .mint-rte :where(strong) {
+    color: var(--mint-ink);
+    font-weight: var(--weight-bold);
+  }
+
+  .mint-rte :where(a) {
+    color: var(--mint-ink);
+    font-weight: var(--weight-bold);
+    text-decoration: none;
+    border-bottom: 2px solid var(--brand-accent);
+  }
+
+  .mint-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-top: var(--space-md);
+  }
+
+  /* --- breadcrumbs -------------------------------------------------------- */
+
+  .mint-crumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2xs);
+    margin: 0 0 var(--space-sm);
+    padding: 0;
+    list-style: none;
+    color: var(--color-text-faint);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+  }
+
+  .mint-crumbs li + li::before {
+    content: '/';
+    margin-inline-end: var(--space-2xs);
+    opacity: 0.6;
+  }
+
+  .mint-crumbs a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  @media (hover: hover) {
+    .mint-crumbs a:hover {
+      color: var(--brand-accent);
+    }
+  }
+
+  .mint-crumbs [aria-current='page'] {
+    color: var(--color-text);
+  }
+
+  /* --- bands -------------------------------------------------------------- */
+
+  .mint-band {
+    padding-block: var(--mint-pad, var(--space-section));
+  }
+
+  .mint-band--ruled {
+    border-top: 1px solid var(--mint-line);
+  }
+
+  .mint-band--light {
+    --mint-ink: var(--color-text-on-light);
+    --mint-ink-muted: color-mix(in srgb, var(--ground) 78%, var(--light));
+    --mint-ink-faint: color-mix(in srgb, var(--ground) 62%, var(--light));
+    --mint-line: color-mix(in srgb, var(--ground) 12%, transparent);
+
+    background-color: var(--mint-bg-light, var(--light));
+    color: var(--mint-ink);
+  }
+
+  .mint-band--accent {
+    --mint-ink: var(--color-text-on-light);
+    --mint-ink-muted: color-mix(in srgb, var(--ground) 82%, var(--brand-accent));
+    --mint-line: color-mix(in srgb, var(--ground) 24%, transparent);
+
+    background-color: var(--brand-accent);
+    color: var(--mint-ink);
+  }
+
+  /* --- hero --------------------------------------------------------------- */
+
+  .mint-hero {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    min-height: min(62rem, 84svh);
+    padding-block: calc(var(--header-height) + var(--space-md)) var(--space-xl);
+    background-color: var(--color-bg-deep);
+    overflow: hidden;
+  }
+
+  .mint-hero__media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.42;
+    filter: grayscale(0.35) contrast(1.05);
+  }
+
+  .mint-hero__scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--ground) 72%, transparent) 0%,
+      color-mix(in srgb, var(--ground) 35%, transparent) 40%,
+      color-mix(in srgb, var(--ground) 96%, transparent) 100%
+    );
+  }
+
+  .mint-hero__inner {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-lg);
+  }
+
+  .mint-hero__copy {
+    flex: 1 1 46rem;
+    min-width: 0;
+  }
+
+  .mint-hero__heading {
+    margin: 0;
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: calc(var(--text-display) * 0.8);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-display);
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  .mint-hero__text {
+    margin: var(--space-sm) 0 0;
+    max-width: 56ch;
+    color: var(--color-text-muted);
+    font-size: var(--text-lead);
+    line-height: var(--leading-body);
+  }
+
+  .mint-hero__logo {
+    flex: 0 1 23rem;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .mint-hero__logo img {
+    width: clamp(12rem, 18vw, 23rem);
+    height: auto;
+  }
+
+  /* --- stats -------------------------------------------------------------- */
+
+  .mint-stats {
+    border-block: 1px solid var(--color-border);
+  }
+
+  .mint-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  }
+
+  .mint-stat {
+    padding-block: var(--space-md);
+  }
+
+  .mint-stat__value {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-display);
+    line-height: 1;
+  }
+
+  .mint-stat__label {
+    margin: var(--space-2xs) 0 0;
+    color: var(--color-text-faint);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+  /* --- label + body split -------------------------------------------------- */
+
+  .mint-split {
+    display: grid;
+    gap: var(--space-md);
+    align-items: start;
+  }
+
+  .mint-tab {
+    margin: 0;
+    max-width: 28rem;
+    padding-bottom: var(--space-xs);
+    border-bottom: 2px solid var(--mint-ink);
+    color: var(--mint-ink);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+  }
+
+  .mint-tab--accent {
+    border-bottom-color: var(--brand-accent);
+    color: var(--brand-accent);
+  }
+
+  /* --- partner showcase: square image + copy --------------------------------
+
+     Mobile-first: one column, image first in source order so it sits on top.
+     At 750px it becomes image-left / copy-right.
+
+     The image is forced square with aspect-ratio regardless of what the
+     merchant uploads, so a portrait or landscape file crops rather than
+     distorting the two-column rhythm. --mint-showcase-w caps the image column
+     so a full-width square does not tower over the copy beside it.
+     ------------------------------------------------------------------------ */
+
+  .mint-showcase {
+    --mint-showcase-w: 44rem;
+
+    display: grid;
+    gap: var(--space-md);
+    align-items: center;
+  }
+
+  .mint-showcase__media {
+    max-width: var(--mint-showcase-w);
+    width: 100%;
+  }
+
+  .mint-showcase__media img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+
+  .mint-showcase__copy > .mint-tab {
+    margin-bottom: var(--space-md);
+  }
+
+  /* --- complete kit -------------------------------------------------------- */
+
+  .mint-kit {
+    display: grid;
+    gap: var(--space-lg);
+    align-items: center;
+  }
+
+  .mint-kit__media img {
+    display: block;
+    width: 100%;
+    max-width: 52rem;
+    height: auto;
+    margin-inline: auto;
+  }
+
+  /* --- statement ----------------------------------------------------------- */
+
+  .mint-quote {
+    display: grid;
+    gap: var(--space-lg);
+    align-items: center;
+  }
+
+  .mint-quote__text {
+    margin: var(--space-sm) 0 0;
+    color: var(--mint-ink);
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-tight);
+    text-wrap: pretty;
+  }
+
+  .mint-quote__cite {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    margin-top: var(--space-md);
+  }
+
+  .mint-quote__name {
+    margin: 0;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+  }
+
+  .mint-quote__role {
+    margin: 0;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-medium);
+    opacity: 0.7;
+  }
+
+  .mint-quote__media img {
+    display: block;
+    width: 100%;
+    max-width: 42rem;
+    height: auto;
+    margin-inline: auto;
+  }
+
+  /* --- FAQ ----------------------------------------------------------------- */
+
+  .mint-faq {
+    margin-top: var(--space-md);
+    border-top: 1px solid var(--color-border-strong);
+  }
+
+  .mint-faq__item {
+    border-bottom: 1px solid var(--color-border-strong);
+  }
+
+  .mint-faq__q {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    padding-block: var(--space-sm);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .mint-faq__q::-webkit-details-marker {
+    display: none;
+  }
+
+  .mint-faq__q h3 {
+    margin: 0;
+    color: var(--mint-ink);
+    font-family: var(--font-display);
+    font-size: var(--text-h4);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-label);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+  .mint-faq__q:focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-focus);
+    outline-offset: calc(var(--focus-ring-offset) * -1);
+  }
+
+  /* Plus/minus drawn from two rules so it needs no glyph — the Zalando subset
+     has no arrow, and this has to work at 1em in currentColor. */
+  .mint-faq__mark {
+    position: relative;
+    flex: none;
+    width: 1em;
+    height: 1em;
+    color: var(--brand-accent);
+  }
+
+  .mint-faq__mark::before,
+  .mint-faq__mark::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: var(--rule-thickness);
+    background-color: currentColor;
+    transform: translateY(-50%);
+    transition: transform var(--motion-fast) var(--ease-out), opacity var(--motion-fast) var(--ease-out);
+  }
+
+  .mint-faq__mark::after {
+    transform: translateY(-50%) rotate(90deg);
+  }
+
+  .mint-faq__item[open] .mint-faq__mark::after {
+    opacity: 0;
+    transform: translateY(-50%) rotate(0deg);
+  }
+
+  .mint-faq__a {
+    margin-top: 0;
+    padding-bottom: var(--space-sm);
+  }
+
+  /* --- heading row + packs -------------------------------------------------- */
+
+  .mint-headrow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--mint-ink);
+  }
+
+  .mint-packs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: var(--space-sm);
+    list-style: none;
+    margin: var(--space-lg) 0 0;
+    padding: 0;
+  }
+
+  .mint-pack {
+    display: block;
+    height: 100%;
+    padding: var(--space-sm);
+    border: 1px solid var(--mint-line);
+    background-color: var(--light);
+    color: var(--mint-ink);
+    text-decoration: none;
+    transition: border-color var(--motion-fast) var(--ease-out);
+  }
+
+  @media (hover: hover) {
+    .mint-pack:hover {
+      border-color: var(--mint-ink);
+    }
+  }
+
+  .mint-pack:focus-visible {
+    outline: var(--focus-ring-width) solid var(--brand-accent);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  .mint-pack__media {
+    display: block;
+    aspect-ratio: 1;
+  }
+
+  .mint-pack__media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .mint-pack__title {
+    display: block;
+    margin-top: var(--space-sm);
+    font-family: var(--font-display);
+    font-size: var(--text-h4);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-label);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+  .mint-pack__price {
+    display: block;
+    margin-top: var(--space-2xs);
+    color: var(--mint-ink-faint);
+    font-size: var(--text-body);
+    font-weight: var(--weight-medium);
+  }
+
+  /* --- closing strip --------------------------------------------------------- */
+
+  .mint-strip {
+    border-block: 1px solid var(--color-border);
+  }
+
+  .mint-strip__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    padding-block: var(--space-lg);
+  }
+
+  .mint-strip__text {
+    margin: var(--space-2xs) 0 0;
+    max-width: 60ch;
+    color: var(--color-text-faint);
+    font-size: var(--text-body);
+    line-height: var(--leading-snug);
+  }
+
+  /* ==========================================================================
+     750px
+     ========================================================================== */
+
+  @media screen and (min-width: 750px) {
+    .mint-split {
+      grid-template-columns: minmax(0, 28rem) minmax(0, 2fr);
+      column-gap: var(--grid-gap);
+    }
+
+    .mint-stat {
+      padding-inline: var(--space-sm);
+    }
+
+    .mint-stat:first-child {
+      padding-inline-start: 0;
+    }
+
+    .mint-stats__grid > .mint-stat:not(:last-child) {
+      border-inline-end: 1px solid var(--color-border);
+    }
+
+    .mint-showcase {
+      grid-template-columns: minmax(0, var(--mint-showcase-w)) minmax(0, 1fr);
+      column-gap: var(--grid-gap);
+      align-items: start;
+    }
+
+    .mint-kit,
+    .mint-quote {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: var(--grid-gap);
+    }
+
+    .mint-quote__media img,
+    .mint-kit__media img {
+      margin-inline: auto 0;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .mint-hero__logo {
+      justify-content: flex-end;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Mint Sport partner page",
+  "tag": "section",
+  "class": "mint-partner-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Announcement bar, header and footer come from the theme's section groups — this section is the page body only."
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Page background",
+      "default": "#0B090C"
+    },
+    {
+      "type": "color",
+      "id": "background_light",
+      "label": "Light band background",
+      "info": "Used by the endorsement and Apex packs bands.",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "padding_block",
+      "min": 32,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Band vertical padding",
+      "default": 96
+    },
+
+    { "type": "header", "content": "Partner + SEO" },
+    { "type": "text", "id": "partner_name", "label": "Partner name", "default": "Mint Sport" },
+    {
+      "type": "url",
+      "id": "partner_url",
+      "label": "Partner website",
+      "info": "Used by every outbound button and by the Organization node in the structured data. Outbound CTAs are hidden until this is set."
+    },
+    {
+      "type": "select",
+      "id": "partner_rel",
+      "label": "Outbound link rel",
+      "info": "Keep 'Followed' only if this endorsement is genuinely editorial. If money, free product or reciprocal placement is involved, Google's link spam policy requires 'Sponsored'.",
+      "options": [
+        { "value": "none", "label": "Followed (editorial)" },
+        { "value": "sponsored", "label": "Sponsored (paid / incentivised)" },
+        { "value": "nofollow", "label": "Nofollow" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "textarea",
+      "id": "seo_description",
+      "label": "Page description (structured data)",
+      "info": "Feeds the WebPage node. Set the page's real meta description in the admin SEO panel too — this does not replace it.",
+      "default": "Apex Pickleball officially endorses Mint Sport paddles and pickleball accessories. Pair a Mint paddle with the 48-hole Apex 48 ball for a complete setup."
+    },
+    {
+      "type": "textarea",
+      "id": "apex_description",
+      "label": "Apex description (structured data)",
+      "default": "Apex Pickleball makes the Apex 48, a 48-hole pickleball engineered for consistent flight and tournament durability."
+    },
+    {
+      "type": "textarea",
+      "id": "partner_description",
+      "label": "Partner description (structured data)",
+      "info": "Describe Mint Sport in their own terms. Leave blank if you would rather not assert it."
+    },
+    {
+      "type": "textarea",
+      "id": "partner_sameas",
+      "label": "Partner social / profile URLs",
+      "info": "Comma-separated. Feeds sameAs, which is how a search engine reconciles this Organization with Mint's other profiles. Worth filling in."
+    },
+
+    { "type": "header", "content": "Breadcrumbs" },
+    { "type": "text", "id": "crumb_home", "label": "Level 1 label", "default": "Home" },
+    { "type": "text", "id": "crumb_parent", "label": "Level 2 label", "default": "Partners" },
+    {
+      "type": "text",
+      "id": "crumb_parent_link",
+      "label": "Level 2 path",
+      "info": "Root-relative, e.g. /pages/partners. Must resolve — a breadcrumb pointing at a 404 is worse than no breadcrumb.",
+      "default": "/pages/partners"
+    },
+
+    { "type": "header", "content": "Hero" },
+    { "type": "image_picker", "id": "hero_image", "label": "Background image" },
+    { "type": "text", "id": "hero_eyebrow", "label": "Eyebrow", "default": "Official paddle partner" },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Heading",
+      "default": "Apex officially endorses"
+    },
+    {
+      "type": "text",
+      "id": "hero_logo_word",
+      "label": "Heading word to draw as the Unleash logo",
+      "info": "If this word appears in the heading it is replaced by the Unleash wordmark. The word is kept as screen-reader text. Leave blank for plain text.",
+      "default": "UNLEASH"
+    },
+    {
+      "type": "text",
+      "id": "hero_heading_accent",
+      "label": "Heading — accent phrase",
+      "default": "Mint Sport paddles and accessories."
+    },
+    {
+      "type": "textarea",
+      "id": "hero_text",
+      "label": "Body",
+      "default": "We make the ball. Mint makes the paddle. When players ask us what to put in the other hand, we send them to Mint Sport — and we mean it enough to put it on our own site."
+    },
+    { "type": "text", "id": "hero_cta_label", "label": "Primary button label", "default": "Shop Mint Sport paddles" },
+    { "type": "text", "id": "hero_cta2_label", "label": "Secondary button label", "default": "Shop Apex 48 balls" },
+    { "type": "url", "id": "hero_cta2_link", "label": "Secondary button link" },
+    { "type": "image_picker", "id": "partner_logo", "label": "Mint Sport logo" },
+    { "type": "text", "id": "partner_logo_alt", "label": "Logo alt text", "default": "Mint Sport" },
+
+    { "type": "header", "content": "Stats strip" },
+    { "type": "text", "id": "stats_label", "label": "Accessible label", "default": "Partnership at a glance" },
+
+    { "type": "header", "content": "The endorsement" },
+    { "type": "text", "id": "endorse_label", "label": "Label", "default": "The endorsement" },
+    {
+      "type": "text",
+      "id": "endorse_heading",
+      "label": "Heading",
+      "default": "Why we put our name on someone else's paddle."
+    },
+    {
+      "type": "richtext",
+      "id": "endorse_text",
+      "label": "Body",
+      "default": "<p>Apex makes one thing, and we make it properly: the <strong>Apex 48</strong>, a 48-hole pickleball built for consistent flight and for surviving a full season of play. We do not make paddles, and we are not planning to.</p><p>That is exactly why this endorsement means something. We have nothing to sell you on the paddle side, so when we say <strong>Mint Sport</strong> builds equipment we are happy to stand behind, there is no competing product behind the recommendation.</p><p>Players kept asking the same question — the ball is sorted, what about the paddle? Rather than shrug, we went and found a partner whose standards matched ours, and pointed the question at them.</p>"
+    },
+
+    { "type": "header", "content": "What Mint makes" },
+    {
+      "type": "image_picker",
+      "id": "range_image",
+      "label": "Image",
+      "info": "Cropped to a square. Sits left of the copy on desktop, above it on mobile."
+    },
+    { "type": "text", "id": "range_image_alt", "label": "Image alt text", "default": "Mint Sport pickleball paddles" },
+    { "type": "text", "id": "range_label", "label": "Label", "default": "The range" },
+    { "type": "text", "id": "range_heading", "label": "Heading", "default": "What Mint Sport makes." },
+    {
+      "type": "text",
+      "id": "range_logo_word",
+      "label": "Heading words to draw as the Mint Sport logo",
+      "info": "If these words appear in the heading they are replaced by the Mint Sport wordmark. The words are kept as screen-reader text. Leave blank for plain text.",
+      "default": "Mint Sport"
+    },
+    {
+      "type": "textarea",
+      "id": "range_text",
+      "label": "Body",
+      "default": "Mint Sport makes pickleball paddles, grips, bags and on-court accessories. Their full range is available direct from mintsport.com."
+    },
+
+    { "type": "header", "content": "The complete kit" },
+    { "type": "text", "id": "kit_eyebrow", "label": "Eyebrow", "default": "Ball plus paddle" },
+    { "type": "text", "id": "kit_heading", "label": "Heading", "default": "One setup, two specialists." },
+    {
+      "type": "richtext",
+      "id": "kit_text",
+      "label": "Body",
+      "default": "<p>A predictable ball and a paddle you trust are the two halves of the same problem. Get one wrong and the other stops mattering.</p><p>Pair a Mint Sport paddle with the Apex 48 and every part of your setup comes from someone who only makes that part. That is the whole idea.</p>"
+    },
+    { "type": "text", "id": "kit_cta_label", "label": "Primary button label", "default": "Browse Mint Sport" },
+    { "type": "text", "id": "kit_cta2_label", "label": "Secondary button label", "default": "Shop Apex 48" },
+    { "type": "url", "id": "kit_cta2_link", "label": "Secondary button link" },
+    { "type": "image_picker", "id": "kit_image", "label": "Image" },
+    {
+      "type": "text",
+      "id": "kit_image_alt",
+      "label": "Image alt text",
+      "info": "Describe what is actually shown. Alt text is read by assistive tech and by image search.",
+      "default": "An Apex 48 pickleball beside a Mint Sport paddle"
+    },
+
+    { "type": "header", "content": "Statement" },
+    { "type": "text", "id": "quote_label", "label": "Label", "default": "Where we stand" },
+    {
+      "type": "textarea",
+      "id": "quote_text",
+      "label": "Statement",
+      "default": "“We would rather send a player to someone who does it better than sell them something we half-believe in. That is the entire reason this page exists.”"
+    },
+    {
+      "type": "text",
+      "id": "quote_name",
+      "label": "Attribution — name",
+      "info": "Left as the brand on purpose. Put a real person here only if they have actually approved the wording.",
+      "default": "Apex Pickleball"
+    },
+    { "type": "text", "id": "quote_role", "label": "Attribution — role" },
+    { "type": "image_picker", "id": "quote_image", "label": "Image" },
+
+    { "type": "header", "content": "FAQ" },
+    { "type": "text", "id": "faq_label", "label": "Label", "default": "Common questions" },
+    { "type": "text", "id": "faq_heading", "label": "Heading", "default": "Apex and Mint Sport, answered." },
+    { "type": "checkbox", "id": "faq_open_first", "label": "Open the first answer by default", "default": true },
+
+    { "type": "header", "content": "Shop Apex packs" },
+    { "type": "checkbox", "id": "show_packs", "label": "Show this band", "default": true },
+    { "type": "text", "id": "packs_heading", "label": "Heading", "default": "Get the ball right first." },
+    { "type": "collection", "id": "packs_collection", "label": "Collection" },
+    {
+      "type": "range",
+      "id": "packs_count",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "label": "Products to show",
+      "default": 4
+    },
+    { "type": "text", "id": "packs_link_label", "label": "Link label", "default": "View all packs" },
+    { "type": "url", "id": "packs_link", "label": "Link" },
+
+    { "type": "header", "content": "Closing CTA" },
+    { "type": "text", "id": "cta_heading", "label": "Heading", "default": "Ready for a new paddle?" },
+    {
+      "type": "textarea",
+      "id": "cta_text",
+      "label": "Body",
+      "default": "Head over to Mint Sport for paddles and accessories. Come back to us for the ball."
+    },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Visit Mint Sport" }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Value", "default": "1" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Endorsed paddle partner" },
+        { "type": "checkbox", "id": "highlight", "label": "Bronze numeral", "default": false }
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "FAQ item",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "Does Apex make pickleball paddles?" },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "info": "Answer the question in the first sentence. This text is copied verbatim into the FAQPage structured data.",
+          "default": "<p>No. Apex makes the Apex 48 pickleball and nothing else. For paddles and accessories we point players to Mint Sport, whose equipment we officially endorse.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mint Sport partner page",
+      "blocks": [
+        { "type": "stat", "settings": { "value": "1", "label": "Endorsed paddle partner", "highlight": true } },
+        { "type": "stat", "settings": { "value": "48", "label": "Holes in every Apex ball", "highlight": false } },
+        { "type": "stat", "settings": { "value": "0", "label": "Paddles Apex makes itself", "highlight": false } },
+        { "type": "stat", "settings": { "value": "2", "label": "Specialists, one setup", "highlight": false } },
+
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Does Apex make pickleball paddles?",
+            "answer": "<p>No. Apex makes the Apex 48 pickleball and nothing else. For paddles and accessories we point players to Mint Sport, whose equipment we officially endorse.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "What is the Apex and Mint Sport partnership?",
+            "answer": "<p>Apex officially endorses Mint Sport paddles and pickleball accessories. We make the ball, Mint makes the paddle, and each of us recommends the other rather than stretching into a category we do not specialise in.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Where can I buy Mint Sport paddles?",
+            "answer": "<p>Directly from Mint Sport. Every paddle and accessory link on this page goes straight to them — Apex does not stock or ship Mint products.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Which Apex ball should I pair with a Mint paddle?",
+            "answer": "<p>The Apex 48. It is the only ball we make. Its 48-hole, chamfered-edge design is built for consistent flight and holds its shape through long sessions, so it pairs with any paddle you bring to it.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Does Apex sell Mint Sport products directly?",
+            "answer": "<p>No. Mint sells their own range on their own site. Apex sells the Apex 48 in 4, 10, 50 and 100-ball packs.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

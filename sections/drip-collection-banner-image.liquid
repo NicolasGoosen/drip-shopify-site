@@ -1,0 +1,178 @@
+{%- comment -%}
+  DRIP collection banner image.
+
+  A full-bleed artwork band that reads straight off the collection, not off
+  section settings: `custom.banner_desktop` and `custom.banner_mobile`, both
+  single-image metafields. Nothing about it is authored in the customizer, so
+  one section placement serves every collection that carries the metafields
+  and each one shows its own artwork.
+
+  No fixed height and no cropping. The band is exactly as tall as the supplied
+  artwork is at full width, which is the only treatment that respects a
+  banner someone has composed as a single flat image — an aspect-ratio box
+  with `object-fit: cover` would cut type off the ends of it.
+
+  The two images swap at 750px through <picture>, so the browser downloads one
+  of them, not both. Each carries its own aspect ratio as a custom property,
+  which reserves the right box before either file arrives — a full-bleed LCP
+  image with no reservation is the single largest layout shift a page like
+  this can have.
+
+  Either metafield alone is enough: whichever is set is used at both
+  breakpoints. With neither set the section renders nothing at all rather than
+  an empty band, apart from a note in the theme editor so the gap is
+  explicable.
+{%- endcomment -%}
+
+{%- liquid
+  assign desktop = collection.metafields.custom.banner_desktop.value
+  assign mobile = collection.metafields.custom.banner_mobile.value
+
+  # The <img> is the mobile artwork wherever both exist, because <source> is
+  # what carries the desktop one. Falling back the other way keeps a
+  # desktop-only collection working.
+  assign base = mobile | default: desktop
+  assign wide = desktop | default: mobile
+
+  assign banner_alt = base.alt | default: collection.title
+-%}
+
+{%- if section.settings.solid_header -%}
+  {%- comment -%}
+    The header is a single global instance rendered by header-group.json, so it
+    cannot be styled per template from its own schema. This template opens
+    directly under the bar, and the bar's usual --color-bg is the warm
+    near-black ground, which reads as a smudge against artwork trimmed to true
+    black. Rendered here rather than in the header's stylesheet so it applies
+    wherever this section is placed and nowhere else.
+
+    Outside the banner guard on purpose: the bar is black because of the
+    template this section defines, not because a particular collection happens
+    to have filled its metafields in yet.
+  {%- endcomment -%}
+  <style>
+    .drip-header {
+      background-color: var(--color-bg-deep);
+    }
+  </style>
+{%- endif -%}
+
+{%- if base != blank -%}
+  <section
+    class="collection-banner-image"
+    style="
+      --cbi-ratio: {{ base.aspect_ratio }};
+      --cbi-ratio-wide: {{ wide.aspect_ratio }};
+    "
+  >
+    <picture>
+      {%- if desktop != blank and mobile != blank -%}
+        <source
+          media="(min-width: 750px)"
+          srcset="
+            {{ wide | image_url: width: 750 }} 750w,
+            {{ wide | image_url: width: 990 }} 990w,
+            {{ wide | image_url: width: 1440 }} 1440w,
+            {{ wide | image_url: width: 1920 }} 1920w,
+            {{ wide | image_url: width: 2560 }} 2560w,
+            {{ wide | image_url: width: 3200 }} 3200w
+          "
+          sizes="100vw"
+          width="{{ wide.width }}"
+          height="{{ wide.height }}"
+        >
+      {%- endif -%}
+
+      {{
+        base
+        | image_url: width: 1600
+        | image_tag:
+          loading: 'eager',
+          fetchpriority: 'high',
+          sizes: '100vw',
+          widths: '400, 600, 750, 990, 1200, 1600',
+          class: 'collection-banner-image__img',
+          alt: banner_alt
+      }}
+    </picture>
+  </section>
+{%- elsif request.design_mode -%}
+  <section class="collection-banner-image collection-banner-image--empty">
+    <p>
+      Add an image to this collection&rsquo;s
+      <code>custom.banner_desktop</code> or <code>custom.banner_mobile</code>
+      metafield to show a banner here. Nothing renders on the live storefront
+      until one of them is set.
+    </p>
+  </section>
+{%- endif -%}
+
+{% stylesheet %}
+  .collection-banner-image {
+    display: block;
+    background-color: var(--color-bg-deep);
+  }
+
+  .collection-banner-image picture {
+    display: block;
+  }
+
+  /* `height: auto` with an explicit ratio: the ratio reserves the box before
+     the file lands, and auto hands the box straight back to the image once it
+     has, so a ratio rounded off the metafield can never letterbox it. */
+  .collection-banner-image__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: var(--cbi-ratio, auto);
+  }
+
+  @media screen and (min-width: 750px) {
+    .collection-banner-image__img {
+      aspect-ratio: var(--cbi-ratio-wide, var(--cbi-ratio, auto));
+    }
+  }
+
+  /* Theme editor only — see the design-mode branch above. */
+  .collection-banner-image--empty {
+    padding: var(--space-lg) var(--gutter);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+    text-align: center;
+  }
+
+  .collection-banner-image--empty code {
+    color: var(--brand-accent);
+    font-size: inherit;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "DRIP collection banner",
+  "tag": "section",
+  "class": "drip-collection-banner-image-section",
+  "enabled_on": {
+    "templates": ["collection"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "The artwork comes from the collection itself — the custom.banner_desktop and custom.banner_mobile metafields — so each collection using this template shows its own banner. There is nothing to pick here."
+    },
+    {
+      "type": "checkbox",
+      "id": "solid_header",
+      "label": "Black header bar",
+      "info": "Paints the header true black so it reads as one piece with a banner trimmed to black. Turn off if the banner is light.",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "DRIP collection banner"
+    }
+  ]
+}
+{% endschema %}

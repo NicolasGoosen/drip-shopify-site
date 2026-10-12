@@ -1,0 +1,279 @@
+{%- comment -%}
+  APEX feature cards — "WHY PLAYERS CHOOSE APEX".
+
+  Deliberately NOT sections/apex-value-props.liquid. That one is icon-left,
+  text-right, unboxed, and runs the full width of the homepage band. This is a
+  boxed card: icon centred over centred text on a raised ground. Same content
+  shape, different component — folding them together would mean a layout
+  switch setting on both call sites and neither would read cleanly.
+
+  Reflow: 1 column -> 2x2 at 750 -> 1x4 at 990, matching the mockup's bands.
+
+  Type is flat across breakpoints — 14px title, 12px body — per hard rule 5.
+{%- endcomment -%}
+
+<div
+  class="featcards"
+  style="
+    --fc-bg: {{ section.settings.background }};
+    --fc-card-bg: {{ section.settings.card_background }};
+    --fc-pad-block: {{ section.settings.padding_block }}px;
+    --fc-icon-size: {{ section.settings.icon_size }}px;
+    --fc-icon-color: {% if section.settings.icon_color == 'accent' %}var(--brand-accent){% else %}var(--color-text){% endif %};
+  "
+>
+  <div class="apex-container">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="featcards__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.heading != blank -%}
+      <h2 class="featcards__heading">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <ul class="featcards__grid" role="list">
+        {%- for block in section.blocks -%}
+          <li class="featcard" {{ block.shopify_attributes }}>
+            {%- if block.settings.icon != 'none' -%}
+              <span class="featcard__icon-wrap">
+                {% render 'svg-icons', icon: block.settings.icon, class: 'featcard__icon' %}
+              </span>
+            {%- endif -%}
+
+            {%- if block.settings.title != blank -%}
+              <h3 class="featcard__title">{{ block.settings.title | escape }}</h3>
+            {%- endif -%}
+
+            {%- if block.settings.text != blank -%}
+              <p class="featcard__body">{{ block.settings.text | escape }}</p>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .featcards {
+    padding-block: var(--fc-pad-block, var(--space-xl));
+    background-color: var(--fc-bg, var(--color-bg));
+  }
+
+  .featcards__eyebrow {
+    margin: 0 0 var(--space-sm);
+    color: var(--brand-accent);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-xs);
+    font-style: italic;
+    font-weight: var(--weight-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  .featcards__heading {
+    margin: 0 0 var(--space-md);
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-heading);
+    text-align: left;
+    text-transform: uppercase;
+    text-wrap-style: balance;
+  }
+
+  .featcards__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-xs);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .featcard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-md) var(--space-sm);
+    background-color: var(--color-bg-elevated);
+    text-align: center;
+  }
+
+  /* The SVGs paint with currentColor, so the wrapper's colour is the icon's.
+     Bronze by default here — the cards sit on a raised ground where a
+     near-white icon competes with the title directly beneath it. */
+  .featcard__icon-wrap {
+    display: grid;
+    place-items: center;
+    color: var(--fc-icon-color, var(--brand-accent));
+  }
+
+  .featcard__icon {
+    width: var(--fc-icon-size, 4rem);
+    height: var(--fc-icon-size, 4rem);
+  }
+
+  .featcard__title {
+    margin: 0;
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-label);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+  .featcard__body {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    line-height: var(--leading-snug);
+  }
+
+  @media screen and (min-width: 750px) {
+    .featcards__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-sm);
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .featcards__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "APEX feature cards",
+  "tag": "section",
+  "class": "apex-feature-cards-section",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Why players choose APEX" },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Not in the mockup — the eyebrow carries the band on its own. Blank hides it."
+    },
+    { "type": "color", "id": "background", "label": "Background", "default": "#0B090C" },
+    { "type": "color", "id": "card_background", "label": "Card background", "default": "#1F161B" },
+    {
+      "type": "range",
+      "id": "padding_block",
+      "min": 16,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 64
+    },
+    {
+      "type": "header",
+      "content": "Icons"
+    },
+    {
+      "type": "select",
+      "id": "icon_color",
+      "label": "Icon colour",
+      "options": [
+        { "value": "accent", "label": "Bronze accent" },
+        { "value": "text", "label": "White" }
+      ],
+      "default": "accent"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 24,
+      "max": 96,
+      "step": 2,
+      "unit": "px",
+      "label": "Icon size",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "value-props-icon-true-bounce", "label": "True bounce" },
+            { "value": "value-props-icon-ball-design", "label": "Ball design" },
+            { "value": "value-props-icon-advanced-seam", "label": "Advanced seam" },
+            { "value": "value-props-icon-built-to-last", "label": "Built to last" },
+            { "value": "target", "label": "Target" },
+            { "value": "shield-check", "label": "Shield" },
+            { "value": "medal", "label": "Medal" },
+            { "value": "trophy", "label": "Trophy" },
+            { "value": "indoor-outdoor", "label": "Indoor / outdoor" },
+            { "value": "none", "label": "No icon" }
+          ],
+          "default": "value-props-icon-true-bounce"
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "True flight" },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Our 48-hole design delivers a stable, predictable ball trajectory."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "APEX feature cards",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "icon": "value-props-icon-true-bounce",
+            "title": "True flight",
+            "text": "Our 48-hole design delivers a stable, predictable ball trajectory."
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "icon": "value-props-icon-advanced-seam",
+            "title": "Consistent bounce",
+            "text": "Balanced weight distribution ensures reliable bounce on every surface."
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "icon": "value-props-icon-built-to-last",
+            "title": "Durable by design",
+            "text": "Built to outlast. Made with premium materials that withstand intense play."
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "icon": "trophy",
+            "title": "Trusted by players",
+            "text": "From casual rallies to tournament play, APEX 48 performs when it matters."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

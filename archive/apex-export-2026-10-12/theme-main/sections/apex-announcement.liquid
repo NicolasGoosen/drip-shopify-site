@@ -1,0 +1,149 @@
+{%- comment -%}
+  APEX announcement bar.
+
+  Sits above the header in the header group, in normal flow, so it pushes the
+  whole page down by its own height.
+
+  IT WORKS WITH THE OVERLAY HEADER, which the old Dawn announcement bar did
+  not. The overlay header is `position: absolute`, and it used to resolve
+  against the page, landing on top of anything above it. It now resolves
+  against its own zero-height section wrapper — see `.apex-header-section` in
+  `apex-header.liquid` — so it floats over whatever follows the bar instead.
+
+  One line of copy, optionally a link. No slider, no country or language
+  pickers: the mockup has none, and each one is a thing to keep in sync with a
+  design that does not describe it.
+{%- endcomment -%}
+
+{%- if section.settings.text != blank -%}
+  <div
+    class="announce{% if section.settings.background_image %} announce--image{% endif %}"
+    style="
+      --an-bg: {{ section.settings.background }};
+      --an-fg: {{ section.settings.text_color }};
+      --an-pad-block: {{ section.settings.padding_block }}px;
+      {%- if section.settings.background_image -%}
+        --an-image: url('{{ section.settings.background_image | image_url: width: 3000 }}');
+        --an-focal: {{ section.settings.background_image.presentation.focal_point | default: 'center' }};
+      {%- endif -%}
+    "
+  >
+    <div class="apex-container announce__inner">
+      {%- if section.settings.link != blank -%}
+        <a class="announce__text announce__text--link" href="{{ section.settings.link }}">
+          {{ section.settings.text | escape }}
+          {% render 'icon-arrow-right' %}
+        </a>
+      {%- else -%}
+        <p class="announce__text">{{ section.settings.text | escape }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .announce {
+    position: relative;
+    z-index: 11;
+    background-color: var(--an-bg, var(--color-bg-elevated));
+    color: var(--an-fg, var(--color-text));
+  }
+
+  /* Optional background photograph. The colour setting stays underneath as
+     the ground the image loads over, and as the fallback if the merchant
+     clears the image. Cropped to fill — the bar is a ~35px-tall band at any
+     width, so a chosen image is always being cropped hard; the focal point
+     from the image picker is what decides which part survives. */
+  .announce--image {
+    background-image: var(--an-image);
+    background-size: cover;
+    background-position: var(--an-focal, center);
+    background-repeat: no-repeat;
+    filter: saturate(0.5);
+  }
+
+  .announce__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--btn-height);
+    padding-block: var(--an-pad-block, var(--space-2xs));
+  }
+
+  .announce__text {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    margin: 0;
+    color: inherit;
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-label);
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .announce__text--link {
+    text-decoration: none;
+    transition: color var(--motion-fast) var(--ease-out);
+  }
+
+  .announce__text--link svg {
+    width: 1em;
+    height: 1em;
+    transition: transform var(--motion-fast) var(--ease-out);
+  }
+
+  @media (hover: hover) {
+    .announce__text--link:hover {
+      color: var(--brand-accent-bright);
+    }
+
+    .announce__text--link:hover svg {
+      transform: translateX(var(--space-unit));
+    }
+  }
+
+  .announce__text--link:focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-focus);
+    outline-offset: var(--focus-ring-offset);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "APEX announcement",
+  "tag": "aside",
+  "class": "apex-announcement-section",
+  "enabled_on": { "groups": ["header"] },
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "info": "Leave blank to hide the bar.",
+      "default": "Free shipping on orders $150+"
+    },
+    { "type": "url", "id": "link", "label": "Link", "info": "Optional. Adds an arrow when set." },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image",
+      "info": "Optional. Cropped to fill the bar — set the focal point on the image itself. Sits over the background colour."
+    },
+    { "type": "color", "id": "background", "label": "Background", "info": "Shows through if no image is set, and while one loads.", "default": "#1F161B" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#FFFFFF" },
+    {
+      "type": "range",
+      "id": "padding_block",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 8
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,878 @@
+{%- comment -%}
+  APEX ambassador program page.
+
+  Three bands: greyscale photographic banner, the program explained beside the
+  offer card, one closing CTA. The card is set exactly as
+  `.facility-subs__card` — bronze-washed panel, tier name and dot on a head
+  row, an oversized figure, then a checked list.
+
+  WHAT DIFFERS FROM THE FACILITY CARD, AND WHY
+  It carries two lists, not one. Three of the five program points are things
+  an ambassador RECEIVES; two are things they are ASKED FOR (the $300-$800
+  monthly target and the 90-120 day review). Setting the asks under the same
+  bronze check as the perks would read as a benefit, which they are not, so
+  they sit in their own group behind a bronze dash.
+
+  COPY IS DRAFTED, NOT SUPPLIED
+  There was no mockup for this page. The defaults below are written to the
+  program summary given in chat and claim nothing beyond it — no payout
+  schedule, no deadline, no ambassador count, no tier names. Every number on
+  the page (10-pack, 10% off, 10% commission, 90-120 days, $300-$800) traces
+  back to that summary, and the copy says plainly that Apex sells one ball
+  and nothing else.
+
+  THE APPLY LINK IS ONE SETTING, USED IN THREE PLACES
+  The hero button, the offer card button and the closing CTA all read
+  `apply_url`, which now points at the UpPromote affiliate sign-up. Repointing
+  the whole page is one setting change, not three.
+
+  `login_url` is the one link that deliberately does NOT follow it — a
+  returning affiliate is signing in, not applying.
+
+  NO BLOCKS. Everything on the page is a section setting — there is no
+  repeating element left to make a block out of.
+{%- endcomment -%}
+
+{%- liquid
+  assign apply_url = section.settings.apply_url | default: '/pages/contact'
+
+  assign gets = section.settings.card_features | newline_to_br | split: '<br />'
+  assign asks = section.settings.card_expectations | newline_to_br | split: '<br />'
+-%}
+
+<div
+  class="amb"
+  style="
+    --amb-bg: {{ section.settings.background }};
+    --amb-pad: {{ section.settings.padding_block }}px;
+    --amb-hero-opacity: {{ section.settings.hero_image_opacity | divided_by: 100.0 }};
+    --amb-hero-gray: {{ section.settings.hero_greyscale | divided_by: 100.0 }};
+    --amb-hero-focus: {{ section.settings.hero_focus_x }}% {{ section.settings.hero_focus_y }}%;
+    --amb-tone-strength: {{ section.settings.card_tone_strength }}%;
+  "
+>
+  {%- comment -%} ------------------------------------------------- Banner {%- endcomment -%}
+  <section class="amb-hero">
+    {%- if section.settings.hero_image != blank -%}
+      {{
+        section.settings.hero_image
+        | image_url: width: 1500
+        | image_tag:
+          loading: 'eager',
+          fetchpriority: 'high',
+          sizes: '100vw',
+          widths: '480, 768, 1000, 1200, 1500',
+          class: 'amb-hero__media',
+          alt: ''
+      }}
+    {%- elsif section.settings.fallback_image_name != blank -%}
+      {%- comment -%}
+        Falls back to a file uploaded under Content > Files. A filename carries
+        no intrinsic dimensions, so the width/height pair is the source frame
+        rather than a measurement — it only reserves a box before CSS lands.
+      {%- endcomment -%}
+      <img
+        class="amb-hero__media"
+        src="{{ section.settings.fallback_image_name | file_url }}"
+        alt=""
+        width="1500"
+        height="1000"
+        loading="eager"
+        fetchpriority="high"
+      >
+    {%- endif -%}
+
+    <div class="amb-hero__scrim" aria-hidden="true"></div>
+
+    <div class="apex-container amb-hero__inner">
+      <h1 class="amb-hero__heading">
+        {{ section.settings.hero_heading | escape }}
+        {%- if section.settings.hero_heading_accent != blank -%}
+          <span class="amb-accent">{{ section.settings.hero_heading_accent | escape }}</span>
+        {%- endif -%}
+      </h1>
+
+      {%- if section.settings.hero_text != blank -%}
+        <p class="amb-hero__text">{{ section.settings.hero_text | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.hero_cta_label != blank -%}
+        <div class="amb-actions">
+          <a class="btn btn-light" href="{{ apply_url }}">
+            {{ section.settings.hero_cta_label | escape }}
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+  </section>
+
+  {%- comment -%} ------------------------------- The program + the offer {%- endcomment -%}
+  <section class="amb-band" aria-labelledby="amb-intro">
+    <div class="apex-container amb-offer">
+      <div class="amb-offer__copy">
+        {%- if section.settings.intro_heading != blank -%}
+          <h2 class="amb-h2" id="amb-intro">{{ section.settings.intro_heading | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.intro_text != blank -%}
+          <div class="amb-rte">{{ section.settings.intro_text }}</div>
+        {%- endif -%}
+
+        {%- comment -%}
+          Returning affiliates. This is the ONLY link on the page that does not
+          go to `apply_url` — everything else is an application, this is a
+          sign-in for someone who already applied, so it is deliberately a
+          quiet arrow link rather than a fourth button competing with them.
+        {%- endcomment -%}
+        {%- comment -%}
+          Gated on the URL, not the copy. Shopify's `url` setting type refuses
+          a schema `default`, so the link is only ever set from the template —
+          and "Already have an affiliate login account?" with nothing to click
+          is worse than no line at all.
+        {%- endcomment -%}
+        {%- if section.settings.login_url != blank -%}
+          <p class="amb-login">
+            {%- if section.settings.login_text != blank -%}
+              <span class="amb-login__text">{{ section.settings.login_text | escape }}</span>
+            {%- endif -%}
+            <a class="btn btn-link" href="{{ section.settings.login_url }}">
+              {{ section.settings.login_label | default: 'Log in here' | escape }}
+              {% render 'icon-arrow-right' %}
+            </a>
+          </p>
+        {%- endif -%}
+      </div>
+
+      <div class="amb-card">
+        {%- if section.settings.card_badge != blank -%}
+          <span class="amb-card__badge">{{ section.settings.card_badge | escape }}</span>
+        {%- endif -%}
+
+        <div class="amb-card__head">
+          <span class="amb-card__tier">{{ section.settings.card_tier | escape }}</span>
+          <span class="amb-card__dot" aria-hidden="true"></span>
+        </div>
+
+        {%- if section.settings.card_figure != blank -%}
+          <p class="amb-card__figure">
+            <span class="amb-card__figure-amount">{{ section.settings.card_figure | escape }}</span>
+            {%- if section.settings.card_figure_suffix != blank -%}
+              <span class="amb-card__figure-suffix">{{ section.settings.card_figure_suffix | escape }}</span>
+            {%- endif -%}
+          </p>
+        {%- endif -%}
+
+        {%- if section.settings.card_description != blank -%}
+          <p class="amb-card__description">{{ section.settings.card_description | escape }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.card_features != blank -%}
+          <div class="amb-card__group">
+            {%- if section.settings.card_features_label != blank -%}
+              <p class="amb-card__group-label">{{ section.settings.card_features_label | escape }}</p>
+            {%- endif -%}
+            <ul class="amb-card__list" role="list">
+              {%- for item in gets -%}
+                {%- assign item_text = item | strip -%}
+                {%- if item_text != blank -%}
+                  <li class="amb-card__row">
+                    {% render 'svg-icons', icon: 'check-circle', class: 'amb-card__check' %}
+                    <span>{{ item_text | escape }}</span>
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.card_expectations != blank -%}
+          <div class="amb-card__group">
+            {%- if section.settings.card_expectations_label != blank -%}
+              <p class="amb-card__group-label">{{ section.settings.card_expectations_label | escape }}</p>
+            {%- endif -%}
+            <ul class="amb-card__list" role="list">
+              {%- for item in asks -%}
+                {%- assign item_text = item | strip -%}
+                {%- if item_text != blank -%}
+                  <li class="amb-card__row">
+                    <span class="amb-card__dash" aria-hidden="true"></span>
+                    <span>{{ item_text | escape }}</span>
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.card_cta_label != blank -%}
+          <a class="btn btn-outline btn-full amb-card__cta" href="{{ apply_url }}">
+            {{ section.settings.card_cta_label | escape }}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} --------------------------------------------- Closing CTA {%- endcomment -%}
+  {%- if section.settings.cta_heading != blank -%}
+    <section class="amb-band amb-band--cta">
+      <div class="apex-container amb-cta">
+        <h2 class="amb-h2">{{ section.settings.cta_heading | escape }}</h2>
+        {%- if section.settings.cta_text != blank -%}
+          <p class="amb-cta__text">{{ section.settings.cta_text | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.cta_label != blank -%}
+          <a class="btn btn-light" href="{{ apply_url }}">{{ section.settings.cta_label | escape }}</a>
+        {%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  /* ==========================================================================
+     APEX ambassador program.
+
+     Every band on this page is dark, so there is no ink-flip layer here as
+     there is on the two partner pages — type reads the palette tokens
+     directly. If a light or bronze band is ever added back, that indirection
+     comes back with it.
+
+     MOBILE FIRST. Everything above the media queries is the phone layout.
+     ========================================================================== */
+
+  .amb {
+    background-color: var(--amb-bg, var(--color-bg));
+    color: var(--color-text);
+    font-family: var(--font-body);
+  }
+
+  /* --- shared type -------------------------------------------------------- */
+
+  .amb-h2 {
+    margin: 0;
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-display);
+    text-transform: uppercase;
+    text-wrap: balance;
+    /* A 48px heading in a 390px viewport has no room to lose. Without this a
+       single long word (AMBASSADOR is 11 characters) overhangs the gutter
+       instead of breaking. */
+    overflow-wrap: break-word;
+  }
+
+  .amb-accent {
+    color: var(--brand-accent);
+  }
+
+  .amb-rte {
+    margin-block-start: var(--space-sm);
+    max-width: 62ch;
+    color: var(--color-text-muted);
+    font-size: var(--text-lead);
+    line-height: var(--leading-body);
+  }
+
+  .amb-rte > :first-child { margin-block-start: 0; }
+  .amb-rte > :last-child { margin-block-end: 0; }
+
+  .amb-rte strong {
+    color: var(--color-text);
+    font-weight: var(--weight-semibold);
+  }
+
+  /* Sits between the intro copy and the offer card, so it takes the copy's
+     measure rather than the band's — a returning affiliate should find it
+     where they stopped reading. Wraps to two lines on a narrow viewport with
+     the link keeping its own baseline. */
+  .amb-login {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-2xs);
+    max-width: 62ch;
+    margin-block-start: var(--space-sm);
+    color: var(--color-text-muted);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+  }
+
+  .amb-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-block-start: var(--space-md);
+  }
+
+  /* --- bands -------------------------------------------------------------- */
+
+  .amb-band {
+    padding-block: var(--amb-pad, var(--space-section));
+  }
+
+  /* The closing CTA is the highest band on the page, not a bronze one.
+
+     A bronze ground was the obvious echo of the partner pages, but theirs
+     carries a pull-quote at display size. This band carries a paragraph at
+     --text-lead, and the darkest ink available on #A56D36 tops out around
+     4.1:1 — under AA for text that size, and there is nothing darker than
+     --ground to reach for. Bronze stays where it belongs here: the rule above
+     the band, and the CTA's own hover fill. */
+  .amb-band--cta {
+    background-color: var(--color-bg-elevated);
+    border-block-start: var(--rule-thickness) solid var(--brand-accent);
+  }
+
+  /* --- banner -------------------------------------------------------------
+     The header overlays this section, so the top padding clears
+     --header-height before any copy starts. svh, not vh, so a mobile
+     browser's collapsing address bar does not resize the banner mid-scroll. */
+
+  .amb-hero {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    min-height: min(50rem, 82svh);
+    padding-block: calc(var(--header-height) + var(--space-md)) var(--space-xl);
+    background-color: var(--color-bg-deep);
+    overflow: hidden;
+  }
+
+  .amb-hero__media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* A group shot loses people at the frame edge when a 3:2 source is cropped
+       to a portrait banner. The focal point is a setting for exactly that. */
+    object-position: var(--amb-hero-focus, 50% 50%);
+    opacity: var(--amb-hero-opacity, 0.55);
+    /* Greyscale is the point, not a stylistic accident — it is what keeps a
+       full-colour outdoor photograph from fighting the bronze accent sitting
+       on top of it. Contrast is nudged back up because desaturating a warm
+       image flattens it. */
+    filter: grayscale(var(--amb-hero-gray, 1)) contrast(1.08);
+  }
+
+  .amb-hero__scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--ground) 74%, transparent) 0%,
+      color-mix(in srgb, var(--ground) 30%, transparent) 38%,
+      color-mix(in srgb, var(--ground) 94%, transparent) 100%
+    );
+  }
+
+  .amb-hero__inner {
+    position: relative;
+  }
+
+  .amb-hero__heading {
+    margin: 0;
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: var(--text-display);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-display);
+    text-transform: uppercase;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+
+  /* The accent half of the headline drops to its own line rather than running
+     on. Two colours in one wrapped paragraph read as an error; two colours on
+     two lines read as a deliberate second beat. */
+  .amb-accent {
+    display: block;
+  }
+
+  .amb-hero__text {
+    margin: var(--space-sm) 0 0;
+    max-width: 54ch;
+    color: var(--color-text-muted);
+    font-size: var(--text-lead);
+    line-height: var(--leading-body);
+  }
+
+  /* --- the program + the offer --------------------------------------------
+     One card, so it is paired with the copy rather than left alone in a row
+     of three. Below 990 the copy stacks above it, full width. */
+
+  .amb-offer {
+    display: grid;
+    gap: var(--space-lg);
+    align-items: start;
+  }
+
+  /* Bronze wash mixed against `transparent`, not against the band colour, so
+     the card carries its own alpha and stays correct if the band background
+     is ever re-pointed in the editor. */
+  .amb-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding: var(--space-sm);
+    border: 1px solid var(--brand-accent-dim);
+    background-color: color-mix(
+      in srgb,
+      var(--brand-accent) var(--amb-tone-strength, 7%),
+      transparent
+    );
+  }
+
+  .amb-card__badge {
+    position: absolute;
+    inset-block-start: calc(var(--space-sm) * -0.5);
+    inset-inline-start: var(--space-sm);
+    padding: var(--space-unit) var(--space-2xs);
+    background-color: var(--brand-accent);
+    color: var(--color-text-on-light);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-label);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+  .amb-card__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-xs);
+  }
+
+  .amb-card__tier {
+    color: var(--brand-accent);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-label);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+  .amb-card__dot {
+    flex: none;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: var(--radius-pill);
+    background-color: var(--brand-accent);
+  }
+
+  .amb-card__figure {
+    margin: 0;
+    color: var(--color-text);
+  }
+
+  /* Amount and suffix stack rather than sharing a baseline. The suffix here is
+     a full clause, not a "/mo" — inline it would be an unbreakable run beside
+     a 36px figure. */
+  .amb-card__figure-amount {
+    display: block;
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
+    font-weight: var(--weight-display);
+    line-height: 1;
+  }
+
+  .amb-card__figure-suffix {
+    display: block;
+    margin-block-start: var(--space-2xs);
+    max-width: 32ch;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    line-height: var(--leading-snug);
+  }
+
+  .amb-card__description {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+  }
+
+  .amb-card__group {
+    padding-block-start: var(--space-sm);
+    border-block-start: 1px solid var(--color-border);
+  }
+
+  .amb-card__group-label {
+    margin: 0 0 var(--space-xs);
+    color: var(--color-text-faint);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+  .amb-card__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .amb-card__row {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2xs);
+    color: var(--color-text);
+    font-size: var(--text-sm);
+    line-height: var(--leading-snug);
+  }
+
+  .amb-card__check {
+    flex: none;
+    width: 1.6rem;
+    height: 1.6rem;
+    margin-block-start: 0.1rem;
+    color: var(--brand-accent);
+  }
+
+  /* The asks get a bronze dash, not a check. A check next to "hit $300-$800 a
+     month" would read as something already granted. Sized and offset to sit on
+     the same optical line the check icon occupies. */
+  .amb-card__dash {
+    flex: none;
+    width: 1.6rem;
+    height: var(--rule-thickness);
+    margin-block-start: 1rem;
+    background-color: var(--brand-accent);
+  }
+
+  .amb-card__cta {
+    margin-block-start: var(--space-2xs);
+  }
+
+  /* --- closing CTA --------------------------------------------------------- */
+
+  .amb-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+
+  .amb-cta__text {
+    margin: 0;
+    max-width: 52ch;
+    color: var(--color-text-muted);
+    font-size: var(--text-lead);
+    line-height: var(--leading-body);
+  }
+
+  /* --- tablet -------------------------------------------------------------- */
+
+  @media screen and (min-width: 750px) {
+    .amb-card {
+      padding: var(--space-md);
+    }
+
+    .amb-card__badge {
+      inset-inline-start: var(--space-md);
+    }
+  }
+
+  /* --- desktop -------------------------------------------------------------
+     The offer becomes two columns here rather than at 750: the card's own
+     content (a 56px figure plus two labelled lists) needs ~380px before the
+     copy beside it has anywhere to go, and at 750 the rail is only ~654px. */
+
+  @media screen and (min-width: 990px) {
+    .amb-offer {
+      grid-template-columns: 1fr minmax(38rem, 46rem);
+      gap: var(--grid-gap);
+    }
+
+    .amb-cta {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-lg);
+    }
+
+    .amb-cta .amb-h2 {
+      flex: 1 1 40rem;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "APEX ambassadors",
+  "tag": "section",
+  "class": "apex-ambassadors-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Banner"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Banner image",
+      "info": "Rendered greyscale behind the headline. Recommended 1500px wide or more. Falls back to the file named below if empty."
+    },
+    {
+      "type": "text",
+      "id": "fallback_image_name",
+      "label": "Fallback file name",
+      "info": "A file uploaded under Content > Files. Used only when no banner image is picked above.",
+      "default": "Project_20260813_0255.jpg"
+    },
+    {
+      "type": "range",
+      "id": "hero_greyscale",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Greyscale",
+      "info": "100% is fully desaturated, which is what keeps the photograph from fighting the bronze accent.",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "hero_image_opacity",
+      "min": 15,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Image strength",
+      "default": 55
+    },
+    {
+      "type": "range",
+      "id": "hero_focus_x",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Focal point, horizontal",
+      "info": "Which part of the photograph stays in frame when it is cropped to the banner.",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "hero_focus_y",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Focal point, vertical",
+      "default": 40
+    },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Heading",
+      "default": "Every court has someone people listen to."
+    },
+    {
+      "type": "text",
+      "id": "hero_heading_accent",
+      "label": "Heading, accent line",
+      "info": "Set in bronze on its own line.",
+      "default": "Be ours."
+    },
+    {
+      "type": "textarea",
+      "id": "hero_text",
+      "label": "Supporting copy",
+      "default": "We make one thing — the Apex 48. Ambassadors are the players who put it in other people's hands: a bag of balls every month to share, a code of your own, and 10% of everything it brings in."
+    },
+    {
+      "type": "text",
+      "id": "hero_cta_label",
+      "label": "Button label",
+      "default": "Apply to be an ambassador"
+    },
+    {
+      "type": "header",
+      "content": "Apply link"
+    },
+    {
+      "type": "url",
+      "id": "apply_url",
+      "label": "Apply link",
+      "info": "Used by all three apply buttons on this page — hero, offer card and closing CTA. Points at the UpPromote affiliate sign-up."
+    },
+    {
+      "type": "header",
+      "content": "What it means"
+    },
+    {
+      "type": "text",
+      "id": "intro_heading",
+      "label": "Heading",
+      "default": "What it means to be an Apex ambassador."
+    },
+    {
+      "type": "richtext",
+      "id": "intro_text",
+      "label": "Body",
+      "default": "<p>Apex makes one product: the <strong>Apex 48</strong>, a 48-hole pickleball built for consistent flight and a full season of play. No paddles, no bags, no apparel. That focus is the whole pitch, and it is what makes this program simple — there is only ever one thing to talk about.</p><p>An ambassador is not a sponsored athlete. There is no ranking to hit and no following to prove. What we are after is someone who turns up to the same courts every week, whose bag people look in, and who is willing to hand a stranger a ball and let it answer for itself.</p><p>Every month we send you a 10-pack bag to share and sample. Open it at league night, put a fresh ball into the middle of a game, and let people feel the difference between a ball on its first session and one on its fortieth.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Returning affiliates"
+    },
+    {
+      "type": "text",
+      "id": "login_text",
+      "label": "Login line",
+      "info": "Sits under the intro copy. Leave blank to hide the whole line.",
+      "default": "Already have an affiliate login account?"
+    },
+    {
+      "type": "text",
+      "id": "login_label",
+      "label": "Login link label",
+      "default": "Log in here"
+    },
+    {
+      "type": "url",
+      "id": "login_url",
+      "label": "Login link"
+    },
+    {
+      "type": "header",
+      "content": "The offer card"
+    },
+    {
+      "type": "text",
+      "id": "card_badge",
+      "label": "Card badge",
+      "info": "Leave blank to hide.",
+      "default": "Now accepting"
+    },
+    {
+      "type": "text",
+      "id": "card_tier",
+      "label": "Card title",
+      "default": "Apex ambassador"
+    },
+    {
+      "type": "text",
+      "id": "card_figure",
+      "label": "Headline figure",
+      "default": "10%"
+    },
+    {
+      "type": "text",
+      "id": "card_figure_suffix",
+      "label": "Headline figure caption",
+      "default": "commission on every order placed with your code"
+    },
+    {
+      "type": "text",
+      "id": "card_description",
+      "label": "Card description",
+      "default": "Free balls to hand out every month, and a share of everything your code brings in."
+    },
+    {
+      "type": "text",
+      "id": "card_features_label",
+      "label": "Benefits list label",
+      "default": "What you get"
+    },
+    {
+      "type": "textarea",
+      "id": "card_features",
+      "label": "Benefits",
+      "info": "One per line. Shown with a bronze check.",
+      "default": "A 10-pack bag of Apex, free, every month — to share and sample\nA discount code of your own: 10% off for anyone who uses it\n10% commission on every order placed with that code"
+    },
+    {
+      "type": "text",
+      "id": "card_expectations_label",
+      "label": "Expectations list label",
+      "default": "What we ask"
+    },
+    {
+      "type": "textarea",
+      "id": "card_expectations",
+      "label": "Expectations",
+      "info": "One per line. Shown with a bronze dash rather than a check, so asks do not read as perks.",
+      "default": "Keep the balls moving — open play, clinics, league nights, wherever people are\n$300–$800 in sales through your code each month\nA review of your numbers together at 90–120 days"
+    },
+    {
+      "type": "text",
+      "id": "card_cta_label",
+      "label": "Card button label",
+      "default": "Apply now"
+    },
+    {
+      "type": "header",
+      "content": "Closing call to action"
+    },
+    {
+      "type": "text",
+      "id": "cta_heading",
+      "label": "Heading",
+      "default": "Got a court full of people who trust you?"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Supporting copy",
+      "default": "We will send the balls. You do the rest."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Apply to be an ambassador"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "card_tone_strength",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "%",
+      "label": "Card tint strength",
+      "info": "How strongly the bronze wash reads behind the card. Kept low on purpose.",
+      "default": 7
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Page background",
+      "default": "#0b090c"
+    },
+    {
+      "type": "range",
+      "id": "padding_block",
+      "min": 16,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 96
+    }
+  ],
+  "presets": [
+    {
+      "name": "APEX ambassadors"
+    }
+  ]
+}
+{% endschema %}

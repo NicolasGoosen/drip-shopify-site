@@ -1,0 +1,201 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "facility-subs",
+      "blocks": {
+        "step-1": {
+          "type": "step",
+          "settings": {
+            "title": "One Delivery per Quarter",
+            "text": "Court stock and retail stock ship together. No reordering, no chasing inventory halfway through a season."
+          }
+        },
+        "step-2": {
+          "type": "step",
+          "settings": {
+            "title": "Players First",
+            "text": "Facility-use balls go straight to open play, clinics and league nights. That allocation never touches the shelf."
+          }
+        },
+        "step-3": {
+          "type": "step",
+          "settings": {
+            "title": "Pro Shop Retail",
+            "text": "Retail-ready 4-packs and 10-packs, sealed and barcoded. Nothing to count, label or repackage."
+          }
+        },
+        "step-4": {
+          "type": "step",
+          "settings": {
+            "title": "Simple Math",
+            "text": "Sell through the retail allocation at MSRP and you recover more than the plan cost. The court balls pay for themselves."
+          }
+        },
+        "tier-1": {
+          "type": "tier",
+          "settings": {
+            "tier_name": "Bronze",
+            "tier_tone": "bronze",
+            "price": "$199",
+            "price_suffix": "/quarter",
+            "description": "Ideal for 1–4 courts.",
+            "court_value": "50 balls",
+            "court_note": "Open play, clinics and league nights.",
+            "retail_units": "100 balls",
+            "pack_note": "10 × 4-packs\n6 × 10-packs",
+            "retail_value": "$219.84",
+            "featured": false,
+            "featured_label": "Most popular",
+            "cta_label": "",
+            "cta_link": ""
+          }
+        },
+        "tier-2": {
+          "type": "tier",
+          "settings": {
+            "tier_name": "Silver",
+            "tier_tone": "silver",
+            "price": "$329",
+            "price_suffix": "/quarter",
+            "description": "Ideal for 6–10 courts.",
+            "court_value": "100 balls",
+            "court_note": "Open play, clinics, leagues and socials.",
+            "retail_units": "160 balls",
+            "pack_note": "15 × 4-packs\n10 × 10-packs",
+            "retail_value": "$349.75",
+            "featured": true,
+            "featured_label": "Most popular",
+            "cta_label": "",
+            "cta_link": ""
+          }
+        },
+        "tier-3": {
+          "type": "tier",
+          "settings": {
+            "tier_name": "Gold",
+            "tier_tone": "gold",
+            "price": "$849",
+            "price_suffix": "/quarter",
+            "description": "Ideal for 10+ courts.",
+            "court_value": "300 balls",
+            "court_note": "Open play, leagues, clinics and tournament use.",
+            "retail_units": "420 balls",
+            "pack_note": "30 × 4-packs\n30 × 10-packs",
+            "retail_value": "$899.40",
+            "featured": false,
+            "featured_label": "Most popular",
+            "cta_label": "",
+            "cta_link": ""
+          }
+        },
+        "faq-1": {
+          "type": "faq",
+          "settings": {
+            "question": "How often does a subscription ship?",
+            "answer": "<p>Once a quarter. Your court balls and your retail packs arrive in the same delivery.</p>"
+          }
+        },
+        "faq-2": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the difference between the court balls and the pro shop balls?",
+            "answer": "<p>Court balls are loose facility stock, meant for open play, clinics and league nights. The retail allocation arrives in sealed 4-packs and 10-packs, packaged for resale in your pro shop.</p>"
+          }
+        },
+        "faq-3": {
+          "type": "faq",
+          "settings": {
+            "question": "How is the retail value on each plan calculated?",
+            "answer": "<p>At MSRP — $9.99 per 4-pack and $19.99 per 10-pack — multiplied by the packs in that plan. It assumes you sell the full retail allocation. Sell less and you cover less; price above MSRP and you cover more.</p>"
+          }
+        },
+        "faq-4": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I sign up?",
+            "answer": "<p>Add your chosen subscription to the cart, and follow the standard shop checkout procedure.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "step-1",
+        "step-2",
+        "step-3",
+        "step-4",
+        "tier-1",
+        "tier-2",
+        "tier-3",
+        "faq-1",
+        "faq-2",
+        "faq-3",
+        "faq-4"
+      ],
+      "settings": {
+        "hero_eyebrow": "For clubs & facilities",
+        "hero_heading": "AT LAST, A PARTNER FOR YOUR FACILITY ECOSYSTEM",
+        "hero_heading_accent": "",
+        "hero_text": "<p>With an APEX subscription you now can have bulk balls supplied quarterly. APEX facility subscriptions include retail sell-through quantities that allow you to recoup your costs and turn a profit. A true win-win for everyone.<br/></p>",
+        "hero_cta_label": "See the plans",
+        "hero_cta_link": "",
+        "hero_cta2_label": "Talk to us",
+        "hero_cta2_link": "/pages/contact",
+        "hero_note": "*Facility subscriptions are not currently available for preorder.",
+        "hero_image": "shopify://shop_images/balls-bucket-v4.png",
+        "hero_image_opacity": 100,
+        "hero_focus_x": 0,
+        "hero_focus_y": 50,
+        "hero_clears_header": false,
+        "show_offset": true,
+        "offset_eyebrow": "The offset",
+        "offset_heading": "A Facility Partnership that puts Apex Throughout the Player Experience",
+        "offset_text": "<p>If you are not retailing pickleballs then you're missing out on revenue.<br/><br/>Every subscription includes bulk balls for lessons, training, events and tournaments. Sell the retail portion and never come out of pocket to reorder again.</p><p>Sell the retail allocation to recover the cost of your subscription</p>",
+        "banner_image": "shopify://shop_images/eco-system-of-facilities-apex.png",
+        "banner_image_alt": "",
+        "banner_background": "#000000",
+        "banner_max_height": 500,
+        "banner_padding": 0,
+        "show_plans": true,
+        "plans_eyebrow": "Tiers",
+        "plans_heading": "Three tiers. One solution.",
+        "plans_text": "<p>Select the plan that matches your court traffic. Each tier's full retail sell-through covers the cost of balls-on-court. A tailor-made tier for all facilities.</p>",
+        "plans_footnote": "Retail value is calculated at MSRP: $9.99 per 4-pack and $19.99 per 10-pack. What you actually make depends on your own shelf price and how much of the allocation you sell through.",
+        "plans_note": "*Facility subscriptions are not currently available for preorder.",
+        "court_label": "For your courts",
+        "retail_label": "For your pro shop",
+        "offset_label": "The offset",
+        "ledger_retail_label": "Retail value at MSRP",
+        "ledger_cost_label": "Plan cost",
+        "ledger_net_label": "You keep",
+        "ledger_short_label": "Still to cover",
+        "coverage_suffix": "of your plan cost covered",
+        "show_faq": true,
+        "faq_eyebrow": "Questions",
+        "faq_heading": "Before you sign up.",
+        "show_cta": true,
+        "cta_eyebrow": "Get started",
+        "cta_heading": "Tell us about your facility.",
+        "cta_text": "",
+        "cta_label": "Get in touch",
+        "cta_link": "/pages/contact",
+        "cta_note": "*Facility subscriptions are not currently available for preorder.",
+        "card_radius": 16,
+        "border_width": 2,
+        "background": "#0b090c",
+        "background_alt": "#151114",
+        "padding_block": 96
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,1977 @@
+{%- comment -%}
+  DRIP facility subscriptions — full page.
+
+  The long-form version of the homepage band. `sections/drip-facility-cards.liquid`
+  keeps the whittled-down three-card teaser; this section is where the argument
+  that teaser only gestures at gets made in full: a facility's pro shop can
+  resell the retail half of its plan and recover the whole subscription cost.
+
+  Five bands in one section file, following the `partners-upl.liquid` precedent
+  for a page that is one editable surface rather than a stack of sections a
+  merchant can reorder into nonsense. Each band past the hero has a `show_*`
+  toggle.
+
+  THE CARD IS THE POINT
+  The homepage card lists "Potential retail revenue: $219.84" as a third
+  feature line and leaves the reader to do the subtraction. Here the card
+  carries a ledger — retail value, plan cost, what is left over — and a
+  coverage bar, because the whole page exists to make that one number legible.
+
+  NUMBERS ARE COMPUTED, NOT TYPED
+  Coverage percentage and net position are derived in Liquid from `price` and
+  `retail_value`, so a merchant who re-prices a plan cannot leave a stale
+  "110%" behind. The two entered figures stay text (matching the homepage
+  section's convention, currency symbol included); everything derived renders
+  through `money`, so it picks up the store's own currency format.
+
+  Where the two disagree — a store trading in EUR with "$204.95" typed into a
+  price field — the entered symbol is the thing that is wrong, and it is the
+  field the merchant controls. Nothing here invents a currency.
+
+  MSRP: $9.99 per 4-pack, $19.99 per 10-pack. Not a setting — it is inferred
+  from the homepage figures, which reconcile to the cent at those two prices
+  across all three tiers. Since the pro-shop band was removed it is stated in
+  exactly two places, both editable: the plans footnote and the third FAQ
+  answer. Correct both together if MSRP ever changes.
+
+  HEADER CLEARANCE IS OPT-IN
+  CLAUDE.md describes the header as `overlay` with no announcement bar, which
+  is what drip-hero and the UPL partner page pay a --header-height top pad for.
+  The store no longer renders that: it serves `drip-header--solid` with an
+  announcement bar above it, both in normal flow, so the header already
+  reserves its own height and that pad would be 108px of dead air. Hence the
+  `hero_clears_header` setting, off by default. Flip it on if the header ever
+  goes back to overlay.
+
+  TWO VALUES ARE NOT TOKENS and are schema settings rather than invented ones:
+  the card corner radius (every radius in tokens.css is 0) and the metallic
+  border thickness (a hairline, so it stays in px). Same call as fcards.
+{%- endcomment -%}
+
+{%- liquid
+  assign steps = section.blocks | where: 'type', 'step'
+  assign tiers = section.blocks | where: 'type', 'tier'
+  assign faqs = section.blocks | where: 'type', 'faq'
+-%}
+
+<div
+  class="fsub"
+  style="
+    --fsub-bg: {{ section.settings.background }};
+    --fsub-bg-alt: {{ section.settings.background_alt }};
+    --fsub-pad-block: {{ section.settings.padding_block }}px;
+    --fsub-radius: {{ section.settings.card_radius }}px;
+    --fsub-border-w: {{ section.settings.border_width }}px;
+  "
+>
+  {%- comment -%} ------------------------------------------------- Hero {%- endcomment -%}
+  <section
+    class="fsub-band fsub-hero{% if section.settings.hero_clears_header %} fsub-hero--overlay{% endif %}"
+    style="
+      --fsub-hero-opacity: {{ section.settings.hero_image_opacity | divided_by: 100.0 }};
+      --fsub-hero-focus: {{ section.settings.hero_focus_x }}% {{ section.settings.hero_focus_y }}%;
+    "
+  >
+    {%- comment -%}
+      Optional hero photograph. An <img> rather than a CSS background: the
+      stylesheet block below is not Liquid-processed, so `image_url` cannot
+      resolve in there — and image_tag gives a srcset for free.
+
+      Empty alt: the photograph is decorative. Whatever it shows, the heading
+      beside it already carries the meaning.
+    {%- endcomment -%}
+    {%- if section.settings.hero_image != blank -%}
+      {{
+        section.settings.hero_image
+        | image_url: width: 2400
+        | image_tag:
+          loading: 'eager',
+          fetchpriority: 'high',
+          sizes: '100vw',
+          widths: '480, 768, 1000, 1400, 1800, 2400',
+          class: 'fsub-hero__media',
+          alt: ''
+      }}
+      <span class="fsub-hero__scrim" aria-hidden="true"></span>
+    {%- endif -%}
+
+    <div class="drip-container">
+      <div class="fsub-hero__inner">
+        {%- if section.settings.hero_eyebrow != blank -%}
+          <p class="fsub-eyebrow">{{ section.settings.hero_eyebrow | escape }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.hero_heading != blank or section.settings.hero_heading_accent != blank -%}
+          <h1 class="fsub-h1">
+            {%- if section.settings.hero_heading != blank -%}
+              {{ section.settings.hero_heading | escape }}
+            {%- endif -%}
+            {%- if section.settings.hero_heading_accent != blank -%}
+              <span class="fsub-accent">{{ section.settings.hero_heading_accent | escape }}</span>
+            {%- endif -%}
+          </h1>
+        {%- endif -%}
+
+        {%- if section.settings.hero_text != blank -%}
+          <div class="fsub-lead fsub-rte">{{ section.settings.hero_text }}</div>
+        {%- endif -%}
+
+        {%- if section.settings.hero_cta_label != blank or section.settings.hero_cta2_label != blank -%}
+          <div class="fsub-actions">
+            {%- if section.settings.hero_cta_label != blank -%}
+              <a class="btn btn-light" href="{{ section.settings.hero_cta_link | default: '#plans' }}">
+                {{ section.settings.hero_cta_label | escape }}
+              </a>
+            {%- endif -%}
+            {%- if section.settings.hero_cta2_label != blank -%}
+              <a class="btn btn-outline" href="{{ section.settings.hero_cta2_link | default: '#plans' }}">
+                {{ section.settings.hero_cta2_label | escape }}
+                {% render 'icon-arrow-right' %}
+              </a>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.hero_note != blank -%}
+          <p class="fsub-note">{{ section.settings.hero_note | escape }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} -------------------------------------------- The offset {%- endcomment -%}
+  {%- if section.settings.show_offset -%}
+    <section class="fsub-band fsub-band--alt">
+      <div class="drip-container">
+        <div class="fsub-head">
+          {%- if section.settings.offset_eyebrow != blank -%}
+            <p class="fsub-eyebrow">{{ section.settings.offset_eyebrow | escape }}</p>
+          {%- endif -%}
+          {%- if section.settings.offset_heading != blank -%}
+            <h2 class="fsub-h2">{{ section.settings.offset_heading | escape }}</h2>
+          {%- endif -%}
+          {%- if section.settings.offset_text != blank -%}
+            <div class="fsub-lead fsub-rte">{{ section.settings.offset_text }}</div>
+          {%- endif -%}
+        </div>
+
+        {%- if steps.size > 0 -%}
+          <ol class="fsub-steps drip-grid" role="list">
+            {%- for block in steps -%}
+              <li class="fsub-step col-3 col-tablet-6" {{ block.shopify_attributes }}>
+                <span class="fsub-step__num" aria-hidden="true">{{ forloop.index }}</span>
+                {%- if block.settings.title != blank -%}
+                  <h3 class="fsub-step__title">{{ block.settings.title | escape }}</h3>
+                {%- endif -%}
+                {%- if block.settings.text != blank -%}
+                  <p class="fsub-step__text">{{ block.settings.text | escape }}</p>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ol>
+        {%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ------------------------------------------------ Banner
+
+    Height is the IMAGE's height, never a declared box height. The <img> is
+    constrained on both axes — max-height caps it, max-width: 100% shrinks it —
+    and the band is a flex box with no height of its own, so it collapses onto
+    whatever the image ends up being.
+
+    That single rule covers both cases asked for, with no media query:
+
+      viewport wider than the image  the image sits at its natural size (or at
+                                     the max height, whichever binds first)
+                                     and the band matches it
+
+      viewport narrower              max-width: 100% takes over, the image
+                                     scales down on its own aspect ratio, and
+                                     the band height follows it down
+
+    width/height attributes are emitted so the browser reserves the right box
+    before the file lands — without them this band is a layout-shift generator.
+  {%- endcomment -%}
+  {%- if section.settings.banner_image != blank -%}
+    <section
+      class="fsub-banner"
+      style="
+        --fsub-banner-bg: {{ section.settings.banner_background }};
+        --fsub-banner-max-h: {{ section.settings.banner_max_height }}px;
+        --fsub-banner-pad: {{ section.settings.banner_padding }}px;
+      "
+    >
+      <img
+        class="fsub-banner__image"
+        src="{{ section.settings.banner_image | image_url: width: 2400 }}"
+        alt="{{ section.settings.banner_image_alt | escape }}"
+        width="{{ section.settings.banner_image.width }}"
+        height="{{ section.settings.banner_image.height }}"
+        loading="lazy"
+      >
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ------------------------------------------------- Plans {%- endcomment -%}
+  {%- if section.settings.show_plans and tiers.size > 0 -%}
+    <section class="fsub-band" id="plans">
+      <div class="drip-container">
+        <div class="fsub-head">
+          {%- if section.settings.plans_eyebrow != blank -%}
+            <p class="fsub-eyebrow">{{ section.settings.plans_eyebrow | escape }}</p>
+          {%- endif -%}
+          {%- if section.settings.plans_heading != blank -%}
+            <h2 class="fsub-h2">{{ section.settings.plans_heading | escape }}</h2>
+          {%- endif -%}
+          {%- if section.settings.plans_text != blank -%}
+            <div class="fsub-lead fsub-rte">{{ section.settings.plans_text }}</div>
+          {%- endif -%}
+        </div>
+
+        <ul class="fsub-plans drip-grid" role="list">
+          {%- for block in tiers -%}
+            {%- liquid
+              # Both figures are entered as display text ("$199.95"), so strip
+              # the formatting before doing arithmetic on them. `times: 1.0`
+              # forces a float — without it `divided_by` truncates to integer
+              # division and every plan reads as exactly 100%.
+              assign price_num = block.settings.price | remove: '$' | remove: ',' | times: 1.0
+              assign retail_num = block.settings.retail_value | remove: '$' | remove: ',' | times: 1.0
+
+              # One pack format per line, same convention as the `features`
+              # textarea on the homepage card.
+              assign pack_items = block.settings.pack_note | newline_to_br | split: '<br />'
+
+              assign has_ledger = false
+              if price_num > 0 and retail_num > 0
+                assign has_ledger = true
+                assign offset_pct = retail_num | times: 100 | divided_by: price_num | round
+                assign price_cents = price_num | times: 100 | round
+                assign retail_cents = retail_num | times: 100 | round
+                assign net_cents = retail_cents | minus: price_cents
+
+                # The bar caps at full; the label carries the true figure,
+                # which is over 100% on every plan as currently priced.
+                assign bar_pct = offset_pct
+                if bar_pct > 100
+                  assign bar_pct = 100
+                endif
+
+                if net_cents < 0
+                  assign net_abs_cents = 0 | minus: net_cents
+                  assign net_label = section.settings.ledger_short_label
+                else
+                  assign net_abs_cents = net_cents
+                  assign net_label = section.settings.ledger_net_label
+                endif
+              endif
+            -%}
+            {%- comment -%}
+              `col-tablet-6` puts the cards 2-up between 750 and 989 and 3-up
+              from 990. A plain `col-4` card at 750 is 202px wide, and after
+              the frame and the card's own padding that leaves 134px of
+              content — not enough for a ledger label and an amount to share a
+              line, which is what wrapped "packaging" into "packa / ging". At
+              2-up the same card carries 247px and the ledger reads properly.
+              The third card sitting alone on the second row is the cost of
+              that, and it is the cheaper of the two problems.
+
+              This comment sits OUTSIDE the tag on purpose. A whitespace-
+              stripping Liquid comment placed between `<li` and its first
+              attribute eats the newline between them and renders `<liclass=`,
+              which the parser reads as an unknown element with no class.
+            {%- endcomment -%}
+            <li
+              class="fsub-plan col-4 col-tablet-6{% if block.settings.featured %} fsub-plan--featured{% endif %}"
+              style="--fsub-tone: var(--tier-{{ block.settings.tier_tone }});"
+              {{ block.shopify_attributes }}
+            >
+              {%- comment -%}
+                Metallic frame + face, same construction as the homepage card:
+                a gradient-filled wrapper with the card painted on top, because
+                `border-image` cannot follow a border-radius.
+              {%- endcomment -%}
+              <div class="fsub-plan__frame">
+                {%- if block.settings.featured and block.settings.featured_label != blank -%}
+                  <span class="fsub-plan__badge">{{ block.settings.featured_label | escape }}</span>
+                {%- endif -%}
+
+                <div class="fsub-plan__card">
+                  <div class="fsub-plan__head">
+                    <span class="fsub-plan__tier">{{ block.settings.tier_name | escape }}</span>
+                    <span class="fsub-plan__dot" aria-hidden="true"></span>
+                  </div>
+
+                  {%- if block.settings.price != blank -%}
+                    <p class="fsub-plan__price">
+                      <span class="fsub-plan__price-amount">{{ block.settings.price | escape }}</span>
+                      {%- if block.settings.price_suffix != blank -%}
+                        <span class="fsub-plan__price-suffix">{{ block.settings.price_suffix | escape }}</span>
+                      {%- endif -%}
+                    </p>
+                  {%- endif -%}
+
+                  {%- if block.settings.description != blank -%}
+                    <p class="fsub-plan__description">{{ block.settings.description | escape }}</p>
+                  {%- endif -%}
+
+                  {%- comment -%} What lands — the two allocations {%- endcomment -%}
+                  {%- if block.settings.court_value != blank or block.settings.retail_units != blank -%}
+                    <span class="fsub-plan__rule" aria-hidden="true"></span>
+
+                    <dl class="fsub-alloc">
+                      {%- if block.settings.court_value != blank -%}
+                        <div class="fsub-alloc__row">
+                          <dt class="fsub-alloc__label">{{ section.settings.court_label | escape }}</dt>
+                          <dd class="fsub-alloc__value">
+                            <span class="fsub-alloc__figure">{{ block.settings.court_value | escape }}</span>
+                            {%- if block.settings.court_note != blank -%}
+                              <span class="fsub-alloc__note">{{ block.settings.court_note | escape }}</span>
+                            {%- endif -%}
+                          </dd>
+                        </div>
+                      {%- endif -%}
+
+                      {%- if block.settings.retail_units != blank -%}
+                        <div class="fsub-alloc__row">
+                          <dt class="fsub-alloc__label">{{ section.settings.retail_label | escape }}</dt>
+                          <dd class="fsub-alloc__value">
+                            <span class="fsub-alloc__figure">{{ block.settings.retail_units | escape }}</span>
+                            {%- if block.settings.pack_note != blank -%}
+                              <ul class="fsub-packs" role="list">
+                                {%- for item in pack_items -%}
+                                  {%- assign item_text = item | strip -%}
+                                  {%- if item_text != blank -%}
+                                    <li class="fsub-pack">
+                                      {% render 'svg-icons', icon: 'check-circle', class: 'fsub-pack__icon' %}
+                                      <span>{{ item_text | escape }}</span>
+                                    </li>
+                                  {%- endif -%}
+                                {%- endfor -%}
+                              </ul>
+                            {%- endif -%}
+                          </dd>
+                        </div>
+                      {%- endif -%}
+                    </dl>
+                  {%- endif -%}
+
+                  {%- comment -%}
+                    The ledger. Renders only when both figures parse to a
+                    number — a plan with the retail value left blank degrades
+                    to an ordinary card rather than claiming "0%".
+                  {%- endcomment -%}
+                  {%- if has_ledger -%}
+                    <div class="fsub-ledger">
+                      {%- if section.settings.offset_label != blank -%}
+                        <p class="fsub-ledger__title">{{ section.settings.offset_label | escape }}</p>
+                      {%- endif -%}
+
+                      <dl class="fsub-ledger__rows">
+                        <div class="fsub-ledger__row">
+                          <dt>{{ section.settings.ledger_retail_label | escape }}</dt>
+                          <dd>{{ retail_cents | money }}</dd>
+                        </div>
+                        <div class="fsub-ledger__row">
+                          <dt>{{ section.settings.ledger_cost_label | escape }}</dt>
+                          <dd>&minus;{{ price_cents | money }}</dd>
+                        </div>
+                        <div class="fsub-ledger__row fsub-ledger__row--total">
+                          <dt>{{ net_label | escape }}</dt>
+                          <dd>
+                            {%- if net_cents >= 0 -%}+{%- else -%}&minus;{%- endif -%}
+                            {{- net_abs_cents | money -}}
+                          </dd>
+                        </div>
+                      </dl>
+
+                      <div class="fsub-cov">
+                        <span class="fsub-cov__track" aria-hidden="true">
+                          <span class="fsub-cov__fill" style="--fsub-cov-w: {{ bar_pct }}%;"></span>
+                        </span>
+                        <p class="fsub-cov__label">
+                          <strong>{{ offset_pct }}%</strong>
+                          {{ section.settings.coverage_suffix | escape }}
+                        </p>
+                      </div>
+                    </div>
+                  {%- endif -%}
+
+                  {%- if block.settings.cta_label != blank -%}
+                    <p class="fsub-plan__cta">
+                      <a class="btn btn-outline btn-full" href="{{ block.settings.cta_link | default: '#' }}">
+                        {{ block.settings.cta_label | escape }}
+                      </a>
+                    </p>
+                  {%- endif -%}
+                </div>
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+
+        {%- if section.settings.plans_footnote != blank -%}
+          <p class="fsub-footnote">{{ section.settings.plans_footnote | escape }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.plans_note != blank -%}
+          <p class="fsub-note">{{ section.settings.plans_note | escape }}</p>
+        {%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} --------------------------------------------------- FAQ {%- endcomment -%}
+  {%- if section.settings.show_faq and faqs.size > 0 -%}
+    <section class="fsub-band">
+      <div class="drip-container">
+        <div class="fsub-faq drip-grid">
+          {%- comment -%}
+            5 + 7, not 4 + 8. At 990 a `col-4` head is 250px and the heading
+            renders at --text-h1 (56px), where the single word "BEFORE" needs
+            ~230px — Dawn's base stylesheet breaks rather than overflows, so it
+            came out as "BEFOR / E YOU". col-5 is 322px at the same width.
+          {%- endcomment -%}
+          <div class="fsub-faq__head col-5">
+            {%- if section.settings.faq_eyebrow != blank -%}
+              <p class="fsub-eyebrow">{{ section.settings.faq_eyebrow | escape }}</p>
+            {%- endif -%}
+            {%- if section.settings.faq_heading != blank -%}
+              <h2 class="fsub-h2">{{ section.settings.faq_heading | escape }}</h2>
+            {%- endif -%}
+          </div>
+
+          {%- comment -%}
+            Plain <details>, no web component. Dawn's own accordions are the
+            same pattern; nothing here needs JS, and without it the answers are
+            still reachable when a script fails to load.
+          {%- endcomment -%}
+          <div class="fsub-faq__list col-7">
+            {%- for block in faqs -%}
+              <details class="fsub-qa" {{ block.shopify_attributes }}>
+                <summary class="fsub-qa__q">
+                  <span class="fsub-qa__q-text">{{ block.settings.question | escape }}</span>
+                  <span class="fsub-qa__mark" aria-hidden="true"></span>
+                </summary>
+                {%- if block.settings.answer != blank -%}
+                  <div class="fsub-qa__a fsub-rte">{{ block.settings.answer }}</div>
+                {%- endif -%}
+              </details>
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} --------------------------------------------------- CTA {%- endcomment -%}
+  {%- if section.settings.show_cta -%}
+    <section class="fsub-band fsub-band--cta">
+      <div class="drip-container">
+        <div class="fsub-cta">
+          {%- if section.settings.cta_eyebrow != blank -%}
+            <p class="fsub-eyebrow">{{ section.settings.cta_eyebrow | escape }}</p>
+          {%- endif -%}
+          {%- if section.settings.cta_heading != blank -%}
+            <h2 class="fsub-h2">{{ section.settings.cta_heading | escape }}</h2>
+          {%- endif -%}
+          {%- if section.settings.cta_text != blank -%}
+            <div class="fsub-lead fsub-rte">{{ section.settings.cta_text }}</div>
+          {%- endif -%}
+          {%- if section.settings.cta_label != blank -%}
+            <p class="fsub-actions">
+              <a class="btn btn-light btn-lg" href="{{ section.settings.cta_link | default: '#' }}">
+                {{ section.settings.cta_label | escape }}
+              </a>
+            </p>
+          {%- endif -%}
+          {%- if section.settings.cta_note != blank -%}
+            <p class="fsub-note">{{ section.settings.cta_note | escape }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  /* ======================================================================
+     Bands
+     ====================================================================== */
+
+  .fsub-band {
+    padding-block: var(--fsub-pad-block, var(--space-section));
+    background-color: var(--fsub-bg, var(--color-bg));
+  }
+
+  .fsub-band--alt {
+    background-color: var(--fsub-bg-alt, var(--color-bg-alt));
+  }
+
+  /* --- banner ---------------------------------------------------------------
+
+     No height, no aspect-ratio, no background-image. The band is a flex box
+     that centres one <img> and takes its height from it.
+
+     The image is capped on BOTH axes and left auto on both:
+
+       max-height  the merchant's ceiling. Binds on a wide viewport.
+       max-width   100% of the band. Binds once the viewport is narrower than
+                   the image, and scales the height down with it.
+       width/height: auto  lets the intrinsic ratio resolve the other axis
+                   against whichever cap is binding.
+
+     object-fit is deliberately absent: it only does anything when a box is
+     forced to a size the image does not match, and nothing here forces one.
+     The image is never cropped or letterboxed — the band simply is the image.
+     -------------------------------------------------------------------------- */
+
+  .fsub-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--fsub-banner-pad, 0);
+    background-color: var(--fsub-banner-bg, var(--color-bg));
+  }
+
+  .fsub-banner__image {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: var(--fsub-banner-max-h, 40rem);
+  }
+
+  /* `isolation: isolate` makes this a stacking context, so the two negative
+     z-index layers below sit ABOVE this radial gradient and BELOW the copy
+     without the container needing a z-index of its own. Without it they would
+     escape to the nearest ancestor context and land behind the page. */
+  .fsub-hero {
+    position: relative;
+    isolation: isolate;
+    background-image: radial-gradient(
+      120% 90% at 50% 0%,
+      color-mix(in srgb, var(--light) 5%, var(--fsub-bg, var(--color-bg))) 0%,
+      var(--fsub-bg, var(--color-bg)) 62%
+    );
+  }
+
+  /* Both layers only exist when a photograph is set — with no image the hero
+     is exactly the flat band it was. */
+  .fsub-hero__media {
+    position: absolute;
+    z-index: -2;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--fsub-hero-focus, 50% 50%);
+    opacity: var(--fsub-hero-opacity, 0.45);
+  }
+
+  /* Darkens toward the left, where the copy sits, and toward the bottom, so
+     the band still steps cleanly into the one beneath it. Mixed off the band's
+     own background rather than a second hardcoded dark, so it tracks whatever
+     colour the merchant sets. */
+  .fsub-hero__scrim {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background-image:
+      linear-gradient(
+        to right,
+        color-mix(in srgb, var(--fsub-bg, var(--color-bg)) 78%, transparent) 0%,
+        color-mix(in srgb, var(--fsub-bg, var(--color-bg)) 30%, transparent) 70%,
+        transparent 100%
+      ),
+      linear-gradient(
+        to bottom,
+        transparent 40%,
+        color-mix(in srgb, var(--fsub-bg, var(--color-bg)) 70%, transparent) 100%
+      );
+  }
+
+  /* Opt-in clearance for an OVERLAY header (absolute, top: 0), which would
+     otherwise sit on top of this band's first line.
+
+     Off by default because the store currently renders `drip-header--solid`
+     with an announcement bar above it — both in normal flow — so the header
+     already reserves its own height and this pad would be 108px of dead air.
+     CLAUDE.md still describes the header as overlay with no announcement bar;
+     that is stale against the live settings, not a contradiction to resolve
+     here. Flip this on if the header ever goes back to overlay. */
+  .fsub-hero--overlay {
+    padding-block-start: calc(var(--header-height) + var(--fsub-pad-block, var(--space-section)));
+  }
+
+  .fsub-hero__inner {
+    /* max-width: 62ch; */
+  }
+
+  /* --- shared type -------------------------------------------------------- */
+
+  .fsub-eyebrow {
+    margin: 0 0 var(--space-2xs);
+    color: var(--brand-accent);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-xs);
+    font-style: italic;
+    font-weight: var(--weight-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+  .fsub-h1,
+  .fsub-h2 {
+    margin: 0;
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-heading);
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  .fsub-h1 {
+    font-size: var(--text-h2);
+  }
+
+  .fsub-h2 {
+    font-size: var(--text-h2);
+  }
+
+  .fsub-h3 {
+    font-size: var(--text-h3);
+    color: white;
+    text-transform: uppercase;
+    text-wrap-style: balance;
+}  }
+
+  /* The second half of a two-part heading, in bronze. Its own line at every
+     width — the two clauses are a statement and its payoff, not one sentence
+     that happens to wrap. */
+  .fsub-accent {
+    display: block;
+    color: var(--brand-accent);
+  }
+
+  .fsub-lead,
+  .fsub-body {
+    max-width: 64ch;
+    color: var(--color-text-muted);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+    text-wrap: pretty;
+  }
+
+  .fsub-lead {
+    margin-block-start: var(--space-sm);
+    font-size: var(--text-lead);
+  }
+
+  .fsub-body {
+    margin-block-start: var(--space-xs);
+  }
+
+  .fsub-rte > :first-child { margin-block-start: 0; }
+  .fsub-rte > :last-child { margin-block-end: 0; }
+
+  .fsub-rte a {
+    color: var(--brand-accent);
+    text-underline-offset: 0.2em;
+  }
+
+  .fsub-note {
+    margin: var(--space-sm) 0 0;
+    color: var(--color-text-faint);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-sm);
+    font-style: italic;
+    line-height: var(--leading-tight);
+  }
+
+  .fsub-footnote {
+    max-width: 72ch;
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    line-height: var(--leading-snug);
+  }
+
+  .fsub-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin: var(--space-md) 0 0;
+  }
+
+  .fsub-head {
+    /* max-width: 64ch; */
+    margin-block-end: var(--space-lg);
+  }
+
+  /* ======================================================================
+     Offset — the numbered steps
+     ====================================================================== */
+
+  .fsub-steps {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .fsub-step {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+    padding-block-start: var(--space-xs);
+    border-block-start: var(--rule-thickness) solid var(--color-border);
+  }
+
+  /* The step number is the only place on the page a numeral carries the
+     bronze at display size. It is decorative — the <ol> already numbers the
+     list for assistive tech — hence aria-hidden on the span. */
+  .fsub-step__num {
+    color: var(--brand-accent);
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-display);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+
+  .fsub-step__title {
+    margin: 0;
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: var(--text-h4);
+    font-weight: var(--weight-display);
+    line-height: var(--leading-tight);
+  }
+
+  .fsub-step__text {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+    text-wrap: pretty;
+  }
+
+  /* ======================================================================
+     Plans — the expanded card
+     ====================================================================== */
+
+  /* `stretch`, NOT `start` — the homepage card grid uses start because its
+     cards have nothing that needs to align. Here the ledger is pushed to the
+     bottom of its card with `margin-block-start: auto`, and that only lines
+     the three ledgers up with each other if the cards are the same height in
+     the first place. Gold's court note runs to two lines where Bronze's runs
+     to one; without stretch the three coverage figures sit at three different
+     heights and stop reading as a row to compare. */
+  .fsub-plans {
+    margin: 0 0 var(--space-md);
+    padding: 0;
+    align-items: stretch;
+    list-style: none;
+  }
+
+  /* Every metallic ramp on a card derives from --fsub-tone, so re-pointing a
+     tier tone moves its border, dot, rule, glow, bar and check marks together.
+       -hi  highlight — tone lifted toward the light
+       -lo  shadow    — tone sunk toward the ground */
+  .fsub-plan {
+    --fsub-tone-hi: color-mix(in srgb, var(--fsub-tone) 45%, var(--light));
+    --fsub-tone-lo: color-mix(in srgb, var(--fsub-tone) 40%, var(--ground));
+  }
+
+  .fsub-plan__frame {
+    position: relative;
+    height: 100%;
+    padding: var(--fsub-border-w, 2px);
+    border-radius: var(--fsub-radius, 16px);
+    background-image: linear-gradient(
+      150deg,
+      var(--fsub-tone-hi) 0%,
+      var(--fsub-tone) 26%,
+      var(--fsub-tone-lo) 52%,
+      color-mix(in srgb, var(--fsub-tone) 55%, var(--light)) 74%,
+      var(--fsub-tone-hi) 100%
+    );
+    box-shadow: 0 24px 60px -30px color-mix(in srgb, var(--fsub-tone) 50%, transparent);
+  }
+
+  /* Face radius is the outer radius minus the border thickness — anything
+     larger and the gradient shows through the corners as four bright pips. */
+  .fsub-plan__card {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding: var(--space-sm);
+    border-radius: calc(var(--fsub-radius, 16px) - var(--fsub-border-w, 2px));
+    background-image: linear-gradient(
+      165deg,
+      color-mix(in srgb, var(--fsub-tone) 6%, var(--color-bg-elevated)) 0%,
+      var(--color-bg) 100%
+    );
+  }
+
+  .fsub-plan--featured .fsub-plan__card {
+    background-image: linear-gradient(
+      165deg,
+      color-mix(in srgb, var(--fsub-tone) 10%, var(--color-bg-elevated)) 0%,
+      var(--color-bg) 100%
+    );
+  }
+
+  /* Overhangs the card's top edge. The band's own padding keeps it off the
+     section above. */
+  .fsub-plan__badge {
+    position: absolute;
+    z-index: 1;
+    inset-block-start: -9px;
+    inset-inline-start: 50%;
+    padding: var(--space-unit) var(--space-xs);
+    border-radius: calc(var(--fsub-radius, 16px) * 0.4);
+    background-image: linear-gradient(
+      140deg,
+      var(--fsub-tone-hi),
+      color-mix(in srgb, var(--fsub-tone) 75%, var(--light))
+    );
+    color: var(--color-text-on-light);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-eyebrow);
+    letter-spacing: var(--tracking-label);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+    white-space: nowrap;
+    transform: translateX(-50%);
+  }
+
+  .fsub-plan__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2xs);
+  }
+
+  .fsub-plan__tier {
+    color: var(--fsub-tone);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+  .fsub-plan__dot {
+    flex: none;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: var(--radius-pill);
+    background-image: linear-gradient(140deg, var(--fsub-tone-hi), var(--fsub-tone));
+    box-shadow: 0 0 12px color-mix(in srgb, var(--fsub-tone) 70%, transparent);
+  }
+
+  .fsub-plan__price {
+    margin: 0;
+    color: var(--color-text);
+  }
+
+  /* Amount and suffix stack rather than sharing a baseline — the markup strips
+     the whitespace between the two spans, so inline they form one unbreakable
+     run with no break opportunity, and a 7-character price plus a word-length
+     suffix does not fit a third of the rail at 750. */
+  .fsub-plan__price-amount {
+    display: block;
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
+    font-weight: var(--weight-display);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: var(--tracking-body);
+    line-height: 1;
+  }
+
+  .fsub-plan__price-suffix {
+    display: block;
+    margin-block-start: var(--space-unit);
+    color: var(--color-text-muted);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-label);
+  }
+
+  .fsub-plan__description {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+  }
+
+  /* A tinted hairline that fades out to the right, not a full-width rule. */
+  .fsub-plan__rule {
+    display: block;
+    height: var(--rule-thickness);
+    background-image: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--fsub-tone) 55%, transparent),
+      color-mix(in srgb, var(--fsub-tone) 6%, transparent)
+    );
+  }
+
+  /* --- allocations -------------------------------------------------------- */
+
+  .fsub-alloc {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    margin: 0;
+  }
+
+  .fsub-alloc__label {
+    color: var(--color-text-faint);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-eyebrow);
+    letter-spacing: var(--tracking-label);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+  .fsub-alloc__value {
+    margin: var(--space-unit) 0 0;
+  }
+
+  .fsub-alloc__figure {
+    display: block;
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: var(--text-h4);
+    font-weight: var(--weight-display);
+    font-variant-numeric: tabular-nums;
+    line-height: var(--leading-tight);
+  }
+
+  .fsub-alloc__note {
+    display: block;
+    margin-block-start: var(--space-unit);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    line-height: var(--leading-snug);
+  }
+
+  /* Pack formats, one checked bullet each — the same treatment the homepage
+     card gives its feature lines. The icon takes the tier tone through
+     currentColor, so bronze/silver/gold check marks come for free. */
+  .fsub-packs {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+    margin: var(--space-2xs) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .fsub-pack {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2xs);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    line-height: var(--leading-snug);
+  }
+
+  .fsub-pack__icon {
+    flex: none;
+    width: 1.6rem;
+    height: 1.6rem;
+    margin-block-start: 0.2rem;
+    color: var(--fsub-tone);
+  }
+
+  /* --- the ledger ---------------------------------------------------------
+     Pushed to the bottom of the card with `margin-block-start: auto` so the
+     ledgers line up across three cards whose allocation lists run to different
+     lengths. That alignment is the whole reason the band exists — the three
+     coverage figures have to be readable as a row. */
+
+  .fsub-ledger {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+    margin-block-start: auto;
+    padding: var(--space-xs);
+    border-radius: calc(var(--fsub-radius, 16px) * 0.5);
+    background-color: color-mix(in srgb, var(--fsub-tone) 8%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--fsub-tone) 22%, transparent);
+  }
+
+  .fsub-ledger__title {
+    margin: 0;
+    color: var(--fsub-tone);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-eyebrow);
+    letter-spacing: var(--tracking-label);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+  .fsub-ledger__rows {
+    margin: 0;
+  }
+
+  /* Label and amount share a line WHEN THEY FIT, and the amount drops to its
+     own right-aligned line when they do not — rather than the label being
+     squeezed until it hyphen-less-wraps mid-word.
+
+     `flex-wrap: wrap` plus `flex: 0 0 auto` on the label is what buys that:
+     with any shrink allowed, flex shortens the label to its longest word
+     before it ever considers wrapping the amount, which is how "Retail value
+     at MSRP" became a five-line column at 990. Not shrinking means the amount
+     wraps first, and `margin-inline-start: auto` keeps it hard right on the
+     line it lands on. A merchant who types a genuinely long label still gets
+     ordinary word wrapping via `max-width: 100%`. */
+  .fsub-ledger__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    column-gap: var(--space-2xs);
+    padding-block: var(--space-unit);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    line-height: var(--leading-tight);
+  }
+
+  .fsub-ledger__row dt {
+    flex: 0 0 auto;
+    max-width: 100%;
+  }
+
+  /* tabular-nums so the three amounts align on their decimal point down the
+     column, which is what makes the subtraction read as a subtraction. */
+  .fsub-ledger__row dd {
+    margin: 0;
+    flex: 0 0 auto;
+    margin-inline-start: auto;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .fsub-ledger__row--total {
+    margin-block-start: var(--space-unit);
+    padding-block-start: var(--space-2xs);
+    border-block-start: 1px solid color-mix(in srgb, var(--fsub-tone) 30%, transparent);
+    color: var(--color-text);
+    font-weight: var(--weight-semibold);
+  }
+
+  /* --text-body, not --text-h4, all the way up to 1200.
+
+     750-989 is where a card is at its NARROWEST — 198px of content box, less
+     32px of ledger padding, leaves 166px for a label and an amount on one
+     line. "You keep" + "+$19.89" at --text-h4 needs 174px and blew the row out
+     by 8px. It cannot simply shrink at 750 either: hard rule 5 forbids type
+     that is larger on mobile than on tablet, so the mobile size has to come
+     down to what the tablet card can afford. The display size arrives at 1200
+     with the rest of the card. */
+  .fsub-ledger__row--total dd {
+    color: var(--fsub-tone);
+    font-family: var(--font-display);
+    font-size: var(--text-body);
+    font-weight: var(--weight-display);
+  }
+
+  /* --- coverage bar ------------------------------------------------------- */
+
+  .fsub-cov {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+    margin-block-start: var(--space-unit);
+  }
+
+  .fsub-cov__track {
+    display: block;
+    overflow: hidden;
+    height: var(--rule-thickness);
+    border-radius: var(--radius-pill);
+    background-color: color-mix(in srgb, var(--light) 12%, transparent);
+  }
+
+  .fsub-cov__fill {
+    display: block;
+    width: var(--fsub-cov-w, 0%);
+    height: 100%;
+    background-image: linear-gradient(90deg, var(--fsub-tone-lo), var(--fsub-tone-hi));
+  }
+
+  .fsub-cov__label {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+    line-height: var(--leading-tight);
+  }
+
+  .fsub-cov__label strong {
+    color: var(--fsub-tone);
+    font-family: var(--font-display);
+    font-size: var(--text-body);
+    font-variant-numeric: tabular-nums;
+    font-weight: var(--weight-display);
+  }
+
+  .fsub-plan__cta {
+    margin: 0;
+  }
+
+  /* ======================================================================
+     FAQ
+     ====================================================================== */
+
+  .fsub-faq__list {
+    margin-block-start: var(--space-md);
+  }
+
+  .fsub-qa {
+    border-block-end: 1px solid var(--color-border);
+  }
+
+  .fsub-qa:first-child {
+    border-block-start: 1px solid var(--color-border);
+  }
+
+  .fsub-qa__q {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-xs);
+    padding-block: var(--space-sm);
+    color: var(--color-text);
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-size: var(--text-h4);
+    font-weight: var(--weight-display);
+    line-height: var(--leading-tight);
+    list-style: none;
+  }
+
+  /* Safari draws its own disclosure triangle through ::-webkit-details-marker
+     regardless of `list-style: none`. */
+  .fsub-qa__q::-webkit-details-marker {
+    display: none;
+  }
+
+  .fsub-qa__q:focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-focus);
+    outline-offset: calc(var(--focus-ring-offset) * -1);
+  }
+
+  @media (hover: hover) {
+    .fsub-qa__q:hover .fsub-qa__q-text {
+      color: var(--brand-accent);
+    }
+  }
+
+  .fsub-qa__q-text {
+    transition: color var(--motion-fast) var(--ease-out);
+  }
+
+  /* A plus sign built from two bars, rotated to a minus when open. Drawn
+     rather than typed for the same reason the arrow is: the Zalando subset has
+     no glyph that would match. */
+  .fsub-qa__mark {
+    position: relative;
+    flex: none;
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+
+  .fsub-qa__mark::before,
+  .fsub-qa__mark::after {
+    position: absolute;
+    background-color: var(--brand-accent);
+    content: '';
+    inset-block-start: 50%;
+    inset-inline-start: 0;
+    width: 100%;
+    height: var(--rule-thickness);
+    transform: translateY(-50%);
+    transition: transform var(--motion-fast) var(--ease-out);
+  }
+
+  .fsub-qa__mark::after {
+    transform: translateY(-50%) rotate(90deg);
+  }
+
+  .fsub-qa[open] .fsub-qa__mark::after {
+    transform: translateY(-50%) rotate(0deg);
+  }
+
+  .fsub-qa__a {
+    max-width: 68ch;
+    padding-block-end: var(--space-sm);
+    color: var(--color-text-muted);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+    text-wrap: pretty;
+  }
+
+  /* ======================================================================
+     Closing CTA
+     ====================================================================== */
+
+  .fsub-band--cta {
+    background-color: var(--color-bg-deep);
+  }
+
+  .fsub-cta {
+    max-width: 56ch;
+  }
+
+  /* ======================================================================
+     Desktop step-up. Base above is mobile; nothing here shrinks type.
+     ====================================================================== */
+
+  @media screen and (min-width: 750px) {
+    .fsub-eyebrow {
+      font-size: var(--text-sm);
+    }
+
+    .fsub-h1 {
+      font-size: var(--text-display);
+    }
+
+    .fsub-step__text,
+    .fsub-plan__description,
+    .fsub-alloc__note,
+    .fsub-pack,
+    .fsub-footnote,
+    .fsub-note {
+      font-size: var(--text-body);
+    }
+
+    .fsub-cov__label {
+      font-size: var(--text-sm);
+    }
+
+    .fsub-qa__q,
+    .fsub-step__title,
+    .fsub-alloc__figure {
+      font-size: var(--text-h4);
+    }
+
+    .fsub-head {
+      margin-block-end: var(--space-xl);
+    }
+
+    /* HELD FLAT at the mobile size, not stepped up with --text-h1.
+
+       --text-h1 becomes 5.6rem at 750, and "$849.95" is ~245px at that size.
+       The card never has 245px of content to give it until 1200: it is 247px
+       at 750 (2-up) and drops to 182px at 990, where 3-up arrives at the same
+       moment --gutter jumps 4.8rem -> 8rem and makes a card NARROWER at 990
+       than it was at 989.
+
+       Sizing it to the 990 card and holding that everywhere below 1200 is
+       what keeps the ramp monotonic — hard rule 5 forbids type that is bigger
+       on a smaller viewport, so it cannot simply be tuned per band. */
+    .fsub-plan__price-amount {
+      font-size: 3.6rem;
+    }
+
+    .fsub-plan__card {
+      padding: var(--space-md);
+    }
+  }
+
+  /* Card width grows with the rail while --gutter stays put above 990, so by
+     1200 there is room for the card's full display sizes again. */
+  @media screen and (min-width: 1200px) {
+    .fsub-plan__price-amount {
+      font-size: var(--text-h1);
+    }
+
+    .fsub-ledger__row {
+      font-size: var(--text-body);
+    }
+
+    .fsub-ledger__row--total dd {
+      font-size: var(--text-h4);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "DRIP subscriptions page",
+  "tag": "section",
+  "class": "drip-facility-subs-page",
+  "max_blocks": 16,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "text",
+      "id": "hero_eyebrow",
+      "label": "Eyebrow",
+      "default": "For clubs & facilities"
+    },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Heading",
+      "default": "Stock every court."
+    },
+    {
+      "type": "text",
+      "id": "hero_heading_accent",
+      "label": "Heading, second line",
+      "info": "Rendered in bronze on its own line.",
+      "default": "Let your pro shop pay for it."
+    },
+    {
+      "type": "richtext",
+      "id": "hero_text",
+      "label": "Body",
+      "default": "<p>An Drip facility subscription lands once a quarter: loose balls for your courts, plus sealed retail packs for your pro shop shelf. Sell the retail half at MSRP and it covers the whole plan — court balls included.</p>"
+    },
+    {
+      "type": "text",
+      "id": "hero_cta_label",
+      "label": "Primary button label",
+      "default": "See the plans"
+    },
+    {
+      "type": "url",
+      "id": "hero_cta_link",
+      "label": "Primary button link",
+      "info": "Leave blank to jump down to the plans on this page."
+    },
+    {
+      "type": "text",
+      "id": "hero_cta2_label",
+      "label": "Secondary button label",
+      "default": "Talk to us"
+    },
+    {
+      "type": "url",
+      "id": "hero_cta2_link",
+      "label": "Secondary button link",
+      "info": "Leave blank to jump down to the plans on this page."
+    },
+    {
+      "type": "text",
+      "id": "hero_note",
+      "label": "Availability note",
+      "default": "*Facility subscriptions are not currently available for preorder."
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Background image",
+      "info": "Optional. Sits behind the hero copy with a dark wash over it. Leave empty for the flat band."
+    },
+    {
+      "type": "range",
+      "id": "hero_image_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Background image opacity",
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "hero_focus_x",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Image focal point — horizontal",
+      "info": "Which part of the photo stays in frame when it is cropped. 0% is the left edge.",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "hero_focus_y",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Image focal point — vertical",
+      "default": 50
+    },
+    {
+      "type": "checkbox",
+      "id": "hero_clears_header",
+      "label": "Add space for an overlay header",
+      "info": "Only needed if the theme header is set to Overlay, where it sits on top of the first band instead of above it. The header is currently Solid, so this stays off.",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Band — the offset"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_offset",
+      "label": "Show this band",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "offset_eyebrow",
+      "label": "Eyebrow",
+      "default": "The offset"
+    },
+    {
+      "type": "text",
+      "id": "offset_heading",
+      "label": "Heading",
+      "default": "How your shelf space pays for the plan."
+    },
+    {
+      "type": "richtext",
+      "id": "offset_text",
+      "label": "Body",
+      "default": "<p>Every plan splits in two. One half goes to your courts and is never sold. The other half arrives in sealed retail packaging, ready to price and put on a shelf. That second half is what pays the invoice.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Band — banner"
+    },
+    {
+      "type": "paragraph",
+      "content": "Sits between the offset band and the plans. The band takes its height from the image, so it disappears entirely when no image is set."
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "banner_image_alt",
+      "label": "Image alt text",
+      "info": "Leave empty only if the image is purely decorative."
+    },
+    {
+      "type": "color",
+      "id": "banner_background",
+      "label": "Background",
+      "default": "#0b090c"
+    },
+    {
+      "type": "range",
+      "id": "banner_max_height",
+      "label": "Maximum height",
+      "info": "The image never exceeds this. Below it, the image shrinks on its own proportions and the band follows.",
+      "min": 80,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "default": 320
+    },
+    {
+      "type": "range",
+      "id": "banner_padding",
+      "label": "Padding around the image",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Band — plans"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_plans",
+      "label": "Show this band",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "plans_eyebrow",
+      "label": "Eyebrow",
+      "default": "Plans"
+    },
+    {
+      "type": "text",
+      "id": "plans_heading",
+      "label": "Heading",
+      "default": "Three plans. Same arithmetic."
+    },
+    {
+      "type": "richtext",
+      "id": "plans_text",
+      "label": "Body",
+      "default": "<p>Pick the plan that matches your court traffic. Every one is priced so a full retail sell-through covers it — the figures on each card are the actual subtraction, not a projection.</p>"
+    },
+    {
+      "type": "text",
+      "id": "plans_footnote",
+      "label": "Footnote",
+      "info": "Where the MSRP assumption behind every card is stated. Edit here if MSRP changes.",
+      "default": "Retail value is calculated at MSRP: $9.99 per 4-pack and $19.99 per 10-pack. What you actually take depends on your own shelf price and how much of the allocation you sell through."
+    },
+    {
+      "type": "text",
+      "id": "plans_note",
+      "label": "Availability note",
+      "default": "*Facility subscriptions are not currently available for preorder."
+    },
+    {
+      "type": "header",
+      "content": "Plan card labels"
+    },
+    {
+      "type": "text",
+      "id": "court_label",
+      "label": "Court allocation label",
+      "default": "For your courts"
+    },
+    {
+      "type": "text",
+      "id": "retail_label",
+      "label": "Retail allocation label",
+      "default": "For your pro shop"
+    },
+    {
+      "type": "text",
+      "id": "offset_label",
+      "label": "Ledger title",
+      "default": "The offset"
+    },
+    {
+      "type": "text",
+      "id": "ledger_retail_label",
+      "label": "Ledger — retail value row",
+      "default": "Retail value at MSRP"
+    },
+    {
+      "type": "text",
+      "id": "ledger_cost_label",
+      "label": "Ledger — plan cost row",
+      "default": "Plan cost"
+    },
+    {
+      "type": "text",
+      "id": "ledger_net_label",
+      "label": "Ledger — total row, in surplus",
+      "info": "Shown when retail value exceeds the plan cost.",
+      "default": "You keep"
+    },
+    {
+      "type": "text",
+      "id": "ledger_short_label",
+      "label": "Ledger — total row, in deficit",
+      "info": "Shown instead when a plan costs more than its retail value covers.",
+      "default": "Still to cover"
+    },
+    {
+      "type": "text",
+      "id": "coverage_suffix",
+      "label": "Coverage bar label",
+      "info": "The percentage is calculated and prefixed automatically.",
+      "default": "of your plan cost covered"
+    },
+    {
+      "type": "header",
+      "content": "Band — FAQ"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_faq",
+      "label": "Show this band",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "faq_eyebrow",
+      "label": "Eyebrow",
+      "default": "Questions"
+    },
+    {
+      "type": "text",
+      "id": "faq_heading",
+      "label": "Heading",
+      "default": "Before you sign up."
+    },
+    {
+      "type": "header",
+      "content": "Band — closing CTA"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show this band",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cta_eyebrow",
+      "label": "Eyebrow",
+      "default": "Get started"
+    },
+    {
+      "type": "text",
+      "id": "cta_heading",
+      "label": "Heading",
+      "default": "Tell us about your facility."
+    },
+    {
+      "type": "richtext",
+      "id": "cta_text",
+      "label": "Body",
+      "default": "<p>How many courts, how busy they run, and what your pro shop already stocks. We will point you at the plan that fits.</p>"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Get in touch"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "cta_note",
+      "label": "Availability note",
+      "default": "*Facility subscriptions are not currently available for preorder."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Card corner radius",
+      "info": "Not a theme token — every other radius in this theme is 0. Set to 0 to square the cards off.",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Metallic border thickness",
+      "default": 2
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#0b090c"
+    },
+    {
+      "type": "color",
+      "id": "background_alt",
+      "label": "Alternate band background",
+      "default": "#151114"
+    },
+    {
+      "type": "range",
+      "id": "padding_block",
+      "min": 16,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Band vertical padding",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Offset step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "One delivery a quarter"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Court stock and retail stock ship together. No reordering, no chasing inventory halfway through a season."
+        }
+      ]
+    },
+    {
+      "type": "tier",
+      "name": "Plan",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tier_name",
+          "label": "Plan name",
+          "default": "Bronze"
+        },
+        {
+          "type": "select",
+          "id": "tier_tone",
+          "label": "Metallic tone",
+          "info": "Drives the card's border, dot, divider, ledger, coverage bar and glow.",
+          "options": [
+            {
+              "value": "bronze",
+              "label": "Bronze"
+            },
+            {
+              "value": "silver",
+              "label": "Silver"
+            },
+            {
+              "value": "gold",
+              "label": "Gold"
+            }
+          ],
+          "default": "bronze"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Plan price",
+          "info": "Include the currency symbol, e.g. $199.95. The number is also read back out to calculate the offset.",
+          "default": "$199.95"
+        },
+        {
+          "type": "text",
+          "id": "price_suffix",
+          "label": "Price suffix",
+          "default": "/quarter"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "For smaller facilities getting started."
+        },
+        {
+          "type": "header",
+          "content": "Court allocation"
+        },
+        {
+          "type": "text",
+          "id": "court_value",
+          "label": "Court balls",
+          "default": "50 balls"
+        },
+        {
+          "type": "text",
+          "id": "court_note",
+          "label": "Court note",
+          "default": "Open play, clinics and league nights."
+        },
+        {
+          "type": "header",
+          "content": "Retail allocation"
+        },
+        {
+          "type": "text",
+          "id": "retail_units",
+          "label": "Pro shop balls",
+          "default": "100 balls"
+        },
+        {
+          "type": "textarea",
+          "id": "pack_note",
+          "label": "Pack breakdown",
+          "default": "10 × 4-packs\n6 × 10-packs",
+          "info": "One pack format per line. Each line renders as a checked bullet."
+        },
+        {
+          "type": "text",
+          "id": "retail_value",
+          "label": "Retail value at MSRP",
+          "info": "Total shelf value of the retail allocation. Coverage percentage and surplus are calculated from this and the plan price — leave blank to hide the ledger on this card.",
+          "default": "$219.84"
+        },
+        {
+          "type": "header",
+          "content": "Card"
+        },
+        {
+          "type": "checkbox",
+          "id": "featured",
+          "label": "Featured plan",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "featured_label",
+          "label": "Featured badge label",
+          "default": "Most popular"
+        },
+        {
+          "type": "text",
+          "id": "cta_label",
+          "label": "Button label",
+          "info": "Leave blank to hide. Subscriptions are not purchasable yet, so this ships hidden."
+        },
+        {
+          "type": "url",
+          "id": "cta_link",
+          "label": "Button link"
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "How often does a plan ship?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Once a quarter. Your court balls and your retail packs arrive in the same delivery.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "DRIP subscriptions page",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "title": "One delivery a quarter",
+            "text": "Court stock and retail stock ship together. No reordering, no chasing inventory halfway through a season."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Your courts get stocked first",
+            "text": "Facility-use balls go straight to open play, clinics and league nights. That allocation never touches the shelf."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "The rest goes on the shelf",
+            "text": "Retail-ready 4-packs and 10-packs, sealed and barcoded. Nothing to count, label or repackage."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "The plan pays for itself",
+            "text": "Sell through the retail allocation at MSRP and you recover more than the plan cost. The court balls end up costing you nothing."
+          }
+        },
+        {
+          "type": "tier",
+          "settings": {
+            "tier_name": "Bronze",
+            "tier_tone": "bronze",
+            "price": "$199.95",
+            "price_suffix": "/quarter",
+            "description": "For smaller facilities getting started.",
+            "court_value": "50 balls",
+            "court_note": "Open play, clinics and league nights.",
+            "retail_units": "100 balls",
+            "pack_note": "10 × 4-packs\n6 × 10-packs",
+            "retail_value": "$219.84",
+            "featured": false
+          }
+        },
+        {
+          "type": "tier",
+          "settings": {
+            "tier_name": "Silver",
+            "tier_tone": "silver",
+            "price": "$329.95",
+            "price_suffix": "/quarter",
+            "description": "For active facilities with steady demand.",
+            "court_value": "100 balls",
+            "court_note": "Open play, clinics, leagues and socials.",
+            "retail_units": "160 balls",
+            "pack_note": "15 × 4-packs\n10 × 10-packs",
+            "retail_value": "$349.75",
+            "featured": true,
+            "featured_label": "Most popular"
+          }
+        },
+        {
+          "type": "tier",
+          "settings": {
+            "tier_name": "Gold",
+            "tier_tone": "gold",
+            "price": "$849.95",
+            "price_suffix": "/quarter",
+            "description": "For busy clubs and high-volume venues.",
+            "court_value": "300 balls",
+            "court_note": "Open play, leagues, clinics and tournament use.",
+            "retail_units": "420 balls",
+            "pack_note": "30 × 4-packs\n30 × 10-packs",
+            "retail_value": "$899.40",
+            "featured": false
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "How often does a plan ship?",
+            "answer": "<p>Once a quarter. Your court balls and your retail packs arrive in the same delivery.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "What is the difference between the two allocations?",
+            "answer": "<p>Court balls are loose facility stock, meant for open play, clinics and league nights. The retail allocation arrives in sealed 4-packs and 10-packs, packaged for resale in your pro shop.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "How is the retail value on each plan calculated?",
+            "answer": "<p>At MSRP — $9.99 per 4-pack and $19.99 per 10-pack — multiplied by the packs in that plan. It assumes you sell the full retail allocation. Sell less and you cover less; price above MSRP and you cover more.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I sign up now?",
+            "answer": "<p>Not yet. Facility subscriptions are not currently available for preorder. Get in touch and we will let you know the moment they open.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,474 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "rich_text_NWqLpG": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_XCQHxx": {
+          "type": "heading",
+          "settings": {
+            "heading": "Play it. Like it. Buy it.",
+            "heading_size": "h1"
+          }
+        },
+        "text_epDFEh": {
+          "type": "text",
+          "settings": {
+            "text": "<p>The ball that sells itself.</p>"
+          }
+        },
+        "text_RNG6fM": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>How it works</strong></p><ol><li>Apply</li><li>Get Approved</li><li>Order</li></ol>"
+          }
+        },
+        "button_xKpXTN": {
+          "type": "button",
+          "settings": {
+            "button_label": "SHOP NOW.",
+            "button_link": "",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_XCQHxx",
+        "text_epDFEh",
+        "text_RNG6fM",
+        "button_xKpXTN"
+      ],
+      "disabled": true,
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-4",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 0
+      }
+    },
+    "hero_cta": {
+      "type": "apex-cta-banner-v2",
+      "settings": {
+        "graphic_file_name": "",
+        "graphic_alt": "",
+        "graphic_width_mobile": 240,
+        "graphic_width": 320,
+        "fallback_image_name": "photoshoot-1.jpg",
+        "scrim_opacity": 70,
+        "min_height_mobile": 320,
+        "min_height": 352,
+        "eyebrow": "Wholesale",
+        "heading": "The ball they came in asking for.",
+        "body": "Apex is the official ball of the Ultimate Pickleball League. Your customers have already seen it and played with it.",
+        "cta_label": "Apply for wholesale",
+        "cta_link": "#shopify-section-wholesale_style"
+      }
+    },
+    "reasons": {
+      "type": "apex-feature-cards",
+      "blocks": {
+        "reason_upl": {
+          "type": "card",
+          "settings": {
+            "icon": "none",
+            "title": "Official UPL ball",
+            "text": "The official ball of the Ultimate Pickleball League. Your customers can watch it played at national level and buy it off your shelf the same week."
+          }
+        },
+        "reason_players": {
+          "type": "card",
+          "settings": {
+            "icon": "none",
+            "title": "Built for serious players",
+            "text": "Engineered around the four things that decide a rally: consistent flight, true bounce, high visibility, and a shell that survives the season."
+          }
+        },
+        "reason_price": {
+          "type": "card",
+          "settings": {
+            "icon": "none",
+            "title": "A price point for every buyer",
+            "text": "From a 4-pack that clears the counter to 300-ball volume for clubs and programs. One brand covers the impulse buy, the league player and the facility order."
+          }
+        },
+        "reason_packaging": {
+          "type": "card",
+          "settings": {
+            "icon": "none",
+            "title": "Retail-ready out of the box",
+            "text": "Sealed, branded and packaged for display. No repacking, no relabelling, no hours lost before it hits the floor."
+          }
+        }
+      },
+      "block_order": [
+        "reason_upl",
+        "reason_players",
+        "reason_price",
+        "reason_packaging"
+      ],
+      "settings": {
+        "eyebrow": "",
+        "heading": "Why Apex?",
+        "background": "#0b090c",
+        "card_background": "#1f161b",
+        "padding_block": 64,
+        "icon_color": "accent",
+        "icon_size": 40
+      }
+    },
+    "ladder": {
+      "type": "apex-pack-ladder",
+      "blocks": {
+        "step_4": {
+          "type": "step",
+          "settings": {
+            "numeral": "4",
+            "label": "4-pack",
+            "text": "The counter buy. Grab-and-go, gifting, first-time players.",
+            "fill": 25
+          }
+        },
+        "step_ezRq3g": {
+          "type": "step",
+          "settings": {
+            "numeral": "10",
+            "label": "10-pack",
+            "text": "The training buy. Grab-and-go, gifting.",
+            "fill": 25
+          }
+        },
+        "step_50": {
+          "type": "step",
+          "settings": {
+            "numeral": "50",
+            "label": "50-box",
+            "text": "The league player and the coach running weekly sessions.",
+            "fill": 50
+          }
+        },
+        "step_100": {
+          "type": "step",
+          "settings": {
+            "numeral": "100",
+            "label": "100-box",
+            "text": "Clubs, academies and pro shops restocking court baskets.",
+            "fill": 75
+          }
+        },
+        "step_300": {
+          "type": "step",
+          "settings": {
+            "numeral": "300",
+            "label": "300-box",
+            "text": "Facilities, tournaments and regional programs buying by the season.",
+            "fill": 100
+          }
+        }
+      },
+      "block_order": [
+        "step_4",
+        "step_ezRq3g",
+        "step_50",
+        "step_100",
+        "step_300"
+      ],
+      "disabled": true,
+      "settings": {
+        "eyebrow": "The range",
+        "heading": "One ball. A Single Solution.",
+        "footnote": "Wholesale pricing available to approved partners at every tier.",
+        "background": "#151114",
+        "bar_height": 180,
+        "padding_block": 96
+      }
+    },
+    "multicolumn_PbrteK": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_KYy3Bb": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Apex_Lifestyle_Checkout_2.jpg",
+            "title": "",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_UjXGVQ": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Apex_Lifestyle_Checkout_4.png",
+            "title": "",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_Bb4WDx": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Apex_Lifestyle_Checkout_8.png",
+            "title": "",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_KYy3Bb",
+        "column_UjXGVQ",
+        "column_Bb4WDx"
+      ],
+      "custom_css": [
+        "ul {--grid-desktop-horizontal-spacing: 2rem;}"
+      ],
+      "name": "Pics",
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "square",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "primary",
+        "color_scheme": "scheme-4",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "demand": {
+      "type": "apex-feature-cards",
+      "blocks": {
+        "demand_broadcast": {
+          "type": "card",
+          "settings": {
+            "icon": "none",
+            "title": "On the broadcast",
+            "text": "UPL competition puts Apex in front of a national audience every match week."
+          }
+        },
+        "demand_court": {
+          "type": "card",
+          "settings": {
+            "icon": "none",
+            "title": "On the court",
+            "text": "Facilities and clubs already playing Apex send their members looking for it."
+          }
+        },
+        "demand_feed": {
+          "type": "card",
+          "settings": {
+            "icon": "none",
+            "title": "In the feed",
+            "text": "The Apex ambassador network keeps the ball in front of players between seasons."
+          }
+        }
+      },
+      "block_order": [
+        "demand_broadcast",
+        "demand_court",
+        "demand_feed"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 990px) {.featcards__grid {grid-template-columns: repeat(3, minmax(0, 1fr)); }}"
+      ],
+      "settings": {
+        "eyebrow": "",
+        "heading": "Built-in player demand",
+        "background": "#0b090c",
+        "card_background": "#1f161b",
+        "padding_block": 64,
+        "icon_color": "accent",
+        "icon_size": 40
+      }
+    },
+    "audience": {
+      "type": "apex-chip-list",
+      "settings": {
+        "eyebrow": "Who we work with",
+        "heading": "If you're on this list, we should talk.",
+        "chips": "Pickleball facilities\nPro shops\nSporting goods stores\nTennis & pickleball clubs\nTournament organizers\nCoaches\nAcademies\nResorts\nRetailers\nRegional distributors",
+        "footnote": "",
+        "background": "#151114",
+        "padding_block": 96
+      }
+    },
+    "support": {
+      "type": "apex-feature-cards",
+      "blocks": {
+        "support_shelf": {
+          "type": "card",
+          "settings": {
+            "icon": "none",
+            "title": "On the shelf",
+            "text": "Retail-ready packaging, point-of-sale materials, and full product information and spec sheets."
+          }
+        },
+        "support_marketing": {
+          "type": "card",
+          "settings": {
+            "icon": "none",
+            "title": "For your marketing",
+            "text": "Apex product imagery, UPL promotional assets, ready-to-post social content and a digital marketing asset library."
+          }
+        },
+        "support_direct": {
+          "type": "card",
+          "settings": {
+            "icon": "none",
+            "title": "From us, directly",
+            "text": "Dedicated wholesale support, plus reorder assistance so you never run dry mid-season."
+          }
+        }
+      },
+      "block_order": [
+        "support_shelf",
+        "support_marketing",
+        "support_direct"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 990px) {.featcards__grid {grid-template-columns: repeat(3, minmax(0, 1fr)); }}"
+      ],
+      "settings": {
+        "eyebrow": "Retail partner support",
+        "heading": "Personalized Service Prevails",
+        "background": "#0b090c",
+        "card_background": "#1f161b",
+        "padding_block": 64,
+        "icon_color": "accent",
+        "icon_size": 40
+      }
+    },
+    "wholesale_style": {
+      "type": "apex-wholesale-form",
+      "settings": {
+        "eyebrow": "Apply",
+        "text": "<p>Three steps: apply, get approved, place order. </p><p>Please take a minute to complete the below form.</p>",
+        "background": "#0b090c",
+        "card_background": "#1f161b"
+      }
+    },
+    "178817922943931c37": {
+      "type": "apps",
+      "blocks": {
+        "massy_b2b_wholesale_massy_registration_form_ERFQAb": {
+          "type": "shopify://apps/massy-b2b-wholesale/blocks/massy-registration-form/755249cf-b2d3-401e-a5e9-91307113bce4",
+          "settings": {
+            "form_url_handle": "https://apexpickleball.org/apps/massy/pages/registration-form/reseller-wholesale-registration"
+          }
+        }
+      },
+      "block_order": [
+        "massy_b2b_wholesale_massy_registration_form_ERFQAb"
+      ],
+      "custom_css": [
+        ".massy-registration-form-wrapper {margin-bottom: 3rem; --massy-text-color: white;}"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "multicolumn_n9YtaC": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_dqp6TM": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Apex_Lifestyle_checkout_1.jpg",
+            "title": "",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_b3BJrp": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Apex_Lifestyle_Checkout_3.jpg",
+            "title": "",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_HatAJn": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Apex_Lifestyle_Checkout_7.png",
+            "title": "",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_dqp6TM",
+        "column_b3BJrp",
+        "column_HatAJn"
+      ],
+      "custom_css": [
+        "ul {--grid-desktop-horizontal-spacing: 2rem;}"
+      ],
+      "name": "Pics",
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "square",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "primary",
+        "color_scheme": "scheme-4",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "rich_text_NWqLpG",
+    "main",
+    "hero_cta",
+    "reasons",
+    "ladder",
+    "multicolumn_PbrteK",
+    "demand",
+    "audience",
+    "support",
+    "wholesale_style",
+    "178817922943931c37",
+    "multicolumn_n9YtaC"
+  ]
+}

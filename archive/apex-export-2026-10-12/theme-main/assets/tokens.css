@@ -1,0 +1,314 @@
+/* ==========================================================================
+   APEX Pickleball — design tokens
+   Loaded in layout/theme.liquid ABOVE Dawn's base.css.
+
+   COLOR + MOTION LAYER. Typography, spacing, radii and breakpoints are still
+   [FILL IN] in CLAUDE.md and get added to this file next pass.
+   ========================================================================== */
+
+:root {
+  /* =====================================================================
+     SOURCE OF TRUTH — change these three, everything else follows.
+     ===================================================================== */
+
+  --bronze: #a56d36; /* the accent. Every bronze in the theme derives from this. */
+  --ground: #0b090c; /* the dark ground. Warm — plum/brown undertone, not neutral. */
+  --light: #ffffff;  /* the light. Logo, headings, solid CTA fill. */
+
+  /* =====================================================================
+     Derived — do not edit by hand. Re-point --bronze/--ground/--light above.
+     ===================================================================== */
+
+  /* Bronze scale ------------------------------------------------------
+     -bright: hover / emphasis step, bronze lifted toward the light.
+     -dim:    resting outline-button border, bronze sunk toward the ground.
+     Both are flat mixes against --ground, so a border reads identically on
+     every band rather than shifting with the surface behind it. */
+  --brand-accent: var(--bronze);
+  --brand-accent-bright: color-mix(in srgb, var(--bronze) 76%, var(--light));
+  --brand-accent-dim: color-mix(in srgb, var(--bronze) 58%, var(--ground));
+  --brand-accent-wash: color-mix(in srgb, var(--bronze) 14%, transparent);
+
+  /* Brand ------------------------------------------------------------- */
+  --brand-primary: var(--light);
+  --brand-secondary: var(--ground);
+
+  /* Surfaces ----------------------------------------------------------
+     Four distinct dark bands in the mockup, warm undertone, ordered
+     darkest -> lightest. Sections are separated by these steps; there are
+     no divider rules anywhere in the design. */
+  --color-bg-deep: #000000;     /* true black — the "Why 48 holes" band */
+  --color-bg: #000000;    /* page ground, header, footer */
+  --color-bg-alt: #151114;      /* raised band — testimonials */
+  --color-bg-elevated: #242122; /* highest band — pack grid, cards */
+
+  /* Text --------------------------------------------------------------- */
+  --color-text: var(--light);
+  --color-text-muted: color-mix(in srgb, var(--light) 80%, var(--ground)); /* body copy */
+  --color-text-faint: #7c797b;      /* legal line, footer fine print */
+  --color-text-on-light: var(--ground); /* label on the solid white CTA */
+
+  /* Lines -------------------------------------------------------------- */
+  --color-border: rgba(255, 255, 255, 0.12);
+  --color-border-strong: rgba(255, 255, 255, 0.24);
+  --color-border-accent: var(--brand-accent-dim);
+
+  /* Focus -------------------------------------------------------------- */
+  --color-focus: var(--brand-accent-bright);
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 3px;
+
+  /* Tier tones ---------------------------------------------------------
+     Bronze / silver / gold washes for the facility subscription cards. These
+     are TONES, not UI colours — they are only ever mixed down to a few
+     percent behind a card, never used at full strength for type or borders,
+     so they are not held to the contrast rules the accent is.
+
+     Bronze derives from the accent so the tier that shares the brand's name
+     also shares its hex. Silver and gold have no equivalent in the palette
+     and are declared here; they exist nowhere else. */
+  --tier-bronze: var(--brand-accent);
+  --tier-silver: #c3c7cb;
+  --tier-gold: #d8ab5c;
+
+  /* Product ------------------------------------------------------------
+     Optic green is ball photography only — it is not a UI colour anywhere
+     in the mockup. Here for swatch/badge use if it is ever needed. */
+  --color-ball-green: #3fb002;
+
+  /* =====================================================================
+     Motion
+     Not derivable from a static mockup — these are chosen, not measured.
+     ===================================================================== */
+  --motion-fast: 140ms;
+  --motion-med: 260ms;
+  --motion-slow: 420ms;
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* =====================================================================
+     Typography
+
+     Self-hosted Zalando Sans — @font-face lives in layout/theme.liquid,
+     because assets/*.css is not Liquid-processed and `asset_url` cannot
+     resolve here. Both families are variable, wght 200-900.
+
+     Neither family carries a `wdth` or `opsz` axis, so Google's suggested
+     `font-optical-sizing` / `font-variation-settings: "wdth" 100` lines are
+     no-ops here and are deliberately omitted.
+     ===================================================================== */
+
+  --font-sans: 'Zalando Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-sans-expanded: 'Zalando Sans SemiExpanded', var(--font-sans);
+
+  /* Roles — flip a role here rather than at every call site. */
+  --font-display: var(--font-sans); /* headings — measured normal-width, not expanded */
+  --font-body: var(--font-sans);
+  --font-eyebrow: var(--font-sans); /* bronze italic labels — width class unconfirmed */
+
+  /* Weights. The display face is Light in the mockup, not Regular. */
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  --weight-display: 600;
+  --weight-body: var(--weight-regular);
+  --weight-eyebrow: var(--weight-bold);
+
+  /* Type scale — MOBILE BASE, per hard rule 4. Desktop steps up below.
+     Anchored on the one heading that measures cleanly: the section H2 is
+     ~48px, and it measures ~48px on BOTH breakpoints — this design barely
+     steps its headings down, it tightens their tracking instead.
+     Sizes marked (measured) came off the mockup; the rest are interpolated.
+
+     !! 1rem = 10px HERE, NOT 16px !!
+     Dawn sets `html { font-size: calc(var(--font-body-scale) * 62.5%) }`, so
+     every rem in this theme is a tenth of its px value. 4.8rem is 48px.
+     This is Dawn's convention and every Dawn stylesheet follows it — matching
+     it keeps the merchant's font-scale setting working. Divide by 10, not 16. */
+  --text-display: 4rem;   /* 40px — hero / final CTA statement */
+  --text-h1: 3.6rem;      /* 36px */
+  --text-h2: 4.2rem;      /* 48px — (measured, both breakpoints) */
+  --text-h3: 2.4rem;      /* 24px */
+  --text-h4: 2rem;        /* 20px */
+  --text-lead: 1.7rem;    /* 17px */
+  --text-body: 1.6rem;    /* 16px */
+  --text-sm: 1.4rem;      /* 14px */
+  --text-xs: 1.3rem;      /* 12px — button labels (measured) */
+
+  /* Line heights — tight for display, open for body copy. */
+  --leading-display: 1.05;
+  --leading-heading: 1.15;
+  --leading-body: 1.7;
+  --leading-snug: 1.5; /* short 2-line copy blocks — measured in the value props */
+  --leading-tight: 1.3;
+
+  /* Tracking. Uppercase display and label type is heavily letterspaced
+     throughout the mockup; lowercase body copy is not.
+     Display tracking is near-zero on mobile — that is how a 48px heading
+     still fits a 390px viewport — and opens up on desktop. */
+  --tracking-display: 0.01em;
+  --tracking-eyebrow: 0.18em;
+  --tracking-label: 0.12em;
+  --tracking-body: 0;
+
+  /* =====================================================================
+     LAYOUT GRID — the single source of truth for page width and rhythm.
+
+     Everything about how wide the page is, how far content sits from the
+     viewport edge, and how columns divide is defined HERE and nowhere else.
+     assets/apex-grid.css consumes these and adds no numbers of its own.
+
+     Measured off the desktop mockup at an assumed 1440 design width:
+       container edge   x=80  on both the packs band and the footer
+       column pitch     ~329 across the 4-up pack grid
+     which resolves to a 1280 container, 80px margins, ~36px gutter.
+     ===================================================================== */
+
+  /* Max content width. The hard ceiling — content never exceeds this,
+     regardless of viewport. Above 1440 the page simply centres. */
+  --container-max: 128rem; /* 1280px (measured) */
+
+  /* Wide variant, for bands that should breathe further out than body copy
+     (the photo mosaic). Not measured — raise it if a section needs it. */
+  --container-wide: 160rem; /* 1600px */
+
+  /* Page margin — the MINIMUM gap between content and the viewport edge.
+     Below (container-max + 2x margin) this is what stops text touching glass.
+     Mobile measured ~30px; desktop measured 80px at 1440. */
+  --gutter: 3rem; /* 30px (measured, mobile) */
+
+  /* Columns. 12 divides cleanly by the counts this design actually uses:
+     4-up pack grid and feature strip, 3-up testimonials, 2-up why-48. */
+  --grid-columns: 12;
+  --grid-gap: 2rem;     /* 20px, mobile */
+  --grid-gap-row: 4rem; /* 40px, mobile */
+
+  /* Header. Measured off the mockup: every element in the bar shares a
+     common vertical centre, and the logo renders at its natural SVG size
+     (165x49) on desktop, ~70% of that on mobile. */
+  --header-height: 8.4rem;      /* 84px  (measured, mobile) */
+  --header-logo-width: 11.5rem; /* 115px (measured, mobile) */
+  --header-nav-gap: 3.2rem;     /* 32px */
+  --header-action-gap: 2rem;    /* 20px */
+  --header-icon-size: 2rem;     /* 20px (measured) */
+
+  /* =====================================================================
+     Spacing scale — 4px base. Every measured value in this design lands on
+     a multiple of 4, so the ramp is 4/8/16/24/32/48/64/96/128.
+     ===================================================================== */
+  --space-unit: 0.4rem;  /*   4px — the base increment */
+  --space-2xs: 0.8rem;   /*   8px */
+  --space-xs: 1.6rem;    /*  16px */
+  --space-sm: 2.4rem;    /*  24px */
+  --space-md: 3.2rem;    /*  32px */
+  --space-lg: 4.8rem;    /*  48px */
+  --space-xl: 6.4rem;    /*  64px */
+  --space-2xl: 9.6rem;   /*  96px */
+  --space-3xl: 12.8rem;  /* 128px */
+
+  /* Vertical rhythm between homepage bands. Band top padding measures
+     29-71px across the flat sections, so this is a DEFAULT rather than a
+     constant — every section exposes its own padding in {% schema %}. */
+  --space-section: var(--space-xl); /* 64px, mobile */
+
+  /* =====================================================================
+     Shape
+     Buttons are square-cornered in the mockup, and nothing else shows a
+     visible radius. These exist so a radius is never hardcoded later.
+     ===================================================================== */
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-pill: 999rem;
+
+  /* The short bronze accent rule under hero/section taglines. Measured 42x2
+     in the hero mockup. Thickness stays px — it is a hairline, not type. */
+  --rule-width: var(--space-lg); /* 48px (measured ~42) */
+  --rule-thickness: 2px;
+
+  /* =====================================================================
+     Buttons
+     Measured off the desktop mockup (hero CTA and pack buttons are both
+     ~208x44 at 1440).
+     ===================================================================== */
+  --btn-height: 4.4rem; /* 44px */
+  --btn-pad-x: 2.8rem;  /* 28px */
+  --btn-font-size: var(--text-xs);
+  --btn-tracking: var(--tracking-label);
+  --btn-border-width: 1px; /* a hairline is a hairline — stays px */
+  --btn-radius: 1.1rem; /* 11px. Deliberately NOT --radius-sm: buttons are the
+                           one component in this design with a soft corner. */
+}
+
+/* ==========================================================================
+   Desktop step-up.
+
+   750px is Dawn's own breakpoint. We only have two mockups, so the widths at
+   which this design genuinely reflows are still unconfirmed — see CLAUDE.md.
+   Adopting Dawn's breakpoints rather than inventing our own keeps the
+   commerce templates from reflowing at different widths to the homepage.
+   ========================================================================== */
+
+@media screen and (min-width: 750px) {
+  :root {
+    --text-display: 6.4rem; /* 64px */
+    --text-h1: 5.6rem;      /* 56px */
+    --text-h3: 3.2rem;      /* 32px */
+    --text-h4: 2.4rem;      /* 24px */
+    --text-lead: 1.8rem;    /* 18px */
+
+    --tracking-display: 0.06em;
+
+    --gutter: 4.8rem;       /* 48px — intermediate step */
+    --grid-gap: 2.4rem;     /* 24px */
+    --grid-gap-row: 4.8rem; /* 48px */
+    --space-section: var(--space-2xl); /* 96px */
+  }
+}
+
+@media screen and (min-width: 990px) {
+  :root {
+    --gutter: 8rem;         /* 80px (measured at 1440) */
+    --grid-gap: 4rem;       /* 40px (measured ~36) */
+    --grid-gap-row: 6.4rem; /* 64px */
+
+    --header-height: 10.8rem;      /* 108px (measured) */
+    --header-logo-width: 16.5rem;  /* 165px (measured — natural SVG size) */
+    --header-nav-gap: 6.4rem;      /* 64px  (measured ~66) */
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-fast: 0ms;
+    --motion-med: 0ms;
+    --motion-slow: 0ms;
+  }
+}
+
+/* ==========================================================================
+   Dawn interop.
+
+   Dawn's own components — product form, cart, pagination, customer account —
+   all reference these two variables. Re-pointing them here means the whole
+   commerce surface picks up Zalando without touching a single Dawn template,
+   which is what hard rule 5 asks for.
+
+   tokens.css loads after Dawn's inline {% style %} block, so these win on
+   source order at equal specificity.
+   ========================================================================== */
+
+:root {
+  --font-body-family: var(--font-body);
+  --font-body-style: normal;
+  --font-body-weight: var(--weight-regular);
+  --font-body-weight-bold: var(--weight-bold);
+
+  --font-heading-family: var(--font-display);
+  --font-heading-style: normal;
+  --font-heading-weight: var(--weight-display);
+}
+

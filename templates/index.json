@@ -1,0 +1,436 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "drip-hero",
+      "settings": {
+        "background_type": "video",
+        "video": "shopify://files/videos/C001_A038_0813HR.mov",
+        "image": "shopify://shop_images/drip-background-v3.png",
+        "fallback_image_name": "drip-background-2.png",
+        "focus_x_mobile": 40,
+        "focus_x_desktop": 0,
+        "overlay_opacity": 0,
+        "height": 100,
+        "show_lockup": false,
+        "eyebrow": "Engineered perfection.",
+        "heading": "The ball\nserious players\nchoose.",
+        "supporting_line": "Trusted from local courts to championship weekends.",
+        "cta_label": "Shop Drip",
+        "cta_link": "shopify://collections/pickleballs",
+        "cta_show_arrow": false,
+        "logo_width_mobile": 184,
+        "logo_width_desktop": 240
+      }
+    },
+    "value_props": {
+      "type": "drip-value-props",
+      "blocks": {
+        "item-4": {
+          "type": "item",
+          "settings": {
+            "icon": "value-props-icon-advanced-seam",
+            "title": "ADVANCED SEAM",
+            "text": "Structural stability for lasting performance."
+          }
+        },
+        "item-1": {
+          "type": "item",
+          "settings": {
+            "icon": "value-props-icon-ball-design",
+            "title": "48-HOLE DESIGN",
+            "text": "Balanced air-flow for a straighter flight path."
+          }
+        },
+        "item-2": {
+          "type": "item",
+          "settings": {
+            "icon": "value-props-icon-true-bounce",
+            "title": "True Bounce",
+            "text": "Enhanced design for consistent bounce."
+          }
+        },
+        "item-3": {
+          "type": "item",
+          "settings": {
+            "icon": "value-props-icon-built-to-last",
+            "title": "Built to last",
+            "text": "Optimized construction for superior durability."
+          }
+        },
+        "item-0": {
+          "type": "item",
+          "settings": {
+            "icon": "value-props-patents-pending",
+            "title": "Patents pending",
+            "text": "Developed for superior durability."
+          }
+        }
+      },
+      "block_order": [
+        "item-4",
+        "item-1",
+        "item-2",
+        "item-3",
+        "item-0"
+      ],
+      "settings": {
+        "background": "#000000",
+        "padding_block": 32,
+        "icon_color": "accent",
+        "icon_size": 48
+      }
+    },
+    "science_split": {
+      "type": "drip-science-split",
+      "settings": {
+        "eyebrow": "The science of",
+        "heading": "A Ball Set Apart.",
+        "body": "<p>A genuinely lively ball developed to compete. Featuring a patent-pending seam and chamfered-edge 48-hole design to prevent cracking and deformation. Color optimized for maximum visibility in all conditions.</p>",
+        "checklist": "",
+        "button_label": "",
+        "button_url": "",
+        "link_label": "The engineering",
+        "link_url": "",
+        "image": "shopify://shop_images/ball-callouts-hotsport-v5.png",
+        "image_name": "hotspots-image-v3.png",
+        "image_ratio": "1.778",
+        "background_image": "shopify://shop_images/court_background.png",
+        "background_image_name": "court-background-v1.png",
+        "tint_opacity": 65,
+        "background": "#000000",
+        "copy_width": 46,
+        "padding_block": 96
+      }
+    },
+    "featured_collection_tfL9cd": {
+      "type": "featured-collection",
+      "name": "t:sections.featured-collection.presets.name",
+      "settings": {
+        "collection": "balls-homepage-carousel",
+        "products_to_show": 25,
+        "title": "CHOOSE YOUR PACK",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": false,
+        "view_all_style": "solid",
+        "color_scheme": "scheme-4",
+        "use_pack_image": true,
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 60,
+        "padding_bottom": 36
+      }
+    },
+    "pack_grid": {
+      "type": "drip-pack-grid",
+      "disabled": true,
+      "settings": {
+        "heading": "Choose Your Pack",
+        "collection": "balls-homepage-carousel",
+        "products_to_show": 12,
+        "unit_label": "PACK",
+        "mobile_button_label": "SHOP NOW",
+        "media_ratio": 100,
+        "background": "#000000",
+        "padding_block": 96
+      }
+    },
+    "image_mosaic": {
+      "type": "drip-image-mosaic",
+      "blocks": {
+        "tile-1": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/daniel_holding_ball_3_1.jpg",
+            "fallback_name": "photoshoot-4.jpg",
+            "alt": "Player crouching on court, holding DRIP pickleballs beside her shoe"
+          }
+        },
+        "tile-2": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/0E7A5222.jpg",
+            "fallback_name": "photoshoot-3.jpg",
+            "alt": "An DRIP pickleball paddle and three balls on a court line in net shadow"
+          }
+        },
+        "tile-3": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/ghostx_with_ball.jpg",
+            "fallback_name": "photoshoot-2.jpg",
+            "alt": "Player holding an DRIP pickleball at their side"
+          }
+        },
+        "tile-4": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/ball_on_court_corner.jpg",
+            "fallback_name": "photoshoot-1.jpg",
+            "alt": "Three DRIP pickleballs resting on a court line"
+          }
+        }
+      },
+      "block_order": [
+        "tile-1",
+        "tile-2",
+        "tile-3",
+        "tile-4"
+      ],
+      "settings": {
+        "feature_image": "shopify://shop_images/balls-bucket-v2_ef3aff78-6d7f-4382-9a49-21fd23bd0c1d.png",
+        "feature_fallback_name": "photoshoot-5.jpg",
+        "heading": "Made for every point.",
+        "body": "<p>Optimised construction for superior durability, and structural stability for lasting performance.</p>",
+        "link_label": "Shop the ball",
+        "link_url": "shopify://collections/pickleballs",
+        "scrim_opacity": 60,
+        "width": "full",
+        "gap": 4,
+        "background": "#0b090c"
+      }
+    },
+    "testimonials": {
+      "type": "drip-testimonials",
+      "blocks": {
+        "quote-1": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Finally, a pickleball that plays the same in game one as it does in game ten. After testing countless pickleballs, the Drip ball is the first one I’ve played that truly feels the same from the first rally to the last. It delivers a consistent bounce, a predictable feel off the paddle, and maintains its performance throughout the entire match.",
+            "name": "Daniel Traxler",
+            "rating": "PPA World Ranking #80"
+          }
+        },
+        "quote-2": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "The ball is extremely powerful. For sure plays better than the LT. Way more visible and dinks better. Bounces more than the LT and a lot livelier in general.",
+            "name": "Lu Pita Curiel",
+            "rating": "Senior Pro’s 50 - World Wide - No 5 Singles"
+          }
+        },
+        "quote-3": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "I’ve gone through every ball on the market chasing one that doesn’t go soft halfway through a session. This is the first one where the last rally plays like the first.",
+            "name": "Danny Ben",
+            "rating": "Club Coach, Portland OR"
+          }
+        }
+      },
+      "block_order": [
+        "quote-1",
+        "quote-2",
+        "quote-3"
+      ],
+      "settings": {
+        "eyebrow": "Trusted by players",
+        "avatar_size": 48,
+        "background": "#000000",
+        "padding_block": 72
+      }
+    },
+    "rule_testimonials_athlete": {
+      "type": "drip-rule",
+      "settings": {
+        "style": "metallic",
+        "width": 100,
+        "alignment": "center",
+        "thickness": 2,
+        "glow": 40,
+        "background": "#000000",
+        "padding_block": 32
+      }
+    },
+    "athlete_banner": {
+      "type": "drip-athlete-banner",
+      "settings": {
+        "show_lockup": true,
+        "heading": "UNMATCHED PERFORMANCE.",
+        "body": "The 48-hole ball engineered for superior durability.",
+        "image": "shopify://shop_images/daniel-traxler-with-ball.png",
+        "fallback_image_name": "daniel-traxler-with-ball.png",
+        "credit_name": "Daniel Traxler",
+        "credit_role": "Professional Pickleball Player",
+        "min_height": 500,
+        "mobile_media_height": 544,
+        "focus_x_mobile": 82,
+        "padding_block": 48,
+        "background": "#000000"
+      }
+    },
+    "facility_subscriptions": {
+      "type": "drip-facility-subscriptions",
+      "blocks": {
+        "tier-1": {
+          "type": "tier",
+          "settings": {
+            "tier_name": "Bronze",
+            "tier_tone": "bronze",
+            "price": "$204.95",
+            "price_suffix": "/quarter",
+            "description": "For single-court clubs getting started.",
+            "features": "150 balls / quarter\nAuto-delivery",
+            "featured": false,
+            "featured_label": "Most Popular"
+          }
+        },
+        "tier-2": {
+          "type": "tier",
+          "settings": {
+            "tier_name": "Silver",
+            "tier_tone": "silver",
+            "price": "$334.95",
+            "price_suffix": "/quarter",
+            "description": "For growing multi-court facilities.",
+            "features": "260 balls / quarter\nAuto-delivery",
+            "featured": false,
+            "featured_label": "Most Popular"
+          }
+        },
+        "tier-3": {
+          "type": "tier",
+          "settings": {
+            "tier_name": "Gold",
+            "tier_tone": "gold",
+            "price": "$864.95",
+            "price_suffix": "/quarter",
+            "description": "For tournament venues and large clubs.",
+            "features": "720 balls / quarter\nAuto-delivery",
+            "featured": true,
+            "featured_label": "Most Popular"
+          }
+        }
+      },
+      "block_order": [
+        "tier-1",
+        "tier-2",
+        "tier-3"
+      ],
+      "disabled": true,
+      "settings": {
+        "eyebrow": "For Clubs & Facilities",
+        "heading": "Facility Subscriptions",
+        "body": "<p>Keep every court stocked year-round. Automatic ball deliveries, member perks, and priority support — one plan for your whole facility.</p>",
+        "unavailable_message": "Facility subscriptions are not currently available for preorder.",
+        "footnote": "",
+        "tier_tone_strength": 7,
+        "background": "#151114",
+        "padding_block": 96
+      }
+    },
+    "facility_cards": {
+      "type": "drip-facility-cards",
+      "blocks": {
+        "tier-1": {
+          "type": "tier",
+          "settings": {
+            "tier_name": "Bronze",
+            "tier_tone": "bronze",
+            "price": "199",
+            "price_suffix": "/quarter",
+            "description": "Ideal for 1–4 courts.",
+            "features": "50 balls for your courts\n100 balls for your pro shop\nPotential retail revenue: $219.84",
+            "pack_note": "10 × 4-packs + 6 × 10-packs",
+            "featured": false,
+            "featured_label": "Most popular"
+          }
+        },
+        "tier-2": {
+          "type": "tier",
+          "settings": {
+            "tier_name": "Silver",
+            "tier_tone": "silver",
+            "price": "329",
+            "price_suffix": "/quarter",
+            "description": "Ideal for 6–10 courts.",
+            "features": "100 balls for your courts\n160 balls for your pro shop\nPotential retail revenue: $349.75",
+            "pack_note": "15 × 4-packs + 10 × 10-packs",
+            "featured": true,
+            "featured_label": "Most popular"
+          }
+        },
+        "tier-3": {
+          "type": "tier",
+          "settings": {
+            "tier_name": "Gold",
+            "tier_tone": "gold",
+            "price": "849",
+            "price_suffix": "/quarter",
+            "description": "Ideal for 10+ courts.",
+            "features": "300 balls for your courts\n420 balls for your pro shop\nPotential retail revenue: $899.40",
+            "pack_note": "30 × 4-packs + 30 × 10-packs",
+            "featured": false,
+            "featured_label": "Most popular"
+          }
+        }
+      },
+      "block_order": [
+        "tier-1",
+        "tier-2",
+        "tier-3"
+      ],
+      "settings": {
+        "eyebrow": "",
+        "heading": "Club & Facility Subscriptions",
+        "subheading": "Keep your courts stocked year-round. Let your pro shop offset the cost.",
+        "body": "<p>Each quarterly plan includes facility-use balls for your courts plus retail-ready inventory for your pro shop.</p>",
+        "footnote": "*Facility subscriptions are not currently available for preorder.",
+        "cta_label": "",
+        "cta_link": "",
+        "card_radius": 16,
+        "border_width": 2,
+        "background": "#0b090c",
+        "padding_block": 96
+      }
+    },
+    "cta_banner": {
+      "type": "drip-cta-banner",
+      "settings": {
+        "image": "shopify://shop_images/balls-on-court-background-with-fastflow.png",
+        "fallback_image_name": "photoshoot-1.jpg",
+        "scrim_opacity": 0,
+        "min_height": 352,
+        "eyebrow": "INNOVATIVE DESIGN.",
+        "heading": "Engineered perfection.",
+        "body": "Ready for your next game?",
+        "cta_label": "Shop Drip 48",
+        "cta_link": "shopify://collections/pickleballs"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "value_props",
+    "science_split",
+    "featured_collection_tfL9cd",
+    "pack_grid",
+    "image_mosaic",
+    "testimonials",
+    "rule_testimonials_athlete",
+    "athlete_banner",
+    "facility_subscriptions",
+    "facility_cards",
+    "cta_banner"
+  ]
+}

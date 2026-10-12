@@ -1,0 +1,395 @@
+{%- comment -%}
+  DRIP science split — copy left, product image right, court photograph behind.
+
+  Replaces the hotspot overlay treatment on the homepage and on the product
+  templates. The overlay version still exists as `drip-hotspots.liquid` but is
+  no longer used by any template — this section deliberately does NOT try to
+  serve both layouts from one file. They share no geometry: the overlay
+  derives its frame ratio from zoom and offset so hotspot coordinates stay
+  honest, and none of that machinery has any meaning once the image is a
+  column rather than the bed of the section.
+
+  ---------------------------------------------------------------------------
+  BACKGROUND
+
+  The court photograph is a `background-image` on the section, not an <img>.
+  It is decorative — it carries no information the copy does not — so it wants
+  no alt text and no place in the accessibility tree, and `cover / center` is
+  the requested framing. A tint sits above it (`::before`) because the copy is
+  white and a raw court photograph does not reliably hold white text at every
+  crop. Tint strength is a setting; drop it to 0 to see the plate untouched.
+
+  Because it is a background image, it gets no responsive srcset. That is the
+  trade for cover-cropping a decorative plate; keep the uploaded file
+  reasonably sized. The foreground product image IS an <img>, so it gets the
+  full `image_tag` treatment when picked through the image picker.
+
+  ---------------------------------------------------------------------------
+  LAYOUT
+
+  One grid. Mobile stacks copy over image; from 990px it becomes two columns
+  whose ratio is a setting, so the split can be tuned without a theme edit.
+  `align-items: center` rather than stretch — the two columns are different
+  natural heights and a stretched image column would either letterbox or crop.
+{%- endcomment -%}
+
+{%- liquid
+  assign img = section.settings.image
+  assign img_alt = img.alt | default: section.settings.heading
+
+  assign bg_file = section.settings.background_image_name
+  if section.settings.background_image != blank
+    assign bg_url = section.settings.background_image | image_url: width: 2600
+  elsif bg_file != blank
+    assign bg_url = bg_file | file_url
+  endif
+-%}
+
+<section
+  class="science-split{% if bg_url %} science-split--has-bg{% endif %}"
+  style="
+    --ss-bg: {{ section.settings.background }};
+    --ss-pad-block: {{ section.settings.padding_block }}px;
+    --ss-tint: {{ section.settings.tint_opacity | divided_by: 100.0 }};
+    --ss-copy-fr: {{ section.settings.copy_width }};
+    --ss-image-ratio: {{ section.settings.image_ratio }};
+    {% if bg_url %}--ss-bg-image: url('{{ bg_url }}');{% endif %}
+  "
+>
+  <div class="drip-container">
+    <div class="science-split__grid">
+      <div class="science-split__copy">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="science-split__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <h2 class="science-split__heading">{{ section.settings.heading | escape }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.body != blank -%}
+          <div class="science-split__body">{{ section.settings.body }}</div>
+        {%- endif -%}
+
+        {%- comment -%}
+          Checklist — one item per line, bronze tick each. Blank renders
+          nothing, which is what the homepage does today.
+        {%- endcomment -%}
+        {%- if section.settings.checklist != blank -%}
+          {%- assign checklist_items = section.settings.checklist | newline_to_br | split: '<br />' -%}
+          <ul class="science-split__checklist" role="list">
+            {%- for item in checklist_items -%}
+              {%- assign item_text = item | strip -%}
+              {%- if item_text != blank -%}
+                <li class="science-split__check">
+                  {% render 'svg-icons', icon: 'check-circle', class: 'science-split__check-icon' %}
+                  <span>{{ item_text | escape }}</span>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        {%- if section.settings.button_label != blank -%}
+          <a class="btn btn-ghost science-split__button" href="{{ section.settings.button_url | default: '#' }}">
+            {{ section.settings.button_label | escape }}
+          </a>
+        {%- endif -%}
+
+      </div>
+
+      <div class="science-split__media">
+        {%- if img != blank -%}
+          {{
+            img
+            | image_url: width: 1600
+            | image_tag:
+              loading: 'lazy',
+              sizes: '(min-width: 990px) 50vw, 100vw',
+              widths: '400, 600, 900, 1200, 1600',
+              class: 'science-split__image',
+              alt: img_alt
+          }}
+        {%- elsif section.settings.image_name != blank -%}
+          {%- comment -%}
+            A file under Content > Files. A filename carries no intrinsic
+            dimensions, so nothing reserves the box and the section jumps when
+            the file decodes. `aspect-ratio` from a setting is the reservation
+            — paired with object-fit: contain so a file of a different shape
+            letterboxes rather than distorts.
+          {%- endcomment -%}
+          <img
+            class="science-split__image science-split__image--fallback"
+            src="{{ section.settings.image_name | file_url }}"
+            alt="{{ section.settings.heading | escape }}"
+            width="1600"
+            height="900"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .science-split {
+    position: relative;
+    padding-block: var(--ss-pad-block, var(--space-section));
+    background-color: var(--ss-bg, var(--color-bg-deep));
+  }
+
+  /* Court plate. Requested framing: cover / center / center. `fixed` is
+     deliberately NOT used — it thrashes on iOS and disables the GPU path. */
+  .science-split--has-bg {
+    background-image: var(--ss-bg-image);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+  }
+
+  /* Tint above the plate, below the content. Decorative, so it is inert to
+     pointer and screen reader alike. */
+  .science-split--has-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--ss-bg, var(--color-bg-deep));
+    opacity: var(--ss-tint, 0.55);
+    pointer-events: none;
+  }
+
+  .science-split .drip-container {
+    position: relative; /* lifts content above the tint without a z-index race */
+    z-index: 1;
+  }
+
+  /* --- grid -------------------------------------------------------------- */
+
+  .science-split__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: center;
+    gap: 2rem;
+  }
+
+  /* --- copy -------------------------------------------------------------- */
+
+  .science-split__copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+
+  .science-split__eyebrow {
+    margin: 0;
+    color: var(--brand-accent);
+    font-family: var(--font-eyebrow);
+    font-size: var(--text-h4);
+    font-style: italic;
+    font-weight: var(--weight-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+  .science-split__heading {
+    margin: 0;
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-heading);
+    text-transform: uppercase;
+  }
+
+  .science-split__body {
+    max-width: 46ch; /* measure, not column width — the column is wider */
+    color: var(--color-text-muted);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+  }
+
+  .science-split__body > :first-child { margin-block-start: 0; }
+  .science-split__body > :last-child { margin-block-end: 0; }
+
+  .science-split__checklist {
+    display: grid;
+    gap: var(--space-2xs);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .science-split__check {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: var(--space-2xs);
+    color: var(--color-text-muted);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+  }
+
+  .science-split__check-icon {
+    width: var(--space-xs);
+    height: var(--space-xs);
+    color: var(--brand-accent);
+  }
+
+  /* --- media ------------------------------------------------------------- */
+
+  .science-split__media {
+    display: flex;
+    justify-content: center;
+  }
+
+  /* height: auto keeps the aspect ratio whatever file is dropped in; a picked
+     image carries width/height from image_tag, so it reserves its own box. */
+  .science-split__image {
+    display: block;
+    width: 100%;
+    max-width: 56rem;
+    height: auto;
+  }
+
+  /* The named-file path has no intrinsic dimensions to reserve — see the
+     markup comment. contain, not cover: the plate must not be cropped. */
+  .science-split__image--fallback {
+    aspect-ratio: var(--ss-image-ratio, 1.778);
+    height: auto;
+    object-fit: contain;
+  }
+
+  /* --- desktop ----------------------------------------------------------- */
+
+  @media screen and (min-width: 990px) {
+    .science-split__grid {
+      /* Percentage, not fr: `fr` is illegal inside calc(), so
+         `calc(46 * 1fr)` drops the whole declaration and the grid silently
+         stays single-column. The copy column takes its share of the track and
+         the media column absorbs the remainder, gap included. */
+      grid-template-columns:
+        minmax(0, calc(var(--ss-copy-fr, 46) * 1%))
+        minmax(0, 1fr);
+      gap: 0;
+    }
+
+    .science-split__copy {
+      gap: var(--space-md);
+    }
+
+    .science-split__image {
+      max-width: 100%;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "DRIP science split",
+  "tag": "section",
+  "class": "drip-science-split-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Copy"
+    },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The science of" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Engineered perfection." },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>Our 48-hole design isn't just different — it's better. Every hole has a purpose, delivering the ideal balance of consistency, control, and durability.</p>"
+    },
+    {
+      "type": "textarea",
+      "id": "checklist",
+      "label": "Checklist",
+      "info": "One item per line. Each gets a bronze tick. Blank hides the list."
+    },
+    { "type": "text", "id": "button_label", "label": "Button label" },
+    { "type": "url", "id": "button_url", "label": "Button link" },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "The engineering" },
+    { "type": "url", "id": "link_url", "label": "Link" },
+    {
+      "type": "header",
+      "content": "Foreground image",
+      "info": "Sits in the right column. Pick an image for responsive sizing, or name a file under Content > Files."
+    },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    {
+      "type": "text",
+      "id": "image_name",
+      "label": "Fallback file name",
+      "info": "Used when no image is picked.",
+      "default": "hotspots-image-v3.png"
+    },
+    {
+      "type": "text",
+      "id": "image_ratio",
+      "label": "Fallback image aspect ratio",
+      "info": "Width divided by height. Reserves the box so the section does not jump while the file loads. Only used with the fallback file — a picked image reports its own.",
+      "default": "1.778"
+    },
+    {
+      "type": "header",
+      "content": "Background",
+      "info": "Cover-cropped and centred. Decorative — it is not announced to screen readers."
+    },
+    { "type": "image_picker", "id": "background_image", "label": "Background image" },
+    {
+      "type": "text",
+      "id": "background_image_name",
+      "label": "Background file name",
+      "info": "A file under Content > Files, used when no background image is picked. Blank leaves a flat colour.",
+      "default": "court-background-v1.png"
+    },
+    {
+      "type": "range",
+      "id": "tint_opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "label": "Background tint",
+      "info": "Darkens the photograph so white copy stays readable.",
+      "default": 55
+    },
+    { "type": "color", "id": "background", "label": "Background colour", "default": "#000000" },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "copy_width",
+      "min": 30,
+      "max": 70,
+      "step": 2,
+      "unit": "%",
+      "label": "Copy column width",
+      "info": "Desktop only. The image takes the remainder.",
+      "default": 46
+    },
+    {
+      "type": "range",
+      "id": "padding_block",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 96
+    }
+  ],
+  "presets": [
+    {
+      "name": "DRIP science split"
+    }
+  ]
+}
+{% endschema %}

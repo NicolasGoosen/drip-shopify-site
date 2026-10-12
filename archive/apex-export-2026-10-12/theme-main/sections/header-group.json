@@ -1,0 +1,40 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "announcement": {
+      "type": "apex-announcement",
+      "settings": {
+        "text": "FREE SHIPPING ON ORDERS OVER $150+ | OFFICIAL BALL OF THE UPL | CLUB SUBSCRIPTIONS AVAILABLE",
+        "link": "",
+        "background_image": "shopify://shop_images/Bronze-shutterstock_1681180837.jpg",
+        "background": "#000000",
+        "text_color": "#ffffff",
+        "padding_block": 6
+      }
+    },
+    "header": {
+      "type": "apex-header",
+      "settings": {
+        "menu": "main-menu",
+        "layout": "overlay",
+        "header_height": 108,
+        "show_account": true,
+        "show_cart": true
+      }
+    }
+  },
+  "order": [
+    "announcement",
+    "header"
+  ]
+}

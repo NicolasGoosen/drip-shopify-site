@@ -1,0 +1,260 @@
+{%- comment -%}
+  DRIP value props.
+
+  Reflow, as specced: one column stacked -> 2x2 at 750 -> 1x4 at 990.
+  The item's own layout never changes — icon left, text right — at every
+  breakpoint in both mockups. Only the track count moves.
+
+  TYPE IS FLAT ACROSS BREAKPOINTS — 14px title, 12px body, everywhere.
+
+  The mobile mockup draws these larger (~19px / ~16px) than desktop (~14px /
+  ~12px), but type must never grow as the viewport shrinks — see the rule in
+  CLAUDE.md. The desktop sizes are the correct ones, so they hold at every
+  width and the mockup's mobile step-up is deliberately not reproduced.
+{%- endcomment -%}
+
+<section
+  class="value-props"
+  style="
+    --vp-bg: {{ section.settings.background }};
+    --vp-pad-block: {{ section.settings.padding_block }}px;
+    --vp-icon-size: {{ section.settings.icon_size }}px;
+    --vp-icon-color: {% if section.settings.icon_color == 'accent' %}var(--brand-accent){% else %}var(--color-text){% endif %};
+  "
+>
+  <div class="drip-container">
+    {%- if section.blocks.size > 0 -%}
+      <ul class="value-props__grid" role="list">
+        {%- for block in section.blocks -%}
+          <li class="value-props__item" {{ block.shopify_attributes }}>
+            {%- if block.settings.icon != 'none' -%}
+              <span class="value-props__icon-wrap">
+                {% render 'svg-icons', icon: block.settings.icon, class: 'value-props__icon' %}
+              </span>
+            {%- endif -%}
+
+            <div class="value-props__text">
+              {%- if block.settings.title != blank -%}
+                <h3 class="value-props__title">{{ block.settings.title | escape }}</h3>
+              {%- endif -%}
+              {%- if block.settings.text != blank -%}
+                <p class="value-props__body">{{ block.settings.text }}</p>
+              {%- endif -%}
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .value-props {
+    padding-block: var(--vp-pad-block, var(--space-md));
+    background-color: var(--vp-bg, var(--color-bg));
+  }
+
+  .value-props__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    margin: 0;
+    padding: 0;
+  }
+
+  .value-props__item {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  /* minmax(0, 1fr) on the text track: a bare 1fr has min-width auto, so one
+     long unbroken word would push the item past its column. */
+
+  .value-props__icon-wrap {
+    display: block;
+    flex: none;
+    color: var(--vp-icon-color, var(--color-text));
+  }
+
+  .value-props__icon {
+    display: block;
+    width: var(--vp-icon-size, 4.8rem);
+    height: auto;
+  }
+
+  .value-props__text {
+    display: grid;
+    gap: var(--space-unit);
+  }
+
+  .value-props__title {
+    margin: 0;
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-label);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+  .value-props__body {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+    line-height: var(--leading-snug);
+  }
+
+  /* --- 2 x 2 ----------------------------------------------------------- */
+
+  @media screen and (min-width: 750px) {
+    .value-props__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: var(--grid-gap);
+      row-gap: var(--space-xl);
+    }
+  }
+
+  /* --- 1 x 5 -----------------------------------------------------------
+
+     Five tracks across the 1280 container leaves ~224px per item, and the
+     48px icon plus the --space-xs gap takes 64 of it — so the text column is
+     about 160px. That is why the item gap dropped from sm to xs: at sm the
+     text track lost another 8px and "PATENTS PENDING" started wrapping mid
+     -word. If a sixth item is ever added, this needs revisiting rather than
+     going to 6 tracks. */
+
+  @media screen and (min-width: 990px) {
+    .value-props__grid {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      row-gap: var(--space-lg);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "DRIP value props",
+  "tag": "section",
+  "class": "drip-value-props-section",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#0B090C"
+    },
+    {
+      "type": "range",
+      "id": "padding_block",
+      "min": 16,
+      "max": 128,
+      "step": 4,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Icons"
+    },
+    {
+      "type": "select",
+      "id": "icon_color",
+      "label": "Icon colour",
+      "info": "The mockup renders these near-white. The supplied SVGs shipped bronze — pick Accent to go back to that.",
+      "options": [
+        { "value": "text", "label": "White" },
+        { "value": "accent", "label": "Lumo-green accent" }
+      ],
+      "default": "text"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 24,
+      "max": 96,
+      "step": 2,
+      "unit": "px",
+      "label": "Icon size",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Value prop",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "value-props-icon-ball-design", "label": "Ball design" },
+            { "value": "value-props-icon-advanced-seam", "label": "Advanced seam" },
+            { "value": "value-props-icon-true-bounce", "label": "True bounce" },
+            { "value": "value-props-icon-built-to-last", "label": "Built to last" },
+            { "value": "value-props-patents-pending", "label": "Patents pending" },
+            { "value": "none", "label": "No icon" }
+          ],
+          "default": "value-props-icon-ball-design"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Maximum air flow"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "48 holes for optimal play."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "DRIP value props",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "icon": "value-props-icon-ball-design",
+            "title": "Maximum air flow",
+            "text": "48 holes for optimal play."
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "value-props-icon-true-bounce",
+            "title": "True balance",
+            "text": "Counter-balanced design for consistent flight."
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "value-props-icon-built-to-last",
+            "title": "Built to last",
+            "text": "Durable injection-molded construction."
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "value-props-icon-advanced-seam",
+            "title": "Play in any condition",
+            "text": "Indoor or outdoor. Rain or shine."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

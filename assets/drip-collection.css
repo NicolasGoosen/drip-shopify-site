@@ -1,0 +1,696 @@
+/* ==========================================================================
+   DRIP — collection template
+
+   The collection page is the only major surface still rendered by Dawn's own
+   sections. Its markup (facets, pagination, the loading overlay) is Dawn's and
+   must stay Dawn's, because facets.js does section rendering against those
+   exact class names and ids. What was wrong was never the markup — it was that
+   the whole thing sat on `scheme-1`, a white ground with #121212 text, on a
+   site whose every other band is #0b090c.
+
+   So this file changes ground, type and line, and nothing structural.
+
+   SCOPE. Every selector below starts at `.template-collection` (set on <body>
+   in layout/theme.liquid). Dawn's card, facet and pagination stylesheets are
+   shared with search, cart and the PDP; without the scope, re-grounding them
+   here would silently repaint pages that are already art-directed.
+
+   Loaded AFTER component-facets.css and component-pagination.css, which the
+   sections inject themselves — source order is what wins most of these, not
+   specificity padding.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Ground
+
+   Dawn paints `.color-scheme-1` on section wrappers and `body.gradient` under
+   them. Neither wrapper exists on our forked sections, so the only thing that
+   could show through between bands is <body> itself — hence grounding it here
+   rather than on a section.
+   -------------------------------------------------------------------------- */
+
+.template-collection {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+
+  /* Native controls on this page — the facet checkboxes and the sort <select>
+     and its OS-drawn option list — are painted by the browser, not by CSS, and
+     default to the light palette. Without this the unchecked filter boxes
+     render as solid white squares inside the dark dropdown. */
+  color-scheme: dark;
+}
+
+/* --------------------------------------------------------------------------
+   Dawn's colour variables
+
+   THIS IS THE LOAD-BEARING RULE IN THIS FILE. Every Dawn component draws its
+   surfaces, text and borders from `--color-background` / `--color-foreground`
+   / `--color-button`, which the theme defines per `.color-scheme-*` wrapper and
+   which resolve to scheme-1 — white on #121212 — everywhere on this page.
+
+   Re-pointing the four of them here re-grounds the facet dropdown, the mobile
+   filter drawer, its Apply button and the pagination in one move, including
+   the dozens of `rgba(var(--color-foreground), 0.08)` hairlines that would
+   otherwise each need their own override. Overriding those rules one at a time
+   is how the mobile drawer ended up a white panel with white text on it: the
+   drawer alone paints six different surfaces.
+
+   --color-background is the ELEVATED surface, not the page ground, because on
+   this template every remaining Dawn-drawn surface is a panel floating above
+   the page rather than the page itself.
+   -------------------------------------------------------------------------- */
+
+.template-collection {
+  --color-background: 31, 22, 27;  /* --color-bg-elevated */
+  --color-foreground: 255, 255, 255;
+
+  /* Dawn's `.gradient` utility paints `background: var(--gradient-background)`
+     — a SEPARATE variable holding the scheme's flat colour when no gradient is
+     configured. The mobile filter drawer carries `.gradient` on its panel, its
+     scrolling body and each submenu, so re-pointing --color-background alone
+     left the drawer a white sheet with white text on it. */
+  --gradient-background: #1f161b;
+  --color-shadow: 0, 0, 0;
+  --color-button: 227, 172, 70;    /* --brand-accent */
+  --color-button-text: 11, 9, 12;  /* --ground */
+}
+
+.template-collection .drip-cgrid {
+  padding-block: var(--acg-pad-top, var(--space-sm)) var(--acg-pad-bottom, var(--space-3xl));
+  background-color: var(--color-bg);
+}
+
+/* Dawn's page-width caps at the merchant's `settings.page_width` and uses its
+   own 1.5rem/5rem margins. Re-pointing it at the DRIP container keeps the grid
+   in the same rail as the header, footer and homepage bands — misalignment
+   between the logo and the first card is exactly the kind of detail that reads
+   as "assembled" rather than "designed".
+
+   The gutters are INSIDE the max-width, exactly as .drip-container does it, so
+   that --container-max measures the content rather than the box. Setting
+   `max-width: var(--container-max)` instead leaves this rail 80px narrower on
+   each side than the header above it. */
+.template-collection .page-width {
+  max-width: calc(var(--container-max) + var(--gutter) * 2);
+  padding-inline: var(--gutter);
+}
+
+/* ==========================================================================
+   The toolbar — filter + sort + count
+   ========================================================================== */
+
+.template-collection .facets-container {
+  display: block;
+  margin-block-end: var(--space-lg);
+  padding-block: var(--space-sm);
+  border-block: 1px solid var(--color-border);
+}
+
+/* Dawn's own `.facets__form` is a three-column grid and its children carry
+   explicit grid-column/grid-row placements. Switching it to flex here left
+   those placements orphaned and the bar wrapped onto two rows. Keep the grid;
+   only re-tune the gap and kill the stray bottom margin. */
+.template-collection .facets__form {
+  gap: 0 var(--space-md);
+  margin-block-end: 0;
+  align-items: center;
+}
+
+.template-collection .facets__wrapper {
+  align-self: center;
+  align-items: center;
+  gap: var(--space-2xs) var(--space-md);
+}
+
+/* Dawn spaces the disclosures with a fixed right margin; the flex gap above
+   now does that job, and leaving both in double-spaces the last one. */
+.template-collection .facets__disclosure {
+  margin-inline-end: 0;
+}
+
+.template-collection .facets__form .facet-filters.sorting,
+.template-collection .facets__form .product-count {
+  align-self: center;
+}
+
+.template-collection .facet-filters,
+.template-collection .facet-filters__field {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: 0;
+}
+
+/* `.facets__heading` ships with `margin: -1.5rem 2rem 0 0` — a 15px upward
+   nudge that assumed Dawn's own type metrics. Against the uppercase label
+   type used here it lifted "FILTER:" clean off the row it labels. */
+.template-collection .facets__heading,
+.template-collection .facet-filters__label {
+  margin: 0;
+  color: var(--color-text-faint);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-label);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+/* --- filter disclosures ------------------------------------------------- */
+
+.template-collection .facets__summary,
+.template-collection .facet-filters__sort {
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  transition: color var(--motion-fast) var(--ease-out);
+}
+
+.template-collection .facets__summary {
+  padding-block: var(--space-2xs);
+}
+
+.template-collection .facets__disclosure .facets__summary svg,
+.template-collection .select .svg-wrapper svg {
+  color: var(--brand-accent);
+}
+
+@media (hover: hover) {
+  .template-collection .facets__summary:hover,
+  .template-collection .facet-filters__sort:hover {
+    color: var(--brand-accent);
+  }
+}
+
+.template-collection .facets__summary:focus-visible,
+.template-collection .facet-filters__sort:focus-visible,
+.template-collection .mobile-facets__open-wrapper:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus);
+  outline-offset: var(--focus-ring-offset);
+  box-shadow: none;
+}
+
+/* The sort <select>. Dawn draws a light-grey field; on the dark ground the
+   field itself is unnecessary — the caret is enough affordance. */
+.template-collection .select .select__select {
+  min-height: auto;
+  padding-inline: 0 var(--space-sm);
+  border: 0;
+  background: none;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.template-collection .select::after,
+.template-collection .select::before {
+  content: none;
+}
+
+/* Native option lists are painted by the OS, not the page — an unset
+   background here renders white-on-white in several browsers. */
+.template-collection .select__select option {
+  background-color: var(--color-bg-elevated);
+  color: var(--color-text);
+}
+
+/* --- the dropdown panel ------------------------------------------------- */
+
+.template-collection .facets__display {
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg-elevated);
+  box-shadow: 0 24px 48px -24px rgb(0 0 0 / 80%);
+}
+
+/* `.facets__disclosure[open] .facets__summary` sets the open filter's label to
+   `rgb(var(--color-foreground))` — #121212 — so clicking a filter made its own
+   label vanish into the ground. Bronze marks it as the open one instead. */
+.template-collection .facets__disclosure[open] > .facets__summary {
+  color: var(--brand-accent);
+}
+
+.template-collection .facets__and-helptext {
+  color: var(--color-text-faint);
+}
+
+.template-collection .facets__label,
+.template-collection .facet-checkbox {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  transition: color var(--motion-fast) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .template-collection .facet-checkbox:hover {
+    color: var(--color-text);
+  }
+}
+
+.template-collection .facet-checkbox input[type='checkbox'] {
+  accent-color: var(--brand-accent);
+}
+
+.template-collection .facets__price input {
+  border: 1px solid var(--color-border);
+  background-color: transparent;
+  color: var(--color-text);
+}
+
+.template-collection .facets__price .field__label,
+.template-collection .facets__price .field__currency {
+  color: var(--color-text-faint);
+}
+
+.template-collection .facets__reset,
+.template-collection .active-facets__button-remove {
+  color: var(--brand-accent);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+/* --- active filter pills ------------------------------------------------ */
+
+.template-collection .active-facets__button--light .active-facets__button-inner {
+  min-height: auto;
+  padding: var(--space-2xs) var(--space-xs);
+  border: 1px solid var(--color-border-accent);
+  background-color: transparent;
+  color: var(--color-text);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  box-shadow: none;
+}
+
+@media (hover: hover) {
+  .template-collection .active-facets__button--light:hover .active-facets__button-inner {
+    border-color: var(--brand-accent);
+    color: var(--brand-accent);
+  }
+}
+
+/* --- result count ------------------------------------------------------- */
+
+.template-collection .product-count__text,
+.template-collection .product-count {
+  margin: 0;
+  color: var(--color-text-faint);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- mobile filter trigger ----------------------------------------------
+
+   Dawn lays the mobile bar out as `grid-template-columns: auto minmax(0,
+   max-content)` with a 2rem column gap. At 320 the trigger label and the
+   result count each want more than half the rail, so they overlapped. Letting
+   the count fall to its own row below the trigger is the only layout that
+   fits both at full size.
+   ------------------------------------------------------------------------ */
+
+@media screen and (max-width: 749px) {
+  .template-collection .facets-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2xs);
+  }
+
+  /* Dawn gives the count `align-self: center` and `text-align: right`, both of
+     which assume it is the second cell of a two-column grid. Stacked in a flex
+     column, `align-self: center` resolves against the CROSS axis and centred
+     it horizontally, leaving it floating mid-rail under a left-aligned label. */
+  .template-collection .facets-container > .product-count {
+    align-self: flex-start;
+    text-align: start;
+  }
+
+  /* Dawn hangs the active-filter pills 12px into the gutter so their internal
+     padding optically aligns with a grid cell edge. Stacked, there is no cell
+     edge to align to and the row simply overhangs the rail. */
+  .template-collection .facets-container > .active-facets-mobile {
+    margin-inline-start: 0;
+  }
+}
+
+.template-collection .mobile-facets__open {
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.template-collection .mobile-facets__open .svg-wrapper svg {
+  color: var(--brand-accent);
+}
+
+.template-collection .mobile-facets__count,
+.template-collection .mobile-facets__info {
+  color: var(--color-text-faint);
+}
+
+.template-collection .mobile-facets__clear {
+  color: var(--brand-accent);
+}
+
+/* Dawn's loading overlay is a white wash — invisible intent on a white page,
+   a white flash on a dark one. */
+.template-collection .loading-overlay,
+.template-collection .collection .loading-overlay {
+  background-color: color-mix(in srgb, var(--color-bg) 82%, transparent);
+}
+
+.template-collection .loading-overlay__spinner .path,
+.template-collection .loading-spinner .path {
+  stroke: var(--brand-accent);
+}
+
+/* ==========================================================================
+   The grid
+
+   Flex rather than CSS Grid so the column count can be driven by one custom
+   property from the section's {% style %} block, but LEFT-ALIGNED, not
+   centred like the homepage pack grid.
+
+   The pack grid is a standalone five-item band and centring reads as
+   composition there. A catalogue grid is different: a centred short last row
+   puts its cards out of alignment with the columns above them, and a broken
+   column edge is a louder defect than an empty slot on the right. Every
+   catalogue worth benchmarking against leaves the gap.
+   ========================================================================== */
+
+.template-collection .drip-pgrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--grid-gap-row) var(--grid-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.template-collection .drip-pgrid__item {
+  display: flex;
+  flex: 0 0 calc((100% - (var(--acg-cols, 2) - 1) * var(--grid-gap)) / var(--acg-cols, 2));
+  max-width: calc((100% - (var(--acg-cols, 2) - 1) * var(--grid-gap)) / var(--acg-cols, 2));
+}
+
+/* ==========================================================================
+   The card
+   ========================================================================== */
+
+.template-collection .drip-pcard {
+  display: flex;
+  width: 100%;
+}
+
+.template-collection .drip-pcard__link {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-xs) var(--space-xs) var(--space-sm);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg-elevated);
+  color: var(--color-text);
+  text-decoration: none;
+  transition: border-color var(--motion-med) var(--ease-out),
+    background-color var(--motion-med) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .template-collection .drip-pcard__link:hover {
+    border-color: var(--color-border-strong);
+    background-color: color-mix(in srgb, var(--color-bg-elevated) 84%, var(--light));
+  }
+}
+
+.template-collection .drip-pcard__link:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* --- media --------------------------------------------------------------
+   A FIXED square ratio, not `adapt`. The shipped page used adapt, so every
+   card was as tall as its own photograph and no two titles in a row shared a
+   baseline. One ratio for every card is what makes a grid read as a grid.
+
+   The image is absolutely positioned for the same reason it is in the pack
+   grid: image_tag emits intrinsic width/height, and an in-flow child would
+   size the box from those rather than from aspect-ratio.
+   ------------------------------------------------------------------------ */
+
+/* 4:3, not square. Every pack shot in this catalogue is a landscape subject —
+   an open carton, a bucket, a tube lying diagonally — so a square box padded
+   each one with roughly a hundred pixels of empty ground top and bottom and
+   pushed the price of the third card below the fold at 1440x900. */
+.template-collection .drip-pcard__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+}
+
+.template-collection .drip-pcard__img,
+.template-collection .drip-pcard__placeholder {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.template-collection .drip-pcard__img {
+  transition: transform var(--motion-slow) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .template-collection .drip-pcard__link:hover .drip-pcard__img {
+    transform: scale(1.04);
+  }
+}
+
+.template-collection .drip-pcard__placeholder-svg {
+  width: 100%;
+  height: 100%;
+  fill: var(--color-border-strong);
+}
+
+.template-collection .drip-pcard__badge {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  padding: var(--space-unit) var(--space-2xs);
+  background-color: var(--color-bg-deep);
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.template-collection .drip-pcard--soldout .drip-pcard__img {
+  opacity: 0.45;
+}
+
+/* --- text --------------------------------------------------------------- */
+
+.template-collection .drip-pcard__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-unit);
+}
+
+/* NOT --text-h4. At 24px, "OUTDOOR 100-PACK" is wider than the 242px of
+   content a four-up card has at 1440, so every title in the row broke after
+   the hyphen and the price sat at a different height on each card. 18px set
+   uppercase fits the longest title in this catalogue on one line at every
+   breakpoint above 750. */
+.template-collection .drip-pcard__title {
+  margin: 0;
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: var(--weight-display);
+  letter-spacing: var(--tracking-label);
+  line-height: var(--leading-heading);
+  text-transform: uppercase;
+  text-wrap: balance;
+
+  /* Two lines are RESERVED whether or not they are used. Between 750 and 989 a
+     three-up card is narrow enough that "Outdoor 4-pack" sets on one line
+     where "Outdoor 50-pack" needs two, and without the reserve the two prices
+     beside each other in the same row sat at different heights. Released again
+     at 990, where every title in the catalogue fits on one line and the
+     reserve would only open a hole under it. */
+  min-height: 2lh;
+}
+
+/* The price has to outrank the unit price beside it, or the two bronze and
+   white numbers read as a pair of equals and the card has no focal point
+   below the photograph. */
+.template-collection .drip-pcard__price {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2xs);
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--text-h4);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-tight);
+  font-variant-numeric: tabular-nums;
+}
+
+.template-collection .drip-pcard__was {
+  color: var(--color-text-faint);
+  font-size: var(--text-sm);
+}
+
+/* The decision axis for a consumable sold in five sizes. Bronze because it is
+   the one number on the card the shopper is being invited to compare. */
+.template-collection .drip-pcard__unit {
+  margin: 0;
+  min-height: 1lh;
+  color: var(--brand-accent);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--tracking-body);
+}
+
+/* `margin-top: auto` pins every CTA to the bottom of its card, so a wrapped
+   two-line title on one card cannot stagger the row of buttons beside it. */
+.template-collection .drip-pcard__cta {
+  --btn-pad-x: var(--space-2xs);
+
+  width: 100%;
+  margin-block-start: auto;
+  pointer-events: none;
+}
+
+/* The CTA is a <span> inside the card link, so it never receives :hover
+   itself — the card has to hand the state down. */
+@media (hover: hover) {
+  .template-collection .drip-pcard__link:hover .drip-pcard__cta {
+    border-color: var(--brand-accent);
+    background-color: var(--brand-accent);
+    color: var(--color-text-on-light);
+  }
+}
+
+/* ==========================================================================
+   Empty state + pagination
+   ========================================================================== */
+
+.template-collection .drip-cgrid__empty {
+  padding-block: var(--space-2xl);
+  text-align: center;
+}
+
+.template-collection .drip-cgrid__empty-title {
+  margin: 0 0 var(--space-2xs);
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-display);
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+}
+
+.template-collection .drip-cgrid__empty-body {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-body);
+}
+
+.template-collection .drip-cgrid__empty-link {
+  color: var(--brand-accent);
+  text-underline-offset: 0.3em;
+}
+
+.template-collection .pagination-wrapper {
+  margin-block-start: var(--space-2xl);
+}
+
+.template-collection .pagination__item {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-label);
+}
+
+.template-collection .pagination__item:hover,
+.template-collection .pagination__item--current {
+  color: var(--brand-accent);
+}
+
+.template-collection .pagination__item--current::after,
+.template-collection .pagination__item:hover::after {
+  background-color: var(--brand-accent);
+}
+
+/* ==========================================================================
+   Desktop
+
+   Cards get more air once they are wide enough to need it; below 750 the
+   padding stays tight so a two-up on a 390px phone is not mostly margin.
+   ========================================================================== */
+
+@media screen and (min-width: 750px) {
+  .template-collection .drip-pcard__link {
+    gap: var(--space-md);
+    padding: var(--space-sm) var(--space-sm) var(--space-md);
+  }
+
+  .template-collection .drip-pcard__cta {
+    --btn-pad-x: var(--space-xs);
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .template-collection .drip-pcard__title {
+    font-size: 1.8rem;
+    min-height: 0;
+  }
+}
+
+/* ==========================================================================
+   Narrow mobile
+
+   At 320 a two-up card leaves 88px of content width and "OUTDOOR" sets at
+   about 86px, so base.css's `overflow-wrap` broke it mid-word — "OUTDOO /
+   R 10-PACK" — on every card. Dropping to a single column is the honest fix;
+   shrinking the type until the word fits would have taken it to about 11px.
+
+   375, NOT 480. The measurement above only fails below roughly 374px: a 390px
+   phone leaves 123px of card content, where the two-up reads well and scans
+   far better than one very tall card per screen. Setting this at 480 would
+   have cost every common phone the two-up for the sake of the narrowest one.
+
+   This overrides --acg-cols from the section's own {% style %} block, which is
+   why it has to be a custom property override rather than a flex-basis one:
+   the basis calc reads the property.
+   ========================================================================== */
+
+@media screen and (max-width: 374px) {
+  .template-collection .drip-cgrid {
+    --acg-cols: 1;
+  }
+
+  /* One column means one card per row at full rail width — a 328px-wide 4:3
+     photograph followed by two lines of title is a very tall unit, and five of
+     them is a long scroll. Capping the media height keeps the whole card
+     inside a comfortable thumb-scroll. */
+  .template-collection .drip-pcard__media {
+    aspect-ratio: 16 / 10;
+  }
+
+  .template-collection .drip-pcard__title {
+    min-height: 0;
+  }
+}
